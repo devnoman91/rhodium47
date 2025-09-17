@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="px-6 py-16 lg:py-24 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Preserve the world's<br />
+              Preserve the world&apos;s<br />
               spirit of adventure.
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto">

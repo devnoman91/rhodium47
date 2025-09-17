@@ -205,7 +205,7 @@ export default function HeroCarousel() {
         video.preload = 'metadata'
         video.src = validVideos[0].videoFile.asset.url
       }
-    } catch (error) {
+    } catch {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current)
       }
@@ -255,7 +255,7 @@ export default function HeroCarousel() {
           playPromise = video?.play()
           await playPromise
         } catch (error) {
-          if (error.name !== 'AbortError') {
+          if (error instanceof Error && error.name !== 'AbortError') {
             console.error('Error playing video:', error)
           }
         }
@@ -309,17 +309,19 @@ export default function HeroCarousel() {
 
   // Cleanup video on component unmount to prevent AbortError
   useEffect(() => {
+    const currentVideo = videoRef.current
+    const currentTimeout = timeoutRef.current
+
     return () => {
-      if (videoRef.current) {
-        const video = videoRef.current
-        if (!video.paused) {
-          video.pause()
+      if (currentVideo) {
+        if (!currentVideo.paused) {
+          currentVideo.pause()
         }
-        video.src = ''
-        video.load()
+        currentVideo.src = ''
+        currentVideo.load()
       }
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
+      if (currentTimeout) {
+        clearTimeout(currentTimeout)
       }
     }
   }, [])

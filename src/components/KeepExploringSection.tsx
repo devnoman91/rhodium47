@@ -62,7 +62,7 @@ const KeepExploringSection: React.FC<KeepExploringSectionProps> = ({ data }) => 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left - Sunburst Icon */}
             <motion.div
-              variants={iconVariants}
+           
               className="flex justify-center lg:justify-start"
             >
               <div className="relative w-32 h-32 lg:w-40 lg:h-40">

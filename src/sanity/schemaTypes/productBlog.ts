@@ -36,10 +36,7 @@ export default defineType({
               title: 'Slug',
               type: 'slug',
               options: {
-                source: (_doc: any, options: any) => {
-                  const parent = options.parent
-                  return parent?.title || ''
-                },
+                source: 'title',
                 maxLength: 96,
                 slugify: (input: string) => {
                   return input

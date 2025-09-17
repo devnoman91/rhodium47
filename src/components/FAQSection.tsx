@@ -43,19 +43,11 @@ const contentVariants = {
   },
   visible: {
     height: 'auto',
-    opacity: 1,
-    transition: {
-      height: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
-      opacity: { duration: 0.3, delay: 0.1 }
-    }
+    opacity: 1
   },
   exit: {
     height: 0,
-    opacity: 0,
-    transition: {
-      height: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
-      opacity: { duration: 0.2 }
-    }
+    opacity: 0
   }
 }
 
@@ -105,7 +97,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
             <motion.div
               variants={itemVariants}
               className="lg:col-span-1 flex items-center"
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             >
               <p className="text-lg lg:text-xl text-gray-300 leading-relaxed">
                 {data.description}
@@ -116,7 +108,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
           {/* Category Tabs */}
           <motion.div
             variants={itemVariants}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
+            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
             className="mb-12 lg:mb-16"
           >
             <div className="inline-flex bg-white/10 backdrop-blur-sm rounded-full p-2">
@@ -175,7 +167,7 @@ const FAQAccordion: React.FC<{
       transition={{
         duration: 0.5,
         delay: index * 0.1,
-        ease: [0.4, 0, 0.2, 1]
+        ease: "easeOut"
       }}
       className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden"
     >
@@ -190,7 +182,7 @@ const FAQAccordion: React.FC<{
 
         <motion.svg
           animate={{ rotate: isExpanded ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
           className="w-6 h-6 text-gray-400 flex-shrink-0"
           fill="none"
           viewBox="0 0 24 24"
@@ -213,6 +205,7 @@ const FAQAccordion: React.FC<{
             initial="hidden"
             animate="visible"
             exit="exit"
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
             <div className="px-6 lg:px-8 pb-6 lg:pb-8">

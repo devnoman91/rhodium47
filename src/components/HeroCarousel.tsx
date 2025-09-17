@@ -54,6 +54,8 @@ const criticalInlineStyles = `
     text-rendering: optimizeSpeed;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    will-change: auto;
+    transform: translateZ(0);
   }
   .hero-background {
     position: absolute;
@@ -141,19 +143,14 @@ export default function HeroCarousel() {
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [isVideoReady, setIsVideoReady] = useState(false)
-  const [showFallback, setShowFallback] = useState(true)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const timeoutRef = useRef<NodeJS.Timeout>()
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const intersectionRef = useRef<HTMLDivElement>(null)
 
-  // Preload critical resources on mount
+  // Preload critical resources on mount - Immediate for LCP
   useEffect(() => {
     setMounted(true)
     preloadCriticalResources()
-
-    // Hide fallback after animation
-    const timer = setTimeout(() => setShowFallback(false), 50)
-    return () => clearTimeout(timer)
   }, [])
 
   // Optimized video fetching with chunked processing
@@ -168,25 +165,15 @@ export default function HeroCarousel() {
           setError('Loading timeout - using fallback content')
           setLoading(false)
         }
-      }, 800) // Reduced to 800ms for faster fallback
+      }, 500) // Reduced to 500ms for immediate fallback
 
-      // Use requestIdleCallback for non-blocking processing
-      const processVideos = (fetchedVideos: any[]) => {
-        return new Promise<Video[]>((resolve) => {
-          const process = () => {
-            const validVideos = fetchedVideos.filter((video: Video) => {
-              const isValid = video && video.name && video.videoFile?.asset?.url
-              return isValid
-            })
-            resolve(validVideos)
-          }
-
-          if ('requestIdleCallback' in window) {
-            requestIdleCallback(process, { timeout: 100 })
-          } else {
-            setTimeout(process, 0)
-          }
+      // Immediate processing for faster content availability
+      const processVideos = (fetchedVideos: Video[]) => {
+        const validVideos = fetchedVideos.filter((video: Video) => {
+          const isValid = video && video.name && video.videoFile?.asset?.url
+          return isValid
         })
+        return Promise.resolve(validVideos)
       }
 
       const fetchedVideos = await client.fetch(videoQueries.getAllVideos)
@@ -212,19 +199,11 @@ export default function HeroCarousel() {
       setVideos(validVideos)
       setLoading(false)
 
-      // Preload first video with requestIdleCallback
+      // Immediate first video preload for faster LCP
       if (validVideos[0]?.videoFile?.asset?.url) {
-        const preloadVideo = () => {
-          const video = document.createElement('video')
-          video.preload = 'metadata'
-          video.src = validVideos[0].videoFile.asset.url
-        }
-
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(preloadVideo, { timeout: 200 })
-        } else {
-          setTimeout(preloadVideo, 100)
-        }
+        const video = document.createElement('video')
+        video.preload = 'metadata'
+        video.src = validVideos[0].videoFile.asset.url
       }
     } catch (error) {
       if (timeoutRef.current) {
@@ -243,42 +222,54 @@ export default function HeroCarousel() {
   useEffect(() => {
     if (videos.length > 0) {
       const interval = setInterval(() => {
-        // Use requestIdleCallback for non-blocking state updates
-        const updateIndex = () => {
-          setCurrentIndex((prevIndex) => (prevIndex + 1) % videos.length)
-          setVideoLoaded(false) // Reset video loaded state for new video
-        }
-
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(updateIndex, { timeout: 50 })
-        } else {
-          updateIndex()
-        }
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % videos.length)
+        setVideoLoaded(false) // Reset video loaded state for new video
       }, 5000)
       return () => clearInterval(interval)
     }
   }, [videos.length])
 
   useEffect(() => {
-    // Reset video loaded state when current video changes
+    // Reset video loaded state and pause previous video when current video changes
     setVideoLoaded(false)
+
+    // Pause and cleanup previous video to prevent interrupted play promises
+    if (videoRef.current) {
+      const video = videoRef.current
+      if (!video.paused) {
+        video.pause()
+      }
+      video.currentTime = 0
+    }
   }, [currentIndex])
 
   useEffect(() => {
-    // Try to play video when it's loaded with requestIdleCallback
-    if (videoRef.current && mounted) {
+    // Try to play video when it's loaded
+    if (videoRef.current && mounted && videoLoaded) {
+      const video = videoRef.current
+      let playPromise: Promise<void> | undefined
+
       const playVideo = async () => {
         try {
-          await videoRef.current?.play()
+          if (video && !video.paused && !video.ended) return
+          playPromise = video?.play()
+          await playPromise
         } catch (error) {
-          console.error('Error playing video:', error)
+          if (error.name !== 'AbortError') {
+            console.error('Error playing video:', error)
+          }
         }
       }
 
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => playVideo(), { timeout: 100 })
-      } else {
-        setTimeout(playVideo, 16) // Next frame
+      playVideo()
+
+      // Cleanup function to handle component unmount
+      return () => {
+        if (playPromise && video) {
+          playPromise.catch(() => {
+            // Silently handle aborted play promises
+          })
+        }
       }
     }
   }, [currentIndex, mounted, videoLoaded])
@@ -297,7 +288,7 @@ export default function HeroCarousel() {
     setIsVideoReady(false)
   }, [])
 
-  // Intersection Observer for performance with requestIdleCallback
+  // Intersection Observer for immediate video loading
   useEffect(() => {
     if (!intersectionRef.current) return
 
@@ -305,17 +296,7 @@ export default function HeroCarousel() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && videoRef.current && !isVideoReady) {
-            const loadVideo = () => {
-              if (videoRef.current) {
-                videoRef.current.load()
-              }
-            }
-
-            if ('requestIdleCallback' in window) {
-              requestIdleCallback(loadVideo, { timeout: 150 })
-            } else {
-              setTimeout(loadVideo, 50)
-            }
+            videoRef.current.load()
           }
         })
       },
@@ -326,11 +307,28 @@ export default function HeroCarousel() {
     return () => observer.disconnect()
   }, [isVideoReady])
 
+  // Cleanup video on component unmount to prevent AbortError
+  useEffect(() => {
+    return () => {
+      if (videoRef.current) {
+        const video = videoRef.current
+        if (!video.paused) {
+          video.pause()
+        }
+        video.src = ''
+        video.load()
+      }
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
+
   // Must call useMemo before any conditional returns
   const currentVideo = useMemo(() => videos[currentIndex], [videos, currentIndex])
 
   // Fast loading fallback with stable layout - CLS Prevention
-  if (!mounted || (loading && showFallback)) {
+  if (!mounted) {
     return (
       <>
         <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />

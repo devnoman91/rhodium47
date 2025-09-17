@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { helveticaNeue } from "@/lib/fonts";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -34,7 +35,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${helveticaNeue.variable} antialiased`}
         suppressHydrationWarning={true}
       >
         {children}

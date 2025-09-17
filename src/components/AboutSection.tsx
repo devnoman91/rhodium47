@@ -96,7 +96,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
 
   return (
     <section className="py-16 lg:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-8xl mx-auto px-6">
         {/* Top Section - About Content */}
         <motion.div
           variants={containerVariants}
@@ -178,7 +178,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
                 transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               >
                 <div className="w-2 h-2 bg-gray-900 rounded-full"></div>
-                <span className="text-sm font-medium tracking-wide uppercase text-gray-600">
+                <span className="text-sm font-helvetica font-medium tracking-wide uppercase text-gray-600">
                   {aboutData.sectionLabel}
                 </span>
               </motion.div>
@@ -186,14 +186,12 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
 
             {/* Right - Main Content */}
             <motion.div variants={itemVariants} className="lg:col-span-7">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-helvetica font-medium mb-6 leading-tight">
                 <span className="text-gray-900">
                   {aboutData.mainHeading}
                 </span>
               </h2>
-              <p className="text-lg lg:text-xl text-gray-600 leading-relaxed">
-                {aboutData.description}
-              </p>
+            
 
              
             </motion.div>
@@ -210,7 +208,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
         >
           {/* Product Carousel - Full Width */}
           <div className="lg:col-span-12">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
               {/* Image Section */}
               <div className="lg:col-span-2">
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100" style={{ contain: 'layout style paint' }}>
@@ -298,14 +296,14 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
                       exit="exit"
                       className="w-full"
                     >
-                      <h3 className="text-xl font-bold text-gray-900 mb-3">
+                      <h3 className="text-xl font-helvetica font-medium text-gray-900 mb-3">
                         {currentProduct.title}
                       </h3>
-                      <p className="text-gray-600 mb-4 leading-relaxed">
+                      <p className="text-gray-600 font-helvetica font-normal mb-4 leading-relaxed">
                         {currentProduct.description}
                       </p>
                       <motion.button
-                        className="inline-flex items-center space-x-2 text-gray-900 font-medium hover:text-gray-600 transition-colors duration-200"
+                        className="inline-flex items-center space-x-2 text-gray-900 font-helvetica font-medium hover:text-gray-600 transition-colors duration-200"
                         whileHover={{ x: 5 }}
                         transition={{ duration: 0.2 }}
                       >

@@ -6,9 +6,15 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'name',
-      title: 'Name',
+      name: 'sectionLabel',
+      title: 'Section Label',
       type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'mainHeading',
+      title: 'Main Heading',
+      type: 'text',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -20,8 +26,8 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'name',
-      subtitle: 'description',
+      title: 'sectionLabel',
+      subtitle: 'mainHeading',
     },
   },
 })

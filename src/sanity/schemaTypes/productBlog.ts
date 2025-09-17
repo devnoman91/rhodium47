@@ -51,6 +51,12 @@ export default defineType({
               validation: (Rule) => Rule.required(),
             }),
             defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
               name: 'image',
               title: 'Product Image',
               type: 'image',

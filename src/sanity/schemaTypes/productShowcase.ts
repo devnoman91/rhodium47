@@ -34,6 +34,26 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'buttonText',
+      title: 'Button Text',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'buttonLink',
+      title: 'Button Link',
+      type: 'url',
+      validation: (Rule) => Rule.uri({
+        scheme: ['http', 'https', '/'],
+      }),
+    }),
+    defineField({
       name: 'image',
       title: 'Image',
       type: 'image',

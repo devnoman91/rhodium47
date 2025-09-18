@@ -47,15 +47,15 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
             {/* Left - Title and Button */}
-            <motion.div variants={itemVariants} className="lg:col-span-1 space-y-8">
-              <div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] tracking-tight text-gray-900 mb-8">
+            <motion.div variants={itemVariants} className="lg:col-span-1 space-y-8 flex flex-col gap-[10px] justify-between">
+                <h1 className="text-[60px] not-italic tracking-normal leading-[1.1] font-medium  font-helvetica text-black mb-0">
                   {data.name}
                 </h1>
 
                 {/* CTA Button */}
+              <div className="lg:col-span-1 space-y-8 ">
                 <motion.a
                   href={data.button.link}
                   variants={buttonVariants}
@@ -64,7 +64,7 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
                     delay: 0.3,
                     ease: [0.4, 0, 0.2, 1]
                   }}
-                  className="inline-flex items-center px-8 py-4 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-all duration-300 group"
+                  className="px-6 py-3 rounded-[50px] border-1  text-white bg-black no-underline font-['Helvetica Neue'] text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -84,7 +84,7 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
                 {data.description.split('\n\n').map((paragraph, index) => (
                   <p
                     key={index}
-                    className="text-lg lg:text-xl text-gray-700 leading-relaxed"
+                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px]"
                   >
                     {paragraph.trim()}
                   </p>

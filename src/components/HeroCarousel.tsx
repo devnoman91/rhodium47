@@ -32,6 +32,14 @@ const criticalInlineStyles = `
     contain: layout style paint;
     transform: translateZ(0);
   }
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    contain: layout style paint;
+    transform: translateZ(0);
+  }
   .hero-content {
     position: absolute;
     left: 2rem;
@@ -189,9 +197,11 @@ export default function HeroCarousel() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [videoLoaded, setVideoLoaded] = useState(false)
+  const [imageLoaded, setImageLoaded] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [isVideoReady, setIsVideoReady] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const imageRef = useRef<HTMLImageElement>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const intersectionRef = useRef<HTMLDivElement>(null)
 
@@ -218,8 +228,11 @@ export default function HeroCarousel() {
       // Immediate processing for faster content availability
       const processVideos = (fetchedVideos: Video[]) => {
         const validVideos = fetchedVideos.filter((video: Video) => {
-          const isValid = video && video.name && video.videoFile?.asset?.url
-          return isValid
+          const hasRequiredFields = video && video.name && video.contentType
+          const hasValidContent =
+            (video.contentType === 'video' && video.videoFile?.asset?.url) ||
+            (video.contentType === 'image' && video.image?.asset?.url)
+          return hasRequiredFields && hasValidContent
         })
         return Promise.resolve(validVideos)
       }
@@ -247,11 +260,17 @@ export default function HeroCarousel() {
       setVideos(validVideos)
       setLoading(false)
 
-      // Immediate first video preload for faster LCP
-      if (validVideos[0]?.videoFile?.asset?.url) {
-        const video = document.createElement('video')
-        video.preload = 'metadata'
-        video.src = validVideos[0].videoFile.asset.url
+      // Immediate first content preload for faster LCP
+      if (validVideos[0]) {
+        const firstItem = validVideos[0]
+        if (firstItem.contentType === 'video' && firstItem.videoFile?.asset?.url) {
+          const video = document.createElement('video')
+          video.preload = 'metadata'
+          video.src = firstItem.videoFile.asset.url
+        } else if (firstItem.contentType === 'image' && firstItem.image?.asset?.url) {
+          const img = new Image()
+          img.src = firstItem.image.asset.url
+        }
       }
     } catch {
       if (timeoutRef.current) {
@@ -271,15 +290,17 @@ export default function HeroCarousel() {
     if (videos.length > 0) {
       const interval = setInterval(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % videos.length)
-        setVideoLoaded(false) // Reset video loaded state for new video
+        setVideoLoaded(false) // Reset video loaded state for new content
+        setImageLoaded(false) // Reset image loaded state for new content
       }, 5000)
       return () => clearInterval(interval)
     }
   }, [videos.length])
 
   useEffect(() => {
-    // Reset video loaded state and pause previous video when current video changes
+    // Reset loaded states and pause previous video when current content changes
     setVideoLoaded(false)
+    setImageLoaded(false)
 
     // Pause and cleanup previous video to prevent interrupted play promises
     if (videoRef.current) {
@@ -336,15 +357,29 @@ export default function HeroCarousel() {
     setIsVideoReady(false)
   }, [])
 
-  // Intersection Observer for immediate video loading
+  const handleImageLoad = useCallback(() => {
+    setImageLoaded(true)
+  }, [])
+
+  const handleImageError = useCallback(() => {
+    setImageLoaded(false)
+  }, [])
+
+  // Must call useMemo before any conditional returns
+  const currentVideo = useMemo(() => videos[currentIndex], [videos, currentIndex])
+
+  // Intersection Observer for immediate content loading
   useEffect(() => {
     if (!intersectionRef.current) return
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && videoRef.current && !isVideoReady) {
-            videoRef.current.load()
+          if (entry.isIntersecting) {
+            if (currentVideo?.contentType === 'video' && videoRef.current && !isVideoReady) {
+              videoRef.current.load()
+            }
+            // Images load automatically when src is set, no need for manual loading
           }
         })
       },
@@ -353,29 +388,26 @@ export default function HeroCarousel() {
 
     observer.observe(intersectionRef.current)
     return () => observer.disconnect()
-  }, [isVideoReady])
+  }, [isVideoReady, currentVideo?.contentType])
 
   // Cleanup video on component unmount to prevent AbortError
   useEffect(() => {
-    const currentVideo = videoRef.current
+    const currentVideoRef = videoRef.current
     const currentTimeout = timeoutRef.current
 
     return () => {
-      if (currentVideo) {
-        if (!currentVideo.paused) {
-          currentVideo.pause()
+      if (currentVideoRef) {
+        if (!currentVideoRef.paused) {
+          currentVideoRef.pause()
         }
-        currentVideo.src = ''
-        currentVideo.load()
+        currentVideoRef.src = ''
+        currentVideoRef.load()
       }
       if (currentTimeout) {
         clearTimeout(currentTimeout)
       }
     }
   }, [])
-
-  // Must call useMemo before any conditional returns
-  const currentVideo = useMemo(() => videos[currentIndex], [videos, currentIndex])
 
   // Fast loading fallback with stable layout - CLS Prevention
   if (!mounted) {
@@ -469,31 +501,52 @@ export default function HeroCarousel() {
         {/* Stable background - always present */}
         <div className="hero-background"></div>
 
-        {/* Video container with fixed dimensions - CLS Prevention */}
+        {/* Content container with fixed dimensions - CLS Prevention */}
         <div className="hero-video-container">
-          {!videoLoaded && (
+          {(!videoLoaded && !imageLoaded) && (
             <div className="hero-background"></div>
           )}
-          <video
-            ref={videoRef}
-            key={currentVideo?._id}
-            src={currentVideo?.videoFile?.asset?.url}
-            className="hero-video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="none"
-            controls={false}
-            disablePictureInPicture
-            onLoadedData={handleVideoLoad}
-            onError={handleVideoError}
-            style={{
-              opacity: videoLoaded ? 1 : 0,
-              transition: 'opacity 0.5s ease-in-out'
-            }}
-            poster=""
-          />
+
+          {/* Render video if content type is video */}
+          {currentVideo?.contentType === 'video' && (
+            <video
+              ref={videoRef}
+              key={`video-${currentVideo?._id}`}
+              src={currentVideo?.videoFile?.asset?.url}
+              className="hero-video"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="none"
+              controls={false}
+              disablePictureInPicture
+              onLoadedData={handleVideoLoad}
+              onError={handleVideoError}
+              style={{
+                opacity: videoLoaded ? 1 : 0,
+                transition: 'opacity 0.5s ease-in-out'
+              }}
+              poster=""
+            />
+          )}
+
+          {/* Render image if content type is image */}
+          {currentVideo?.contentType === 'image' && (
+            <img
+              ref={imageRef}
+              key={`image-${currentVideo?._id}`}
+              src={currentVideo?.image?.asset?.url}
+              alt={currentVideo?.image?.alt || currentVideo?.name || 'Hero image'}
+              className="hero-image"
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              style={{
+                opacity: imageLoaded ? 1 : 0,
+                transition: 'opacity 0.5s ease-in-out'
+              }}
+            />
+          )}
         </div>
 
         {/* Content with stable positioning */}

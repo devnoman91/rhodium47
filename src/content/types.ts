@@ -5,11 +5,19 @@ export interface Video {
   slug?: {
     current: string
   }
-  videoFile: {
+  contentType: 'video' | 'image'
+  videoFile?: {
     asset: {
       _ref: string
       url: string
     }
+  }
+  image?: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
   }
   description?: string
 }

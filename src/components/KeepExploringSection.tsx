@@ -59,70 +59,48 @@ const KeepExploringSection: React.FC<KeepExploringSectionProps> = ({ data }) => 
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="flex gap-12 lg:gap-16">
             {/* Left - Sunburst Icon */}
             <motion.div
            
-              className="flex justify-center lg:justify-start"
+              className="w-full flex max-w-[400px]"
             >
-              <div className="relative w-32 h-32 lg:w-40 lg:h-40">
-                <svg
-                  viewBox="0 0 200 200"
-                  className="w-full h-full text-gray-900"
-                  fill="currentColor"
+              <div className="relative w-30 h-30 lg:w-36 lg:h-36  flex items-center justify-center">
+                {/* Rotating circle with lines */}
+                <motion.svg
+                  className="absolute inset-0 w-full h-full"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+                  viewBox="0 0 102 102"
                 >
-                  {/* Sunburst rays */}
-                  {Array.from({ length: 40 }, (_, i) => {
-                    const angle = (i * 360) / 40
-                    const isLong = i % 2 === 0
-                    const length = isLong ? 35 : 25
-                    const width = isLong ? 2 : 1.5
-                    return (
-                      <motion.rect
-                        key={i}
-                        x={-width / 2}
-                        y={-length}
-                        width={width}
-                        height={length}
-                        transform={`translate(100, 100) rotate(${angle})`}
-                        initial={{ scaleY: 0 }}
-                        animate={{ scaleY: 1 }}
-                        transition={{
-                          duration: 0.6,
-                          delay: 0.3 + (i * 0.01),
-                          ease: [0.4, 0, 0.2, 1]
-                        }}
-                      />
-                    )
-                  })}
 
-                  {/* Center circle with arrow */}
-                  <circle cx="100" cy="100" r="25" fill="currentColor" />
-
-                  {/* Arrow inside circle */}
-                  <motion.path
-                    d="M85 100 L115 100 M105 90 L115 100 L105 110"
-                    stroke="white"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    fill="none"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{
-                      duration: 0.6,
-                      delay: 0.8,
-                      ease: [0.4, 0, 0.2, 1]
-                    }}
-                  />
+                <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="51" cy="51" r="40" stroke="#161618" stroke-width="22" stroke-dasharray="2 4"/>
                 </svg>
+
+
+
+                </motion.svg>
+
+                {/* Static centered arrow */}
+                <div className="relative w-15 h-15 lg:w-16 lg:h-16 bg-white rounded-full flex items-center justify-center cursor-pointer z-10">
+                  <div
+                    className="text-2xl lg:text-3xl text-gray-900"
+                    style={{ transform: 'rotate(0deg)' }}
+                  >
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18.0006 1V14C18.0006 14.2652 17.8952 14.5196 17.7077 14.7071C17.5201 14.8946 17.2658 15 17.0006 15C16.7353 15 16.481 14.8946 16.2934 14.7071C16.1059 14.5196 16.0006 14.2652 16.0006 14V3.41375L1.70806 17.7075C1.52042 17.8951 1.26592 18.0006 1.00056 18.0006C0.735192 18.0006 0.480697 17.8951 0.293056 17.7075C0.105415 17.5199 0 17.2654 0 17C0 16.7346 0.105415 16.4801 0.293056 16.2925L14.5868 2H4.00056C3.73534 2 3.48099 1.89464 3.29345 1.70711C3.10591 1.51957 3.00056 1.26522 3.00056 1C3.00056 0.734784 3.10591 0.48043 3.29345 0.292893C3.48099 0.105357 3.73534 0 4.00056 0H17.0006C17.2658 0 17.5201 0.105357 17.7077 0.292893C17.8952 0.48043 18.0006 0.734784 18.0006 1Z" fill="#343330"/>
+                  </svg>
+
+                  </div>
+                </div>
               </div>
             </motion.div>
 
             {/* Right - Content */}
-            <motion.div variants={itemVariants} className="space-y-8">
+            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black mb-[60px]">
               {/* Section Label */}
-              <div className="inline-flex items-center">
+              <div className="flex flex-row  text-black text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-6 font-helvetica items-center">
                 <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
                 <span className="text-sm lg:text-base font-medium text-gray-900 tracking-wider uppercase">
                   {data.name}
@@ -131,7 +109,7 @@ const KeepExploringSection: React.FC<KeepExploringSectionProps> = ({ data }) => 
 
               {/* Main Description */}
               <div className="space-y-6">
-                <p className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-gray-900">
+                <p className="text-[40px] leading-[1.2] tracking-normal m-0 font-medium font-helvetica text-black mb-[50px]">
                   {data.description.split('Connect with the world around you.')[0].trim()}
                   <span className="text-gray-500">
                     {data.description.includes('Connect with the world around you.')
@@ -170,23 +148,13 @@ const NavigationButton: React.FC<{ item: KeepExploringSectionType; index: number
         delay: index * 0.1 + 0.4,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="group inline-flex items-center px-6 py-3 bg-transparent border-2 border-gray-300 text-gray-900 rounded-full font-medium hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300"
+      className="px-6 py-3 rounded-[50px] border-1 flex items-center gap-4 border-[#ddd]  text-black no-underline font-['Helvetica Neue'] text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
-      <motion.svg
-        className="w-4 h-4 mr-3 group-hover:translate-x-0.5 transition-transform duration-200"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M17 8l4 4m0 0l-4 4m4-4H3"
-        />
-      </motion.svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18" fill="none">
+        <path d="M21.2441 9.61857L13.3691 17.4936C13.2049 17.6578 12.9822 17.75 12.75 17.75C12.5178 17.75 12.2951 17.6578 12.1309 17.4936C11.9668 17.3294 11.8745 17.1067 11.8745 16.8745C11.8745 16.6423 11.9668 16.4196 12.1309 16.2554L18.513 9.87451H1.375C1.14294 9.87451 0.920376 9.78232 0.756282 9.61823C0.592187 9.45413 0.5 9.23157 0.5 8.99951C0.5 8.76745 0.592187 8.54489 0.756282 8.38079C0.920376 8.2167 1.14294 8.12451 1.375 8.12451H18.513L12.1309 1.74357C11.9668 1.57939 11.8745 1.3567 11.8745 1.12451C11.8745 0.892316 11.9668 0.669633 12.1309 0.505447C12.2951 0.341262 12.5178 0.249023 12.75 0.249023C12.9822 0.249023 13.2049 0.341262 13.3691 0.505447L21.2441 8.38045C21.3254 8.46171 21.39 8.55821 21.434 8.66444C21.478 8.77066 21.5007 8.88452 21.5007 8.99951C21.5007 9.1145 21.478 9.22836 21.434 9.33458C21.39 9.44081 21.3254 9.53731 21.2441 9.61857Z" fill="black"/>
+      </svg>
       <span>{item.name}</span>
     </motion.a>
   )

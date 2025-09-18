@@ -4,11 +4,19 @@ export const videoQueries = {
     name,
     subtitle,
     slug,
+    contentType,
     videoFile{
       asset->{
         _ref,
         url
       }
+    },
+    image{
+      asset->{
+        _id,
+        url
+      },
+      alt
     },
     description
   }`,
@@ -18,11 +26,19 @@ export const videoQueries = {
     name,
     subtitle,
     slug,
+    contentType,
     videoFile{
       asset->{
         _ref,
         url
       }
+    },
+    image{
+      asset->{
+        _id,
+        url
+      },
+      alt
     },
     description
   }`

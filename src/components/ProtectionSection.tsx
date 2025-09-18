@@ -65,12 +65,12 @@ const ProtectionSection: React.FC<ProtectionSectionProps> = ({ data }) => {
           <motion.div
             variants={itemVariants}
             transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="my-0 mx-auto max-w-[820px] pt-5 border-t border-black"
+            className="my-0 mx-auto max-w-[820px] pt-3 border-t border-black mb-[60px]"
           >
             {/* Section Label */}
-            <div className="inline-flex items-center mb-8">
+            <div className="flex flex-row  text-black text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-6 font-helvetica items-center">
               <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
-              <span className="text-sm lg:text-base font-medium text-gray-900 tracking-wider uppercase">
+              <span className="">
                 {data.name}
               </span>
             </div>
@@ -78,7 +78,7 @@ const ProtectionSection: React.FC<ProtectionSectionProps> = ({ data }) => {
             {/* Description */}
             <motion.p
               style={{ color: textColor }}
-              className="text-lg lg:text-xl leading-relaxed max-w-4xl"
+              className="text-[40px] leading-[1.2] tracking-normal m-0 font-medium font-helvetica text-black"
             >
               {data.description}
             </motion.p>
@@ -112,10 +112,10 @@ const CountCard: React.FC<{ item: CountItem; index: number }> = React.memo(({ it
       }}
       className="text-center lg:text-left"
     >
-      <div className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 text-gray-900">
+      <div className="text-[rgba(22,22,24,0.5)] text-center  text-[20px] not-italic font-normal leading-[120%] tracking-[-0.4px] pb-[30px] border-b border-black font-helvetica">
         {item.name}
       </div>
-      <div className="text-xs lg:text-sm text-gray-600 leading-relaxed uppercase tracking-wider">
+      <div className="text-[#7F7F7F] text-[20px] not-italic font-medium leading-[120%] tracking-[-0.4px] uppercase font-helvetica pt-[24px] text-center">
         {item.title}
       </div>
     </motion.div>

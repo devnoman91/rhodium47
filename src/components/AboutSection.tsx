@@ -106,9 +106,9 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
                   viewBox="0 0 102 102"
                 >
 
-<svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="51" cy="51" r="40" stroke="#161618" stroke-width="22" stroke-dasharray="2 4"/>
-</svg>
+          <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="51" cy="51" r="40" stroke="#161618" stroke-width="22" stroke-dasharray="2 4"/>
+          </svg>
 
 
 

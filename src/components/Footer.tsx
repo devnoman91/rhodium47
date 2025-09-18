@@ -2,19 +2,19 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="relative bg-gray-900 text-white overflow-hidden">
+    <footer className="relative bg-[linear-gradient(0deg,#111_0%,rgba(17,17,17,0)_100%)] text-white overflow-hidden">
       {/* Background Image */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-800/50 to-gray-900"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(0deg,#111_0%,rgba(17,17,17,0)_100%)] "></div>
 
       <div className="relative z-10">
         {/* Hero Section */}
         <div className="px-6 py-16 lg:py-24 text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="text-white text-center  text-[72px] not-italic font-bold leading-[100%] tracking-[-1.44px] font-helvetica mb-4">
               Preserve the world&apos;s<br />
               spirit of adventure.
             </h1>
-            <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+            <p className="text-white text-center  text-[16px] not-italic font-medium leading-[160%] font-helvetica max-w-[530px] mx-auto mb-[60px]">
               We dedicate ourselves to crafting a future worthy of our descendants
               and protecting the vehicles for centuries ahead
             </p>
@@ -56,15 +56,11 @@ const Footer = () => {
         <div className="border-t border-gray-700 px-6 py-8">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-12 h-12 bg-white rounded flex items-center justify-center">
-                  <span className="text-gray-900 font-bold text-sm">45</span>
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg">RHODIUM 45</h3>
-                  <p className="text-sm text-gray-400">Armored Luxury Supercars</p>
-                </div>
-              </div>
+              <img
+                src="/logo.png"
+                alt="RHODIUM 45 Logo"
+                className="w-24 h-24 object-contain"
+              />
             </div>
             <div className="text-lg">
               hello@yourdomain.com
@@ -75,30 +71,16 @@ const Footer = () => {
         {/* Main Footer Content */}
         <div className="border-t border-gray-700 px-6 py-12">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
+            {/* Top Row - 5 sections on lg+ screens */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
               {/* Company Description */}
-              <div className="lg:col-span-2">
+              <div className="md:col-span-2 lg:col-span-1">
                 <p className="text-lg text-gray-300 mb-6 leading-relaxed">
                   Empowering your journey with the comfort solutions you seek, innovative and reliable.
                 </p>
                 <button className="text-white border-b border-gray-400 pb-1 hover:border-white transition-colors duration-200">
                   Learn more
                 </button>
-
-                {/* Newsletter Subscription */}
-                <div className="mt-12">
-                  <p className="text-gray-300 mb-4">Stay updated with the latest news and offers!</p>
-                  <div className="flex">
-                    <input
-                      type="email"
-                      placeholder="Email address"
-                      className="flex-1 px-4 py-3 bg-transparent border border-gray-600 rounded-l-full focus:outline-none focus:border-white text-white placeholder-gray-400"
-                    />
-                    <button className="px-6 py-3 bg-transparent border border-gray-600 border-l-0 rounded-r-full hover:bg-gray-800 transition-colors duration-200">
-                      →
-                    </button>
-                  </div>
-                </div>
               </div>
 
               {/* Services */}
@@ -123,32 +105,46 @@ const Footer = () => {
                 </ul>
               </div>
 
-              {/* Company & Vehicles */}
-              <div className="space-y-8">
-                {/* Company */}
-                <div>
-                  <h4 className="font-semibold text-lg mb-6">Company</h4>
-                  <ul className="space-y-4 text-gray-300">
-                    <li><a href="#" className="hover:text-white transition-colors duration-200">About Us</a></li>
-                    <li><a href="#" className="hover:text-white transition-colors duration-200">Texas Facility</a></li>
-                    <li><a href="#" className="hover:text-white transition-colors duration-200">Career</a></li>
-                    <li><a href="#" className="hover:text-white transition-colors duration-200">Support</a></li>
-                    <li><a href="#" className="hover:text-white transition-colors duration-200">Find Us</a></li>
-                    <li><a href="#" className="hover:text-white transition-colors duration-200">Customer Stories</a></li>
-                    <li><a href="#" className="hover:text-white transition-colors duration-200">Events</a></li>
-                  </ul>
-                </div>
+              {/* Company */}
+              <div>
+                <h4 className="font-semibold text-lg mb-6">Company</h4>
+                <ul className="space-y-4 text-gray-300">
+                  <li><a href="#" className="hover:text-white transition-colors duration-200">About Us</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors duration-200">Texas Facility</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors duration-200">Career</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors duration-200">Support</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors duration-200">Find Us</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors duration-200">Customer Stories</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors duration-200">Events</a></li>
+                </ul>
+              </div>
 
-                {/* Vehicles */}
-                <div>
-                  <h4 className="font-semibold text-lg mb-6">Vehicles</h4>
-                  <ul className="space-y-4 text-gray-300">
-                    <li><a href="#" className="hover:text-white transition-colors duration-200">Sentinel</a></li>
-                    <li><a href="#" className="hover:text-white transition-colors duration-200">Guardian</a></li>
-                    <li><a href="#" className="hover:text-white transition-colors duration-200">Fortress</a></li>
-                    <li><a href="#" className="hover:text-white transition-colors duration-200">Phantom</a></li>
-                    <li><a href="#" className="hover:text-white transition-colors duration-200">Custom Builds</a></li>
-                  </ul>
+              {/* Vehicles */}
+              <div>
+                <h4 className="font-semibold text-lg mb-6">Vehicles</h4>
+                <ul className="space-y-4 text-gray-300">
+                  <li><a href="#" className="hover:text-white transition-colors duration-200">Sentinel</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors duration-200">Guardian</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors duration-200">Fortress</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors duration-200">Phantom</a></li>
+                  <li><a href="#" className="hover:text-white transition-colors duration-200">Custom Builds</a></li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Bottom Row - Newsletter Subscription */}
+            <div className="border-t border-gray-700 pt-8">
+              <div className="max-w-2xl">
+                <p className="text-gray-300 mb-4">Stay updated with the latest news and offers!</p>
+                <div className="flex">
+                  <input
+                    type="email"
+                    placeholder="Email address"
+                    className="flex-1 px-4 py-3 bg-transparent border border-gray-600 rounded-l-full focus:outline-none focus:border-white text-white placeholder-gray-400"
+                  />
+                  <button className="px-6 py-3 bg-transparent border border-gray-600 border-l-0 rounded-r-full hover:bg-gray-800 transition-colors duration-200">
+                    →
+                  </button>
                 </div>
               </div>
             </div>

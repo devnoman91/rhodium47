@@ -53,34 +53,51 @@ const Footer = () => {
         </div>
 
         {/* Company Info and Contact */}
-        <div className="border-t border-gray-700 px-6 py-8">
+        <div className="px-6 py-8">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center space-x-4">
               <img
                 src="/logo.png"
                 alt="RHODIUM 45 Logo"
-                className="w-24 h-24 object-contain"
+                className="w-[210px] h-[62px] object-contain"
               />
             </div>
-            <div className="text-lg">
+            <div className="text-white text-[32px] not-italic font-normal leading-[44px] tracking-[-0.64px] font-helvetica">
               hello@yourdomain.com
             </div>
           </div>
         </div>
 
         {/* Main Footer Content */}
-        <div className="border-t border-gray-700 px-6 py-12">
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto border-t border-white px-6 py-12">
             {/* Top Row - 5 sections on lg+ screens */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
               {/* Company Description */}
               <div className="md:col-span-2 lg:col-span-1">
-                <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                  Empowering your journey with the comfort solutions you seek, innovative and reliable.
-                </p>
-                <button className="text-white border-b border-gray-400 pb-1 hover:border-white transition-colors duration-200">
-                  Learn more
-                </button>
+                <div>
+                  <p className="text-lg text-gray-300 mb-6 leading-relaxed">
+                    Empowering your journey with the comfort solutions you seek, innovative and reliable.
+                  </p>
+                  <button className="text-white border-b border-gray-400 pb-1 hover:border-white transition-colors duration-200">
+                    Learn more
+                  </button>
+                </div>
+
+
+                {/* Bottom Row - Newsletter Subscription */}
+                <div className="max-w-2xl pt-8">
+                  <p className="text-gray-300 mb-4">Stay updated with the latest news and offers!</p>
+                  <div className="flex">
+                    <input
+                      type="email"
+                      placeholder="Email address"
+                      className="flex-1 px-4 py-3 bg-transparent border border-gray-600 rounded-l-full focus:outline-none focus:border-white text-white placeholder-gray-400"
+                    />
+                    <button className="px-6 py-3 bg-transparent border border-gray-600 border-l-0 rounded-r-full hover:bg-gray-800 transition-colors duration-200">
+                      →
+                    </button>
+                  </div>
+                </div>
               </div>
 
               {/* Services */}
@@ -131,29 +148,10 @@ const Footer = () => {
                 </ul>
               </div>
             </div>
-
-            {/* Bottom Row - Newsletter Subscription */}
-            <div className="border-t border-gray-700 pt-8">
-              <div className="max-w-2xl">
-                <p className="text-gray-300 mb-4">Stay updated with the latest news and offers!</p>
-                <div className="flex">
-                  <input
-                    type="email"
-                    placeholder="Email address"
-                    className="flex-1 px-4 py-3 bg-transparent border border-gray-600 rounded-l-full focus:outline-none focus:border-white text-white placeholder-gray-400"
-                  />
-                  <button className="px-6 py-3 bg-transparent border border-gray-600 border-l-0 rounded-r-full hover:bg-gray-800 transition-colors duration-200">
-                    →
-                  </button>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
 
         {/* Footer Bottom */}
-        <div className="border-t border-gray-700 px-6 py-6">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="border-t border-white px-6 py-6 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
               Copyright © 2025. All rights reserved
             </p>
@@ -182,7 +180,6 @@ const Footer = () => {
               </a>
             </div>
           </div>
-        </div>
       </div>
     </footer>
   )

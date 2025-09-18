@@ -39,7 +39,7 @@ const cardVariants = {
 
 const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
   return (
-    <section className="py-16 lg:py-24 bg-gray-900 text-white" style={{ contain: 'layout style' }}>
+    <section className="py-16 lg:py-24 bg-[#111] text-white" style={{ contain: 'layout style' }}>
       <div className="max-w-7xl mx-auto px-6" style={{ contain: 'layout style' }}>
         <motion.div
           variants={containerVariants}
@@ -51,7 +51,7 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-16 lg:mb-20">
             {/* Left - Title */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-[60px] not-italic tracking-normal leading-[1.1] font-medium  font-helvetica text-white mb-0">
                 {data.name}
               </h1>
             </motion.div>
@@ -62,7 +62,7 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
               className="lg:col-span-1 flex items-center"
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             >
-              <p className="text-lg lg:text-xl text-gray-300 leading-relaxed">
+              <p className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica">
                 {data.description}
               </p>
             </motion.div>
@@ -93,15 +93,15 @@ const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(({ 
         delay: index * 0.1 + 0.3,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="group bg-gray-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700/50 hover:bg-gray-800/70 transition-all duration-300"
+      className="group  transition-all duration-300"
     >
       {/* Image */}
-      <div className="relative aspect-[4/3] overflow-hidden" style={{ contain: 'layout style paint' }}>
+      <div className="relative aspect-[4/3] overflow-hidden rounded-[30px]" style={{ contain: 'layout style paint' }}>
         <Image
           src={newsItem.image.asset.url}
           alt={newsItem.image.alt || newsItem.title}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
+          className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[30px]"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           loading="lazy"
           placeholder="blur"

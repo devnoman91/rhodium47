@@ -2,42 +2,40 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import Image from 'next/image'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <nav className="absolute top-0 left-0 right-0 z-50 px-6 py-4">
+    <nav className="absolute top-5 left-0 right-0 z-50 px-12  py-4 font-helvetica">
       <div className="flex items-center">
         <div className="flex-1 flex items-center">
-          <div className="bg-white rounded-full p-2 mr-3">
-            <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xs">Rh</span>
+          <Link href="/" className="flex items-center group">
+            <div className="relative w-[148px] h-[44px] mr-3">
+              <Image src="/logo.png" alt="Rhodium 47" fill sizes="148px" priority className="object-contain" />
             </div>
-          </div>
-          <div className="text-white">
-            <span className="font-bold text-lg">RHODIUM 45</span>
-            <p className="text-xs opacity-80">Armoured Luxury Supercars</p>
-          </div>
+           
+          </Link>
         </div>
 
         <div className="flex-1 flex items-center justify-end space-x-8">
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/vehicles" className="text-white hover:opacity-80 transition-opacity">
+            <Link href="/vehicles" className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]">
               Vehicles
             </Link>
-            <Link href="/discover" className="text-white hover:opacity-80 transition-opacity">
+            <Link href="/discover" className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]">
               Discover
             </Link>
-            <Link href="/shop" className="text-white hover:opacity-80 transition-opacity">
+            <Link href="/shop" className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]">
               Shop
             </Link>
-            <Link href="/support" className="text-white hover:opacity-80 transition-opacity">
+            <Link href="/support" className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]">
               Support
             </Link>
           </div>
 
-          <button className="bg-white text-black px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition-colors">
+          <button className="hidden md:inline-flex bg-white text-black px-6 py-2 rounded-full font-helvetica font-medium hover:bg-gray-100 transition-colors text-[16px]">
             Book a Consultation
           </button>
 
@@ -61,18 +59,22 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="md:hidden mt-4 bg-black bg-opacity-90 rounded-lg p-4">
           <div className="flex flex-col space-y-4">
-            <Link href="/vehicles" className="text-white hover:opacity-80 transition-opacity">
+            <Link href="/vehicles" className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]">
               Vehicles
             </Link>
-            <Link href="/discover" className="text-white hover:opacity-80 transition-opacity">
+            <Link href="/discover" className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]">
               Discover
             </Link>
-            <Link href="/shop" className="text-white hover:opacity-80 transition-opacity">
+            <Link href="/shop" className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]">
               Shop
             </Link>
-            <Link href="/support" className="text-white hover:opacity-80 transition-opacity">
+            <Link href="/support" className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]">
               Support
             </Link>
+
+            <button className="mt-2 bg-white text-black px-5 py-2 rounded-full font-helvetica font-medium hover:bg-gray-100 transition-colors text-[16px] w-full">
+              Book a Consultation
+            </button>
           </div>
         </div>
       )}

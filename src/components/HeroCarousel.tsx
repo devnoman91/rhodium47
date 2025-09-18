@@ -92,33 +92,81 @@ const criticalInlineStyles = `
   }
 `
 
-// Simple video controls inline for better performance
+// Segmented circular indicator + numeric list with divider
+const SegmentedCircleIndicator = ({
+  total,
+  current,
+  onClick,
+}: {
+  total: number
+  current: number
+  onClick?: (index: number) => void
+}) => {
+  const size = 64
+  const strokeWidth = 5
+  const radius = (size - strokeWidth) / 2
+  const circumference = 2 * Math.PI * radius
+  const gap = Math.max(circumference * 0.02, 2)
+  const segmentLength = Math.max(((circumference - gap * Math.max(total, 1)) / Math.max(total, 1)), 0)
+
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
+      <g transform={`translate(${size / 2}, ${size / 2}) rotate(-90)`}>
+        {/* Background dashed ring */}
+        <circle
+          r={radius}
+          cx={0}
+          cy={0}
+          fill="none"
+          stroke="rgba(255,255,255,0.25)"
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
+          strokeDasharray={`${segmentLength} ${gap}`}
+          style={{ transition: 'stroke 0.2s ease' }}
+        />
+        {/* Active segment only */}
+        {total > 0 && (
+          <circle
+            r={radius}
+            cx={0}
+            cy={0}
+            fill="none"
+            stroke="#FFFFFF"
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeDasharray={`${segmentLength} ${circumference}`}
+            strokeDashoffset={-current * (segmentLength + gap)}
+            style={{ transition: 'stroke-dashoffset 0.3s ease' }}
+          />
+        )}
+      </g>
+      {/* Click targets (optional) */}
+      {onClick && (
+        <g>
+          {Array.from({ length: total }).map((_, i) => (
+            <circle
+              key={`hit-${i}`}
+              cx={size / 2}
+              cy={size / 2}
+              r={size / 2}
+              fill="transparent"
+              onClick={() => onClick(i)}
+              style={{ cursor: 'pointer' }}
+            />
+          ))}
+        </g>
+      )}
+    </svg>
+  )
+}
+
 const VideoControlsInline = ({ videos, currentIndex, onSlideChange }: {
   videos: Video[]
   currentIndex: number
   onSlideChange: (index: number) => void
 }) => (
-  <div className="absolute bottom-8 left-8 md:left-16 flex items-center space-x-4">
-    <div className="flex space-x-1">
-      {videos.map((_, index) => (
-        <button
-          key={index}
-          onClick={() => onSlideChange(index)}
-          className={`text-2xl font-bold transition-all ${
-            index === currentIndex ? 'text-white' : 'text-white text-opacity-40'
-          }`}
-          aria-label={`Go to video ${index + 1}`}
-        >
-          {String(index + 1).padStart(2, '0')}
-        </button>
-      ))}
-    </div>
-    <div className="w-32 h-1 bg-white bg-opacity-20 rounded-full overflow-hidden">
-      <div
-        className="h-full bg-white transition-all duration-300"
-        style={{ width: `${((currentIndex + 1) / videos.length) * 100}%` }}
-      />
-    </div>
+  <div className="absolute bottom-8 right-8 md:right-16 z-10">
+    <SegmentedCircleIndicator total={videos.length} current={currentIndex} onClick={onSlideChange} />
   </div>
 )
 
@@ -371,6 +419,10 @@ export default function HeroCarousel() {
               Loading...
             </div>
           )}
+          {/* Controls placeholder to keep indicator visible during mount */}
+          <div className="absolute bottom-8 right-8 md:right-16 z-10">
+            <SegmentedCircleIndicator total={1} current={0} />
+          </div>
         </div>
       </>
     )
@@ -400,6 +452,10 @@ export default function HeroCarousel() {
             <button className="hero-button">
               <span>Explore Models</span>
             </button>
+          </div>
+          {/* Controls placeholder when no videos */}
+          <div className="absolute bottom-8 right-8 md:right-16 z-10">
+            <SegmentedCircleIndicator total={1} current={0} />
           </div>
         </div>
       </>
@@ -477,6 +533,31 @@ export default function HeroCarousel() {
           currentIndex={currentIndex}
           onSlideChange={goToSlide}
         />
+        {/* Left-side numbers control */}
+        <div className="absolute bottom-8 left-8 md:left-16 z-10 flex items-center space-x-3">
+          <button
+            className="text-white text-2xl font-helvetica font-medium leading-none"
+            onClick={() => goToSlide(currentIndex)}
+            aria-label={`Current video ${currentIndex + 1}`}
+          >
+            {String(currentIndex + 1).padStart(2, '0')}
+          </button>
+          <div className="w-8 h-px bg-white/40" />
+          <div className="flex items-center space-x-2">
+            {videos.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`text-base font-helvetica font-normal transition-opacity ${
+                  index === currentIndex ? 'text-white' : 'text-white/60 hover:text-white'
+                }`}
+                aria-label={`Go to video ${index + 1}`}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </>
   )

@@ -43,7 +43,7 @@ export default async function Home() {
         <BlogSection
           blogData={blogData}
         />
-      )}
+      )}      
       {showcaseData.length > 0 && (
         <ProductShowcase
           products={showcaseData}

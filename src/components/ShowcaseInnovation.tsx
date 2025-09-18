@@ -38,7 +38,7 @@ const countVariants = {
 
 const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }) => {
   return (
-    <section className="py-16 lg:py-24 bg-gray-900 text-white">
+    <section className="py-16 lg:py-24 bg-[#111111] text-white">
       <div className="max-w-7xl mx-auto px-6">
         {/* Top Section */}
         <motion.div
@@ -49,10 +49,10 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
           className="mb-16 lg:mb-20"
         >
           {/* Main Title and Description */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-12 lg:mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-6 items-start mb-12 lg:mb-16">
             {/* Left - Title */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-[60px] not-italic tracking-normal leading-[1.1] font-medium  font-helvetica">
                 {data.main.title}
               </h1>
             </motion.div>
@@ -63,7 +63,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
               className="lg:col-span-1 flex items-center"
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             >
-              <p className="text-lg lg:text-xl text-gray-300 leading-relaxed">
+              <p className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica">
                 {data.main.description}
               </p>
             </motion.div>
@@ -109,10 +109,10 @@ const CountCard: React.FC<{ item: CountItem; index: number }> = React.memo(({ it
       }}
       className="text-center lg:text-left"
     >
-      <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2">
+      <div className="text-[48px] not-italic tracking-normal leading-[1.1] font-medium  font-helvetica mb-1">
         {item.name}
       </div>
-      <div className="text-sm lg:text-base text-gray-400 leading-relaxed">
+      <div className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica max-w-[50%]">
         {item.title}
       </div>
     </motion.div>
@@ -129,22 +129,22 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
         delay: index * 0.1,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="group bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 hover:bg-gray-800/70 transition-all duration-300 border border-gray-700/50"
+      className="group  backdrop-blur-sm rounded-[30px] flex flex-col gap-6 py-15 px-10 bg-[#1B1B1B] transition-all duration-300 border border-gray-700/50"
     >
       {/* Content */}
-      <div className="mb-6">
-        <h3 className="text-xl lg:text-2xl font-bold mb-4 group-hover:text-gray-100 transition-colors duration-200">
+      <div className=" flex flex-col gap-4 ">
+        <h3 className="ß text-[26px] leading-[1.2] tracking-normal m-0 font-normal font-helvetica text-white">
           {blog.title}
         </h3>
 
-        <p className="text-gray-300 leading-relaxed text-sm lg:text-base">
+        <p className="text-gray-300 text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica">
           {blog.description}
         </p>
       </div>
 
       {/* Learn More Button */}
       <motion.button
-        className="inline-flex items-center px-6 py-3 bg-transparent border-2 border-gray-400 text-gray-300 rounded-full font-medium hover:border-white hover:text-white transition-all duration-300 group/button"
+      className="px-5 py-2 rounded-[50px] border-1  border-white  text-white no-underline font-['Helvetica Neue'] text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         transition={{ duration: 0.2 }}
@@ -156,19 +156,7 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
         }}
       >
         <span>Learn More</span>
-        <motion.svg
-          className="w-4 h-4 ml-2 group-hover/button:translate-x-1 transition-transform duration-200"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M17 8l4 4m0 0l-4 4m4-4H3"
-          />
-        </motion.svg>
+       
       </motion.button>
     </motion.div>
   )

@@ -392,9 +392,9 @@ export default function HeroCarousel() {
           {/* Stable content positioning */}
           <div className="hero-content">
             <div style={{
-              width: '4rem',
+           width: '20rem',
               height: '0.25rem',
-              backgroundColor: 'white',
+              backgroundColor: 'rgba(255, 255, 255, 0.3)',
               marginBottom: '1.5rem',
               contain: 'layout style paint'
             }}></div>
@@ -439,9 +439,9 @@ export default function HeroCarousel() {
           </div>
           <div className="hero-content">
             <div style={{
-              width: '4rem',
+           width: '20rem',
               height: '0.25rem',
-              backgroundColor: 'white',
+              backgroundColor: 'rgba(255, 255, 255, 0.3)',
               marginBottom: '1.5rem',
               contain: 'layout style paint'
             }}></div>
@@ -499,12 +499,22 @@ export default function HeroCarousel() {
         {/* Content with stable positioning */}
         <div className="hero-content">
           <div style={{
-            width: '4rem',
+         width: '20rem',
             height: '0.25rem',
-            backgroundColor: 'white',
+            backgroundColor: 'rgba(255, 255, 255, 0.3)',
             marginBottom: '1.5rem',
-            contain: 'layout style paint'
-          }}></div>
+            contain: 'layout style paint',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              width: `${((currentIndex + 1) / videos.length) * 100}%`,
+              height: '100%',
+              backgroundColor: 'white',
+              transition: 'width 0.5s ease',
+              contain: 'layout style paint'
+            }}></div>
+          </div>
           <h1 className="hero-title">
             {currentVideo?.name || 'XHODIUM Vehicles'}
           </h1>

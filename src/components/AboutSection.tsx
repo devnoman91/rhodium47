@@ -83,7 +83,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
   }, [products.length])
 
   return (
-    <section className="py-20 lg:py-32 bg-white">
+    <section className="py-6 lg:py-[80px] bg-white">
       <div className="max-w-7xl mx-auto px-6">
         {/* Top Section */}
         <motion.div
@@ -91,45 +91,46 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="mb-20 lg:mb-28"
+          className="mb-20 lg:mb-[70px]"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 ">
             {/* Left Logo + Progress */}
-            <motion.div variants={itemVariants} className="lg:col-span-2 flex flex-col items-center lg:items-start">
+            <motion.div variants={itemVariants} className="lg:col-span-2 flex flex-col ßjustify-between items-center lg:items-start">
               {/* Sunburst Logo */}
-              <div className="relative mb-8">
-                <motion.div
-                  className="w-28 h-28 lg:w-36 lg:h-36 relative flex items-center justify-center"
+              <div className="relative mb-8 w-30 h-30 lg:w-36 lg:h-36 mx-auto flex items-center justify-center">
+                {/* Rotating circle with lines */}
+                <motion.svg
+                  className="absolute inset-0 w-full h-full"
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                  transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+                  viewBox="0 0 102 102"
                 >
-                  {[...Array(24)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="absolute w-1 bg-gray-400"
-                      style={{
-                        height: i % 3 === 0 ? '24px' : '14px',
-                        left: '50%',
-                        top: '0',
-                        transformOrigin: '50% 56px',
-                        transform: `translateX(-50%) rotate(${i * 15}deg)`
-                      }}
-                    />
-                  ))}
-                  <svg viewBox="0 0 24 24" className="w-8 h-8 lg:w-10 lg:h-10 text-gray-900">
-                    <path
-                      d="M7 17L17 7M17 7H7M17 7V17"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
+
+<svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="51" cy="51" r="40" stroke="#161618" stroke-width="22" stroke-dasharray="2 4"/>
+</svg>
+
+
+
+                </motion.svg>
+
+                {/* Static centered arrow */}
+                <div className="relative w-15 h-15 lg:w-16 lg:h-16 bg-white rounded-full flex items-center justify-center cursor-pointer z-10">
+                  <div
+                    className="text-2xl lg:text-3xl text-gray-900"
+                    style={{ transform: 'rotate(0deg)' }}
+                  >
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18.0006 1V14C18.0006 14.2652 17.8952 14.5196 17.7077 14.7071C17.5201 14.8946 17.2658 15 17.0006 15C16.7353 15 16.481 14.8946 16.2934 14.7071C16.1059 14.5196 16.0006 14.2652 16.0006 14V3.41375L1.70806 17.7075C1.52042 17.8951 1.26592 18.0006 1.00056 18.0006C0.735192 18.0006 0.480697 17.8951 0.293056 17.7075C0.105415 17.5199 0 17.2654 0 17C0 16.7346 0.105415 16.4801 0.293056 16.2925L14.5868 2H4.00056C3.73534 2 3.48099 1.89464 3.29345 1.70711C3.10591 1.51957 3.00056 1.26522 3.00056 1C3.00056 0.734784 3.10591 0.48043 3.29345 0.292893C3.48099 0.105357 3.73534 0 4.00056 0H17.0006C17.2658 0 17.5201 0.105357 17.7077 0.292893C17.8952 0.48043 18.0006 0.734784 18.0006 1Z" fill="#343330"/>
                   </svg>
-                </motion.div>
+
+                  </div>
+                </div>
               </div>
 
+
               {/* Progress Bar */}
-              <div className="w-60 lg:w-96 h-1 bg-gray-200 rounded-full overflow-hidden">
+              <div className="w-60 lg:w-98 h-1 bg-gray-200 rounded-full overflow-hidden">
                 <motion.div
                   className="h-full bg-gray-900 rounded-full"
                   style={{ width: `${(currentIndex + 1) * (100 / products.length)}%` }}
@@ -146,16 +147,16 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
             <motion.div variants={itemVariants} className="lg:col-span-10  ml-70 ">
               {/* Inline label to avoid grid gap */}
               <motion.div
-                className="h-1 w-16 bg-gray-900 rounded-full mb-6"
+                className="h-[1px] w-[700px] bg-gray-900 rounded-full mb-3"
                 initial={{ opacity: 0, scaleX: 0 }}
                 whileInView={{ opacity: 1, scaleX: 1 }}
                 viewport={{ once: true, margin: '-100px' }}
                 transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
                 style={{ transformOrigin: 'left center' }}
               />
-              <div className="inline-flex items-center space-x-2 mb-3">
+              <div className="inline-flex items-center space-x-2 mb-6">
                 <div className="w-2 h-2 bg-gray-900 rounded-full" />
-                <span className="text-sm md:text-base font-medium uppercase tracking-wide text-gray-600">
+                <span className="text-sm md:text-base font-helvetica font-medium uppercase  tracking-wide text-gray-600">
                   {aboutData.sectionLabel}
                 </span>
               </div>
@@ -164,7 +165,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
               {/* Animated, per-word highlight on scroll (karaoke-style) */}
               <p
                 ref={descriptionRef}
-                className="text-[40px] md:text-[40px] leading-[1.2] font-helvetica font-normal max-w-[56ch] flex flex-wrap"
+                className="text-[40px] md:text-[40px] leading-[1.2] font-helvetica font-[500] max-w-[56ch] flex flex-wrap"
               >
                 {words.map((word, i) => {
                   const start = i / words.length
@@ -253,10 +254,10 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
                       exit="exit"
                       className="w-full"
                     >
-                      <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+                      <h3 className="text-2xl font-[500] font-helvetica text-gray-900 mb-4">
                         {currentProduct.title}
                       </h3>
-                      <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                      <p className="text-gray-600 text-lg font-[400] leading-relaxed font-helvetica mb-6">
                         {currentProduct.description}
                       </p>
                       <motion.button

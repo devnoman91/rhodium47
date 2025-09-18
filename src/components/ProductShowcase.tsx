@@ -62,7 +62,7 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
         delay: index * 0.2,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="group bg-gray-50 rounded-3xl p-8 hover:bg-gray-100 transition-colors duration-300"
+      className="group bg-[#F4F1F2] rounded-3xl p-8  transition-colors duration-300"
     >
       <div className="flex items-center gap-6">
         {/* Image Section */}
@@ -79,20 +79,20 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
         </div>
 
         {/* Content Section */}
-        <div className="flex-1 min-w-0">
+        <div className="flex flex-col gap-3">
           {/* Title */}
-          <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-2">
+          <h3 className="ext-[18px] leading-[20px] tracking-[0] m-0 font-medium  text-black font-helvetica">
             {product.title}
           </h3>
 
           {/* Description */}
-          <p className="text-gray-600 mb-4 text-sm lg:text-base leading-relaxed">
+          <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-light text-black font-helvetica">
             {product.description}
           </p>
 
           {/* Button */}
           <motion.button
-            className="inline-flex items-center px-6 py-2 lg:px-8 lg:py-3 bg-transparent border-2 border-gray-900 text-gray-900 rounded-full font-medium hover:bg-gray-900 hover:text-white transition-all duration-300 group/button"
+            className="px-6 py-3 rounded-[50px] border-1 border-black  text-black no-underline font-['Helvetica Neue'] text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.2 }}
@@ -107,19 +107,7 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
             }}
           >
             <span className="text-sm lg:text-base">{product.buttonText}</span>
-            <motion.svg
-              className="w-4 h-4 ml-2 group-hover/button:translate-x-1 transition-transform duration-200"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </motion.svg>
+           
           </motion.button>
         </div>
       </div>

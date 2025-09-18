@@ -59,7 +59,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
         >
           <motion.h2
             variants={itemVariants}
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-8 font-helvetica"
+            className="text-[64px] not-italic tracking-[0] leading-[110%] text-black font-medium max-w-[730px] text-center mx-auto mb-[50px] font-helvetica"
             transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
           >
             {blogData.mainSectionTitle}
@@ -151,17 +151,14 @@ const BlogCard: React.FC<{ product: BlogProduct; index: number }> = React.memo((
 
       {/* Content */}
       <div className="p-6">
-        <h3 className="  font-bold   text-gray-900 mb-3  duration-200 font-helvetica">
+        <h3 className="  text-[16px] leading-[20px] tracking-[0] m-0 font-light  text-black text-center font-helvetica">
           {product.title}
         </h3>
 
-        <p className="text-gray-600 mb-6 leading-relaxed line-clamp-3 font-helvetica">
-          {product.description}
-        </p>
-
+      
         {/* Explore More Button */}
         <motion.button
-          className="inline-flex items-center space-x-2 text-gray-900 font-medium hover:text-gray-600 transition-colors duration-200 group/button"
+          className="text-[16px] leading-[20px] flex tracking-[0] font-medium text-center no-underline content-center gap-2.5  mx-auto mt-[20px] transition ease-[0.4s] text-black relative w-fit font-helvetica"
           whileHover={{ x: 5 }}
           transition={{ duration: 0.2 }}
         >

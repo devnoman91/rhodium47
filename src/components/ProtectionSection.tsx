@@ -61,50 +61,33 @@ const ProtectionSection: React.FC<ProtectionSectionProps> = ({ data }) => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {/* Section Label */}
+          {/* Main Content - Centered Flex Column */}
           <motion.div
             variants={itemVariants}
             transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="mb-8"
+            className="my-0 mx-auto max-w-[820px] pt-5 border-t border-black"
           >
-            <div className="inline-flex items-center">
+            {/* Section Label */}
+            <div className="inline-flex items-center mb-8">
               <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
               <span className="text-sm lg:text-base font-medium text-gray-900 tracking-wider uppercase">
                 {data.name}
               </span>
             </div>
+
+            {/* Description */}
+            <motion.p
+              style={{ color: textColor }}
+              className="text-lg lg:text-xl leading-relaxed max-w-4xl"
+            >
+              {data.description}
+            </motion.p>
           </motion.div>
 
-          {/* Main Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start mb-16 lg:mb-20">
-            {/* Left - Main Heading */}
-            <motion.div variants={itemVariants} className="lg:col-span-1">
-              <motion.h1
-                style={{ color: headingColor }}
-                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] tracking-tight"
-                transition={{ duration: 0.6, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
-              >
-                The Future of Protection.
-              </motion.h1>
-            </motion.div>
-
-            {/* Right - Description */}
-            <motion.div
-              variants={itemVariants}
-              className="lg:col-span-1 flex items-start lg:items-center"
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            >
-              <motion.p
-                style={{ color: textColor }}
-                className="text-lg lg:text-xl leading-relaxed"
-              >
-                {data.description}
-              </motion.p>
-            </motion.div>
-          </div>
-
           {/* Stats Section */}
-          <motion.div
+         
+        </motion.div>
+        <motion.div
             variants={containerVariants}
             className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12"
           >
@@ -112,7 +95,6 @@ const ProtectionSection: React.FC<ProtectionSectionProps> = ({ data }) => {
               <CountCard key={index} item={item} index={index} />
             ))}
           </motion.div>
-        </motion.div>
       </div>
     </section>
   )

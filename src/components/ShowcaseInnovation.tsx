@@ -65,7 +65,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
           viewport={{ once: true, margin: "-100px" }}
         >
           {/* Main Title and Description */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-6 items-start mb-12 lg:mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-6 items-center lg:items-start mb-12 lg:mb-16">
             {/* Left - Title */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
               <h1 className="text-[60px] not-italic tracking-normal leading-[1.1] font-medium  font-helvetica">
@@ -88,7 +88,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
           {/* Stats Section */}
           <motion.div
             variants={containerVariants}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8 xl:gap-12"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8 xl:gap-12 justify-center"
           >
             {data.main.countSection.map((item, index) => (
               <CountCard key={index} item={item} index={index} />
@@ -155,12 +155,12 @@ const CountCard: React.FC<{ item: CountItem; index: number }> = React.memo(({ it
         delay: index * 0.1,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="text-center lg:text-left"
+      className="text-left"
     >
-      <div className="text-[48px] not-italic tracking-normal leading-[1.1] font-medium  font-helvetica mb-1">
+      <div className="text-[29px] md:text-[36px] lg:text-[48px] not-italic tracking-normal leading-[1.1] font-medium font-helvetica mb-1 md:mb-2 max-w-[100px] md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0">
         {item.name}
       </div>
-      <div className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica max-w-[50%]">
+      <div className="text-[12px] md:text-[14px] lg:text-[16px] leading-[1.4] md:leading-[24px] tracking-[0] m-0 font-light font-helvetica max-w-[100px] md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0">
         {item.title}
       </div>
     </motion.div>

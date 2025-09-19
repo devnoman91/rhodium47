@@ -48,7 +48,7 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
           viewport={{ once: true, margin: "-100px" }}
         >
           {/* Header Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-16 lg:mb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-[63px]">
             {/* Left - Title */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
               <h1 className="text-[60px] not-italic tracking-normal leading-[1.1] font-medium  font-helvetica text-white mb-0">
@@ -71,7 +71,7 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
           {/* News Grid */}
           <motion.div
             variants={containerVariants}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
           >
             {data.newsSection && data.newsSection.map((newsItem, index) => (
               <NewsCard key={newsItem.slug.current} newsItem={newsItem} index={index} />
@@ -96,12 +96,12 @@ const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(({ 
       className="group  transition-all duration-300"
     >
       {/* Image */}
-      <div className="relative aspect-[4/3] overflow-hidden rounded-[30px]" style={{ contain: 'layout style paint' }}>
+      <div className="relative aspect-square overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
         <Image
           src={newsItem.image.asset.url}
           alt={newsItem.image.alt || newsItem.title}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[30px]"
+          className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px]"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           loading="lazy"
           placeholder="blur"
@@ -112,20 +112,20 @@ const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(({ 
       </div>
 
       {/* Content */}
-      <div className="p-6 lg:p-8">
-        <div className="mb-6">
-          <h3 className="text-xl lg:text-2xl font-bold mb-4 group-hover:text-gray-100 transition-colors duration-200 leading-tight">
+      <div className="pt-6 pr-[5%]">
+        <div className="mb-[48px]">
+          <h3 className="text-white font-medium text-[24px] leading-[110%] tracking-[-0.24px] mb-2 font-helvetica">
             {newsItem.title}
           </h3>
 
-          <p className="text-gray-300 leading-relaxed text-sm lg:text-base line-clamp-3">
+          <p className="text-[16px] leading-[130%] tracking-[0] m-0 font-light font-helvetica opacity-60">
             {newsItem.description}
           </p>
         </div>
 
         {/* Learn More Button */}
         <motion.button
-          className="inline-flex items-center px-6 py-3 bg-transparent border-2 border-gray-400 text-gray-300 rounded-full font-medium hover:border-white hover:text-white transition-all duration-300 group/button"
+          className="px-6 py-2 rounded-[50px] border-1 flex items-center gap-4 border-[#fff]  text-white no-underline font-['Helvetica Neue'] text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           transition={{ duration: 0.2 }}
@@ -137,19 +137,6 @@ const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(({ 
           }}
         >
           <span>Learn More</span>
-          <motion.svg
-            className="w-4 h-4 ml-2 group-hover/button:translate-x-1 transition-transform duration-200"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M17 8l4 4m0 0l-4 4m4-4H3"
-            />
-          </motion.svg>
         </motion.button>
       </div>
     </motion.div>

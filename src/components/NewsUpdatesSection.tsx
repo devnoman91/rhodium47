@@ -159,7 +159,7 @@ const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(({ 
 
         {/* Learn More Button */}
         <motion.button
-          className="px-6 py-2 rounded-[50px] border-1 flex items-center gap-4 border-[#fff]  text-white no-underline font-['Helvetica Neue'] text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
+          className="px-6 py-2 rounded-[50px] border-1 flex items-center gap-4 border-[#fff]  text-white no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           transition={{ duration: 0.2 }}

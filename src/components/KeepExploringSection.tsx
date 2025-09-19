@@ -163,7 +163,7 @@ const NavigationButton: React.FC<{ item: KeepExploringSectionType; index: number
         delay: index * 0.1 + 0.4,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="px-6 py-3 rounded-[50px] border-1 flex items-center gap-4 border-[#ddd]  text-black no-underline font-['Helvetica Neue'] text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
+      className="px-6 py-3 rounded-[50px] border-1 flex items-center gap-4 border-[#ddd]  text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >

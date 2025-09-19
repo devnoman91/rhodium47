@@ -2,9 +2,11 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="relative bg-[linear-gradient(0deg,#111_0%,rgba(17,17,17,0)_100%)] text-white overflow-hidden">
+    <footer className="relative text-white overflow-hidden">
       {/* Background Image */}
-      <div className="absolute inset-0 bg-[linear-gradient(0deg,#111_0%,rgba(17,17,17,0)_100%)] "></div>
+      <div className="absolute inset-0 bg-[url('/footer.png')] bg-cover bg-center bg-no-repeat"></div>
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(0deg,#111_0%,rgba(17,17,17,0)_100%)]"></div>
 
       <div className="relative z-10">
         {/* Hero Section */}
@@ -73,6 +75,7 @@ const Footer = () => {
             {/* Top Row - 5 sections on lg+ screens */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
               {/* Company Description */}
+              <div>
               <div className="md:col-span-2 lg:col-span-1">
                 <div>
                   <p className="text-lg text-gray-300 mb-6 leading-relaxed">
@@ -99,7 +102,8 @@ const Footer = () => {
                   </div>
                 </div>
               </div>
-
+              </div>
+<div>
               {/* Services */}
               <div>
                 <h4 className="font-semibold text-lg mb-6">Services</h4>
@@ -146,6 +150,7 @@ const Footer = () => {
                   <li><a href="#" className="hover:text-white transition-colors duration-200">Phantom</a></li>
                   <li><a href="#" className="hover:text-white transition-colors duration-200">Custom Builds</a></li>
                 </ul>
+              </div>
               </div>
             </div>
           </div>

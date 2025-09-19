@@ -110,9 +110,9 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
           {/* Slider Container */}
           <div className="relative overflow-visible">
             <motion.div
-              className="flex gap-8 cursor-grab active:cursor-grabbing"
+              className="flex gap-12 cursor-grab active:cursor-grabbing pr-12"
               drag="x"
-              dragConstraints={{ left: -((data.blogSection.length - 2.5) * 320), right: 0 }}
+              dragConstraints={{ left: -((data.blogSection.length - 2.5) * 420), right: 0 }}
               onDragEnd={handleDragEnd}
               whileHover={{ x: -20 }}
               transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
@@ -122,7 +122,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
               {data.blogSection.map((blog, index) => (
                 <motion.div
                   key={blog.slug.current}
-                  className="w-[300px] flex-shrink-0"
+                  className="w-[380px] flex-shrink-0"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{
                     opacity: 1,
@@ -177,22 +177,22 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
         delay: index * 0.1,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="group  backdrop-blur-sm rounded-[30px] flex flex-col gap-6 py-15 px-10 bg-[#1B1B1B] transition-all duration-300 border border-gray-700/50"
+      className="group backdrop-blur-sm rounded-[30px] flex flex-col justify-between h-[320px] w-[380px] p-6 bg-[#1B1B1B] transition-all duration-300 border border-gray-700/50"
     >
       {/* Content */}
-      <div className=" flex flex-col gap-4 ">
-        <h3 className="ß text-[26px] leading-[1.2] tracking-normal m-0 font-normal font-helvetica text-white">
+      <div className="flex flex-col gap-4 flex-1">
+        <h3 className="text-white font-helvetica text-[26px] font-normal leading-[49px] m-0">
           {blog.title}
         </h3>
 
-        <p className="text-gray-300 text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica">
+        <p className="text-white/63 font-helvetica text-[16px] font-normal leading-[24px] m-0 flex-1">
           {blog.description}
         </p>
       </div>
 
       {/* Learn More Button */}
       <motion.button
-      className="px-5 py-2 rounded-[50px] border-1  border-white  text-white no-underline font-['Helvetica Neue'] text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
+      className="px-5 py-2 rounded-[50px] border-1 border-white text-white no-underline font-['Helvetica Neue'] text-[14px] leading-[20px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer mt-auto"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         transition={{ duration: 0.2 }}

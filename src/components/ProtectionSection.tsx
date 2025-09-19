@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Protection, CountItem } from '@/content/types'
 
@@ -37,20 +37,12 @@ const countVariants = {
 }
 
 const ProtectionSection: React.FC<ProtectionSectionProps> = ({ data }) => {
-  const { scrollYProgress } = useScroll()
-
-  // Transform scroll progress to color values
-  const textColor = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.7, 1],
-    ['rgb(75, 85, 99)', 'rgb(107, 114, 128)', 'rgb(156, 163, 175)', 'rgb(209, 213, 219)']
-  )
-
-  const headingColor = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.5, 0.8, 1],
-    ['rgb(31, 41, 55)', 'rgb(55, 65, 81)', 'rgb(75, 85, 99)', 'rgb(107, 114, 128)', 'rgb(156, 163, 175)']
-  )
+  const descriptionRef = React.useRef<HTMLParagraphElement | null>(null)
+  const { scrollYProgress } = useScroll({
+    target: descriptionRef,
+    offset: ['start 80%', 'end 20%']
+  })
+  const words = useMemo(() => (data.description || '').split(' '), [data.description])
 
   return (
     <section className="py-16 lg:py-24 bg-white">
@@ -75,13 +67,23 @@ const ProtectionSection: React.FC<ProtectionSectionProps> = ({ data }) => {
               </span>
             </div>
 
-            {/* Description */}
-            <motion.p
-              style={{ color: textColor }}
-              className="text-[40px] leading-[1.2] tracking-normal m-0 font-medium font-helvetica text-black"
+            {/* Animated, per-word highlight on scroll (karaoke-style) */}
+            <p
+              ref={descriptionRef}
+              className="text-[40px] leading-[1.2] tracking-normal m-0 font-medium font-helvetica flex flex-wrap"
             >
-              {data.description}
-            </motion.p>
+              {words.map((word, i) => {
+                const start = i / words.length
+                const end = (i + 1) / words.length
+                const color = useTransform(scrollYProgress, [start, end], ['#7F7F7F', '#161618'])
+                const opacity = useTransform(scrollYProgress, [start, end], [0.6, 1])
+                return (
+                  <motion.span key={i} style={{ color, opacity }} className="mr-2">
+                    {word}
+                  </motion.span>
+                )
+              })}
+            </p>
           </motion.div>
 
           {/* Stats Section */}

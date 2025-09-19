@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState, useMemo, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import React, { useState, useMemo, useCallback, useRef } from 'react'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { FAQ, FAQQuestion } from '@/content/types'
 
 interface FAQSectionProps {
@@ -38,22 +38,30 @@ const accordionVariants = {
 
 const contentVariants = {
   hidden: {
-    height: 0,
-    opacity: 0
+    opacity: 0,
+    scale: 0.95
   },
   visible: {
-    height: 'auto',
-    opacity: 1
+    opacity: 1,
+    scale: 1
   },
   exit: {
-    height: 0,
-    opacity: 0
+    opacity: 0,
+    scale: 0.95
   }
 }
 
 const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
   const [activeCategory, setActiveCategory] = useState<string>('General')
   const [expandedQuestion, setExpandedQuestion] = useState<string | null>(null)
+
+  const descriptionRef = useRef<HTMLParagraphElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: descriptionRef,
+    offset: ["start 0.8", "end 0.2"]
+  })
+
+  const words = useMemo(() => data.description.split(' '), [data.description])
 
   // Get unique categories
   const categories = useMemo(() => {
@@ -99,8 +107,21 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
               className="lg:col-span-1 flex items-center"
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             >
-              <p className="text-lg lg:text-xl text-gray-300 leading-relaxed">
-                {data.description}
+              <p
+                ref={descriptionRef}
+                className="text-lg lg:text-xl leading-relaxed flex flex-wrap"
+              >
+                {words.map((word, i) => {
+                  const start = i / words.length
+                  const end = (i + 1) / words.length
+                  const color = useTransform(scrollYProgress, [start, end], ['#9CA3AF', '#FFFFFF'])
+                  const opacity = useTransform(scrollYProgress, [start, end], [0.6, 1])
+                  return (
+                    <motion.span key={i} style={{ color, opacity }} className="mr-2">
+                      {word}
+                    </motion.span>
+                  )
+                })}
               </p>
             </motion.div>
           </div>
@@ -133,10 +154,10 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
             variants={containerVariants}
             className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8"
           >
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               {filteredQuestions.map((question, index) => (
                 <FAQAccordion
-                  key={`${activeCategory}-${question.name}`}
+                  key={question.name}
                   question={question}
                   index={index}
                   isExpanded={expandedQuestion === question.name}
@@ -160,13 +181,13 @@ const FAQAccordion: React.FC<{
 }> = React.memo(({ question, index, isExpanded, onToggle }) => {
   return (
     <motion.div
+      layout
       variants={accordionVariants}
       initial="hidden"
       animate="visible"
       exit="hidden"
       transition={{
-        duration: 0.5,
-        delay: index * 0.1,
+        duration: 0.3,
         ease: "easeOut"
       }}
       className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden"

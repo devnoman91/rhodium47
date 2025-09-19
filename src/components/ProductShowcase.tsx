@@ -1,7 +1,7 @@
 'use client'
 
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useMemo } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { ShowcaseProduct } from '@/content/types'
 
 interface ProductShowcaseProps {
@@ -54,6 +54,13 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({ products }) => {
 
 // Separate ShowcaseCard component for better performance
 const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = React.memo(({ product, index }) => {
+  const descriptionRef = React.useRef<HTMLParagraphElement | null>(null)
+  const { scrollYProgress } = useScroll({
+    target: descriptionRef,
+    offset: ['start 80%', 'end 20%']
+  })
+  const words = useMemo(() => (product.description || '').split(' '), [product.description])
+
   return (
     <motion.div
       variants={cardVariants}
@@ -86,8 +93,21 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
           </h3>
 
           {/* Description */}
-          <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-light text-black font-helvetica">
-            {product.description}
+          <p
+            ref={descriptionRef}
+            className="text-[16px] leading-[20px] tracking-[0] m-0 font-light text-black font-helvetica flex flex-wrap"
+          >
+            {words.map((word, i) => {
+              const start = i / words.length
+              const end = (i + 1) / words.length
+              const color = useTransform(scrollYProgress, [start, end], ['#7F7F7F', '#161618'])
+              const opacity = useTransform(scrollYProgress, [start, end], [0.6, 1])
+              return (
+                <motion.span key={i} style={{ color, opacity }} className="mr-1">
+                  {word}
+                </motion.span>
+              )
+            })}
           </p>
 
           {/* Button */}

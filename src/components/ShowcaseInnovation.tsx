@@ -1,7 +1,7 @@
 'use client'
 
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useState } from 'react'
+import { motion, PanInfo } from 'framer-motion'
 import { ShowcaseInnovation, CountItem, BlogItem } from '@/content/types'
 
 interface ShowcaseInnovationProps {
@@ -37,6 +37,23 @@ const countVariants = {
 }
 
 const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }) => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const cardsPerView = 3
+  const totalSlides = Math.ceil(data.blogSection.length / cardsPerView)
+
+  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const threshold = 50
+
+    if (info.offset.x > threshold && currentIndex > 0) {
+      // Dragged right - go to previous slide
+      setCurrentIndex(currentIndex - 1)
+    } else if (info.offset.x < -threshold && currentIndex < totalSlides - 1) {
+      // Dragged left - go to next slide
+      setCurrentIndex(currentIndex + 1)
+    }
+  }
+
   return (
     <section className="py-16 lg:py-24 bg-[#111111] text-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -80,17 +97,42 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
           </motion.div>
         </motion.div>
 
-        {/* Blog Section */}
+        {/* Blog Section - Drag Motion Slider */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="relative"
         >
-          {data.blogSection.map((blog, index) => (
-            <BlogCard key={blog.slug.current} blog={blog} index={index} />
-          ))}
+          {/* Slider Container */}
+          <div className="relative overflow-hidden cursor-grab active:cursor-grabbing">
+            <motion.div
+              className="flex"
+              drag="x"
+              dragConstraints={{ left: -(totalSlides - 1) * 100, right: 0 }}
+              onDragEnd={handleDragEnd}
+              animate={{ x: `-${currentIndex * 100}%` }}
+              transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+              whileDrag={{ cursor: "grabbing" }}
+            >
+              {Array.from({ length: totalSlides }).map((_, slideIndex) => (
+                <div key={slideIndex} className="w-full flex-shrink-0">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {data.blogSection
+                      .slice(slideIndex * cardsPerView, (slideIndex + 1) * cardsPerView)
+                      .map((blog, cardIndex) => (
+                        <BlogCard
+                          key={blog.slug.current}
+                          blog={blog}
+                          index={slideIndex * cardsPerView + cardIndex}
+                        />
+                      ))}
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -1,7 +1,7 @@
 'use client'
 
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useRef, useMemo } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { KeepExploring, KeepExploringSection as KeepExploringSectionType } from '@/content/types'
 
 interface KeepExploringSectionProps {
@@ -50,6 +50,14 @@ const buttonVariants = {
 }
 
 const KeepExploringSection: React.FC<KeepExploringSectionProps> = ({ data }) => {
+  const descriptionRef = useRef<HTMLParagraphElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: descriptionRef,
+    offset: ["start 0.8", "end 0.2"]
+  })
+
+  const words = useMemo(() => data.description.split(' '), [data.description])
+
   return (
     <section className="py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -109,14 +117,21 @@ const KeepExploringSection: React.FC<KeepExploringSectionProps> = ({ data }) => 
 
               {/* Main Description */}
               <div className="space-y-6">
-                <p className="text-[40px] leading-[1.2] tracking-normal m-0 font-medium font-helvetica text-black mb-[50px]">
-                  {data.description.split('Connect with the world around you.')[0].trim()}
-                  <span className="text-gray-500">
-                    {data.description.includes('Connect with the world around you.')
-                      ? ` Connect with the world around you.${data.description.split('Connect with the world around you.')[1] || ''}`
-                      : ''
-                    }
-                  </span>
+                <p
+                  ref={descriptionRef}
+                  className="text-[40px] leading-[1.2] tracking-normal m-0 font-medium font-helvetica mb-[50px] flex flex-wrap"
+                >
+                  {words.map((word, i) => {
+                    const start = i / words.length
+                    const end = (i + 1) / words.length
+                    const color = useTransform(scrollYProgress, [start, end], ['#7F7F7F', '#161618'])
+                    const opacity = useTransform(scrollYProgress, [start, end], [0.6, 1])
+                    return (
+                      <motion.span key={i} style={{ color, opacity }} className="mr-2">
+                        {word}
+                      </motion.span>
+                    )
+                  })}
                 </p>
               </div>
 

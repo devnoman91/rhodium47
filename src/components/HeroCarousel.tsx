@@ -131,9 +131,10 @@ const SegmentedCircleIndicator = ({
           strokeDasharray={`${segmentLength} ${gap}`}
           style={{ transition: 'stroke 0.2s ease' }}
         />
-        {/* Active segment only */}
-        {total > 0 && (
+        {/* Show all completed segments */}
+        {Array.from({ length: current + 1 }).map((_, index) => (
           <circle
+            key={`active-${index}`}
             r={radius}
             cx={0}
             cy={0}
@@ -142,10 +143,10 @@ const SegmentedCircleIndicator = ({
             strokeWidth={strokeWidth}
             strokeLinecap="round"
             strokeDasharray={`${segmentLength} ${circumference}`}
-            strokeDashoffset={-current * (segmentLength + gap)}
+            strokeDashoffset={-index * (segmentLength + gap)}
             style={{ transition: 'stroke-dashoffset 0.3s ease' }}
           />
-        )}
+        ))}
       </g>
       {/* Click targets (optional) */}
       {onClick && (
@@ -420,24 +421,6 @@ export default function HeroCarousel() {
           <div className="hero-video-container">
             <div className="hero-background"></div>
           </div>
-          {/* Stable content positioning */}
-          <div className="hero-content">
-            <div style={{
-           width: '20r30',
-              height: '0.25rem',
-              backgroundColor: 'rgba(255, 255, 255, 0.3)',
-              marginBottom: '20px',
-              borderRadius: '100px',
-              contain: 'layout style paint'
-            }}></div>
-            <h1 className="hero-title">XHODIUM Vehicles</h1>
-            <p className="hero-subtitle">
-              Revolutionary armor technology and luxury automotive excellence
-            </p>
-            <button className="hero-button">
-              Explore Models
-            </button>
-          </div>
           {loading && (
             <div style={{
               position: 'absolute',
@@ -451,10 +434,7 @@ export default function HeroCarousel() {
               Loading...
             </div>
           )}
-          {/* Controls placeholder to keep indicator visible during mount */}
-          <div className="absolute bottom-8 right-8 md:right-16 z-10">
-            <SegmentedCircleIndicator total={1} current={0} />
-          </div>
+        
         </div>
       </>
     )
@@ -469,27 +449,8 @@ export default function HeroCarousel() {
           <div className="hero-video-container">
             <div className="hero-background"></div>
           </div>
-          <div className="hero-content">
-            <div style={{
-           width: '20r30',
-              height: '0.25rem',
-              backgroundColor: 'rgba(255, 255, 255, 0.3)',
-              marginBottom: '20px',
-              borderRadius: '100px',
-              contain: 'layout style paint'
-            }}></div>
-            <h1 className="hero-title">XHODIUM Vehicles</h1>
-            <p className="hero-subtitle">
-              Revolutionary armor technology and luxury automotive excellence
-            </p>
-            <button className="hero-button">
-              Explore Models
-            </button>
-          </div>
           {/* Controls placeholder when no videos */}
-          <div className="absolute bottom-8 right-8 md:right-16 z-10">
-            <SegmentedCircleIndicator total={1} current={0} />
-          </div>
+        
         </div>
       </>
     )
@@ -570,9 +531,11 @@ export default function HeroCarousel() {
               contain: 'layout style paint'
             }}></div>
           </div>
-          <h1 className="hero-title">
-            {currentVideo?.name || 'XHODIUM Vehicles'}
-          </h1>
+          {currentVideo?.name && (
+            <h1 className="hero-title">
+              {currentVideo.name}
+            </h1>
+          )}
           {currentVideo?.subtitle && (
             <p className="hero-subtitle">
               {currentVideo.subtitle}

@@ -12,7 +12,7 @@ export default function Navbar() {
       <div className="flex items-center">
         <div className="flex-1 flex items-center">
           <Link href="/" className="flex items-center group">
-            <div className="relative w-[148px] h-[44px] mr-3">
+            <div className="w-[148px] h-[44px] flex-shrink-0 aspect-[37/11] relative">
               <Image src="/logo.png" alt="Rhodium 47" fill sizes="148px" priority className="object-contain" />
             </div>
            
@@ -20,24 +20,25 @@ export default function Navbar() {
         </div>
 
         <div className="flex-1 flex items-center justify-end space-x-8">
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/vehicles" className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]">
+          <div className="hidden md:flex items-center space-x-8 gap-[20px]">
+            <Link href="/vehicles" className="font-helvetica text-white leading-[24px] hover:opacity-80 transition-opacity tracking-[0] m-0 px-[20px] py-0 font-light text-[16px]">
               Vehicles
             </Link>
-            <Link href="/discover" className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]">
+            <Link href="/discover" className="font-helvetica text-white leading-[24px] hover:opacity-80 transition-opacity tracking-[0] m-0 px-[20px] py-0 font-light text-[16px]">
               Discover
             </Link>
-            <Link href="/shop" className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]">
+            <Link href="/shop" className="font-helvetica text-white  leading-[24px]  hover:opacity-80 transition-opacity tracking-[0] m-0 px-[20px] py-0 font-light text-[16px]">
               Shop
             </Link>
-            <Link href="/support" className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]">
+            <Link href="/support" className="font-helvetica  leading-[24px] text-white hover:opacity-80 transition-opacity tracking-[0] m-0 px-[20px] py-0 font-light text-[16px]">
               Support
             </Link>
           </div>
 
-          <button className="hidden md:inline-flex bg-white text-black px-6 py-2 rounded-full font-helvetica font-medium hover:bg-gray-100 transition-colors text-[16px]">
+          <button className="hidden  md:inline-flex px-6 py-2 rounded-[50px] flex items-center gap-4 bg-white text-black no-underline font-['Helvetica Neue'] text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit cursor-pointer">
             Book a Consultation
           </button>
+
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}

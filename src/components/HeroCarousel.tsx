@@ -52,18 +52,14 @@ const criticalInlineStyles = `
     font-display: swap;
   }
   .hero-title {
-    font-size: 2.25rem;
-    font-weight: 300;
-    margin: 0 0 1rem 0;
-    letter-spacing: 0.025em;
-    line-height: 1.2;
-    contain: layout style;
-    font-display: swap;
-    text-rendering: optimizeSpeed;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    will-change: auto;
-    transform: translateZ(0);
+    color: #FFF;
+    font-family: 'helveticaNeue';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -0.8px;
+    margin-bottom: 8px;
   }
   .hero-background {
     position: absolute;
@@ -73,30 +69,33 @@ const criticalInlineStyles = `
     transform: translateZ(0);
   }
   .hero-subtitle {
-    font-size: 1.125rem;
-    margin: 0 0 2rem 0;
-    opacity: 0.9;
-    contain: layout style;
-    font-display: swap;
+    color: #FFF;
+    font-family: 'helveticaNeue';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: -0.32px;
+    margin-bottom: 30px;
   }
   .hero-button {
-    display: inline-flex;
+    display: flex;
+    height: auto;
+    padding: 14.5px 32px;
+    justify-content: center;
     align-items: center;
-    gap: 0.75rem;
-    background-color: white;
-    color: black;
-    padding: 0.75rem 1.5rem;
-    border-radius: 9999px;
-    border: none;
+    gap: 8px;
+    color: #000;
+    font-family: 'helveticaNeue';
+    font-size: 20px;
+    font-style: normal;
     font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -0.4px;
+    border-radius: 100px;
+    border: 1px solid rgba(157, 192, 59, 0.00);
+    background: #FFF;
     cursor: pointer;
-    contain: layout style;
-    font-display: swap;
-    transform: translateZ(0);
-  }
-  @media (min-width: 768px) {
-    .hero-content { left: 4rem; }
-    .hero-title { font-size: 3.75rem; }
   }
 `
 
@@ -424,10 +423,11 @@ export default function HeroCarousel() {
           {/* Stable content positioning */}
           <div className="hero-content">
             <div style={{
-           width: '20rem',
+           width: '20r30',
               height: '0.25rem',
               backgroundColor: 'rgba(255, 255, 255, 0.3)',
-              marginBottom: '1.5rem',
+              marginBottom: '20px',
+              borderRadius: '100px',
               contain: 'layout style paint'
             }}></div>
             <h1 className="hero-title">XHODIUM Vehicles</h1>
@@ -435,7 +435,7 @@ export default function HeroCarousel() {
               Revolutionary armor technology and luxury automotive excellence
             </p>
             <button className="hero-button">
-              <span>Explore Models</span>
+              Explore Models
             </button>
           </div>
           {loading && (
@@ -471,10 +471,11 @@ export default function HeroCarousel() {
           </div>
           <div className="hero-content">
             <div style={{
-           width: '20rem',
+           width: '20r30',
               height: '0.25rem',
               backgroundColor: 'rgba(255, 255, 255, 0.3)',
-              marginBottom: '1.5rem',
+              marginBottom: '20px',
+              borderRadius: '100px',
               contain: 'layout style paint'
             }}></div>
             <h1 className="hero-title">XHODIUM Vehicles</h1>
@@ -482,7 +483,7 @@ export default function HeroCarousel() {
               Revolutionary armor technology and luxury automotive excellence
             </p>
             <button className="hero-button">
-              <span>Explore Models</span>
+              Explore Models
             </button>
           </div>
           {/* Controls placeholder when no videos */}
@@ -552,10 +553,11 @@ export default function HeroCarousel() {
         {/* Content with stable positioning */}
         <div className="hero-content">
           <div style={{
-         width: '20rem',
+            width: '30rem',
             height: '0.25rem',
             backgroundColor: 'rgba(255, 255, 255, 0.3)',
-            marginBottom: '1.5rem',
+            marginBottom: '20px',
+            borderRadius: '100px',
             contain: 'layout style paint',
             position: 'relative',
             overflow: 'hidden'
@@ -580,14 +582,10 @@ export default function HeroCarousel() {
           <button className="hero-button" style={{
             transition: 'background-color 0.2s ease'
           }}>
-            <svg style={{
-              width: '1.25rem',
-              height: '1.25rem',
-              contain: 'layout style paint'
-            }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="18" viewBox="0 0 22 18" fill="none">
+              <path d="M21.2441 9.61955L13.3691 17.4946C13.2049 17.6587 12.9822 17.751 12.75 17.751C12.5178 17.751 12.2951 17.6587 12.1309 17.4946C11.9668 17.3304 11.8745 17.1077 11.8745 16.8755C11.8745 16.6433 11.9668 16.4206 12.1309 16.2564L18.513 9.87549H1.375C1.14294 9.87549 0.920376 9.7833 0.756282 9.61921C0.592187 9.45511 0.5 9.23255 0.5 9.00049C0.5 8.76842 0.592187 8.54586 0.756282 8.38177C0.920376 8.21767 1.14294 8.12549 1.375 8.12549H18.513L12.1309 1.74455C11.9668 1.58036 11.8745 1.35768 11.8745 1.12549C11.8745 0.893293 11.9668 0.67061 12.1309 0.506424C12.2951 0.342238 12.5178 0.25 12.75 0.25C12.9822 0.25 13.2049 0.342238 13.3691 0.506424L21.2441 8.38142C21.3254 8.46269 21.39 8.55919 21.434 8.66541C21.478 8.77164 21.5007 8.8855 21.5007 9.00049C21.5007 9.11548 21.478 9.22934 21.434 9.33556C21.39 9.44178 21.3254 9.53829 21.2441 9.61955Z" fill="black"/>
             </svg>
-            <span>Explore Models</span>
+            Explore Models
           </button>
         </div>
 

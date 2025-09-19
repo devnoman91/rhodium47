@@ -9,8 +9,8 @@ export default function Navbar() {
 
   return (
     <nav className="absolute top-5 left-0 right-0 z-50 px-12  py-4 font-helvetica">
-      <div className="flex items-center">
-        <div className="flex-1 flex items-center">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center">
           <Link href="/" className="flex items-center group">
             <div className="w-[148px] h-[44px] flex-shrink-0 aspect-[37/11] relative">
               <Image src="/logo.png" alt="Rhodium 47" fill sizes="148px" priority className="object-contain" />
@@ -19,7 +19,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <div className="flex-1 flex items-center justify-end space-x-8">
+        <div className="flex items-center justify-end space-x-8">
           <div className="hidden md:flex items-center space-x-8 gap-[20px]">
             <Link href="/vehicles" className="font-helvetica text-white leading-[24px] hover:opacity-80 transition-opacity tracking-[0] m-0 px-[20px] py-0 font-light text-[16px]">
               Vehicles

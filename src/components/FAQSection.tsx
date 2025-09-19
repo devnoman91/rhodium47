@@ -85,10 +85,10 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
           viewport={{ once: true, margin: "-100px" }}
         >
           {/* Header Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-12 lg:mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-[25px] items-start">
             {/* Left - Title */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-[60px] not-italic tracking-normal leading-[1.1] font-medium  font-helvetica text-white mb-0">
                 {data.name}
               </h1>
             </motion.div>
@@ -98,7 +98,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
               variants={itemVariants}
               className="lg:col-span-1 flex items-center"
             >
-              <p className="text-lg lg:text-xl leading-relaxed text-gray-300">
+              <p className="text-[16px] leading-[25px] tracking-[0] m-0 font-light font-helvetica opacity-80">
                 {data.description}
               </p>
             </motion.div>
@@ -107,17 +107,17 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
           {/* Category Tabs */}
           <motion.div
             variants={itemVariants}
-            className="mb-12 lg:mb-16"
+            className="mb-[50px] rounded-[50px] bg-white w-fit py-[12px] px-[16px]"
           >
             <div className="flex flex-wrap gap-3">
               {categories.map((category) => (
                 <motion.button
                   key={category}
                   onClick={() => handleCategoryChange(category)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-200 ${
+                  className={`px-8 py-2 rounded-[50px] border-1 flex items-center gap-4 border-[#fff]  text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit cursor-pointer ${
                     activeCategory === category
-                      ? 'bg-white text-gray-900'
-                      : 'bg-white/10 text-white hover:bg-white/20'
+                      ? 'bg-black text-white'
+                      : 'text-black bg-white hover:bg-black hover:text-white'
                   }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -166,21 +166,21 @@ const FAQAccordion: React.FC<{
         ease: "easeOut",
         delay: index * 0.05
       }}
-      className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden"
+      className="rounded-[10px] bg-[rgba(255,255,255,0.05)] overflow-hidden"
     >
       {/* Question Header */}
       <button
         onClick={onToggle}
-        className="w-full p-6 lg:p-8 text-left hover:bg-gray-800/70 transition-colors duration-200 flex items-center justify-between group"
+        className="w-full text-left transition-colors duration-200 flex items-center justify-between group py-[32px] px-[18px] cursor-pointer"
       >
-        <h3 className="text-lg lg:text-xl font-bold text-white pr-4 group-hover:text-gray-100 transition-colors duration-200">
+        <h3 className="text-white font-helvetica text-[20px] not-italic font-normal leading-[28px]">
           {question.name}
         </h3>
 
         <motion.svg
           animate={{ rotate: isExpanded ? 180 : 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="w-6 h-6 text-gray-400 flex-shrink-0"
+          className="w-6 h-6 text-white flex-shrink-0"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -205,8 +205,8 @@ const FAQAccordion: React.FC<{
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="px-6 lg:px-8 pb-6 lg:pb-8">
-              <p className="text-gray-300 leading-relaxed text-sm lg:text-base">
+            <div className="p-[20px]">
+              <p className="text-[16px] leading-[130%] tracking-[0] m-0 font-light font-helvetica ">
                 {question.description}
               </p>
             </div>

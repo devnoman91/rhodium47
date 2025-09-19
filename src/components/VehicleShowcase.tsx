@@ -41,7 +41,7 @@ const imageVariants: Variants = {
 
 const VehicleShowcase: React.FC = () => {
   return (
-    <section className="py-2 lg:py-3  bg-[#F4F1F2] relative overflow-hidden">
+    <section className="py- 10 lg:py-10   bg-[#F4F1F2] relative overflow-hidden">
       {/* Header Section */}
       <div className="max-w-7xl mx-auto  px-4 md:px-6">
         <motion.div

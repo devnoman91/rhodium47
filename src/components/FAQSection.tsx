@@ -82,9 +82,9 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
             {/* Right - Description */}
             <motion.div
               variants={itemVariants}
-              className="lg:col-span-1 flex items-center"
+              className="lg:col-span-1 flex items-center max-w-[450px] ml-auto"
             >
-              <p className="text-[16px] leading-[25px] tracking-[0] m-0 font-light font-helvetica opacity-80">
+              <p className="text-[16px] leading-[25px] tracking-[0] m-0 font-light font-helvetica opacity-80 ">
                 {data.description}
               </p>
             </motion.div>

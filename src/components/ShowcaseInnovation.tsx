@@ -65,14 +65,14 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
           viewport={{ once: true, margin: "-100px" }}
         >
           {/* Main Title */}
-          <motion.div variants={itemVariants} className="mb-8 lg:mb-12">
-            <h1 className="text-[60px] not-italic tracking-normal leading-[1.1] font-medium font-helvetica">
+          <motion.div variants={itemVariants} className="mb-[70px]">
+            <h1 className="text-[64px] not-italic tracking-normal leading-[70px] font-medium font-helvetica">
               {data.main.title}
             </h1>
           </motion.div>
 
           {/* Count and Description Section Container */}
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start mb-12 lg:mb-16">
+          <div className="grid grid-cols-[57%_38%] justify-between">
             {/* Count Section */}
             <motion.div
               variants={containerVariants}
@@ -89,7 +89,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
               className="lg:flex-1"
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             >
-              <p className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica">
+              <p className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica opacity-70">
                 {data.main.description}
               </p>
             </motion.div>
@@ -122,7 +122,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
               {data.blogSection.map((blog, index) => (
                 <motion.div
                   key={blog.slug.current}
-                  className="w-[380px] flex-shrink-0"
+                  className="w-[455px] flex-shrink-0"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{
                     opacity: 1,
@@ -160,7 +160,7 @@ const CountCard: React.FC<{ item: CountItem; index: number }> = React.memo(({ it
       <div className="text-[29px] md:text-[36px] lg:text-[48px] not-italic tracking-normal leading-[1.1] font-medium font-helvetica mb-1 md:mb-2 max-w-[100px] md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0">
         {item.name}
       </div>
-      <div className="text-[12px] md:text-[14px] lg:text-[16px] leading-[1.4] md:leading-[24px] tracking-[0] m-0 font-light font-helvetica max-w-[100px] md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0">
+      <div className="text-[12px] md:text-[14px] lg:text-[16px] leading-[1.4] md:leading-[24px] tracking-[0] m-0 font-light font-helvetica max-w-[100px] md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0 opacity-70">
         {item.title}
       </div>
     </motion.div>
@@ -177,11 +177,11 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
         delay: index * 0.1,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="group backdrop-blur-sm rounded-[30px] flex flex-col justify-between h-[320px] w-[380px] p-6 bg-[#1B1B1B] transition-all duration-300 border border-gray-700/50"
+      className="pt-[60px] pr-[60px] pb-[30px] pl-[60px] rounded-[30px] bg-[rgba(255,255,255,0.05)] group  flex flex-col justify-between h-auto w-[455px] p-6  duration-300"
     >
       {/* Content */}
-      <div className="flex flex-col gap-4 flex-1">
-        <h3 className="text-white font-helvetica text-[26px] font-normal leading-[49px] m-0">
+      <div className="flex flex-col flex-1 mb-[30px]">
+        <h3 className="text-white font-helvetica text-[26px] font-normal leading-[49px] mb-[12px]">
           {blog.title}
         </h3>
 
@@ -192,7 +192,7 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
 
       {/* Learn More Button */}
       <motion.button
-      className="px-5 py-2 rounded-[50px] border-1 border-white text-white no-underline font-['Helvetica Neue'] text-[14px] leading-[20px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer mt-auto"
+      className="px-[18px] py-[6px] rounded-[50px] border-1 border-white text-white no-underline font-['Helvetica Neue'] text-[14px] leading-[20px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer mt-auto"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         transition={{ duration: 0.2 }}

@@ -60,7 +60,7 @@ const ProtectionSection: React.FC<ProtectionSectionProps> = ({ data }) => {
             className="my-0 mx-auto max-w-[820px] pt-3 border-t border-black mb-8 md:mb-12 lg:mb-[60px]"
           >
             {/* Section Label */}
-            <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center">
+            <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center uppercase">
               <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
               <span className="">
                 {data.name}

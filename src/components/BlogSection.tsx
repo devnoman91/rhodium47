@@ -59,7 +59,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
         >
           <motion.h2
             variants={itemVariants}
-            className="text-[32px] md:text-[48px] lg:text-[56px] xl:text-[64px] not-italic tracking-[0] leading-[110%] text-black font-medium max-w-[730px] text-center mx-auto mb-6 md:mb-8 lg:mb-[50px] font-helvetica"
+            className="text-[32px] md:text-[48px] lg:text-[56px] xl:text-[64px] not-italic tracking-[0] leading-[110%] text-black font-medium max-w-[730px] text-center mx-auto mb-[50px] md:mb-8 lg:mb-[50px] font-helvetica"
             transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
           >
             {blogData.mainSectionTitle}
@@ -68,7 +68,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
           {/* Category Tabs */}
           <motion.div
             variants={itemVariants}
-            className="mb-[50px] m-auto rounded-[50px] bg-black w-fit py-[12px] px-[16px]"
+            className="mb-[80px] m-auto rounded-[50px] bg-black w-fit py-[12px] px-[16px]"
             transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
           >
             <div className="flex flex-wrap gap-3">
@@ -76,7 +76,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
                 <button
                   key={category}
                   onClick={() => handleCategoryChange(category)}
-                  className={`px-8 py-2 rounded-[50px] not-first:flex items-center gap-4  text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit cursor-pointer ${
+                  className={`px-[28px] py-[13px] rounded-[50px] not-first:flex items-center gap-4  text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit cursor-pointer ${
                     selectedCategory === category
                       ? 'bg-white text-gray-900 shadow-sm'
                       : 'text-white hover:text-gray-300'
@@ -150,27 +150,19 @@ const BlogCard: React.FC<{ product: BlogProduct; index: number }> = React.memo((
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        <h3 className="  text-[16px] leading-[20px] tracking-[0] m-0 font-light  text-black text-center font-helvetica">
+      <div className="p-[28px]">
+        <h3 className="  text-[16px] leading-[20px] tracking-[0] m-0 font-normal  text-[#3F3E4B] text-center font-helvetica">
           {product.title}
         </h3>
 
       
         {/* Explore More Button */}
         <motion.button
-          className="text-[16px] leading-[20px] flex tracking-[0] font-medium text-center no-underline content-center gap-2.5  mx-auto mt-[20px] transition ease-[0.4s] text-black relative w-fit font-helvetica"
+          className="text-[16px] leading-[150%] flex tracking-[0] font-medium text-center no-underline content-center gap-2.5  mx-auto mt-[20px] transition ease-[0.4s] text-[#111] relative w-fit font-helvetica"
           whileHover={{ x: 5 }}
           transition={{ duration: 0.2 }}
         >
           <span>Explore More</span>
-          <motion.svg
-            className="w-4 h-4 group-hover/button:translate-x-1 transition-transform duration-200"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </motion.svg>
         </motion.button>
       </div>
     </motion.div>

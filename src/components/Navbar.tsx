@@ -1,3 +1,4 @@
+
 'use client'
 
 import Link from 'next/link'
@@ -35,7 +36,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <button className="hidden  md:inline-flex px-6 py-2 rounded-[50px] flex items-center gap-4 bg-white text-black no-underline font-['Helvetica Neue'] text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit cursor-pointer">
+          <button className="hidden  md:inline-flex pt-[12.5px] pr-[15.5px] pb-[12.5px] pl-[23.5px] rounded-[50px] flex items-center gap-4 bg-white text-black no-underline font-helvetica text-[16px] leading-[110%] tracking-[0] font-medium transition ease-[0.4s] w-fit cursor-pointer">
             Book a Consultation
           </button>
 
@@ -82,3 +83,12 @@ export default function Navbar() {
     </nav>
   )
 }
+
+
+
+
+
+
+
+
+

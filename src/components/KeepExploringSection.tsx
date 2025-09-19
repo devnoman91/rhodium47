@@ -137,7 +137,7 @@ const KeepExploringSection: React.FC<KeepExploringSectionProps> = ({ data }) => 
               {/* Navigation Buttons */}
               <motion.div
                 variants={containerVariants}
-                className="flex flex-wrap gap-3 md:gap-4"
+                className="flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4"
               >
                 {data.section && data.section.map((item, index) => (
                   <NavigationButton key={item.name} item={item} index={index} />

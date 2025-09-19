@@ -64,19 +64,29 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {/* Main Title and Description */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-6 items-center lg:items-start mb-12 lg:mb-16">
-            {/* Left - Title */}
-            <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h1 className="text-[60px] not-italic tracking-normal leading-[1.1] font-medium  font-helvetica">
-                {data.main.title}
-              </h1>
+          {/* Main Title */}
+          <motion.div variants={itemVariants} className="mb-8 lg:mb-12">
+            <h1 className="text-[60px] not-italic tracking-normal leading-[1.1] font-medium font-helvetica">
+              {data.main.title}
+            </h1>
+          </motion.div>
+
+          {/* Count and Description Section Container */}
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start mb-12 lg:mb-16">
+            {/* Count Section */}
+            <motion.div
+              variants={containerVariants}
+              className="lg:flex-1 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
+            >
+              {data.main.countSection.slice(0, 4).map((item, index) => (
+                <CountCard key={index} item={item} index={index} />
+              ))}
             </motion.div>
 
-            {/* Right - Description */}
+            {/* Description */}
             <motion.div
               variants={itemVariants}
-              className="lg:col-span-1 flex items-center"
+              className="lg:flex-1"
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             >
               <p className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica">
@@ -84,16 +94,6 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
               </p>
             </motion.div>
           </div>
-
-          {/* Stats Section */}
-          <motion.div
-            variants={containerVariants}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8 xl:gap-12 justify-center"
-          >
-            {data.main.countSection.map((item, index) => (
-              <CountCard key={index} item={item} index={index} />
-            ))}
-          </motion.div>
         </motion.div>
       </div>
 
@@ -110,7 +110,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
           {/* Slider Container */}
           <div className="relative overflow-visible">
             <motion.div
-              className="flex gap-12 cursor-grab active:cursor-grabbing pr-12"
+              className="flex gap-6 cursor-grab active:cursor-grabbing pr-12"
               drag="x"
               dragConstraints={{ left: -((data.blogSection.length - 2.5) * 420), right: 0 }}
               onDragEnd={handleDragEnd}

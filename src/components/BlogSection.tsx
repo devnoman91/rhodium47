@@ -68,15 +68,15 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
           {/* Category Tabs */}
           <motion.div
             variants={itemVariants}
-            className="flex justify-center mb-8 md:mb-12"
+            className="mb-[50px] m-auto rounded-[50px] bg-black w-fit py-[12px] px-[16px]"
             transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
           >
-            <div className="inline-flex bg-gray-900 rounded-full p-1 font-helvetica max-w-full overflow-x-auto">
+            <div className="flex flex-wrap gap-3">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => handleCategoryChange(category)}
-                  className={`px-3 md:px-6 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 font-helvetica whitespace-nowrap ${
+                  className={`px-8 py-2 rounded-[50px] not-first:flex items-center gap-4  text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit cursor-pointer ${
                     selectedCategory === category
                       ? 'bg-white text-gray-900 shadow-sm'
                       : 'text-white hover:text-gray-300'

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FAQ, FAQQuestion } from '@/content/types'
 
@@ -36,24 +36,9 @@ const accordionVariants = {
   }
 }
 
-const contentVariants = {
-  hidden: {
-    opacity: 0,
-    scale: 0.95
-  },
-  visible: {
-    opacity: 1,
-    scale: 1
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.95
-  }
-}
-
 const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
   const [activeCategory, setActiveCategory] = useState<string>('General')
-  const [expandedQuestion, setExpandedQuestion] = useState<string | null>(null)
+  const [expandedQuestionIndex, setExpandedQuestionIndex] = useState<number | null>(null)
 
   // Get unique categories
   const categories = useMemo(() => {
@@ -66,14 +51,15 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
     return data.questionsSection.filter(q => q.category === activeCategory)
   }, [data.questionsSection, activeCategory])
 
-  const handleCategoryChange = useCallback((category: string) => {
+  const handleCategoryChange = (category: string) => {
     setActiveCategory(category)
-    setExpandedQuestion(null)
-  }, [])
+    setExpandedQuestionIndex(null) // Always close any open item when switching categories
+  }
 
-  const toggleQuestion = useCallback((questionName: string) => {
-    setExpandedQuestion(current => current === questionName ? null : questionName)
-  }, [])
+  const toggleQuestion = (index: number) => {
+    // Close if same item, otherwise open the new item (automatically closes others)
+    setExpandedQuestionIndex(prev => prev === index ? null : index)
+  }
 
   return (
     <section className="py-16 lg:py-24 bg-[#111] text-white">
@@ -129,18 +115,16 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
           </motion.div>
 
           {/* FAQ Accordion */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-            <AnimatePresence mode="wait">
-              {filteredQuestions.map((question, index) => (
-                <FAQAccordion
-                  key={`${activeCategory}-${question.name}`}
-                  question={question}
-                  index={index}
-                  isExpanded={expandedQuestion === question.name}
-                  onToggle={() => toggleQuestion(question.name)}
-                />
-              ))}
-            </AnimatePresence>
+          <div className="grid grid-cols-1  items-start lg:grid-cols-2 gap-6 lg:gap-8">
+            {filteredQuestions.map((question, index) => (
+              <FAQAccordion
+                key={`${activeCategory}-${index}`}
+                question={question}
+                index={index}
+                isExpanded={expandedQuestionIndex === index}
+                onToggle={() => toggleQuestion(index)}
+              />
+            ))}
           </div>
         </motion.div>
       </div>
@@ -148,19 +132,18 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
   )
 }
 
-// Separate FAQAccordion component for better performance
+// Simplified FAQAccordion component without React.memo to avoid stale closures
 const FAQAccordion: React.FC<{
   question: FAQQuestion
   index: number
   isExpanded: boolean
   onToggle: () => void
-}> = React.memo(({ question, index, isExpanded, onToggle }) => {
+}> = ({ question, index, isExpanded, onToggle }) => {
   return (
     <motion.div
       variants={accordionVariants}
       initial="hidden"
       animate="visible"
-      exit="hidden"
       transition={{
         duration: 0.3,
         ease: "easeOut",
@@ -179,7 +162,7 @@ const FAQAccordion: React.FC<{
 
         <motion.svg
           animate={{ rotate: isExpanded ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
+          transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
           className="w-6 h-6 text-white flex-shrink-0"
           fill="none"
           viewBox="0 0 24 24"
@@ -198,15 +181,14 @@ const FAQAccordion: React.FC<{
       <AnimatePresence>
         {isExpanded && (
           <motion.div
-            variants={contentVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
             className="overflow-hidden"
           >
-            <div className="p-[20px]">
-              <p className="text-[16px] leading-[130%] tracking-[0] m-0 font-light font-helvetica ">
+            <div className="px-[20px] pb-[20px]">
+              <p className="text-[16px] leading-[130%] tracking-[0] m-0 font-light font-helvetica text-white/80">
                 {question.description}
               </p>
             </div>
@@ -215,8 +197,6 @@ const FAQAccordion: React.FC<{
       </AnimatePresence>
     </motion.div>
   )
-})
-
-FAQAccordion.displayName = 'FAQAccordion'
+}
 
 export default FAQSection

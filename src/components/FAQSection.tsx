@@ -14,14 +14,14 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.6,
-      staggerChildren: 0.1
+      duration: 0.4,
+      staggerChildren: 0.05
     }
   }
 }
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 8 },
   visible: {
     opacity: 1,
     y: 0
@@ -29,7 +29,7 @@ const itemVariants = {
 }
 
 const accordionVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 4 },
   visible: {
     opacity: 1,
     y: 0
@@ -105,23 +105,9 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
             <motion.div
               variants={itemVariants}
               className="lg:col-span-1 flex items-center"
-              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             >
-              <p
-                ref={descriptionRef}
-                className="text-lg lg:text-xl leading-relaxed flex flex-wrap"
-              >
-                {words.map((word, i) => {
-                  const start = i / words.length
-                  const end = (i + 1) / words.length
-                  const color = useTransform(scrollYProgress, [start, end], ['#9CA3AF', '#FFFFFF'])
-                  const opacity = useTransform(scrollYProgress, [start, end], [0.6, 1])
-                  return (
-                    <motion.span key={i} style={{ color, opacity }} className="mr-2">
-                      {word}
-                    </motion.span>
-                  )
-                })}
+              <p className="text-lg lg:text-xl leading-relaxed text-gray-300">
+                {data.description}
               </p>
             </motion.div>
           </div>
@@ -129,35 +115,33 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
           {/* Category Tabs */}
           <motion.div
             variants={itemVariants}
-            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
             className="mb-12 lg:mb-16"
           >
-            <div className="inline-flex bg-white/10 backdrop-blur-sm rounded-full p-2">
+            <div className="flex flex-wrap gap-3">
               {categories.map((category) => (
-                <button
+                <motion.button
                   key={category}
                   onClick={() => handleCategoryChange(category)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+                  className={`px-6 py-3 rounded-full font-medium transition-all duration-200 ${
                     activeCategory === category
                       ? 'bg-white text-gray-900'
-                      : 'text-white hover:bg-white/20'
+                      : 'bg-white/10 text-white hover:bg-white/20'
                   }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {category}
-                </button>
+                </motion.button>
               ))}
             </div>
           </motion.div>
 
           {/* FAQ Accordion */}
-          <motion.div
-            variants={containerVariants}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8"
-          >
-            <AnimatePresence>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+            <AnimatePresence mode="wait">
               {filteredQuestions.map((question, index) => (
                 <FAQAccordion
-                  key={question.name}
+                  key={`${activeCategory}-${question.name}`}
                   question={question}
                   index={index}
                   isExpanded={expandedQuestion === question.name}
@@ -165,7 +149,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
                 />
               ))}
             </AnimatePresence>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>
@@ -181,14 +165,14 @@ const FAQAccordion: React.FC<{
 }> = React.memo(({ question, index, isExpanded, onToggle }) => {
   return (
     <motion.div
-      layout
       variants={accordionVariants}
       initial="hidden"
       animate="visible"
       exit="hidden"
       transition={{
         duration: 0.3,
-        ease: "easeOut"
+        ease: "easeOut",
+        delay: index * 0.05
       }}
       className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden"
     >

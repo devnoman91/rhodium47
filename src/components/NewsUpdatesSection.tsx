@@ -39,16 +39,16 @@ const cardVariants = {
 
 const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
   return (
-    <section className="py-16 lg:py-24 bg-[#111] text-white" style={{ contain: 'layout style' }}>
-      <div className="max-w-7xl mx-auto px-6" style={{ contain: 'layout style' }}>
+    <section className="py-16 lg:py-24 bg-[#111] text-white overflow-hidden" style={{ contain: 'layout style' }}>
+      {/* Header Section - Constrained */}
+      <div className="max-w-7xl mx-auto px-6 mb-[63px]" style={{ contain: 'layout style' }}>
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {/* Header Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-[63px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             {/* Left - Title */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
               <h1 className="text-[60px] not-italic tracking-normal leading-[1.1] font-medium  font-helvetica text-white mb-0">
@@ -67,18 +67,52 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
               </p>
             </motion.div>
           </div>
-
-          {/* News Grid */}
-          <motion.div
-            variants={containerVariants}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
-          >
-            {data.newsSection && data.newsSection.map((newsItem, index) => (
-              <NewsCard key={newsItem.slug.current} newsItem={newsItem} index={index} />
-            ))}
-          </motion.div>
         </motion.div>
       </div>
+
+      {/* News Slider - Extending Full Width */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="relative"
+      >
+        {/* Left Padding for Content Alignment */}
+        <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
+          {/* Slider Container */}
+          <div className="relative overflow-visible">
+            <motion.div
+              className="flex gap-5 cursor-grab active:cursor-grabbing"
+              drag="x"
+              dragConstraints={{ left: -((data.newsSection?.length || 0 - 2.5) * 400), right: 0 }}
+              whileHover={{ x: -20 }}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+              whileDrag={{ cursor: "grabbing" }}
+              style={{ width: 'max-content' }}
+            >
+              {data.newsSection && data.newsSection.map((newsItem, index) => (
+                <motion.div
+                  key={newsItem.slug.current}
+                  className="w-[380px] flex-shrink-0"
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                    transition: {
+                      delay: index * 0.1,
+                      duration: 0.6,
+                      ease: "easeOut"
+                    }
+                  }}
+                >
+                  <NewsCard newsItem={newsItem} index={index} />
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </motion.div>
     </section>
   )
 }

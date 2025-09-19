@@ -55,15 +55,14 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
   }
 
   return (
-    <section className="py-16 lg:py-24 bg-[#111111] text-white">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Top Section */}
+    <section className="py-16 lg:py-24 bg-[#111111] text-white overflow-hidden">
+      {/* Top Section - Constrained */}
+      <div className="max-w-7xl mx-auto px-6 mb-16 lg:mb-20">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="mb-16 lg:mb-20"
         >
           {/* Main Title and Description */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-6 items-start mb-12 lg:mb-16">
@@ -96,45 +95,52 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
             ))}
           </motion.div>
         </motion.div>
+      </div>
 
-        {/* Blog Section - Drag Motion Slider */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="relative"
-        >
+      {/* Blog Section - Extending Full Width */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="relative"
+      >
+        {/* Left Padding for Content Alignment */}
+        <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
           {/* Slider Container */}
-          <div className="relative overflow-hidden cursor-grab active:cursor-grabbing">
+          <div className="relative overflow-visible">
             <motion.div
-              className="flex"
+              className="flex gap-8 cursor-grab active:cursor-grabbing"
               drag="x"
-              dragConstraints={{ left: -(totalSlides - 1) * 100, right: 0 }}
+              dragConstraints={{ left: -((data.blogSection.length - 2.5) * 320), right: 0 }}
               onDragEnd={handleDragEnd}
-              animate={{ x: `-${currentIndex * 100}%` }}
-              transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+              whileHover={{ x: -20 }}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               whileDrag={{ cursor: "grabbing" }}
+              style={{ width: 'max-content' }}
             >
-              {Array.from({ length: totalSlides }).map((_, slideIndex) => (
-                <div key={slideIndex} className="w-full flex-shrink-0">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {data.blogSection
-                      .slice(slideIndex * cardsPerView, (slideIndex + 1) * cardsPerView)
-                      .map((blog, cardIndex) => (
-                        <BlogCard
-                          key={blog.slug.current}
-                          blog={blog}
-                          index={slideIndex * cardsPerView + cardIndex}
-                        />
-                      ))}
-                  </div>
-                </div>
+              {data.blogSection.map((blog, index) => (
+                <motion.div
+                  key={blog.slug.current}
+                  className="w-[300px] flex-shrink-0"
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                    transition: {
+                      delay: index * 0.1,
+                      duration: 0.6,
+                      ease: "easeOut"
+                    }
+                  }}
+                >
+                  <BlogCard blog={blog} index={index} />
+                </motion.div>
               ))}
             </motion.div>
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </section>
   )
 }

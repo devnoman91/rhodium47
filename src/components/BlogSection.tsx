@@ -55,11 +55,11 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="text-center mb-12 lg:mb-16"
+          className="text-center mb-8 md:mb-12 lg:mb-16"
         >
           <motion.h2
             variants={itemVariants}
-            className="text-[64px] not-italic tracking-[0] leading-[110%] text-black font-medium max-w-[730px] text-center mx-auto mb-[50px] font-helvetica"
+            className="text-[32px] md:text-[48px] lg:text-[56px] xl:text-[64px] not-italic tracking-[0] leading-[110%] text-black font-medium max-w-[730px] text-center mx-auto mb-6 md:mb-8 lg:mb-[50px] font-helvetica"
             transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
           >
             {blogData.mainSectionTitle}
@@ -68,15 +68,15 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
           {/* Category Tabs */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap justify-center gap-2 mb-12"
+            className="flex justify-center mb-8 md:mb-12"
             transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
           >
-            <div className="inline-flex bg-gray-900 rounded-full p-1 font-helvetica">
+            <div className="inline-flex bg-gray-900 rounded-full p-1 font-helvetica max-w-full overflow-x-auto">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => handleCategoryChange(category)}
-                  className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 font-helvetica ${
+                  className={`px-3 md:px-6 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 font-helvetica whitespace-nowrap ${
                     selectedCategory === category
                       ? 'bg-white text-gray-900 shadow-sm'
                       : 'text-white hover:text-gray-300'
@@ -110,7 +110,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
             >
               {filteredProducts.map((product, index) => (
                 <BlogCard
-                  key={`${selectedCategory}-${product.slug.current}`}
+                  key={`${selectedCategory}-${product.slug.current}-${index}`}
                   product={product}
                   index={index}
                 />

@@ -93,11 +93,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
           viewport={{ once: true, margin: '-100px' }}
           className="mb-20 lg:mb-[70px]"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 ">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 xl:gap-20">
             {/* Left Logo + Progress */}
-            <motion.div variants={itemVariants} className="lg:col-span-2 flex flex-col ßjustify-between items-center lg:items-start">
+            <motion.div variants={itemVariants} className="hidden lg:flex lg:col-span-2 xl:col-span-2 flex-col justify-between items-center lg:items-start">
               {/* Sunburst Logo */}
-              <div className="relative mb-8 w-30 h-30 lg:w-36 lg:h-36 mx-auto flex items-center justify-center">
+              <div className="relative mb-8 w-30 h-30 lg:w-36 lg:h-36 xl:w-40 xl:h-40 mx-auto flex items-center justify-center">
                 {/* Rotating circle with lines */}
                 <motion.svg
                   className="absolute inset-0 w-full h-full"
@@ -107,7 +107,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
                 >
 
           <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="51" cy="51" r="40" stroke="#161618" stroke-width="22" stroke-dasharray="2 4"/>
+          <circle cx="51" cy="51" r="40" stroke="#161618" strokeWidth="22" strokeDasharray="2 4"/>
           </svg>
 
 
@@ -144,19 +144,19 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
             
 
             {/* Heading + Description */}
-            <motion.div variants={itemVariants} className="lg:col-span-10  ml-70 ">
+            <motion.div variants={itemVariants} className="col-span-1 md:ml-50 lg:ml-50 xl:ml-50 lg:col-span-10 xl:col-span-10">
               {/* Inline label to avoid grid gap */}
               <motion.div
-                className="h-[1px] w-[700px] bg-gray-900 rounded-full mb-3"
+                className="h-[1px] w-full max-w-[300px] md:max-w-[500px] lg:max-w-[600px] xl:max-w-[700px] bg-gray-900 rounded-full mb-3"
                 initial={{ opacity: 0, scaleX: 0 }}
                 whileInView={{ opacity: 1, scaleX: 1 }}
                 viewport={{ once: true, margin: '-100px' }}
                 transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
                 style={{ transformOrigin: 'left center' }}
               />
-              <div className="inline-flex items-center space-x-2 mb-6">
+              <div className="inline-flex items-center space-x-2 mb-4 md:mb-6">
                 <div className="w-2 h-2 bg-gray-900 rounded-full" />
-                <span className="text-sm md:text-base font-helvetica font-medium uppercase  tracking-wide text-gray-600">
+                <span className="text-xs md:text-sm lg:text-base font-helvetica font-medium uppercase tracking-wide text-gray-600">
                   {aboutData.sectionLabel}
                 </span>
               </div>
@@ -165,7 +165,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
               {/* Animated, per-word highlight on scroll (karaoke-style) */}
               <p
                 ref={descriptionRef}
-                className="text-[40px] md:text-[40px] leading-[1.2] font-helvetica font-[500] max-w-[56ch] flex flex-wrap"
+                className="text-[24px] md:text-[32px] lg:text-[36px] xl:text-[40px] 2xl:text-[44px] leading-[1.2] font-helvetica font-[500] max-w-[56ch] flex flex-wrap"
               >
                 {words.map((word, i) => {
                   const start = i / words.length
@@ -189,10 +189,10 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 xl:gap-20 2xl:gap-24 items-start"
         >
           <div className="lg:col-span-12">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-12 xl:gap-16">
               {/* Image */}
               <div className="lg:col-span-2">
                 <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-gray-100">
@@ -222,18 +222,18 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
                   {/* Arrows */}
                   <button
                     onClick={goToPrevious}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 border border-white rounded-full flex items-center justify-center hover:bg-white/10 transition"
+                    className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 border border-white rounded-full flex items-center justify-center hover:bg-white/10 transition"
                     aria-label="Previous product"
                   >
-                    <ChevronLeftIcon className="w-6 h-6 text-white" />
+                    <ChevronLeftIcon className="w-5 h-5 md:w-6 md:h-6 text-white" />
                   </button>
 
                   <button
                     onClick={goToNext}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 border border-white rounded-full flex items-center justify-center hover:bg-white/10 transition"
+                    className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 border border-white rounded-full flex items-center justify-center hover:bg-white/10 transition"
                     aria-label="Next product"
                   >
-                    <ChevronRightIcon className="w-6 h-6 text-white" />
+                    <ChevronRightIcon className="w-5 h-5 md:w-6 md:h-6 text-white" />
                   </button>
 
               
@@ -254,10 +254,10 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
                       exit="exit"
                       className="w-full"
                     >
-                      <h3 className="text-2xl font-[500] font-helvetica text-gray-900 mb-4">
+                      <h3 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-[500] font-helvetica text-gray-900 mb-3 md:mb-4">
                         {currentProduct.title}
                       </h3>
-                      <p className="text-gray-600 text-lg font-[400] leading-relaxed font-helvetica mb-6">
+                      <p className="text-gray-600 text-base md:text-lg lg:text-xl xl:text-xl font-[400] leading-relaxed font-helvetica mb-4 md:mb-6">
                         {currentProduct.description}
                       </p>
                       <motion.button

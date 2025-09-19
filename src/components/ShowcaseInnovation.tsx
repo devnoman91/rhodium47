@@ -88,7 +88,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
           {/* Stats Section */}
           <motion.div
             variants={containerVariants}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8 xl:gap-12"
           >
             {data.main.countSection.map((item, index) => (
               <CountCard key={index} item={item} index={index} />

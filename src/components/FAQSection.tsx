@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState, useMemo, useCallback, useRef } from 'react'
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import React, { useState, useMemo, useCallback } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { FAQ, FAQQuestion } from '@/content/types'
 
 interface FAQSectionProps {
@@ -54,14 +54,6 @@ const contentVariants = {
 const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
   const [activeCategory, setActiveCategory] = useState<string>('General')
   const [expandedQuestion, setExpandedQuestion] = useState<string | null>(null)
-
-  const descriptionRef = useRef<HTMLParagraphElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: descriptionRef,
-    offset: ["start 0.8", "end 0.2"]
-  })
-
-  const words = useMemo(() => data.description.split(' '), [data.description])
 
   // Get unique categories
   const categories = useMemo(() => {

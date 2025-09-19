@@ -11,6 +11,7 @@ import KeepExploringSection from "@/components/KeepExploringSection";
 import NewsUpdatesSection from "@/components/NewsUpdatesSection";
 import ExperienceXodiumSection from "@/components/ExperienceXodiumSection";
 import VehicleShowcase from "@/components/VehicleShowcase";
+import VehicleDiagram from "@/components/VehicleDiagram";
 import Footer from "@/components/Footer";
 import { getHomeAboutData, getProductDetails, getProductBlogData, getProductShowcaseData, getShowcaseInnovationData, getProtectionData, getFAQData, getUtilityData, getKeepExploringData, getNewsUpdatesData, getExperienceXodiumData } from "@/lib/sanity";
 export default async function Home() {
@@ -39,7 +40,7 @@ export default async function Home() {
           products={products}
         />
       )}
-
+ <VehicleShowcase />
       {blogData && (
         <BlogSection
           blogData={blogData}
@@ -70,6 +71,7 @@ export default async function Home() {
           data={utilityData}
         />
       )}
+      <VehicleDiagram />
       {keepExploringData && (
         <KeepExploringSection
           data={keepExploringData}
@@ -85,7 +87,8 @@ export default async function Home() {
           data={experienceXodiumData}
         />
       )}
-      <VehicleShowcase />
+     
+      
       <Footer/>
     </div>
   );

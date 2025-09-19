@@ -30,7 +30,7 @@ const cardVariants = {
 
 const ProductShowcase: React.FC<ProductShowcaseProps> = ({ products }) => {
   return (
-    <section className="py-16 lg:py-24 bg-white">
+    <section className="py-[80px] lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           variants={containerVariants}
@@ -69,12 +69,12 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
         delay: index * 0.2,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="group bg-[#F4F1F2] rounded-3xl p-8  transition-colors duration-300"
+      className="group bg-[#F4F1F2] rounded-[20px] p-[18px] transition-colors duration-300"
     >
       <div className="flex items-center gap-6">
         {/* Image Section */}
         <div className="flex-shrink-0">
-          <div className="relative w-32 h-24 lg:w-40 lg:h-30 rounded-2xl overflow-hidden bg-gray-200">
+          <div className="relative w-[168px] h-[143px]  rounded-2xl overflow-hidden bg-gray-200">
             <motion.img
               src={product.image.asset.url}
               alt={product.image.alt || product.title}
@@ -88,7 +88,7 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
         {/* Content Section */}
         <div className="flex flex-col gap-3">
           {/* Title */}
-          <h3 className="ext-[18px] leading-[20px] tracking-[0] m-0 font-medium  text-black font-helvetica">
+          <h3 className="text-[16px]  leading-[150%] tracking-[0] m-0 font-medium  text-black font-helvetica">
             {product.title}
           </h3>
 
@@ -112,7 +112,7 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
 
           {/* Button */}
           <motion.button
-            className="px-6 py-3 rounded-[50px] border-1 border-black  text-black no-underline font-['Helvetica Neue'] text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
+            className="px-[18px] py-[6px] rounded-[50px] border-1 border-black  text-black no-underline font-['Helvetica Neue'] text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.2 }}

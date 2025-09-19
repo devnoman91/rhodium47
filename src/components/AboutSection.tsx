@@ -106,9 +106,9 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
                   viewBox="0 0 102 102"
                 >
 
-          <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="51" cy="51" r="40" stroke="#161618" strokeWidth="22" strokeDasharray="2 4"/>
-          </svg>
+                  <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="51" cy="51" r="40" stroke="#161618" strokeWidth="22" strokeDasharray="2 4"/>
+                  </svg>
 
 
 
@@ -147,7 +147,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
             <motion.div variants={itemVariants} className="col-span-1 md:ml-50 lg:ml-50 xl:ml-50 lg:col-span-10 xl:col-span-10">
               {/* Inline label to avoid grid gap */}
               <motion.div
-                className="h-[1px] w-full max-w-[300px] md:max-w-[500px] lg:max-w-[600px] xl:max-w-[700px] bg-gray-900 rounded-full mb-3"
+                className="h-[1px] w-full bg-[#777] rounded-full mb-3"
                 initial={{ opacity: 0, scaleX: 0 }}
                 whileInView={{ opacity: 1, scaleX: 1 }}
                 viewport={{ once: true, margin: '-100px' }}
@@ -156,7 +156,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
               />
               <div className="inline-flex items-center space-x-2 mb-4 md:mb-6">
                 <div className="w-2 h-2 bg-gray-900 rounded-full" />
-                <span className="text-xs md:text-sm lg:text-base font-helvetica font-medium uppercase tracking-wide text-gray-600">
+                <span className="text-[#161618] font-helvetica text-[20px] not-italic font-normal leading-[24px] tracking-[-0.4px] uppercase">
                   {aboutData.sectionLabel}
                 </span>
               </div>
@@ -165,7 +165,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
               {/* Animated, per-word highlight on scroll (karaoke-style) */}
               <p
                 ref={descriptionRef}
-                className="text-[24px] md:text-[32px] lg:text-[36px] xl:text-[40px] 2xl:text-[44px] leading-[1.2] font-helvetica font-[500] max-w-[56ch] flex flex-wrap"
+                className="text-[24px] md:text-[32px] lg:text-[36px] xl:text-[40px] 2xl:text-[40px] leading-[120%] font-helvetica font-[500] max-w-[56ch] flex flex-wrap "
               >
                 {words.map((word, i) => {
                   const start = i / words.length
@@ -254,20 +254,20 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
                       exit="exit"
                       className="w-full"
                     >
-                      <h3 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-[500] font-helvetica text-gray-900 mb-3 md:mb-4">
+                      <h3 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-[500] font-helvetica text-[#161618] mb-3 md:mb-4 leading-[120%]">
                         {currentProduct.title}
                       </h3>
-                      <p className="text-gray-600 text-base md:text-lg lg:text-xl xl:text-xl font-[400] leading-relaxed font-helvetica mb-4 md:mb-6">
+                      <p className="text-[#7F7F7F] font-helvetica text-[20px] not-italic font-normal leading-[24px] tracking-[-0.4px] mb-[24px]">
                         {currentProduct.description}
                       </p>
                       <motion.button
-                        className="inline-flex items-center text-gray-900 font-medium hover:text-gray-600 transition"
+                        className="inline-flex items-center text-[#161618] font-helvetica text-[20px] gap-3 not-italic font-medium leading-[24px] tracking-[-0.4px]"
                         whileHover={{ x: 5 }}
                       >
+                       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
+                        <path d="M21.5536 10.9272L13.6786 18.8022C13.432 19.0488 13.0976 19.1873 12.7489 19.1873C12.4002 19.1873 12.0658 19.0488 11.8192 18.8022C11.5727 18.5556 11.4341 18.2212 11.4341 17.8725C11.4341 17.5238 11.5727 17.1894 11.8192 16.9428L17.4531 11.3111H1.375C1.0269 11.3111 0.693064 11.1728 0.446922 10.9267C0.200781 10.6805 0.0625 10.3467 0.0625 9.99861C0.0625 9.65051 0.200781 9.31667 0.446922 9.07053C0.693064 8.82438 1.0269 8.68611 1.375 8.68611H17.4531L11.8214 3.0511C11.5748 2.80454 11.4363 2.47012 11.4363 2.12142C11.4363 1.77272 11.5748 1.4383 11.8214 1.19173C12.068 0.945161 12.4024 0.806641 12.7511 0.806641C13.0998 0.806641 13.4342 0.945161 13.6808 1.19173L21.5558 9.06673C21.6782 9.18883 21.7752 9.3339 21.8414 9.49362C21.9075 9.65333 21.9415 9.82454 21.9413 9.99742C21.9411 10.1703 21.9067 10.3414 21.8402 10.501C21.7737 10.6605 21.6763 10.8054 21.5536 10.9272Z" fill="black"/>
+                      </svg>
                         <span>Learn more</span>
-                        <svg className="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
                       </motion.button>
                     </motion.div>
                   )}
@@ -282,3 +282,18 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
 }
 
 export default AboutSection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

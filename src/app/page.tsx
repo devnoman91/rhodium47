@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 import HeroCarousel from "@/components/HeroCarousel";
 import AboutSection from "@/components/AboutSection";
 import BlogSection from "@/components/BlogSection";
@@ -32,7 +31,6 @@ export default async function Home() {
 
   return (
     <div className="relative">
-      <Navbar />
       <HeroCarousel />
       {aboutData && (
         <AboutSection

@@ -48,7 +48,7 @@ const UtilitySection: React.FC<UtilitySectionProps> = ({ data }) => {
   return (
     <section className="py-12 md:py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
-        <div className="my-0 mx-auto max-w-[820px] pt-3 border-t border-black mb-8 md:mb-12 lg:mb-[60px]">
+        <div className="my-0 mx-auto max-w-[820px] pt-3 border-t border-black mb-8 md:mb-12 lg:mb-[90px]">
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -61,9 +61,9 @@ const UtilitySection: React.FC<UtilitySectionProps> = ({ data }) => {
               transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               
             >
-              <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center">
+              <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center uppercase">
                 <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
-                <span className="text-xs md:text-sm lg:text-base font-medium text-gray-900 tracking-wider uppercase">
+                <span className="">
                   {data.name}
                 </span>
               </div>

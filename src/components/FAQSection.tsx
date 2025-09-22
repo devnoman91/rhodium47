@@ -71,10 +71,10 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
           viewport={{ once: true, margin: "-100px" }}
         >
           {/* Header Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-[25px] items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 [25px] mb-[25px] items-start">
             {/* Left - Title */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h1 className="text-[60px] not-italic tracking-normal leading-[1.1] font-medium  font-helvetica text-white mb-0">
+              <h1 className="text-[64px] not-italic tracking-normal leading-[80px] font-medium  font-helvetica text-white mb-0">
                 {data.name}
               </h1>
             </motion.div>
@@ -84,7 +84,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
               variants={itemVariants}
               className="lg:col-span-1 flex items-center max-w-[450px] ml-auto"
             >
-              <p className="text-[16px] leading-[25px] tracking-[0] m-0 font-light font-helvetica opacity-80 ">
+              <p className="text-[16px] leading-[25px] tracking-[0] m-0 font-normal font-helvetica opacity-80 ">
                 {data.description}
               </p>
             </motion.div>
@@ -93,14 +93,14 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
           {/* Category Tabs */}
           <motion.div
             variants={itemVariants}
-            className="mb-[50px] rounded-[50px] bg-white w-fit py-[12px] px-[16px]"
+            className="mb-[50px] rounded-[50px] bg-white w-fit py-[14px] px-[18px]"
           >
             <div className="flex flex-wrap gap-3">
               {categories.map((category) => (
                 <motion.button
                   key={category}
                   onClick={() => handleCategoryChange(category)}
-                  className={`px-8 py-2 rounded-[50px] border-1 flex items-center gap-4 border-[#fff]  text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit cursor-pointer ${
+                  className={`px-10 py-[9px] rounded-[50px] border-1 flex items-center gap-4 border-[#fff]  text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-medium transition ease-[0.4s] w-fit cursor-pointer ${
                     activeCategory === category
                       ? 'bg-black text-white'
                       : 'text-black bg-white hover:bg-black hover:text-white'
@@ -115,7 +115,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
           </motion.div>
 
           {/* FAQ Accordion */}
-          <div className="grid grid-cols-1  items-start lg:grid-cols-2 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1  items-start lg:grid-cols-2 gap-[25px]">
             {filteredQuestions.map((question, index) => (
               <FAQAccordion
                 key={`${activeCategory}-${index}`}

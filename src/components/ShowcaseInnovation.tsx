@@ -89,7 +89,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
               className="lg:flex-1"
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             >
-              <p className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica opacity-70">
+              <p className="text-[16px] leading-[30px] tracking-[0] m-0 font-medium font-helvetica opacity-70">
                 {data.main.description}
               </p>
             </motion.div>
@@ -157,10 +157,10 @@ const CountCard: React.FC<{ item: CountItem; index: number }> = React.memo(({ it
       }}
       className="text-left"
     >
-      <div className="text-[29px] md:text-[36px] lg:text-[48px] not-italic tracking-normal leading-[1.1] font-medium font-helvetica mb-1 md:mb-2 max-w-[100px] md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0">
+      <div className="mb-[20px] text-[29px] md:text-[36px] lg:text-[48px] not-italic tracking-normal leading-[30px] font-medium font-helvetica  max-w-[100px] md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0">
         {item.name}
       </div>
-      <div className="text-[12px] md:text-[14px] lg:text-[16px] leading-[1.4] md:leading-[24px] tracking-[0] m-0 font-light font-helvetica max-w-[100px] md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0 opacity-70">
+      <div className="text-[12px] md:text-[14px] lg:text-[16px] leading-[20px] md:leading-[20px] tracking-[0] m-0 font-normal font-helvetica max-w-[100px] md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0 opacity-70">
         {item.title}
       </div>
     </motion.div>
@@ -192,7 +192,7 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
 
       {/* Learn More Button */}
       <motion.button
-      className="px-[18px] py-[6px] rounded-[50px] border-1 border-white text-white no-underline font-['Helvetica Neue'] text-[14px] leading-[20px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer mt-auto"
+      className="px-[24px] py-[5px] rounded-[50px] border-1 border-white text-white no-underline font-helvetica text-[14px] leading-[24px] tracking-[0] font-medium transition ease-[0.4s] w-fit block cursor-pointer mt-auto"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         transition={{ duration: 0.2 }}

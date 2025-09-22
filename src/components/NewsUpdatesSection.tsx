@@ -51,7 +51,7 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             {/* Left - Title */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h1 className="text-[60px] not-italic tracking-normal leading-[1.1] font-medium  font-helvetica text-white mb-0">
+              <h1 className="text-[64px] not-italic tracking-normal leading-[70px] font-bold  font-helvetica text-white mb-0">
                 {data.name}
               </h1>
             </motion.div>
@@ -59,10 +59,10 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
             {/* Right - Description */}
             <motion.div
               variants={itemVariants}
-              className="lg:col-span-1 flex items-center"
+              className="lg:col-span-1 flex items-center  justify-end"
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             >
-              <p className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica">
+              <p className="text-[16px] leading-[25px] tracking-[0] m-0 font-medium font-helvetica max-w-[480px]">
                 {data.description}
               </p>
             </motion.div>
@@ -94,7 +94,7 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
               {data.newsSection && data.newsSection.map((newsItem, index) => (
                 <motion.div
                   key={newsItem.slug.current}
-                  className="w-[380px] flex-shrink-0"
+                  className="w-[550px] flex-shrink-0"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{
                     opacity: 1,
@@ -130,7 +130,7 @@ const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(({ 
       className="group  transition-all duration-300"
     >
       {/* Image */}
-      <div className="relative aspect-square overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
+      <div className="relative aspect-[1/0.85] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
         <Image
           src={newsItem.image.asset.url}
           alt={newsItem.image.alt || newsItem.title}
@@ -152,14 +152,14 @@ const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(({ 
             {newsItem.title}
           </h3>
 
-          <p className="text-[16px] leading-[130%] tracking-[0] m-0 font-light font-helvetica opacity-60">
+          <p className="text-[16px] leading-[21px] tracking-[0] m-0 font-normal font-helvetica opacity-60">
             {newsItem.description}
           </p>
         </div>
 
         {/* Learn More Button */}
         <motion.button
-          className="px-6 py-2 rounded-[50px] border-1 flex items-center gap-4 border-[#fff]  text-white no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
+          className="px-[24px] py-[5px] rounded-[50px] border-1 border-white text-white no-underline font-helvetica text-[14px] leading-[24px] tracking-[0] font-medium transition ease-[0.4s] w-fit block cursor-pointer mt-auto"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           transition={{ duration: 0.2 }}

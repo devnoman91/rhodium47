@@ -6,7 +6,7 @@ const Footer = () => {
       {/* Background Image */}
       <div className="absolute inset-0 bg-[url('/footer.png')] bg-cover bg-center bg-no-repeat"></div>
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(0deg,#111_0%,rgba(17,17,17,0)_100%)]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgb(0_0_0/_71%)_0%,_rgb(0_0_0/_73%)_38%,_rgb(0_0_0/_84%)_78%,_rgba(0,_0,_0,_1)_100%)]"></div>
 
       <div className="relative z-10">
         {/* Hero Section */}
@@ -24,29 +24,29 @@ const Footer = () => {
             {/* Newsletter Signup */}
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 max-w-xl md:max-w-2xl mx-auto">
               <div className="flex-1">
-                <label htmlFor="email" className="text-white font-helvetica text-[14px] md:text-[16px] not-italic font-bold leading-[20px] md:leading-[22px] tracking-[-0.42px] md:tracking-[-0.48px] flex mb-3 md:mb-[18px]">
+                <label htmlFor="email" className="text-[#F8F9FA]  font-helvetica text-[14px] md:text-[16px] not-italic font-bold leading-[20px] md:leading-[22px] flex mb-3 md:mb-[18px]">
                   Email
                 </label>
                 <input
                   type="email"
                   id="email"
                   placeholder="Input your email in here"
-                  className="w-full px-3 md:px-4 py-2 md:py-3 bg-transparent border border-[rgba(99,109,121,1)] rounded-lg focus:outline-none focus:border-white text-white placeholder-gray-400 text-sm md:text-base"
+                  className="rounded-[4px]  bg-[#2A2A2A] w-full px-3 md:px-4 py-2 md:py-3 border border-[#636D79]  focus:outline-none focus:border-white  placeholder-gray-400 text-sm md:text-base text-white font-helvetica text-[16px] not-italic font-normal leading-[22px]"
                 />
               </div>
               <div className="flex-1">
-                <label htmlFor="zip" className="text-white font-helvetica text-[14px] md:text-[16px] not-italic font-bold leading-[20px] md:leading-[22px] tracking-[-0.42px] md:tracking-[-0.48px] flex mb-3 md:mb-[18px]">
+                <label htmlFor="zip" className="text-[#F8F9FA] font-helvetica text-[14px] md:text-[16px] not-italic font-bold leading-[20px] md:leading-[22px] flex mb-3 md:mb-[18px]">
                   Zip
                 </label>
                 <input
                   type="text"
                   id="zip"
                   placeholder="Input your zip code in here"
-                  className="w-full px-3 md:px-4 py-2 md:py-3 bg-transparent border border-[rgba(99,109,121,1)] rounded-lg focus:outline-none focus:border-white text-white placeholder-gray-400 text-sm md:text-base"
+                  className="rounded-[4px]  bg-[#323232] w-full px-3 md:px-4 py-2 md:py-3  border border-[#636D79] focus:outline-none focus:border-white placeholder-gray-400 text-sm md:text-base text-white font-helvetica text-[16px] not-italic font-normal leading-[22px]"
                 />
               </div>
               <div className="flex items-end">
-                <button className="cursor-pointer px-6 md:px-8 py-2 md:py-3 bg-white text-gray-900 rounded-full font-medium hover:bg-gray-100 transition-colors duration-200 whitespace-nowrap text-sm md:text-base">
+                <button className="cursor-pointer px-[48px] py-[16px] bg-white rounded-full  hover:bg-gray-100 transition-colors duration-200 text-black font-helvetica text-[14px] not-italic font-medium leading-[150%]">
                   Subscribe
                 </button>
               </div>
@@ -71,7 +71,7 @@ const Footer = () => {
         </div>
 
         {/* Main Footer Content */}
-          <div className="max-w-7xl mx-auto border-t border-white pt-8 md:pt-12 lg:pt-[60px] pb-4 md:pb-6 lg:pb-[20px] px-4 md:px-6">
+          <div className="max-w-7xl mx-auto border-t border-white pt-8 md:pt-12 lg:pt-[60px]">
             {/* Top Row - Responsive layout */}
             <div className="flex flex-col lg:grid lg:grid-cols-[35%_55%] gap-8 lg:gap-0 lg:justify-between">
               {/* Company Description */}
@@ -89,12 +89,12 @@ const Footer = () => {
 
                 {/* Bottom Row - Newsletter Subscription */}
                 <div className="max-w-xl lg:max-w-2xl pt-6 md:pt-8">
-                  <p className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px]">Stay updated with the latest news and offers!</p>
+                  <p className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px]">Stay updated with the latest news and offers!</p>
                   <div className="max-w-[320px] md:max-w-[370px] mt-3 md:mt-[14px] flex items-center px-4 md:px-[20px] py-3 md:py-[16px] gap-3 md:gap-[16px] self-stretch rounded-[70px] border border-white">
                     <input
                       type="email"
                       placeholder="Email address"
-                      className="w-full focus:outline-none text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[20px] md:leading-[28px] tracking-[-0.28px] md:tracking-[-0.38px] bg-transparent placeholder-gray-400"
+                      className="w-full focus:outline-none text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[20px] md:leading-[28px] tracking-[-0.28px] md:tracking-[-0.38px] bg-transparent placeholder-gray-400"
                     />
                     <button className="cursor-pointer w-4 md:w-[20px] h-5 md:h-[24px] flex-shrink-0">
                      <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -110,10 +110,10 @@ const Footer = () => {
               <div>
                 <h4 className="text-white text-[16px] md:text-[18px] not-italic font-medium leading-[26px] md:leading-[34px] font-helvetica tracking-[-0.32px] md:tracking-[-0.36px] mb-4 md:mb-6">Services</h4>
                 <ul className="space-y-4 text-gray-300">
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Consultation</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Custom Design</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Maintenance / Service Centers</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Training</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Consultation</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Custom Design</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Maintenance / Service Centers</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Training</a></li>
                 </ul>
               </div>
 
@@ -121,10 +121,10 @@ const Footer = () => {
               <div>
                 <h4 className="text-white text-[16px] md:text-[18px] not-italic font-medium leading-[26px] md:leading-[34px] font-helvetica tracking-[-0.32px] md:tracking-[-0.36px] mb-4 md:mb-6">Technology</h4>
                 <ul className="space-y-4 text-gray-300">
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Rhodium 45 Armor</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">BR6+ Protection</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Hybrid Electric</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Security Systems</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Rhodium 45 Armor</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">BR6+ Protection</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Hybrid Electric</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Security Systems</a></li>
                 </ul>
               </div>
 
@@ -132,13 +132,13 @@ const Footer = () => {
               <div>
                 <h4 className="text-white text-[16px] md:text-[18px] not-italic font-medium leading-[26px] md:leading-[34px] font-helvetica tracking-[-0.32px] md:tracking-[-0.36px] mb-4 md:mb-6">Company</h4>
                 <ul className="space-y-4 text-gray-300">
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">About Us</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Texas Facility</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Career</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Support</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Find Us</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Customer Stories</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Events</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">About Us</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Texas Facility</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Career</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Support</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Find Us</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Customer Stories</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Events</a></li>
                 </ul>
               </div>
 
@@ -146,11 +146,11 @@ const Footer = () => {
               <div>
                 <h4 className="text-white text-[16px] md:text-[18px] not-italic font-medium leading-[26px] md:leading-[34px] font-helvetica tracking-[-0.32px] md:tracking-[-0.36px] mb-4 md:mb-6">Vehicles</h4>
                 <ul className="space-y-4 text-gray-300">
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Sentinel</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Guardian</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Fortress</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Phantom</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-light leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Custom Builds</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Sentinel</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Guardian</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Fortress</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Phantom</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Custom Builds</a></li>
                 </ul>
               </div>
               </div>
@@ -158,7 +158,7 @@ const Footer = () => {
           </div>
 
         {/* Footer Bottom */}
-          <div className="border-t border-white pt-6 md:pt-8 lg:pt-[40px] pb-6 md:pb-8 lg:pb-[40px] px-4 md:px-6 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
+          <div className="border-t border-white pt-6 md:pt-8 lg:pt-[40px] pb-[40px] max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
             <p className="text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.32px] text-center md:text-left">
               Copyright © 2025. All rights reserved
             </p>

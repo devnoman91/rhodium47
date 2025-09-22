@@ -97,7 +97,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
             {/* Left Logo + Progress */}
             <motion.div variants={itemVariants} className="hidden lg:flex lg:col-span-2 xl:col-span-2 flex-col justify-between items-center lg:items-start">
               {/* Sunburst Logo */}
-              <div className="relative mb-8 w-30 h-30 lg:w-36 lg:h-36 xl:w-40 xl:h-40 mx-auto flex items-center justify-center">
+              <div className="relative mb-8 w-20 h-20 lg:w-20 lg:h-20 xl:w-25 xl:h-25 mx-auto flex items-center justify-center">
                 {/* Rotating circle with lines */}
                 <motion.svg
                   className="absolute inset-0 w-full h-full"
@@ -115,7 +115,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
                 </motion.svg>
 
                 {/* Static centered arrow */}
-                <div className="relative w-15 h-15 lg:w-16 lg:h-16 bg-white rounded-full flex items-center justify-center cursor-pointer z-10">
+                <div className="relative w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center cursor-pointer z-10">
                   <div
                     className="text-2xl lg:text-3xl text-gray-900"
                     style={{ transform: 'rotate(0deg)' }}
@@ -130,7 +130,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
 
 
               {/* Progress Bar */}
-              <div className="w-60 lg:w-98 h-1 bg-gray-200 rounded-full overflow-hidden">
+              <div className="w-60 lg:w-80 h-1 bg-gray-200 rounded-full overflow-hidden">
                 <motion.div
                   className="h-full bg-gray-900 rounded-full"
                   style={{ width: `${(currentIndex + 1) * (100 / products.length)}%` }}
@@ -184,98 +184,95 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
         </motion.div>
 
         {/* Bottom Section - Carousel */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 xl:gap-20 2xl:gap-24 items-start"
-        >
-          <div className="lg:col-span-12">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-12 xl:gap-16">
-              {/* Image */}
-              <div className="lg:col-span-2">
-                <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-gray-100">
-                  {!imageLoaded && (
-                    <div className="absolute inset-0 animate-pulse" />
-                  )}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 xl:gap-20 2xl:gap-24 items-start"
+          >
+            <div className="lg:col-span-12">
+              <div className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-12 xl:gap-16">
+                {/* Image */}
+                <div className="w-full lg:w-[60%]">
+                  <div className="relative aspect-[16/9] lg:aspect-auto h-full rounded-2xl overflow-hidden bg-gray-100">
+                    {!imageLoaded && (
+                      <div className="absolute inset-0 animate-pulse" />
+                    )}
+                    <AnimatePresence mode="wait">
+                      {currentProduct && (
+                        <motion.img
+                          key={currentProduct._id}
+                          src={currentProduct.image.asset.url}
+                          alt={currentProduct.image.alt || currentProduct.title}
+                          className="w-full h-full object-cover aspect-[1/0.54]"
+                          variants={imageVariants}
+                          initial="initial"
+                          animate="animate"
+                          exit="exit"
+                          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+                          loading="lazy"
+                          decoding="async"
+                          onLoad={() => setImageLoaded(true)}
+                          onError={() => setImageLoaded(false)}
+                        />
+                      )}
+                    </AnimatePresence>
+
+                    {/* Arrows */}
+                    <button
+                      onClick={goToPrevious}
+                      className="absolute left-2 cursor-pointer md:left-4 top-auto bottom-[10px] -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 border border-white rounded-full flex items-center justify-center hover:bg-white/10 transition"
+                      aria-label="Previous product"
+                    >
+                      <ChevronLeftIcon className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                    </button>
+
+                    <button
+                      onClick={goToNext}
+                      className="absolute  right-2 cursor-pointer md:right-4 top-auto bottom-[10px] -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 border border-white rounded-full flex items-center justify-center hover:bg-white/10 transition"
+                      aria-label="Next product"
+                    >
+                      <ChevronRightIcon className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Product Info */}
+                <div className="w-full lg:w-[40%] flex items-center">
                   <AnimatePresence mode="wait">
                     {currentProduct && (
-                      <motion.img
-                        key={currentProduct._id}
-                        src={currentProduct.image.asset.url}
-                        alt={currentProduct.image.alt || currentProduct.title}
-                        className="w-full h-full object-cover"
-                        variants={imageVariants}
+                      <motion.div
+                        key={`info-${currentProduct._id}`}
+                        variants={textVariants}
                         initial="initial"
                         animate="animate"
                         exit="exit"
-                        transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-                        loading="lazy"
-                        decoding="async"
-                        onLoad={() => setImageLoaded(true)}
-                        onError={() => setImageLoaded(false)}
-                      />
+                        className="w-full"
+                      >
+                        <h3 className="text-[#161618] font-medium text-[24px] leading-[120%] tracking-[-0.48px] font-helvetica mb-[24px]">
+                          {currentProduct.title}
+                        </h3>
+                        <p className="text-[#7F7F7F] font-helvetica text-[20px] not-italic font-normal leading-[24px] tracking-[-0.4px] mb-[24px]">
+                          {currentProduct.description}
+                        </p>
+                        <motion.button
+                          className="inline-flex  cursor-pointer items-center text-[#161618] font-helvetica text-[20px] gap-3 not-italic font-medium leading-[24px] tracking-[-0.4px]"
+                          whileHover={{ x: 5 }}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
+                            <path d="M21.5536 10.9272L13.6786 18.8022C13.432 19.0488 13.0976 19.1873 12.7489 19.1873C12.4002 19.1873 12.0658 19.0488 11.8192 18.8022C11.5727 18.5556 11.4341 18.2212 11.4341 17.8725C11.4341 17.5238 11.5727 17.1894 11.8192 16.9428L17.4531 11.3111H1.375C1.0269 11.3111 0.693064 11.1728 0.446922 10.9267C0.200781 10.6805 0.0625 10.3467 0.0625 9.99861C0.0625 9.65051 0.200781 9.31667 0.446922 9.07053C0.693064 8.82438 1.0269 8.68611 1.375 8.68611H17.4531L11.8214 3.0511C11.5748 2.80454 11.4363 2.47012 11.4363 2.12142C11.4363 1.77272 11.5748 1.4383 11.8214 1.19173C12.068 0.945161 12.4024 0.806641 12.7511 0.806641C13.0998 0.806641 13.4342 0.945161 13.6808 1.19173L21.5558 9.06673C21.6782 9.18883 21.7752 9.3339 21.8414 9.49362C21.9075 9.65333 21.9415 9.82454 21.9413 9.99742C21.9411 10.1703 21.9067 10.3414 21.8402 10.501C21.7737 10.6605 21.6763 10.8054 21.5536 10.9272Z" fill="black" />
+                          </svg>
+                          <span>Learn more</span>
+                        </motion.button>
+                      </motion.div>
                     )}
                   </AnimatePresence>
-
-                  {/* Arrows */}
-                  <button
-                    onClick={goToPrevious}
-                    className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 border border-white rounded-full flex items-center justify-center hover:bg-white/10 transition"
-                    aria-label="Previous product"
-                  >
-                    <ChevronLeftIcon className="w-5 h-5 md:w-6 md:h-6 text-white" />
-                  </button>
-
-                  <button
-                    onClick={goToNext}
-                    className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 border border-white rounded-full flex items-center justify-center hover:bg-white/10 transition"
-                    aria-label="Next product"
-                  >
-                    <ChevronRightIcon className="w-5 h-5 md:w-6 md:h-6 text-white" />
-                  </button>
-
-              
                 </div>
-
-                
-              </div>
-
-              {/* Product Info */}
-              <div className="lg:col-span-2 flex items-center">
-                <AnimatePresence mode="wait">
-                  {currentProduct && (
-                    <motion.div
-                      key={`info-${currentProduct._id}`}
-                      variants={textVariants}
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      className="w-full"
-                    >
-                      <h3 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-[500] font-helvetica text-[#161618] mb-3 md:mb-4 leading-[120%]">
-                        {currentProduct.title}
-                      </h3>
-                      <p className="text-[#7F7F7F] font-helvetica text-[20px] not-italic font-normal leading-[24px] tracking-[-0.4px] mb-[24px]">
-                        {currentProduct.description}
-                      </p>
-                      <motion.button
-                        className="inline-flex items-center text-[#161618] font-helvetica text-[20px] gap-3 not-italic font-medium leading-[24px] tracking-[-0.4px]"
-                        whileHover={{ x: 5 }}
-                      >
-                       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
-                        <path d="M21.5536 10.9272L13.6786 18.8022C13.432 19.0488 13.0976 19.1873 12.7489 19.1873C12.4002 19.1873 12.0658 19.0488 11.8192 18.8022C11.5727 18.5556 11.4341 18.2212 11.4341 17.8725C11.4341 17.5238 11.5727 17.1894 11.8192 16.9428L17.4531 11.3111H1.375C1.0269 11.3111 0.693064 11.1728 0.446922 10.9267C0.200781 10.6805 0.0625 10.3467 0.0625 9.99861C0.0625 9.65051 0.200781 9.31667 0.446922 9.07053C0.693064 8.82438 1.0269 8.68611 1.375 8.68611H17.4531L11.8214 3.0511C11.5748 2.80454 11.4363 2.47012 11.4363 2.12142C11.4363 1.77272 11.5748 1.4383 11.8214 1.19173C12.068 0.945161 12.4024 0.806641 12.7511 0.806641C13.0998 0.806641 13.4342 0.945161 13.6808 1.19173L21.5558 9.06673C21.6782 9.18883 21.7752 9.3339 21.8414 9.49362C21.9075 9.65333 21.9415 9.82454 21.9413 9.99742C21.9411 10.1703 21.9067 10.3414 21.8402 10.501C21.7737 10.6605 21.6763 10.8054 21.5536 10.9272Z" fill="black"/>
-                      </svg>
-                        <span>Learn more</span>
-                      </motion.button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+
       </div>
     </section>
   )

@@ -1,7 +1,7 @@
 'use client'
 
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useState } from 'react'
+import { motion, PanInfo } from 'framer-motion'
 import Image from 'next/image'
 import { NewsUpdates, NewsItem } from '@/content/types'
 
@@ -38,6 +38,33 @@ const cardVariants = {
 }
 
 const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
+  const [currentCenterIndex, setCurrentCenterIndex] = useState(0)
+  const [dragX, setDragX] = useState(0)
+
+  // Calculate which card is in center based on drag position
+  const getCenterCardIndex = (offset: number = 0) => {
+    const cardWidth = 570 // card width + gap
+    const totalOffset = dragX + offset
+    const centerIndex = Math.round(Math.abs(totalOffset) / cardWidth)
+    return Math.max(0, Math.min(centerIndex, (data.newsSection?.length || 1) - 1))
+  }
+
+  const handleDrag = (event: any, info: PanInfo) => {
+    const newCenterIndex = getCenterCardIndex(info.offset.x)
+    setCurrentCenterIndex(newCenterIndex)
+  }
+
+  const handleDragEnd = (event: any, info: PanInfo) => {
+    const threshold = 100
+    if (Math.abs(info.offset.x) > threshold) {
+      const newDragX = dragX + (info.offset.x > 0 ? 200 : -200)
+      const maxDrag = -((data.newsSection?.length || 0 - 2.5) * 400)
+      setDragX(Math.max(maxDrag, Math.min(0, newDragX)))
+    }
+    const finalCenterIndex = getCenterCardIndex()
+    setCurrentCenterIndex(finalCenterIndex)
+  }
+
   return (
     <section className="py-16 lg:py-24 bg-[#111] text-white overflow-hidden" style={{ contain: 'layout style' }}>
       {/* Header Section - Constrained */}
@@ -86,29 +113,39 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
               className="flex gap-5 cursor-grab active:cursor-grabbing"
               drag="x"
               dragConstraints={{ left: -((data.newsSection?.length || 0 - 2.5) * 400), right: 0 }}
-              whileHover={{ x: -20 }}
+              onDrag={handleDrag}
+              onDragEnd={handleDragEnd}
+              animate={{ x: dragX }}
               transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               whileDrag={{ cursor: "grabbing" }}
               style={{ width: 'max-content' }}
             >
-              {data.newsSection && data.newsSection.map((newsItem, index) => (
-                <motion.div
-                  key={newsItem.slug.current}
-                  className="w-[550px] flex-shrink-0"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{
-                    opacity: 1,
-                    x: 0,
-                    transition: {
-                      delay: index * 0.1,
-                      duration: 0.6,
-                      ease: "easeOut"
-                    }
-                  }}
-                >
-                  <NewsCard newsItem={newsItem} index={index} />
-                </motion.div>
-              ))}
+              {data.newsSection && data.newsSection.map((newsItem, index) => {
+                const isCenter = index === currentCenterIndex
+                const cardWidth = isCenter ? 650 : 480 // Increase center, decrease others
+
+                return (
+                  <motion.div
+                    key={newsItem.slug.current}
+                    className="flex-shrink-0"
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                      width: cardWidth,
+                      scale: isCenter ? 1.05 : 0.95,
+                      transition: {
+                        delay: index * 0.1,
+                        duration: 0.6,
+                        ease: "easeOut"
+                      }
+                    }}
+                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <NewsCard newsItem={newsItem} index={index} isCenter={isCenter} />
+                  </motion.div>
+                )
+              })}
             </motion.div>
           </div>
         </div>
@@ -118,7 +155,7 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
 }
 
 // Separate NewsCard component for better performance
-const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(({ newsItem, index }) => {
+const NewsCard: React.FC<{ newsItem: NewsItem; index: number; isCenter?: boolean }> = React.memo(({ newsItem, index, isCenter = false }) => {
   return (
     <motion.div
       variants={cardVariants}
@@ -127,7 +164,7 @@ const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(({ 
         delay: index * 0.1 + 0.3,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="group  transition-all duration-300"
+      className={`group transition-all duration-400 ${isCenter ? 'z-10' : 'z-0'}`}
     >
       {/* Image */}
       <div className="relative aspect-[1/0.85] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>

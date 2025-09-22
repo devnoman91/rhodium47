@@ -53,7 +53,7 @@ const VehicleShowcase: React.FC = () => {
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-1 lg:mb-2">
             {/* Left - Title */}
             <motion.div variants={itemVariants} className="mb-1 lg:mb-0">
-              <h1 className="text-black font-['Helvetica_Neue'] text-[64px] font-medium leading-[110%] tracking-[-1.28px]">
+              <h1 className="text-black font-helvetica text-[64px] not-italic font-medium leading-[110%] tracking-[-1.28px]">
                 Our Advanced<br />
                 Car Models
               </h1>
@@ -61,17 +61,17 @@ const VehicleShowcase: React.FC = () => {
 
             {/* Right - Description and Buttons */}
             <motion.div variants={itemVariants} className="flex flex-col items-start  max-w-md">
-              <p className="text-black font-['Helvetica_Neue'] text-[16px] font-medium leading-[160%] m-0 mb-1">
+              <p className="text-black font-helvetica text-[16px] not-italic font-medium leading-[160%] mb-[16px]">
                 Discover our range of luxury armored vehicles, each offering
                 unparalleled protection and sophistication.
               </p>
 
               {/* Buttons */}
               <div className="flex gap-4">
-                <button className="flex w-[136px] h-[48px] flex-shrink-0 bg-black text-white rounded-[50px] font-['Helvetica_Neue'] text-[16px] font-medium hover:bg-gray-800 transition-colors duration-200 justify-center items-center">
+                <button className="cursor-pointer  flex w-[136px] h-[48px] flex-shrink-0 bg-black rounded-[50px] px-[16px] py-[14px] text-white text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] hover:bg-gray-800 transition-colors duration-200 justify-center items-center">
                   Our Models
                 </button>
-                <button className="flex w-[215px] h-[48px] flex-shrink-0 bg-gray-300 text-black rounded-[50px] font-['Helvetica_Neue'] text-[16px] font-medium hover:bg-gray-400 transition-colors duration-200 justify-center items-center">
+                <button className="cursor-pointer flex w-[215px] h-[48px] flex-shrink-0 bg-[#CDCDCD] text-white  px-[16px] py-[14px] text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] rounded-[50px]  hover:bg-gray-400 transition-colors duration-200 justify-center items-center">
                   Armored Collection
                 </button>
               </div>
@@ -98,16 +98,6 @@ const VehicleShowcase: React.FC = () => {
             />
           </div>
 
-          {/* 360 Button */}
-          <div className="flex justify-center mb-1">
-            <motion.button
-              className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center font-helvetica text-[14px] font-medium hover:bg-gray-800 transition-colors duration-200 relative z-10"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              360
-            </motion.button>
-          </div>
 
           {/* Vehicle Info Section - Inside the same background */}
           <div className="max-w-7xl mx-auto px-4 md:px-6">
@@ -118,27 +108,27 @@ const VehicleShowcase: React.FC = () => {
               viewport={{ once: true, margin: "-100px" }}
             >
               <motion.div variants={itemVariants} className="text-center">
-            <h2 className="text-black font-['Helvetica_Neue'] text-[100px] font-bold leading-[150%] tracking-[-8px] uppercase mb-1">
+            <h2 className="text-black font-helvetica text-[100px] not-italic font-bold leading-[150%] tracking-[-8px] uppercase">
               AVANTGARDE
             </h2>
-            <p className="text-[#111] font-['Helvetica_Neue'] text-[24px] font-bold leading-[110%] tracking-[-0.24px] mb-0">
+            <p className="text-[#111] font-helvetica text-[24px] not-italic font-bold leading-[110%] tracking-[-0.24px] mb-[15px]">
               All-electric, 8-seat SUV built for safety, luxury, and performance.
             </p>
-            <p className="text-[#6B7280] text-center font-['Helvetica_Neue'] text-[18px] font-medium leading-[120%] mb-1">
+            <p className="text-[color:var(--Sub-Heading,#6B7280)] text-center font-helvetica text-[18px] not-italic font-medium leading-[120%] mb-[30px]">
               From $75,900 • Est. $609/mo* | EPA est. range 410 mi*
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-1 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-[16px] justify-center items-center">
               <motion.button
-                className="px-8 py-3 bg-black text-white rounded-[50px] font-helvetica text-[16px] font-medium hover:bg-gray-800 transition-colors duration-200"
+                className="cursor-pointer py-[16px] px-[12px] flex w-[132px] h-[48px] justify-center items-center flex-shrink-0 bg-black text-white rounded-[50px] font-helvetica text-[16px] font-medium hover:bg-gray-800 transition-colors duration-200"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 Explore
               </motion.button>
               <motion.button
-                className="px-8 py-3 bg-transparent text-black border border-gray-300 rounded-[50px] font-helvetica text-[16px] font-medium hover:bg-gray-100 transition-colors duration-200"
+                className="cursor-pointer py-[16px] px-[12px] flex w-[132px] h-[48px] justify-center items-center flex-shrink-0 bg-white text-black rounded-[50px] font-helvetica text-[16px] font-medium hover:bg-black hover:text-white transition-colors duration-200"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

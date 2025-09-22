@@ -47,12 +47,19 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Left - Title and Button */}
-            <motion.div variants={itemVariants} className="lg:col-span-1 space-y-8 flex flex-col gap-[10px] justify-between">
-                <h1 className="text-[60px] not-italic tracking-normal leading-[1.1] font-medium  font-helvetica text-black mb-0">
+            <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
+                <h1 className="text-[62px] not-italic tracking-normal leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
+                  style={{
+                    background: "conic-gradient(from 180deg at 50% 116.28%, #000 0.91deg, rgba(0, 0, 0, 0.24) 360deg)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
                   {data.name}
                 </h1>
+
 
                 {/* CTA Button */}
               <div className="lg:col-span-1 space-y-8 ">
@@ -64,7 +71,7 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
                     delay: 0.3,
                     ease: [0.4, 0, 0.2, 1]
                   }}
-                  className="px-6 py-3 rounded-[50px] border-1  text-white bg-black no-underline font-['Helvetica Neue'] text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
+                  className="px-[24px] py-[8px] rounded-[50px] border-1  text-white bg-black no-underline font-helvetica text-[14px] leading-[20px] tracking-[0] font-bold transition ease-[0.4s] w-fit block cursor-pointer"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -79,12 +86,12 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
               className="lg:col-span-1"
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             >
-              <div className="space-y-6">
+              <div className="space-y-5 flex flex-col justify-end items-end">
                 {/* Split description into paragraphs for better readability */}
                 {data.description.split('\n\n').map((paragraph, index) => (
                   <p
                     key={index}
-                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px]"
+                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[550px]"
                   >
                     {paragraph.trim()}
                   </p>

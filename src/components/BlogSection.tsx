@@ -76,7 +76,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
                 <button
                   key={category}
                   onClick={() => handleCategoryChange(category)}
-                  className={`px-[28px] py-[13px] rounded-[50px] not-first:flex items-center gap-4  text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit cursor-pointer ${
+                  className={`px-[28px] py-[13px] rounded-[50px] not-first:flex items-center gap-4  text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-medium transition ease-[0.4s] w-fit cursor-pointer ${
                     selectedCategory === category
                       ? 'bg-white text-gray-900 shadow-sm'
                       : 'text-white hover:text-gray-300'
@@ -100,7 +100,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
             className="overflow-hidden"
           >
             <motion.div
-              className="flex space-x-6 cursor-grab active:cursor-grabbing"
+              className="flex space-x-10 cursor-grab active:cursor-grabbing"
               drag="x"
               dragConstraints={{
                 left: -((filteredProducts.length - 1) * 340), // card width approx

@@ -95,7 +95,7 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
           {/* Description */}
           <p
             ref={descriptionRef}
-            className="text-[16px] leading-[20px] tracking-[0] m-0 font-light text-black font-helvetica flex flex-wrap"
+            className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal text-black font-helvetica flex flex-wrap"
           >
             {words.map((word, i) => {
               const start = i / words.length
@@ -112,7 +112,7 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
 
           {/* Button */}
           <motion.button
-            className="px-[18px] py-[6px] rounded-[50px] border-1 border-black  text-black no-underline font-['Helvetica Neue'] text-[16px] leading-[24px] tracking-[0] font-normal transition ease-[0.4s] w-fit block cursor-pointer"
+            className="px-[22px] py-[5px] rounded-[50px] border-1 border-black  text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-medium transition ease-[0.4s] w-fit block cursor-pointer"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.2 }}

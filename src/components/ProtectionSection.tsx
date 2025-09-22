@@ -57,7 +57,7 @@ const ProtectionSection: React.FC<ProtectionSectionProps> = ({ data }) => {
           <motion.div
             variants={itemVariants}
             transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="my-0 mx-auto max-w-[820px] pt-3 border-t border-black mb-8 md:mb-12 lg:mb-[60px]"
+            className="my-0 mx-auto max-w-[820px] pt-3 border-t border-black mb-8 md:mb-12 lg:mb-[90px]"
           >
             {/* Section Label */}
             <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center uppercase">

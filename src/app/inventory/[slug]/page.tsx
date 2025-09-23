@@ -6,13 +6,15 @@ import { sentinalConfiguration } from '@/data/sentinal-config';
 import Image from 'next/image';
 
 interface VehicleConfigPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default function VehicleConfigPage({ params }: VehicleConfigPageProps) {
-  if (params.slug !== 'sentinal') {
+export default async function VehicleConfigPage({ params }: VehicleConfigPageProps) {
+  const resolvedParams = await params;
+
+  if (resolvedParams.slug !== 'sentinal') {
     notFound();
   }
 

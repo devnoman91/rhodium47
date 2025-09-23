@@ -86,7 +86,7 @@ export default function Navbar() {
         <div className="md:hidden mt-4 bg-black bg-opacity-90 rounded-lg p-4">
           <div className="flex flex-col space-y-4">
             <Link href="/vehicles" className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]">
-              Vehicles
+              Vehicles   
             </Link>
             <Link href="/discover" className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]">
               Discover

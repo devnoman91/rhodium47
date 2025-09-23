@@ -1,5 +1,6 @@
 import { type SchemaTypeDefinition } from 'sanity'
 import video from './video'
+import product from './product'
 import homeAbout from './homeAbout'
 import productDetail from './productDetail'
 import productBlog from './productBlog'
@@ -13,5 +14,5 @@ import newsUpdates from './newsUpdates'
 import experienceXodiumTechnology from './experienceXodiumTechnology'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [video, homeAbout, productDetail, productBlog, productShowcase, showcaseInnovation, protection, frequentlyAskedQuestions, utility, keepExploring, newsUpdates, experienceXodiumTechnology],
+  types: [video, product, homeAbout, productDetail, productBlog, productShowcase, showcaseInnovation, protection, frequentlyAskedQuestions, utility, keepExploring, newsUpdates, experienceXodiumTechnology],
 }

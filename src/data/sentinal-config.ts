@@ -53,20 +53,17 @@ export const sentinalConfiguration = {
       {
         name: 'All-Season Tires',
         description: 'Range 295 mi - EPA Est. - 4.03mi',
+        speedText: 'Top Speed: 130mph',
         selected: true
       },
-      {
-        name: 'Performance Tires',
-        description: 'Range 270 mi - EPA Est. - 4.25mi',
-        selected: false
-      }
     ]
   },
   interior: {
     title: 'All Black Interior',
     options: [
-      { name: 'All Black', selected: true },
-      { name: 'Black and White', selected: false }
+      {  selected: true },
+      {  selected: false },
+      {  selected: false },
     ]
   },
   steeringWheel: {

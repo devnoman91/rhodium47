@@ -2,9 +2,9 @@ import {
   HIDDEN_PRODUCT_TAG,
   SHOPIFY_GRAPHQL_API_ENDPOINT,
   TAGS
-} from 'lib/constants';
-import { isShopifyError } from 'lib/type-guards';
-import { ensureStartsWith } from 'lib/utils';
+} from '../constants';
+import { isShopifyError } from '../type-guards';
+import { ensureStartsWith } from '../utils';
 import {
   revalidateTag,
   unstable_cacheTag as cacheTag,

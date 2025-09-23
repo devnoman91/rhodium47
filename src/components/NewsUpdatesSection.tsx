@@ -83,7 +83,7 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
           {/* Slider Container */}
           <div className="relative overflow-visible">
             <motion.div
-              className="flex gap-5 cursor-grab active:cursor-grabbing"
+              className="flex gap-5 hover:gap-8 cursor-grab active:cursor-grabbing transition-all duration-500"
               drag="x"
               dragConstraints={{ left: -((data.newsSection?.length || 0 - 2.5) * 400), right: 0 }}
               whileHover={{ x: -20 }}
@@ -93,7 +93,7 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
             >
               {data.newsSection && data.newsSection.map((newsItem, index) => (
                 <motion.div
-                  key={newsItem.slug.current}
+                  key={`${newsItem.slug.current}-${index}`}
                   className="w-[550px] flex-shrink-0"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{
@@ -113,6 +113,14 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
           </div>
         </div>
       </motion.div>
+
+      {/* Bottom gradient overlay for classy fade effect */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{
+          background: 'linear-gradient(0deg, #111 0%, rgba(17, 17, 17, 0.00) 100%)'
+        }}
+      />
     </section>
   )
 }
@@ -127,10 +135,10 @@ const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(({ 
         delay: index * 0.1 + 0.3,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="group  transition-all duration-300"
+      className="group transition-all duration-300"
     >
       {/* Image */}
-      <div className="relative aspect-[1/0.85] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
+      <div className="relative aspect-[1/0.85] overflow-hidden rounded-[20px] group-hover:aspect-[1/1] group-hover:scale-105 transition-all duration-500 group-hover:shadow-lg group-hover:shadow-white/10" style={{ contain: 'layout style paint' }}>
         <Image
           src={newsItem.image.asset.url}
           alt={newsItem.image.alt || newsItem.title}

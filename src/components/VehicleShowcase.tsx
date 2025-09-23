@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, Variants, PanInfo } from 'framer-motion'
 
 interface Vehicle {
@@ -101,6 +101,10 @@ const imageVariants: Variants = {
 const VehicleShowcase: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'standard' | 'armored'>('standard')
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isScrolling, setIsScrolling] = useState(false)
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const lastScrollTime = useRef(0)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const filteredVehicles = selectedCategory === 'all'
     ? vehicleData
@@ -124,8 +128,79 @@ const VehicleShowcase: React.FC = () => {
     }
   }
 
+  const handleScroll = useCallback((event: WheelEvent) => {
+    const container = containerRef.current
+    if (!container) return
+
+    // Get the container's position relative to viewport
+    const containerRect = container.getBoundingClientRect()
+    const containerTop = containerRect.top
+    const containerBottom = containerRect.bottom
+    const windowHeight = window.innerHeight
+
+    // Check if we're scrolling within the component area
+    const isWithinComponent = containerTop <= windowHeight && containerBottom >= 0
+
+    if (!isWithinComponent) return
+
+    // Check scroll boundaries - only capture scroll at page boundaries
+    const atTop = window.scrollY <= 0
+    const atBottom = window.scrollY + windowHeight >= document.documentElement.scrollHeight - 5
+
+    // Only handle slide scrolling if at page boundaries or within a reasonable scroll range of component
+    const shouldHandleSlideScroll = atTop || atBottom || (containerTop <= 100 && containerTop >= -100)
+
+    if (!shouldHandleSlideScroll) return
+
+    // Prevent default only when we're handling slide scroll
+    event.preventDefault()
+
+    const now = Date.now()
+    const timeSinceLastScroll = now - lastScrollTime.current
+
+    // Throttle scroll events
+    if (timeSinceLastScroll < 300) return
+
+    lastScrollTime.current = now
+    setIsScrolling(true)
+
+    // Clear existing timeout
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current)
+    }
+
+    // Determine scroll direction and change slide
+    if (event.deltaY > 0 && currentIndex < filteredVehicles.length - 1) {
+      // Scrolling down - next slide
+      setCurrentIndex(prev => prev + 1)
+    } else if (event.deltaY < 0 && currentIndex > 0) {
+      // Scrolling up - previous slide
+      setCurrentIndex(prev => prev - 1)
+    }
+
+    // Reset scrolling state after a delay
+    scrollTimeoutRef.current = setTimeout(() => {
+      setIsScrolling(false)
+    }, 500)
+  }, [currentIndex, filteredVehicles.length])
+
+  useEffect(() => {
+    // Add event listener to window instead of container for better scroll detection
+    window.addEventListener('wheel', handleScroll, { passive: false })
+
+    return () => {
+      window.removeEventListener('wheel', handleScroll)
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current)
+      }
+    }
+  }, [handleScroll])
+
   return (
-    <section className="py-10 lg:py-10 bg-[#F4F1F2] relative overflow-hidden">
+    <section
+      ref={containerRef}
+      className="py-10 lg:py-10 bg-[#F4F1F2] relative overflow-hidden"
+    >
       {/* Header Section */}
       <div className="max-w-7xl mx-auto  px-4 md:px-6">
         <motion.div
@@ -193,7 +268,10 @@ const VehicleShowcase: React.FC = () => {
                 dragElastic={0.1}
                 onDragEnd={handleDragEnd}
                 animate={{ x: -currentIndex * 100 + '%' }}
-                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                transition={{
+                  duration: isScrolling ? 0.6 : 0.3,
+                  ease: isScrolling ? [0.25, 0.46, 0.45, 0.94] : [0.4, 0, 0.2, 1]
+                }}
                 style={{ width: `${filteredVehicles.length * 100}%` }}
               >
                 {filteredVehicles.map((vehicle, index) => (

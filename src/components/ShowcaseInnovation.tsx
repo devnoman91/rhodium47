@@ -121,7 +121,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
             >
               {data.blogSection.map((blog, index) => (
                 <motion.div
-                  key={blog.slug.current}
+                  key={`${blog.slug.current}-${index}`}
                   className="w-[455px] flex-shrink-0"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{

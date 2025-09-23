@@ -28,23 +28,65 @@ const cardVariants = {
 }
 
 const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All')
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [highlightedCategory, setHighlightedCategory] = useState<string>('')
 
-  // Unique categories
+  // Unique categories (without 'All')
   const categories = useMemo(() => {
-    const uniqueCategories = [...new Set(blogData.products.map(product => product.category))]
-    return ['All', ...uniqueCategories]
+    return [...new Set(blogData.products.map(product => product.category))]
   }, [blogData.products])
 
-  // Filtered products
-  const filteredProducts = useMemo(() => {
-    if (selectedCategory === 'All') return blogData.products
-    return blogData.products.filter(product => product.category === selectedCategory)
-  }, [blogData.products, selectedCategory])
+  // Get center card's category based on scroll position
+  const getCenterCardCategory = (dragX: number = 0) => {
+    const cardWidth = 450
+    const centerPosition = Math.abs(dragX) + (window.innerWidth / 2)
+    const centerIndex = Math.round(centerPosition / cardWidth)
+    const clampedIndex = Math.max(0, Math.min(centerIndex, blogData.products.length - 1))
+    const centerProduct = blogData.products[clampedIndex]
+    return centerProduct ? centerProduct.category : ''
+  }
+
+  // Update highlighted category during drag
+  const handleDrag = (event: any, info: any) => {
+    const currentDragX = -currentIndex * 450 + info.offset.x
+    const centerCategory = getCenterCardCategory(currentDragX)
+    setHighlightedCategory(centerCategory)
+  }
+
+  // Update highlighted category when sliding
+  const handleDragEnd = (event: any, info: any) => {
+    const threshold = 100
+
+    if (info.offset.x > threshold && currentIndex > 0) {
+      const newIndex = currentIndex - 1
+      setCurrentIndex(newIndex)
+    } else if (info.offset.x < -threshold && currentIndex < blogData.products.length - 1) {
+      const newIndex = currentIndex + 1
+      setCurrentIndex(newIndex)
+    }
+
+    // Update highlighted category based on final position
+    setTimeout(() => {
+      const finalCategory = getCenterCardCategory(-currentIndex * 450)
+      setHighlightedCategory(finalCategory)
+    }, 100)
+  }
+
+  // Initialize highlighted category
+  useMemo(() => {
+    if (blogData.products.length > 0) {
+      setHighlightedCategory(blogData.products[0].category)
+    }
+  }, [blogData.products])
 
   const handleCategoryChange = useCallback((category: string) => {
-    setSelectedCategory(category)
-  }, [])
+    // Find first product of this category and scroll to it
+    const categoryIndex = blogData.products.findIndex(product => product.category === category)
+    if (categoryIndex !== -1) {
+      setCurrentIndex(categoryIndex)
+      setHighlightedCategory(category)
+    }
+  }, [blogData.products])
 
   return (
     <section className=" bg-white pt-30">
@@ -77,7 +119,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
                   key={category}
                   onClick={() => handleCategoryChange(category)}
                   className={`px-[28px] py-[13px] rounded-[50px] not-first:flex items-center gap-4  text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-medium transition ease-[0.4s] w-fit cursor-pointer ${
-                    selectedCategory === category
+                    highlightedCategory === category
                       ? 'bg-white text-gray-900 shadow-sm'
                       : 'text-white hover:text-gray-300'
                   }`}
@@ -87,37 +129,37 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
               ))}
             </div>
           </motion.div>
+
         </motion.div>
 
         {/* Blog Cards Carousel */}
-        <AnimatePresence mode="wait">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="overflow-hidden"
+        >
           <motion.div
-            key={selectedCategory}
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            className="overflow-hidden"
+            className="flex space-x-[43px] cursor-grab active:cursor-grabbing"
+            drag="x"
+            dragConstraints={{
+              left: -((blogData.products.length - 1) * 450),
+              right: 0
+            }}
+            onDrag={handleDrag}
+            onDragEnd={handleDragEnd}
+            animate={{ x: -currentIndex * 450 }}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
           >
-            <motion.div
-              className="flex space-x-10 cursor-grab active:cursor-grabbing"
-              drag="x"
-              dragConstraints={{
-                left: -((filteredProducts.length - 1) * 340), // card width approx
-                right: 0
-              }}
-              transition={{ type: 'spring', stiffness: 200, damping: 30 }}
-            >
-              {filteredProducts.map((product, index) => (
-                <BlogCard
-                  key={`${selectedCategory}-${product.slug.current}-${index}`}
-                  product={product}
-                  index={index}
-                />
-              ))}
-            </motion.div>
+            {blogData.products.map((product, index) => (
+              <BlogCard
+                key={`${product.slug.current}-${index}`}
+                product={product}
+                index={index}
+              />
+            ))}
           </motion.div>
-        </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   )
@@ -129,7 +171,7 @@ const BlogCard: React.FC<{ product: BlogProduct; index: number }> = React.memo((
     <motion.div
       variants={cardVariants}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
-      className="group bg-white  font-helvetica w-[430px] flex-shrink-0"
+      className="group bg-white font-helvetica w-[430px] flex-shrink-0"
     >
       {/* Image */}
       <div className="relative  rounded-2xl">
@@ -156,14 +198,6 @@ const BlogCard: React.FC<{ product: BlogProduct; index: number }> = React.memo((
         </h3>
 
       
-        {/* Explore More Button */}
-        <motion.button
-          className="text-[16px] leading-[150%] flex tracking-[0] font-medium text-center no-underline content-center gap-2.5  mx-auto mt-[20px] transition ease-[0.4s] text-[#111] relative w-fit font-helvetica"
-          whileHover={{ x: 5 }}
-          transition={{ duration: 0.2 }}
-        >
-          <span>Explore More</span>
-        </motion.button>
       </div>
     </motion.div>
   )

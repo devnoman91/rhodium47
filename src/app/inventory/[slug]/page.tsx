@@ -11,13 +11,7 @@ interface VehicleConfigPageProps {
   }>;
 }
 
-export default async function VehicleConfigPage({ params }: VehicleConfigPageProps) {
-  const resolvedParams = await params;
-
-  if (resolvedParams.slug !== 'sentinal') {
-    notFound();
-  }
-
+function VehicleConfigContent() {
   const config = sentinalConfiguration;
 
   const [selectedAccessories, setSelectedAccessories] = useState<string[]>([]);
@@ -369,4 +363,14 @@ export default async function VehicleConfigPage({ params }: VehicleConfigPagePro
       </div>
     </div>
   );
+}
+
+export default async function VehicleConfigPage({ params }: VehicleConfigPageProps) {
+  const resolvedParams = await params;
+
+  if (resolvedParams.slug !== 'sentinal') {
+    notFound();
+  }
+
+  return <VehicleConfigContent />;
 }

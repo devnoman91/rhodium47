@@ -46,21 +46,21 @@ export default function Navbar() {
 
         <div className="flex items-center justify-end space-x-8">
           <div className="hidden md:flex items-center space-x-8 gap-[20px]">
-            <Link href="/vehicles" className="font-helvetica text-white leading-[24px] hover:opacity-80 transition-opacity tracking-[0] m-0 px-[20px] py-0 font-normal text-[16px]">
+            <Link href="/vehicles" className="font-helvetica text-white leading-[24px] hover:opacity-80 transition-opacity tracking-[0] m-0 px-[20px] py-0 font-light text-[16px]">
               Vehicles
             </Link>
-            <Link href="/discover" className="font-helvetica text-white leading-[24px] hover:opacity-80 transition-opacity tracking-[0] m-0 px-[20px] py-0 font-normal text-[16px]">
+            <Link href="/discover" className="font-helvetica text-white leading-[24px] hover:opacity-80 transition-opacity tracking-[0] m-0 px-[20px] py-0 font-light text-[16px]">
               Discover
             </Link>
-            <Link href="/shop" className="font-helvetica text-white  leading-[24px]  hover:opacity-80 transition-opacity tracking-[0] m-0 px-[20px] py-0 font-normal text-[16px]">
+            <Link href="/shop" className="font-helvetica text-white  leading-[24px]  hover:opacity-80 transition-opacity tracking-[0] m-0 px-[20px] py-0 font-light text-[16px]">
               Shop
             </Link>
-            <Link href="/support" className="font-helvetica  leading-[24px] text-white hover:opacity-80 transition-opacity tracking-[0] m-0 px-[20px] py-0 font-normal text-[16px]">
+            <Link href="/support" className="font-helvetica  leading-[24px] text-white hover:opacity-80 transition-opacity tracking-[0] m-0 px-[20px] py-0 font-light text-[16px]">
               Support
             </Link>
           </div>
 
-          <button className="hidden  md:inline-flex pt-[12.5px] pr-[15.5px] pb-[12.5px] pl-[23.5px] rounded-[50px] flex items-center gap-4 bg-white text-black no-underline font-helvetica text-[16px] leading-[20px] tracking-[0] font-medium transition ease-[0.4s] w-fit cursor-pointer">
+          <button className="hidden  md:inline-flex pt-[12.5px] pr-[15.5px] pb-[12.5px] pl-[23.5px] rounded-[50px] flex items-center gap-4 bg-white text-black no-underline font-helvetica text-[16px] leading-[110%] tracking-[0] font-medium transition ease-[0.4s] w-fit cursor-pointer">
             Book a Consultation
           </button>
 

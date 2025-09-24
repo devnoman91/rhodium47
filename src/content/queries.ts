@@ -213,3 +213,297 @@ export const experienceXodiumQuery = `
     }
   }
 `
+
+export const productQuery = `
+  *[_type == "product"] | order(_createdAt asc) {
+    _id,
+    name,
+    slug,
+    heroSection {
+      name,
+      title,
+      contentType,
+      videoFile {
+        asset-> {
+          url
+        }
+      },
+      image {
+        asset-> {
+          url
+        },
+        alt
+      }
+    },
+    aboutSection {
+      name,
+      description,
+      images[] {
+        name,
+        title,
+        image {
+          asset-> {
+            url
+          },
+          alt
+        },
+        counts[] {
+          name,
+          title,
+          value
+        }
+      }
+    },
+    interiorSection {
+      name,
+      description,
+      sections[] {
+        name,
+        title,
+        contentType,
+        videoFile {
+          asset-> {
+            url
+          }
+        },
+        image {
+          asset-> {
+            url
+          },
+          alt
+        }
+      }
+    },
+    fullSpectrumColorSection {
+      name,
+      sections[] {
+        name,
+        description,
+        image {
+          asset-> {
+            url
+          },
+          alt
+        }
+      }
+    },
+    modelSpecsSection {
+      name,
+      title,
+      mainSections[] {
+        name,
+        title
+      }
+    },
+    warrantySection {
+      name,
+      title
+    },
+    othersSection {
+      name,
+      title,
+      bulletPoints[]
+    }
+  }
+`
+
+export const productByIdQuery = (id: string) => `
+  *[_type == "product" && _id == "${id}"][0] {
+    _id,
+    name,
+    slug,
+    heroSection {
+      name,
+      title,
+      contentType,
+      videoFile {
+        asset-> {
+          url
+        }
+      },
+      image {
+        asset-> {
+          url
+        },
+        alt
+      }
+    },
+    aboutSection {
+      name,
+      description,
+      images[] {
+        name,
+        title,
+        image {
+          asset-> {
+            url
+          },
+          alt
+        },
+        counts[] {
+          name,
+          title,
+          value
+        }
+      }
+    },
+    interiorSection {
+      name,
+      description,
+      sections[] {
+        name,
+        title,
+        contentType,
+        videoFile {
+          asset-> {
+            url
+          }
+        },
+        image {
+          asset-> {
+            url
+          },
+          alt
+        }
+      }
+    },
+    fullSpectrumColorSection {
+      name,
+      sections[] {
+        name,
+        description,
+        image {
+          asset-> {
+            url
+          },
+          alt
+        }
+      }
+    },
+    modelSpecsSection {
+      name,
+      title,
+      mainSections[] {
+        name,
+        title
+      }
+    },
+    warrantySection {
+      name,
+      title
+    },
+    othersSection {
+      name,
+      title,
+      bulletPoints[]
+    }
+  }
+`
+
+export const productBySlugQuery = (slug: string) => `
+  *[_type == "product" && slug.current == "${slug}"][0] {
+    _id,
+    name,
+    slug,
+    heroSection {
+      name,
+      title,
+      contentType,
+      videoFile {
+        asset-> {
+          url
+        }
+      },
+      image {
+        asset-> {
+          url
+        },
+        alt
+      }
+    },
+    aboutSection {
+      name,
+      description,
+      images[] {
+        name,
+        title,
+        image {
+          asset-> {
+            url
+          },
+          alt
+        },
+        counts[] {
+          name,
+          title,
+          value
+        }
+      }
+    },
+    interiorSection {
+      name,
+      description,
+      sections[] {
+        name,
+        title,
+        contentType,
+        videoFile {
+          asset-> {
+            url
+          }
+        },
+        image {
+          asset-> {
+            url
+          },
+          alt
+        }
+      }
+    },
+    fullSpectrumColorSection {
+      name,
+      sections[] {
+        name,
+        description,
+        image {
+          asset-> {
+            url
+          },
+          alt
+        }
+      }
+    },
+    modelSpecsSection {
+      name,
+      title,
+      mainSections[] {
+        name,
+        title
+      }
+    },
+    warrantySection {
+      name,
+      title
+    },
+    othersSection {
+      name,
+      title,
+      bulletPoints[]
+    }
+  }
+`
+
+import { client } from '../sanity/lib/client'
+import { Product } from './types'
+
+export const getAllProducts = async (): Promise<Product[]> => {
+  return await client.fetch(productQuery)
+}
+
+export const getProductById = async (id: string): Promise<Product> => {
+  return await client.fetch(productByIdQuery(id))
+}
+
+export const getProductBySlug = async (slug: string): Promise<Product> => {
+  return await client.fetch(productBySlugQuery(slug))
+}

@@ -11,9 +11,11 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
   const isHomePage = pathname === '/'
+  const isProductDetailPage = pathname.startsWith('/product-detail/')
+  const shouldBeTransparent = isHomePage || isProductDetailPage
 
   useEffect(() => {
-    if (!isHomePage) return
+    if (!shouldBeTransparent) return
 
     const handleScroll = () => {
       // Check if user has scrolled past the hero section (approximately 100vh)
@@ -24,11 +26,11 @@ export default function Navbar() {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [isHomePage])
+  }, [shouldBeTransparent])
 
   return (
     <nav className={`fixed left-0 right-0 z-50 px-12 py-4 font-helvetica transition-all duration-300 ${
-      isHomePage
+      shouldBeTransparent
         ? isScrolled
           ? 'top-0 bg-black/95 backdrop-blur-md shadow-sm'
           : 'top-5 bg-transparent'

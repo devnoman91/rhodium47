@@ -1,0 +1,232 @@
+'use client'
+
+import React, { useMemo } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+
+interface ProductAboutSectionProps {
+  aboutSection: {
+    name?: string
+    description?: string
+    images?: Array<{
+      name?: string
+      title?: string
+      image?: {
+        asset: {
+          url: string
+        }
+        alt?: string
+      }
+      counts?: Array<{
+        name?: string
+        title?: string
+        value?: number
+      }>
+    }>
+  }
+}
+
+// Animation Variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.6, staggerChildren: 0.2 }
+  }
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 }
+}
+
+const imageVariants = {
+  initial: { scale: 1.05, opacity: 0 },
+  animate: { scale: 1, opacity: 1 }
+}
+
+const ProductAboutSection: React.FC<ProductAboutSectionProps> = ({ aboutSection }) => {
+  const descriptionRef = React.useRef<HTMLParagraphElement | null>(null)
+  const { scrollYProgress } = useScroll({
+    target: descriptionRef,
+    offset: ['start 80%', 'end 20%']
+  })
+
+  const words = useMemo(() => (aboutSection.description || '').split(' '), [aboutSection.description])
+  const firstImage = aboutSection.images?.[0]
+
+  console.log('ProductAboutSection props:', aboutSection)
+  console.log('First image:', firstImage)
+  console.log('Counts from first image:', firstImage?.counts)
+
+  return (
+    <section className="py-6 lg:py-[80px] bg-white">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Top Section */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          className="mb-20 lg:mb-[70px]"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 xl:gap-20">
+            {/* Left Logo */}
+            <motion.div variants={itemVariants} className="hidden lg:flex lg:col-span-2 xl:col-span-2 flex-col justify-start items-center lg:items-start">
+              {/* Rotating icon */}
+              <div className="relative mb-8 w-20 h-20 lg:w-20 lg:h-20 xl:w-25 xl:h-25 mx-auto flex items-center justify-center">
+                {/* Rotating circle with lines */}
+                <motion.svg
+                  className="absolute inset-0 w-full h-full"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+                  viewBox="0 0 102 102"
+                >
+                  <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="51" cy="51" r="40" stroke="#161618" strokeWidth="22" strokeDasharray="2 4"/>
+                  </svg>
+                </motion.svg>
+
+                {/* Static centered arrow */}
+                <div className="relative w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center cursor-pointer z-10">
+                  <div
+                    className="text-2xl lg:text-3xl text-gray-900"
+                    style={{ transform: 'rotate(0deg)' }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18.0006 1V14C18.0006 14.2652 17.8952 14.5196 17.7077 14.7071C17.5201 14.8946 17.2658 15 17.0006 15C16.7353 15 16.481 14.8946 16.2934 14.7071C16.1059 14.5196 16.0006 14.2652 16.0006 14V3.41375L1.70806 17.7075C1.52042 17.8951 1.26592 18.0006 1.00056 18.0006C0.735192 18.0006 0.480697 17.8951 0.293056 17.7075C0.105415 17.5199 0 17.2654 0 17C0 16.7346 0.105415 16.4801 0.293056 16.2925L14.5868 2H4.00056C3.73534 2 3.48099 1.89464 3.29345 1.70711C3.10591 1.51957 3.00056 1.26522 3.00056 1C3.00056 0.734784 3.10591 0.48043 3.29345 0.292893C3.48099 0.105357 3.73534 0 4.00056 0H17.0006C17.2658 0 17.5201 0.105357 17.7077 0.292893C17.8952 0.48043 18.0006 0.734784 18.0006 1Z" fill="#343330"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Heading + Description */}
+            <motion.div variants={itemVariants} className="col-span-1 md:ml-50 lg:ml-50 xl:ml-50 lg:col-span-10 xl:col-span-10">
+              {/* Section divider line */}
+              <motion.div
+                className="h-[1px] w-full bg-[#777] rounded-full mb-3"
+                initial={{ opacity: 0, scaleX: 0 }}
+                whileInView={{ opacity: 1, scaleX: 1 }}
+                viewport={{ once: true, margin: '-100px' }}
+                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                style={{ transformOrigin: 'left center' }}
+              />
+
+              {/* Section Label */}
+              <div className="inline-flex items-center space-x-2 mb-4 md:mb-6">
+                <div className="w-2 h-2 bg-gray-900 rounded-full" />
+                <span className="text-[#161618] font-helvetica text-[20px] not-italic font-normal leading-[24px] tracking-[-0.4px] uppercase">
+                  {aboutSection.name || 'About'}
+                </span>
+              </div>
+
+              {/* Animated, per-word highlight on scroll (karaoke-style) */}
+              {aboutSection.description && (
+                <p
+                  ref={descriptionRef}
+                  className="text-[24px] md:text-[32px] lg:text-[36px] xl:text-[40px] 2xl:text-[40px] leading-[120%] font-helvetica font-[500] max-w-[56ch] flex flex-wrap"
+                >
+                  {words.map((word, i) => {
+                    const start = i / words.length
+                    const end = (i + 1) / words.length
+                    const color = useTransform(scrollYProgress, [start, end], ['#7F7F7F', '#161618'])
+                    const opacity = useTransform(scrollYProgress, [start, end], [0.6, 1])
+                    return (
+                      <motion.span key={i} style={{ color, opacity }} className="mr-2">
+                        {word}
+                      </motion.span>
+                    )
+                  })}
+                </p>
+              )}
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Bottom Section - Image and Counts */}
+        {firstImage && (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 xl:gap-20 2xl:gap-24 items-start"
+          >
+            <div className="lg:col-span-12">
+              <div className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-12 xl:gap-16">
+                {/* Image */}
+                <div className="w-full lg:w-[60%]">
+                  <div className="relative aspect-[16/9] lg:aspect-auto h-full rounded-2xl overflow-hidden bg-gray-100">
+                    {firstImage.image?.asset?.url && (
+                      <motion.img
+                        src={firstImage.image.asset.url}
+                        alt={firstImage.image.alt || firstImage.name || 'Product about image'}
+                        className="w-full h-full object-cover aspect-[1/0.54]"
+                        variants={imageVariants}
+                        initial="initial"
+                        animate="animate"
+                        transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    )}
+                  </div>
+                </div>
+
+                {/* Product Info and Counts */}
+                <div className="w-full lg:w-[40%] flex items-center">
+                  <motion.div
+                    variants={itemVariants}
+                    className="w-full"
+                  >
+                    <h3 className="text-[#161618] font-medium text-[24px] leading-[120%] tracking-[-0.48px] font-helvetica mb-[24px]">
+                      {firstImage.name || firstImage.title}
+                    </h3>
+
+                    {/* Counts Section */}
+                    {firstImage.counts && firstImage.counts.length > 0 && (
+                      <div className="mb-[24px]">
+                        <div className="grid grid-cols-1 gap-6">
+                          {firstImage.counts.map((count, index) => (
+                            <motion.div
+                              key={index}
+                              className="border-b border-gray-200 pb-4"
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: index * 0.1 }}
+                            >
+                              <div className="flex justify-between items-center">
+                                <span className="text-[#7F7F7F] font-helvetica text-[16px] font-normal tracking-[-0.32px]">
+                                  {count.name}
+                                </span>
+                                <span className="text-[#161618] font-helvetica text-[20px] font-medium">
+                                  {count.value || count.title}
+                                </span>
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    <motion.button
+                      className="inline-flex cursor-pointer items-center text-[#161618] font-helvetica text-[20px] gap-3 not-italic font-medium leading-[24px] tracking-[-0.4px]"
+                      whileHover={{ x: 5 }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
+                        <path d="M21.5536 10.9272L13.6786 18.8022C13.432 19.0488 13.0976 19.1873 12.7489 19.1873C12.4002 19.1873 12.0658 19.0488 11.8192 18.8022C11.5727 18.5556 11.4341 18.2212 11.4341 17.8725C11.4341 17.5238 11.5727 17.1894 11.8192 16.9428L17.4531 11.3111H1.375C1.0269 11.3111 0.693064 11.1728 0.446922 10.9267C0.200781 10.6805 1.0269 10.3467 0.0625 9.99861C0.0625 9.65051 0.200781 9.31667 0.446922 9.07053C0.693064 8.82438 1.0269 8.68611 1.375 8.68611H17.4531L11.8214 3.0511C11.5748 2.80454 11.4363 2.47012 11.4363 2.12142C11.4363 1.77272 11.5748 1.4383 11.8214 1.19173C12.068 0.945161 12.4024 0.806641 12.7511 0.806641C13.0998 0.806641 13.4342 0.945161 13.6808 1.19173L21.5558 9.06673C21.6782 9.18883 21.7752 9.3339 21.8414 9.49362C21.9075 9.65333 21.9415 9.82454 21.9413 9.99742C21.9411 10.1703 21.9067 10.3414 21.8402 10.501C21.7737 10.6605 21.6763 10.8054 21.5536 10.9272Z" fill="black" />
+                      </svg>
+                      <span>Learn more</span>
+                    </motion.button>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </div>
+    </section>
+  )
+}
+
+export default ProductAboutSection

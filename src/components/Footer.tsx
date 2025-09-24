@@ -6,7 +6,7 @@ const Footer = () => {
       {/* Background Image */}
       <div className="absolute inset-0 bg-[url('/footer.png')] bg-cover bg-center bg-no-repeat"></div>
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgb(0_0_0/_71%)_0%,_rgb(0_0_0/_73%)_38%,_rgb(0_0_0/_84%)_78%,_rgba(0,_0,_0,_1)_100%)]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(0deg,#111111_0%,rgba(17,17,17,0)_100%)]"></div>
 
       <div className="relative z-10">
         {/* Hero Section */}

@@ -187,3 +187,115 @@ export interface ExperienceXodium {
   description: string
   button: ExperienceXodiumButton
 }
+
+export interface Product {
+  _id: string
+  name: string
+  slug: {
+    current: string
+  }
+  heroSection?: {
+    name?: string
+    title?: string
+    contentType?: 'video' | 'image'
+    videoFile?: {
+      asset: {
+        url: string
+      }
+    }
+    image?: {
+      asset: {
+        url: string
+      }
+      alt?: string
+    }
+  }
+  aboutSection?: {
+    name?: string
+    description?: string
+    images?: Array<{
+      name?: string
+      title?: string
+      image?: {
+        asset: {
+          url: string
+        }
+        alt?: string
+      }
+      counts?: Array<{
+        name?: string
+        title?: string
+        value?: number
+      }>
+    }>
+  }
+  interiorSection?: {
+    name?: string
+    description?: string
+    sections?: Array<{
+      name?: string
+      title?: string
+      contentType?: 'video' | 'image'
+      videoFile?: {
+        asset: {
+          url: string
+        }
+      }
+      image?: {
+        asset: {
+          url: string
+        }
+        alt?: string
+      }
+    }>
+  }
+  fullSpectrumColorSection?: {
+    name?: string
+    sections?: Array<{
+      name?: string
+      description?: string
+      image?: {
+        asset: {
+          url: string
+        }
+        alt?: string
+      }
+    }>
+  }
+  modelSpecsSection?: {
+    name?: string
+    title?: string
+    mainSections?: Array<{
+      name?: string
+      title?: string
+    }>
+  }
+  warrantySection?: {
+    name?: string
+    title?: string
+  }
+  othersSection?: {
+    name?: string
+    title?: string
+    bulletPoints?: string[]
+  }
+}
+
+export interface SanityImageAsset {
+  _id: string
+  url: string
+}
+
+export interface SanityFileAsset {
+  _id: string
+  url: string
+}
+
+export interface SanityImage {
+  asset: SanityImageAsset
+  alt?: string
+}
+
+export interface SanityFile {
+  asset: SanityFileAsset
+}

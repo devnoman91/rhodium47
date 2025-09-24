@@ -12,7 +12,7 @@ export default function InventoryPage() {
     status: '',
     models: [] as string[],
     paymentType: '',
-    priceRange: [filterOptions.priceRange.min, filterOptions.priceRange.max],
+    priceRange: [filterOptions.priceRange.min, filterOptions.priceRange.max] as [number, number],
     trim: '',
     mileageYear: '',
     paint: '',
@@ -59,10 +59,10 @@ export default function InventoryPage() {
   };
 
   return (
-    <div className="min-h-screen mt-20 bg-[#FFFFFF]">
-      <div className="flex h-screen">
-        {/* Filter Sidebar - Fixed */}
-        <div className="fixed left-0 top-20 bottom-0 z-10">
+    <div className="min-h-screen pt-20 bg-[#FFFFFF] relative">
+      <div className="flex">
+        {/* Filter Sidebar - Sticky positioning */}
+        <div className="sticky top-20 h-screen w-80 bg-white z-[100] shadow-lg overflow-y-auto flex-shrink-0">
           <FilterSidebar
             filters={filters}
             onFilterChange={handleFilterChange}
@@ -71,7 +71,7 @@ export default function InventoryPage() {
         </div>
 
         {/* Main Content - Scrollable */}
-        <div className="flex-1 ml-80 overflow-y-auto p-6">
+        <div className="flex-1 min-h-screen p-6">
           {/* Header */}
           <div className="mb-6">
             <h1 className="text-2xl font-semibold text-gray-900">Inventory</h1>
@@ -95,7 +95,7 @@ export default function InventoryPage() {
                     status: '',
                     models: [],
                     paymentType: '',
-                    priceRange: [filterOptions.priceRange.min, filterOptions.priceRange.max],
+                    priceRange: [filterOptions.priceRange.min, filterOptions.priceRange.max] as [number, number],
                     trim: '',
                     mileageYear: '',
                     paint: '',

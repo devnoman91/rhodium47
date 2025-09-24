@@ -11,7 +11,6 @@ import NewsUpdatesSection from "@/components/NewsUpdatesSection";
 import ExperienceXodiumSection from "@/components/ExperienceXodiumSection";
 import VehicleShowcase from "@/components/VehicleShowcase";
 import VehicleDiagram from "@/components/VehicleDiagram";
-import Footer from "@/components/Footer";
 import { getExperienceXodiumData, getFAQData, getHomeAboutData, getKeepExploringData, getNewsUpdatesData, getProductBlogData, getProductDetails, getProductShowcaseData, getProtectionData, getShowcaseInnovationData, getUtilityData } from "@/sanity/lib/sanity";
 
 export default async function Home() {
@@ -86,9 +85,6 @@ export default async function Home() {
           data={experienceXodiumData}
         />
       )}
-     
-      
-      <Footer/>
     </div>
   );
 }

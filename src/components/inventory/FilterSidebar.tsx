@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
+
 interface FilterSidebarProps {
   filters: any;
   onFilterChange: (filters: any) => void;
@@ -35,7 +36,7 @@ function ExpandableFilterSection({ title, isExpanded = false, children }: Expand
     </div>
   );
 }
-
+    
 export default function FilterSidebar({ filters, onFilterChange, filterOptions }: FilterSidebarProps) {
   const updateFilter = (key: string, value: any) => {
     const newFilters = { ...filters, [key]: value };

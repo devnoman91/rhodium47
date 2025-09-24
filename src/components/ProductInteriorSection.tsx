@@ -56,8 +56,6 @@ const cardVariants = {
 }
 
 const ProductInteriorSection: React.FC<ProductInteriorSectionProps> = ({ interiorSection }) => {
-  console.log('ProductInteriorSection props:', interiorSection)
-  console.log('Interior sections:', interiorSection.sections)
 
   if (!interiorSection.sections || interiorSection.sections.length === 0) {
     return null
@@ -173,23 +171,75 @@ const InteriorCard: React.FC<{
   }
   index: number
 }> = React.memo(({ section, index }) => {
-  console.log('InteriorCard section:', section)
 
-  const getImageUrl = () => {
+  const hasContent = () => {
+    return (section.contentType === 'image' && section.image?.asset?.url) ||
+           (section.contentType === 'video' && section.videoFile?.asset?.url)
+  }
+
+  const getContentUrl = () => {
     if (section.contentType === 'image' && section.image?.asset?.url) {
       return section.image.asset.url
     }
     if (section.contentType === 'video' && section.videoFile?.asset?.url) {
-      // For video, we might want to show a thumbnail or poster
       return section.videoFile.asset.url
     }
-    return null
+    return '/placeholder-interior.jpg' // Fallback placeholder
   }
 
-  const imageUrl = getImageUrl()
+  const contentUrl = getContentUrl()
 
-  if (!imageUrl) {
-    return null
+  if (!hasContent()) {
+    // Show placeholder card for sections without media content
+    return (
+      <motion.div
+        variants={cardVariants}
+        transition={{
+          duration: 0.6,
+          delay: index * 0.1 + 0.3,
+          ease: [0.4, 0, 0.2, 1]
+        }}
+        className="group transition-all duration-300"
+      >
+        {/* Placeholder Media Content */}
+        <div className="relative aspect-[1/0.85] overflow-hidden rounded-[20px] bg-gray-800 flex items-center justify-center" style={{ contain: 'layout style paint' }}>
+          <div className="text-white/40 text-center">
+            <div className="text-4xl mb-2">{section.contentType === 'video' ? '🎥' : '🖼️'}</div>
+            <div className="text-sm">Content Coming Soon</div>
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
+
+          {/* Navigation Dots */}
+          <div className="absolute bottom-4 left-4 flex gap-2">
+            <div className="w-2 h-2 bg-white/60 rounded-full" />
+            <div className="w-2 h-2 bg-white rounded-full" />
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="pt-6 pr-[5%]">
+          <div className="mb-[48px]">
+            <h3 className="text-white font-medium text-[24px] leading-[110%] tracking-[-0.24px] mb-2 font-helvetica">
+              {section.name || 'Interior Feature'}
+            </h3>
+
+            <p className="text-[16px] leading-[21px] tracking-[0] m-0 font-normal font-helvetica opacity-60">
+              {section.title || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ultrices nulla vitae faucibus rutrum. Quisque viverra, massa.'}
+            </p>
+          </div>
+
+          {/* Learn More Button */}
+          <motion.button
+            className="px-[24px] py-[5px] rounded-[50px] border-1 border-white text-white no-underline font-helvetica text-[14px] leading-[24px] tracking-[0] font-medium transition ease-[0.4s] w-fit block cursor-pointer mt-auto"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+          >
+            <span>Learn More</span>
+          </motion.button>
+        </div>
+      </motion.div>
+    )
   }
 
   return (
@@ -216,7 +266,7 @@ const InteriorCard: React.FC<{
           />
         ) : (
           <Image
-            src={imageUrl}
+            src={contentUrl}
             alt={section.image?.alt || section.name || 'Interior feature'}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px]"
@@ -240,11 +290,11 @@ const InteriorCard: React.FC<{
       <div className="pt-6 pr-[5%]">
         <div className="mb-[48px]">
           <h3 className="text-white font-medium text-[24px] leading-[110%] tracking-[-0.24px] mb-2 font-helvetica">
-            {section.name || section.title || 'Interior Feature'}
+            {section.name || 'Interior Feature'}
           </h3>
 
           <p className="text-[16px] leading-[21px] tracking-[0] m-0 font-normal font-helvetica opacity-60">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ultrices nulla vitae faucibus rutrum. Quisque viverra, massa.
+            {section.title || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ultrices nulla vitae faucibus rutrum. Quisque viverra, massa.'}
           </p>
         </div>
 

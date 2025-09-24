@@ -1,11 +1,12 @@
-'use client'
-
-import { useEffect, useState } from 'react'
 import { getProductBySlug } from '../../../content/queries'
-import { Product } from '../../../content/types'
 import ProductHeroSection from '../../../components/ProductHeroSection'
 import ProductAboutSection from '../../../components/ProductAboutSection'
 import ProductInteriorSection from '../../../components/ProductInteriorSection'
+import ProtectionSection from '@/components/ProtectionSection'
+import UtilitySection from '@/components/UtilitySection'
+import NewsUpdatesSection from '@/components/NewsUpdatesSection'
+import ExperienceXodiumSection from '@/components/ExperienceXodiumSection'
+import { getProtectionData, getUtilityData, getNewsUpdatesData, getExperienceXodiumData } from '@/sanity/lib/sanity'
 
 interface ProductDetailPageProps {
   params: Promise<{
@@ -13,55 +14,17 @@ interface ProductDetailPageProps {
   }>
 }
 
-export default function ProductDetailPage({ params }: ProductDetailPageProps) {
-  const [product, setProduct] = useState<Product | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [slug, setSlug] = useState<string>('')
+export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
+  const { slug } = await params
 
-  useEffect(() => {
-    const getSlug = async () => {
-      const { slug: paramSlug } = await params
-      setSlug(paramSlug)
-    }
-    getSlug()
-  }, [params])
-
-  useEffect(() => {
-    if (!slug) return
-
-    const fetchProduct = async () => {
-      try {
-        console.log('Fetching product with slug:', slug)
-        const productData = await getProductBySlug(slug)
-        console.log('Product data received:', productData)
-        setProduct(productData)
-      } catch (err) {
-        console.error('Error fetching product:', err)
-        setError('Failed to fetch product')
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchProduct()
-  }, [slug])
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Loading product...</div>
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl text-red-500">{error}</div>
-      </div>
-    )
-  }
+  // Fetch data from Sanity CMS and product data in parallel
+  const [product, protectionData, utilityData, newsUpdatesData, experienceXodiumData] = await Promise.all([
+    getProductBySlug(slug),
+    getProtectionData(),
+    getUtilityData(),
+    getNewsUpdatesData(),
+    getExperienceXodiumData(),
+  ])
 
   if (!product) {
     return (
@@ -70,8 +33,6 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
       </div>
     )
   }
-
-  console.log('Rendering product:', product)
 
   return (
     <div className="min-h-screen">
@@ -95,21 +56,27 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
 
         {/* Full Spectrum Color Section */}
         {product.fullSpectrumColorSection && (
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold mb-4">Full Spectrum Color</h2>
-            <div className="bg-gray-100 p-6 rounded-lg">
-              <h3 className="text-xl mb-2">{product.fullSpectrumColorSection.name}</h3>
-              {product.fullSpectrumColorSection.sections && product.fullSpectrumColorSection.sections.length > 0 && (
-                <div>
-                  <h4 className="font-medium mb-2">Color Options:</h4>
-                  <ul className="list-disc list-inside">
-                    {product.fullSpectrumColorSection.sections.map((section, index) => (
-                      <li key={index}>{section.name}: {section.description}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
+          <section className="mb-16 py-12">
+            <h2 className="text-4xl font-bold text-center mb-12">{product.fullSpectrumColorSection.name}</h2>
+            {product.fullSpectrumColorSection.sections && product.fullSpectrumColorSection.sections.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {product.fullSpectrumColorSection.sections.map((section, index) => (
+                  <div key={index} className="text-center">
+                    {section.image?.asset && (
+                      <div className="mb-6">
+                        <img
+                          src={section.image.asset.url}
+                          alt={section.image.alt || section.name}
+                          className="w-full h-64 object-cover rounded-lg shadow-lg"
+                        />
+                      </div>
+                    )}
+                    <h3 className="text-xl font-semibold mb-4">{section.name}</h3>
+                    <p className="text-gray-600 leading-relaxed">{section.description}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
         )}
 
@@ -117,12 +84,12 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
         {product.modelSpecsSection && (
           <section className="mb-12">
             <h2 className="text-2xl font-semibold mb-4">Model Specs</h2>
-            <div className="bg-gray-100 p-6 rounded-lg">
+            <div className="bg-gray-100 p-6  text-black rounded-lg">
               <h3 className="text-xl mb-2">{product.modelSpecsSection.name}</h3>
               <p className="mb-4">{product.modelSpecsSection.title}</p>
               {product.modelSpecsSection.mainSections && product.modelSpecsSection.mainSections.length > 0 && (
                 <div>
-                  <h4 className="font-medium mb-2">Main Sections:</h4>
+                  <h4 className="font-medium mb-2">Main  Sections:</h4>
                   <ul className="list-disc list-inside">
                     {product.modelSpecsSection.mainSections.map((section, index) => (
                       <li key={index}>{section.name}: {section.title}</li>
@@ -167,6 +134,28 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
         )}
         </div>
       </div>
+
+      {/* Protection Section - Global data like home page */}
+      {protectionData && (
+        <ProtectionSection
+          data={protectionData}
+        />
+      )}
+      {utilityData && (
+        <UtilitySection
+          data={utilityData}
+        />
+      )}
+      {newsUpdatesData && (
+        <NewsUpdatesSection
+          data={newsUpdatesData}
+        />
+      )}
+      {experienceXodiumData && (
+        <ExperienceXodiumSection
+          data={experienceXodiumData}
+        />
+      )}
     </div>
   )
 }

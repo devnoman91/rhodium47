@@ -288,11 +288,22 @@ export const productQuery = `
       }
     },
     modelSpecsSection {
-      name,
       title,
-      mainSections[] {
-        name,
-        title
+      performanceSpecs[] {
+        label,
+        value
+      },
+      physicalSpecs[] {
+        label,
+        value
+      },
+      warrantySpecs[] {
+        label,
+        value
+      },
+      othersSection {
+        title,
+        bulletPoints[]
       }
     },
     warrantySection {
@@ -303,6 +314,17 @@ export const productQuery = `
       name,
       title,
       bulletPoints[]
+    },
+    showcaseInnovation {
+      main {
+        title,
+        description
+      },
+      blogSection[] {
+        title,
+        description,
+        slug
+      }
     }
   }
 `
@@ -381,11 +403,22 @@ export const productByIdQuery = (id: string) => `
       }
     },
     modelSpecsSection {
-      name,
       title,
-      mainSections[] {
-        name,
-        title
+      performanceSpecs[] {
+        label,
+        value
+      },
+      physicalSpecs[] {
+        label,
+        value
+      },
+      warrantySpecs[] {
+        label,
+        value
+      },
+      othersSection {
+        title,
+        bulletPoints[]
       }
     },
     warrantySection {
@@ -396,6 +429,17 @@ export const productByIdQuery = (id: string) => `
       name,
       title,
       bulletPoints[]
+    },
+    showcaseInnovation {
+      main {
+        title,
+        description
+      },
+      blogSection[] {
+        title,
+        description,
+        slug
+      }
     }
   }
 `
@@ -474,11 +518,22 @@ export const productBySlugQuery = (slug: string) => `
       }
     },
     modelSpecsSection {
-      name,
       title,
-      mainSections[] {
-        name,
-        title
+      performanceSpecs[] {
+        label,
+        value
+      },
+      physicalSpecs[] {
+        label,
+        value
+      },
+      warrantySpecs[] {
+        label,
+        value
+      },
+      othersSection {
+        title,
+        bulletPoints[]
       }
     },
     warrantySection {
@@ -489,6 +544,17 @@ export const productBySlugQuery = (slug: string) => `
       name,
       title,
       bulletPoints[]
+    },
+    showcaseInnovation {
+      main {
+        title,
+        description
+      },
+      blogSection[] {
+        title,
+        description,
+        slug
+      }
     }
   }
 `

@@ -263,12 +263,23 @@ export interface Product {
     }>
   }
   modelSpecsSection?: {
-    name?: string
     title?: string
-    mainSections?: Array<{
-      name?: string
-      title?: string
+    performanceSpecs?: Array<{
+      label: string
+      value: string
     }>
+    physicalSpecs?: Array<{
+      label: string
+      value: string
+    }>
+    warrantySpecs?: Array<{
+      label: string
+      value: string
+    }>
+    othersSection?: {
+      title?: string
+      bulletPoints?: string[]
+    }
   }
   warrantySection?: {
     name?: string
@@ -278,6 +289,19 @@ export interface Product {
     name?: string
     title?: string
     bulletPoints?: string[]
+  }
+  showcaseInnovation?: {
+    main: {
+      title: string
+      description: string
+    }
+    blogSection: Array<{
+      title: string
+      description: string
+      slug: {
+        current: string
+      }
+    }>
   }
 }
 

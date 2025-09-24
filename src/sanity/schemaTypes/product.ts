@@ -115,31 +115,9 @@ export default defineType({
                   },
                 }),
                 defineField({
-                  name: 'counts',
-                  title: 'Counts',
-                  type: 'array',
-                  of: [
-                    {
-                      type: 'object',
-                      fields: [
-                        defineField({
-                          name: 'name',
-                          title: 'Count Name',
-                          type: 'string',
-                        }),
-                        defineField({
-                          name: 'title',
-                          title: 'Count Title',
-                          type: 'string',
-                        }),
-                        defineField({
-                          name: 'value',
-                          title: 'Count Value',
-                          type: 'number',
-                        }),
-                      ],
-                    },
-                  ],
+                  name: 'count',
+                  title: 'Count',
+                  type: 'number',
                 }),
               ],
             },
@@ -149,76 +127,76 @@ export default defineType({
     }),
 
     // Product Detail
-    // defineField({
-    //   name: 'productDetail',
-    //   title: 'Product Detail',
-    //   type: 'object',
-    //   fields: [
-    //     defineField({
-    //       name: 'name',
-    //       title: 'Detail Name',
-    //       type: 'string',
-    //     }),
-    //     defineField({
-    //       name: 'description',
-    //       title: 'Detail Description',
-    //       type: 'text',
-    //     }),
-    //     defineField({
-    //       name: 'sections',
-    //       title: 'Detail Sections',
-    //       type: 'array',
-    //       of: [
-    //         {
-    //           type: 'object',
-    //           fields: [
-    //             defineField({
-    //               name: 'name',
-    //               title: 'Section Name',
-    //               type: 'string',
-    //             }),
-    //             defineField({
-    //               name: 'title',
-    //               title: 'Section Title',
-    //               type: 'string',
-    //             }),
-    //             defineField({
-    //               name: 'contentType',
-    //               title: 'Content Type',
-    //               type: 'string',
-    //               options: {
-    //                 list: [
-    //                   { title: 'Video', value: 'video' },
-    //                   { title: 'Image', value: 'image' }
-    //                 ],
-    //                 layout: 'radio'
-    //               },
-    //               initialValue: 'video',
-    //             }),
-    //             defineField({
-    //               name: 'videoFile',
-    //               title: 'Video File',
-    //               type: 'file',
-    //               options: {
-    //                 accept: 'video/*',
-    //               },
-    //               hidden: ({ parent }) => parent?.contentType !== 'video',
-    //             }),
-    //             defineField({
-    //               name: 'image',
-    //               title: 'Image',
-    //               type: 'image',
-    //               options: {
-    //                 hotspot: true,
-    //               },
-    //               hidden: ({ parent }) => parent?.contentType !== 'image',
-    //             }),
-    //           ],
-    //         },
-    //       ],
-    //     }),
-    //   ],
-    // }),
+    defineField({
+      name: 'productDetail',
+      title: 'Product Detail',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'name',
+          title: 'Detail Name',
+          type: 'string',
+        }),
+        defineField({
+          name: 'description',
+          title: 'Detail Description',
+          type: 'text',
+        }),
+        defineField({
+          name: 'sections',
+          title: 'Detail Sections',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'name',
+                  title: 'Section Name',
+                  type: 'string',
+                }),
+                defineField({
+                  name: 'title',
+                  title: 'Section Title',
+                  type: 'string',
+                }),
+                defineField({
+                  name: 'contentType',
+                  title: 'Content Type',
+                  type: 'string',
+                  options: {
+                    list: [
+                      { title: 'Video', value: 'video' },
+                      { title: 'Image', value: 'image' }
+                    ],
+                    layout: 'radio'
+                  },
+                  initialValue: 'video',
+                }),
+                defineField({
+                  name: 'videoFile',
+                  title: 'Video File',
+                  type: 'file',
+                  options: {
+                    accept: 'video/*',
+                  },
+                  hidden: ({ parent }) => parent?.contentType !== 'video',
+                }),
+                defineField({
+                  name: 'image',
+                  title: 'Image',
+                  type: 'image',
+                  options: {
+                    hotspot: true,
+                  },
+                  hidden: ({ parent }) => parent?.contentType !== 'image',
+                }),
+              ],
+            },
+          ],
+        }),
+      ],
+    }),
 
     // Interior Section
     defineField({
@@ -316,7 +294,11 @@ export default defineType({
                   title: 'Color Name',
                   type: 'string',
                 }),
-               
+                defineField({
+                  name: 'title',
+                  title: 'Color Title',
+                  type: 'string',
+                }),
                 defineField({
                   name: 'image',
                   title: 'Color Image',
@@ -344,67 +326,127 @@ export default defineType({
       type: 'object',
       fields: [
         defineField({
-          name: 'name',
-          title: 'Model Specs Name',
-          type: 'string',
-        }),
-        defineField({
           name: 'title',
-          title: 'Model Specs Title',
+          title: 'Section Title',
           type: 'string',
+          initialValue: 'Model Specs',
         }),
+
+        // Specification Sections
         defineField({
-          name: 'mainSections',
-          title: 'Main Sections',
+          name: 'specificationSections',
+          title: 'Specification Sections',
           type: 'array',
           of: [
             {
               type: 'object',
+              name: 'specSection',
+              title: 'Specification Section',
               fields: [
                 defineField({
                   name: 'name',
-                  title: 'Main Section Name',
+                  title: 'Section Name',
                   type: 'string',
+                  description: 'e.g., Performance, Physical, Warranty & Service',
+                  validation: (Rule) => Rule.required(),
                 }),
                 defineField({
-                  name: 'title',
-                  title: 'Main Section Title',
-                  type: 'string',
+                  name: 'image',
+                  title: 'Section Image',
+                  type: 'image',
+                  options: {
+                    hotspot: true,
+                  },
+                  description: 'Optional image for this specification section',
                 }),
-               
+                defineField({
+                  name: 'specifications',
+                  title: 'Specifications',
+                  type: 'array',
+                  of: [
+                    {
+                      type: 'object',
+                      name: 'specification',
+                      title: 'Specification',
+                      fields: [
+                        defineField({
+                          name: 'label',
+                          title: 'Specification Label',
+                          type: 'string',
+                          description: 'e.g., Weight (Curb Mass), Cargo, Wheels, Range (EPA Est.)',
+                          validation: (Rule) => Rule.required(),
+                        }),
+                        defineField({
+                          name: 'value',
+                          title: 'Specification Value',
+                          type: 'text',
+                          description: 'e.g., 4,802 Lbs, 28 Cu Ft, 19" Or 21", 368 Mi',
+                          validation: (Rule) => Rule.required(),
+                        }),
+                      ],
+                      preview: {
+                        select: {
+                          title: 'label',
+                          subtitle: 'value',
+                        },
+                      },
+                    },
+                  ],
+                }),
               ],
+              preview: {
+                select: {
+                  title: 'name',
+                  media: 'image',
+                  subtitle: 'specifications.0.label',
+                },
+                prepare({ title, media, subtitle }) {
+                  return {
+                    title,
+                    media,
+                    subtitle: subtitle ? `First spec: ${subtitle}` : 'No specifications yet',
+                  }
+                },
+              },
             },
+          ],
+        }),
+
+        // Others Section
+        defineField({
+          name: 'othersSection',
+          title: 'Others',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Section Title',
+              type: 'string',
+              initialValue: 'OTHERS',
+            }),
+            defineField({
+              name: 'bulletPoints',
+              title: 'Bullet Points',
+              type: 'array',
+              of: [{ type: 'text' }],
+              description: 'Add detailed notes and disclaimers',
+            }),
           ],
         }),
       ],
     }),
 
-    // Warranty Section
+
+
+    // Showcase Innovation Section
     defineField({
-      name: 'warrantySection',
-      title: 'Warranty Section',
+      name: 'showcaseInnovation',
+      title: 'Showcase Innovation',
       type: 'object',
       fields: [
         defineField({
-          name: 'name',
-          title: 'Warranty Name',
-          type: 'string',
-        }),
-        defineField({
-          name: 'title',
-          title: 'Warranty Title',
-          type: 'string',
-        }),
-      ],
-    }),
-
-    // Count Section
-    defineField({
-      name: 'countSection',
-      title: 'Count Section',
-      type: 'array',
-      of: [
-        {
+          name: 'main',
+          title: 'Main Section',
           type: 'object',
           fields: [
             defineField({
@@ -413,13 +455,67 @@ export default defineType({
               type: 'string',
               validation: (Rule) => Rule.required(),
             }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              validation: (Rule) => Rule.required(),
+            }),
           ],
-          preview: {
-            select: {
-              title: 'title',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'blogSection',
+          title: 'Blog Section',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'title',
+                  title: 'Title',
+                  type: 'string',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'description',
+                  title: 'Description',
+                  type: 'text',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'slug',
+                  title: 'Slug',
+                  type: 'slug',
+                  options: {
+                    source: 'title',
+                    maxLength: 96,
+                    slugify: (input: string) => {
+                      return input
+                        .toLowerCase()
+                        .replace(/\s+/g, '-')
+                        .replace(/[^\w-]+/g, '')
+                    },
+                  },
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
+              preview: {
+                select: {
+                  title: 'title',
+                  subtitle: 'description',
+                },
+                prepare({ title, subtitle }) {
+                  return {
+                    title: title || 'Untitled',
+                    subtitle: subtitle ? `${subtitle.slice(0, 50)}...` : '',
+                  }
+                },
+              },
             },
-          },
-        },
+          ],
+        }),
       ],
     }),
 

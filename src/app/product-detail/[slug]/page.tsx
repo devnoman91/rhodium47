@@ -2,6 +2,8 @@ import { getProductBySlug } from '../../../content/queries'
 import ProductHeroSection from '../../../components/ProductHeroSection'
 import ProductAboutSection from '../../../components/ProductAboutSection'
 import ProductInteriorSection from '../../../components/ProductInteriorSection'
+import ProductModelSpecsSection from '../../../components/ProductModelSpecsSection'
+import ProductShowcaseInnovation from '../../../components/ProductShowcaseInnovation'
 import ProtectionSection from '@/components/ProtectionSection'
 import UtilitySection from '@/components/UtilitySection'
 import NewsUpdatesSection from '@/components/NewsUpdatesSection'
@@ -80,26 +82,21 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           </section>
         )}
 
-        {/* Model Specs Section */}
-        {product.modelSpecsSection && (
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold mb-4">Model Specs</h2>
-            <div className="bg-gray-100 p-6  text-black rounded-lg">
-              <h3 className="text-xl mb-2">{product.modelSpecsSection.name}</h3>
-              <p className="mb-4">{product.modelSpecsSection.title}</p>
-              {product.modelSpecsSection.mainSections && product.modelSpecsSection.mainSections.length > 0 && (
-                <div>
-                  <h4 className="font-medium mb-2">Main  Sections:</h4>
-                  <ul className="list-disc list-inside">
-                    {product.modelSpecsSection.mainSections.map((section, index) => (
-                      <li key={index}>{section.name}: {section.title}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          </section>
-        )}
+        </div>
+      </div>
+
+      {/* Model Specs Section */}
+      {product.modelSpecsSection && (
+        <ProductModelSpecsSection modelSpecsSection={product.modelSpecsSection} />
+      )}
+
+      {/* Showcase Innovation Section */}
+      {product.showcaseInnovation && (
+        <ProductShowcaseInnovation showcaseInnovation={product.showcaseInnovation} />
+      )}
+
+      <div className="p-8">
+        <div className="max-w-7xl mx-auto">
 
         {/* Warranty Section */}
         {product.warrantySection && (

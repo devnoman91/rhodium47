@@ -102,9 +102,12 @@ const VehicleShowcase: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'standard' | 'armored'>('standard')
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isScrolling, setIsScrolling] = useState(false)
+  const [isInView, setIsInView] = useState(false)
+  const [scrollDirection, setScrollDirection] = useState<'up' | 'down' | null>(null)
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const lastScrollTime = useRef(0)
   const containerRef = useRef<HTMLDivElement>(null)
+  const isSliderComplete = useRef(false)
 
   const filteredVehicles = selectedCategory === 'all'
     ? vehicleData
@@ -112,7 +115,32 @@ const VehicleShowcase: React.FC = () => {
 
   useEffect(() => {
     setCurrentIndex(0)
+    isSliderComplete.current = false
   }, [selectedCategory])
+
+  // Reset slider completion when entering the section
+  useEffect(() => {
+    if (isInView && !isScrolling) {
+      const container = containerRef.current
+      if (!container) return
+
+      const containerRect = container.getBoundingClientRect()
+      const containerTop = containerRect.top
+      const containerBottom = containerRect.bottom
+      const windowHeight = window.innerHeight
+
+      // Reset slider state when section comes into view from outside
+      if (containerTop > windowHeight * 0.8) {
+        // Coming from top - reset to first slide
+        setCurrentIndex(0)
+        isSliderComplete.current = false
+      } else if (containerBottom < windowHeight * 0.2) {
+        // Coming from bottom - reset to last slide
+        setCurrentIndex(filteredVehicles.length - 1)
+        isSliderComplete.current = false
+      }
+    }
+  }, [isInView, isScrolling, filteredVehicles.length])
 
   const handleCategoryChange = (category: 'all' | 'standard' | 'armored') => {
     setSelectedCategory(category)
@@ -138,50 +166,80 @@ const VehicleShowcase: React.FC = () => {
     const containerBottom = containerRect.bottom
     const windowHeight = window.innerHeight
 
-    // Check if we're scrolling within the component area
-    const isWithinComponent = containerTop <= windowHeight && containerBottom >= 0
+    // Check if section is in view
+    const inView = containerTop <= windowHeight * 0.5 && containerBottom >= windowHeight * 0.5
+    setIsInView(inView)
 
-    if (!isWithinComponent) return
-
-    // Check scroll boundaries - only capture scroll at page boundaries
-    const atTop = window.scrollY <= 0
-    const atBottom = window.scrollY + windowHeight >= document.documentElement.scrollHeight - 5
-
-    // Only handle slide scrolling if at page boundaries or within a reasonable scroll range of component
-    const shouldHandleSlideScroll = atTop || atBottom || (containerTop <= 100 && containerTop >= -100)
-
-    if (!shouldHandleSlideScroll) return
-
-    // Prevent default only when we're handling slide scroll
-    event.preventDefault()
-
-    const now = Date.now()
-    const timeSinceLastScroll = now - lastScrollTime.current
-
-    // Throttle scroll events
-    if (timeSinceLastScroll < 300) return
-
-    lastScrollTime.current = now
-    setIsScrolling(true)
-
-    // Clear existing timeout
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current)
+    // If not in view, allow normal scrolling
+    if (!inView) {
+      isSliderComplete.current = false
+      return
     }
 
-    // Determine scroll direction and change slide
-    if (event.deltaY > 0 && currentIndex < filteredVehicles.length - 1) {
-      // Scrolling down - next slide
-      setCurrentIndex(prev => prev + 1)
-    } else if (event.deltaY < 0 && currentIndex > 0) {
-      // Scrolling up - previous slide
-      setCurrentIndex(prev => prev - 1)
-    }
+    // Determine scroll direction
+    const direction = event.deltaY > 0 ? 'down' : 'up'
+    setScrollDirection(direction)
 
-    // Reset scrolling state after a delay
-    scrollTimeoutRef.current = setTimeout(() => {
-      setIsScrolling(false)
-    }, 500)
+    // Check if slider is at boundaries
+    const isAtFirstSlide = currentIndex === 0
+    const isAtLastSlide = currentIndex === filteredVehicles.length - 1
+
+    // Handle scroll behavior based on direction and slider position
+    if (direction === 'down') {
+      if (!isAtLastSlide) {
+        // Prevent page scroll, advance slider
+        event.preventDefault()
+
+        const now = Date.now()
+        const timeSinceLastScroll = now - lastScrollTime.current
+
+        if (timeSinceLastScroll < 400) return
+
+        lastScrollTime.current = now
+        setIsScrolling(true)
+        setCurrentIndex(prev => prev + 1)
+
+        // Clear existing timeout
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current)
+        }
+
+        scrollTimeoutRef.current = setTimeout(() => {
+          setIsScrolling(false)
+        }, 600)
+      } else {
+        // At last slide, mark slider as complete and allow smooth scroll down
+        isSliderComplete.current = true
+        // Allow natural scroll to continue to next section
+      }
+    } else if (direction === 'up') {
+      if (!isAtFirstSlide) {
+        // Prevent page scroll, go to previous slide
+        event.preventDefault()
+
+        const now = Date.now()
+        const timeSinceLastScroll = now - lastScrollTime.current
+
+        if (timeSinceLastScroll < 400) return
+
+        lastScrollTime.current = now
+        setIsScrolling(true)
+        setCurrentIndex(prev => prev - 1)
+
+        // Clear existing timeout
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current)
+        }
+
+        scrollTimeoutRef.current = setTimeout(() => {
+          setIsScrolling(false)
+        }, 600)
+      } else {
+        // At first slide, mark slider as complete and allow smooth scroll up
+        isSliderComplete.current = true
+        // Allow natural scroll to continue to previous section
+      }
+    }
   }, [currentIndex, filteredVehicles.length])
 
   useEffect(() => {
@@ -200,7 +258,18 @@ const VehicleShowcase: React.FC = () => {
     <section
       ref={containerRef}
       className="py-10 lg:py-10 bg-[#F4F1F2] relative overflow-hidden"
+      style={{
+        scrollBehavior: isSliderComplete.current ? 'smooth' : 'auto'
+      }}
     >
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r "
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: isInView ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+        style={{ transformOrigin: 'left' }}
+      />
       {/* Header Section */}
       <div className="max-w-7xl mx-auto  px-4 md:px-6">
         <motion.div
@@ -267,15 +336,27 @@ const VehicleShowcase: React.FC = () => {
                 dragConstraints={{ left: -30, right: 30 }}
                 dragElastic={0.1}
                 onDragEnd={handleDragEnd}
-                animate={{ x: -currentIndex * 100 + '%' }}
+                animate={{
+                  x: -currentIndex * 100 + '%',
+                  scale: isScrolling ? 0.98 : 1
+                }}
                 transition={{
-                  duration: isScrolling ? 0.6 : 0.3,
-                  ease: isScrolling ? [0.25, 0.46, 0.45, 0.94] : [0.4, 0, 0.2, 1]
+                  duration: isScrolling ? 0.8 : 0.4,
+                  ease: isScrolling ? [0.25, 0.46, 0.45, 0.94] : [0.4, 0, 0.2, 1],
+                  scale: {
+                    duration: 0.3,
+                    ease: "easeInOut"
+                  }
                 }}
                 style={{ width: `${filteredVehicles.length * 100}%` }}
               >
-                {filteredVehicles.map((vehicle, index) => (
-                  <VehicleSlide key={vehicle.id} vehicle={vehicle} index={index} />
+                {filteredVehicles.map((vehicle) => (
+                  <VehicleSlide
+                    key={vehicle.id}
+                    vehicle={vehicle}
+                    isActive={filteredVehicles[currentIndex]?.id === vehicle.id}
+                    isScrolling={isScrolling}
+                  />
                 ))}
               </motion.div>
             </div>
@@ -288,22 +369,41 @@ const VehicleShowcase: React.FC = () => {
 }
 
 // Separate VehicleSlide component for performance
-const VehicleSlide: React.FC<{ vehicle: Vehicle; index: number }> = React.memo(({ vehicle, index }) => {
+const VehicleSlide: React.FC<{
+  vehicle: Vehicle;
+  isActive: boolean;
+  isScrolling: boolean;
+}> = React.memo(({ vehicle, isActive, isScrolling }) => {
   return (
     <motion.div
       className="flex-shrink-0 flex flex-col items-center px-4 md:px-6"
       style={{ width: '100%' }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{
+        opacity: isActive ? 1 : 0.7,
+        y: isActive ? 0 : 10,
+        scale: isActive ? 1 : 0.95
+      }}
+      transition={{
+        duration: isScrolling ? 0.8 : 0.6,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }}
     >
       {/* Vehicle Image */}
       <div className="relative mb-8">
         <motion.img
           src={vehicle.image}
           alt={vehicle.name}
-          className="w-full max-w-[600px] h-auto object-contain drop-shadow-2xl select-none"
+          className="w-full max-w-[800px] h-auto object-contain drop-shadow-2xl select-none"
           drag={false}
+          animate={{
+            rotateY: isScrolling ? (isActive ? 0 : 15) : 0,
+            filter: isActive ? "brightness(1)" : "brightness(0.8)"
+          }}
+          transition={{
+            duration: 0.5,
+            ease: "easeInOut"
+          }}
         />
       </div>
 

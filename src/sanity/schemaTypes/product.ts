@@ -398,6 +398,31 @@ export default defineType({
       ],
     }),
 
+    // Count Section
+    defineField({
+      name: 'countSection',
+      title: 'Count Section',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'title',
+            },
+          },
+        },
+      ],
+    }),
+
     // Others Section
     defineField({
       name: 'othersSection',

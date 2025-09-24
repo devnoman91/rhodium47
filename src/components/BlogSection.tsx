@@ -37,11 +37,6 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
     return [...new Set(blogData.products.map(product => product.category))]
   }, [blogData.products])
 
-  // Filter products by selected category
-  const filteredProducts = useMemo(() => {
-    if (!highlightedCategory) return blogData.products
-    return blogData.products.filter(product => product.category === highlightedCategory)
-  }, [blogData.products, highlightedCategory])
 
   // Get center card's category based on scroll position
   const getCenterCardCategory = (dragX: number = 0) => {
@@ -199,11 +194,12 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
             onDrag={handleDrag}
             onDragEnd={handleDragEnd}
             animate={{
-              x: currentIndex <= 1 ? 0 :
-                 currentIndex >= blogData.products.length - 2 ? -((blogData.products.length - 3) * 493) :
+              x: currentIndex === 0 ? 700 :
+                 currentIndex === 1 ? -0 :
+                 currentIndex === 2 ? -700 :
                  -((currentIndex - 1) * 493)
             }}
-            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+            transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1] }}
           >
             {blogData.products.map((product, index) => (
               <BlogCard

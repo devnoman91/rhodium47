@@ -4,7 +4,17 @@ import { useState } from 'react';
 import { inventoryData, filterOptions, VehicleInventory } from '@/data/inventory';
 import VehicleCard from '@/components/inventory/VehicleCard';
 import FilterSidebar from '@/components/inventory/FilterSidebar';
+const criticalInlineStyles = `
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
+/* Hide scrollbar for Firefox */
+.no-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+`
 export default function InventoryPage() {
   const [filteredVehicles, setFilteredVehicles] = useState<VehicleInventory[]>(inventoryData);
   const [filters, setFilters] = useState({
@@ -62,7 +72,8 @@ export default function InventoryPage() {
     <div className="min-h-screen pt-20 bg-[#FFFFFF] relative">
       <div className="flex">
         {/* Filter Sidebar - Sticky positioning */}
-        <div className="sticky top-20 h-screen w-80 bg-white z-[100] shadow-lg overflow-y-auto flex-shrink-0">
+        <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
+        <div className="sticky top-20 h-screen w-80 bg-white z-[2] overflow-y-auto flex-shrink-0 no-scrollbar pb-[50px]">
           <FilterSidebar
             filters={filters}
             onFilterChange={handleFilterChange}

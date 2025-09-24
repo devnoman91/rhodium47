@@ -122,7 +122,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
               {data.blogSection.map((blog, index) => (
                 <motion.div
                   key={`${blog.slug.current}-${index}`}
-                  className="w-[455px] flex-shrink-0"
+                  className="w-[455px] flex-shrink-0 "
                   initial={{ opacity: 0, x: 50 }}
                   animate={{
                     opacity: 1,
@@ -177,7 +177,7 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
         delay: index * 0.1,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="pt-[60px] pr-[60px] pb-[30px] pl-[60px] rounded-[30px] bg-[rgba(255,255,255,0.05)] group  flex flex-col justify-between h-auto w-[455px] p-6  duration-300"
+      className="pt-[60px] pr-[60px] pb-[30px] pl-[60px] rounded-[30px] bg-[rgba(255,255,255,0.05)] group  flex flex-col justify-between h-[100%] w-[455px] p-6  duration-300"
     >
       {/* Content */}
       <div className="flex flex-col flex-1 mb-[30px]">

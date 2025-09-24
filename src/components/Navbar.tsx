@@ -29,11 +29,11 @@ export default function Navbar() {
   }, [shouldBeTransparent])
 
   return (
-    <nav className={`fixed left-0 right-0 z-50 px-12 py-4 font-helvetica transition-all duration-300 ${
+    <nav className={`fixed left-0 right-0 z-50 px-12 py-4 font-helvetica transition-all duration-600 ${
       shouldBeTransparent
         ? isScrolled
-          ? 'top-0 bg-black/95 backdrop-blur-md shadow-sm'
-          : 'top-5 bg-transparent'
+          ? 'top-0 bg-black/95'
+          : '[background:linear-gradient(180deg,_#000_0%,_rgba(0,0,0,0)_100%)]'
         : 'top-0 bg-black/95 backdrop-blur-md shadow-sm'
     }`}>
       <div className="flex items-center justify-between">
@@ -42,7 +42,6 @@ export default function Navbar() {
             <div className="w-[148px] h-[44px] flex-shrink-0 aspect-[37/11] relative">
               <Image src="/logo.png" alt="Rhodium 47" fill sizes="148px" priority className="object-contain" />
             </div>
-           
           </Link>
         </div>
 

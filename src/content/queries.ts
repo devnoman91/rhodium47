@@ -289,17 +289,18 @@ export const productQuery = `
     },
     modelSpecsSection {
       title,
-      performanceSpecs[] {
-        label,
-        value
-      },
-      physicalSpecs[] {
-        label,
-        value
-      },
-      warrantySpecs[] {
-        label,
-        value
+      specificationSections[] {
+        name,
+        image {
+          asset-> {
+            url
+          },
+          alt
+        },
+        specifications[] {
+          label,
+          value
+        }
       },
       othersSection {
         title,
@@ -404,17 +405,18 @@ export const productByIdQuery = (id: string) => `
     },
     modelSpecsSection {
       title,
-      performanceSpecs[] {
-        label,
-        value
-      },
-      physicalSpecs[] {
-        label,
-        value
-      },
-      warrantySpecs[] {
-        label,
-        value
+      specificationSections[] {
+        name,
+        image {
+          asset-> {
+            url
+          },
+          alt
+        },
+        specifications[] {
+          label,
+          value
+        }
       },
       othersSection {
         title,
@@ -519,17 +521,18 @@ export const productBySlugQuery = (slug: string) => `
     },
     modelSpecsSection {
       title,
-      performanceSpecs[] {
-        label,
-        value
-      },
-      physicalSpecs[] {
-        label,
-        value
-      },
-      warrantySpecs[] {
-        label,
-        value
+      specificationSections[] {
+        name,
+        image {
+          asset-> {
+            url
+          },
+          alt
+        },
+        specifications[] {
+          label,
+          value
+        }
       },
       othersSection {
         title,

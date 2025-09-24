@@ -69,22 +69,25 @@ const ProductShowcaseInnovation: React.FC<ProductShowcaseInnovationProps> = ({ s
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {/* Main Title */}
-          <motion.div variants={itemVariants} className="mb-[70px]">
-            <h1 className="text-[64px] not-italic tracking-normal leading-[70px] font-medium font-helvetica">
-              {showcaseInnovation.main.title}
-            </h1>
-          </motion.div>
-
-          {/* Description Section */}
+          {/* Title and Description Section - Flex Layout */}
           <motion.div
             variants={itemVariants}
-            className="max-w-4xl"
+            className="flex items-center gap-6 mb-[70px]"
             transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
           >
-            <p className="text-[16px] leading-[30px] tracking-[0] m-0 font-medium font-helvetica opacity-70">
-              {showcaseInnovation.main.description}
-            </p>
+            {/* Title Section */}
+            <div className="flex-shrink-0">
+              <h1 className="text-[64px] not-italic tracking-normal leading-[70px] font-medium font-helvetica">
+                {showcaseInnovation.main.title}
+              </h1>
+            </div>
+
+            {/* Description Section */}
+            <div className="flex flex-col gap-3 max-w-4xl">
+              <p className="text-[16px] leading-[30px] tracking-[0] m-0 font-medium font-helvetica opacity-70">
+                {showcaseInnovation.main.description}
+              </p>
+            </div>
           </motion.div>
         </motion.div>
       </div>

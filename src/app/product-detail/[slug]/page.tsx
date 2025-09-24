@@ -53,13 +53,13 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         <ProductInteriorSection interiorSection={product.interiorSection} />
       )}
 
-      <div className="p-8">
+      <div className="p-8 bg-white">
         <div className="max-w-7xl mx-auto">
 
         {/* Full Spectrum Color Section */}
         {product.fullSpectrumColorSection && (
-          <section className="mb-16 py-12">
-            <h2 className="text-4xl font-bold text-center mb-12">{product.fullSpectrumColorSection.name}</h2>
+          <section className="mb-16 py-12 bg-white">
+            <h2 className="text-4xl font-bold text-center mb-12 text-black">{product.fullSpectrumColorSection.name}</h2>
             {product.fullSpectrumColorSection.sections && product.fullSpectrumColorSection.sections.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {product.fullSpectrumColorSection.sections.map((section, index) => (
@@ -72,8 +72,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                           className="w-full h-64 object-cover rounded-lg shadow-lg"
                         />
                       </div>
+                      
                     )}
-                    <h3 className="text-xl font-semibold mb-4">{section.name}</h3>
+                    <h3 className="text-xl font-semibold mb-4 text-black">{section.name}</h3>
                     <p className="text-gray-600 leading-relaxed">{section.description}</p>
                   </div>
                 ))}

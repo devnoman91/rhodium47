@@ -264,17 +264,18 @@ export interface Product {
   }
   modelSpecsSection?: {
     title?: string
-    performanceSpecs?: Array<{
-      label: string
-      value: string
-    }>
-    physicalSpecs?: Array<{
-      label: string
-      value: string
-    }>
-    warrantySpecs?: Array<{
-      label: string
-      value: string
+    specificationSections?: Array<{
+      name: string
+      image?: {
+        asset: {
+          url: string
+        }
+        alt?: string
+      }
+      specifications: Array<{
+        label: string
+        value: string
+      }>
     }>
     othersSection?: {
       title?: string

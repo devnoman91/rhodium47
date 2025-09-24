@@ -86,29 +86,27 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         </div>
       </div>
 
-      {/* Model Specs Section */}
-      {product.modelSpecsSection && (
-        <ProductModelSpecsSection modelSpecsSection={product.modelSpecsSection} />
-      )}
+    
 
       {/* Showcase Innovation Section */}
       {product.showcaseInnovation && (
         <ProductShowcaseInnovation showcaseInnovation={product.showcaseInnovation} />
       )}
-
+      {/* Protection Section - Global data like home page */}
+      {protectionData && (
+        <ProtectionSection
+          data={protectionData}
+        />
+      )}
+  {/* Model Specs Section */}
+      {product.modelSpecsSection && (
+        <ProductModelSpecsSection modelSpecsSection={product.modelSpecsSection} />
+      )}
       <div className="p-8">
         <div className="max-w-7xl mx-auto">
 
         {/* Warranty Section */}
-        {product.warrantySection && (
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold mb-4">Warranty</h2>
-            <div className="bg-gray-100 p-6 rounded-lg">
-              <h3 className="text-xl mb-2">{product.warrantySection.name}</h3>
-              <p>{product.warrantySection.title}</p>
-            </div>
-          </section>
-        )}
+       
 
         {/* Others Section */}
         {product.othersSection && (
@@ -133,12 +131,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         </div>
       </div>
 
-      {/* Protection Section - Global data like home page */}
-      {protectionData && (
-        <ProtectionSection
-          data={protectionData}
-        />
-      )}
+      
       {utilityData && (
         <UtilitySection
           data={utilityData}

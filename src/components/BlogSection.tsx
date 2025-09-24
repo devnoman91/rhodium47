@@ -30,11 +30,18 @@ const cardVariants = {
 const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [highlightedCategory, setHighlightedCategory] = useState<string>('')
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0)
 
   // Unique categories (without 'All')
   const categories = useMemo(() => {
     return [...new Set(blogData.products.map(product => product.category))]
   }, [blogData.products])
+
+  // Filter products by selected category
+  const filteredProducts = useMemo(() => {
+    if (!highlightedCategory) return blogData.products
+    return blogData.products.filter(product => product.category === highlightedCategory)
+  }, [blogData.products, highlightedCategory])
 
   // Get center card's category based on scroll position
   const getCenterCardCategory = (dragX: number = 0) => {
@@ -72,21 +79,50 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
     }, 100)
   }
 
-  // Initialize highlighted category
+  // Initialize highlighted category to center category
   useMemo(() => {
-    if (blogData.products.length > 0) {
-      setHighlightedCategory(blogData.products[0].category)
+    if (blogData.products.length > 0 && categories.length > 0) {
+      const centerIndex = Math.floor(categories.length / 2)
+      const centerCategory = categories[centerIndex]
+      setHighlightedCategory(centerCategory)
+      setActiveCategoryIndex(centerIndex)
+
+      // Find center product of center category and set as current
+      const categoryProducts = blogData.products.filter(product => product.category === centerCategory)
+      if (categoryProducts.length > 0) {
+        // Find the center product of this category
+        const centerProductIndex = Math.floor(categoryProducts.length / 2)
+        const centerProduct = categoryProducts[centerProductIndex]
+        const productIndex = blogData.products.findIndex(product => product === centerProduct)
+        if (productIndex !== -1) {
+          setCurrentIndex(productIndex)
+        }
+      }
     }
-  }, [blogData.products])
+  }, [blogData.products, categories])
 
   const handleCategoryChange = useCallback((category: string) => {
+    console.log('Category clicked:', category)
+
     // Find first product of this category and scroll to it
-    const categoryIndex = blogData.products.findIndex(product => product.category === category)
-    if (categoryIndex !== -1) {
-      setCurrentIndex(categoryIndex)
-      setHighlightedCategory(category)
+    const firstProductOfCategory = blogData.products.find(product => product.category === category)
+    console.log('First product found:', firstProductOfCategory)
+
+    if (firstProductOfCategory) {
+      const productIndex = blogData.products.findIndex(product => product === firstProductOfCategory)
+      console.log('Product index:', productIndex)
+
+      if (productIndex !== -1) {
+        setCurrentIndex(productIndex)
+        setHighlightedCategory(category)
+
+        // Set active category index for centering
+        const categoryIndex = categories.findIndex(cat => cat === category)
+        setActiveCategoryIndex(categoryIndex)
+        console.log('Updated currentIndex to:', productIndex, 'categoryIndex:', categoryIndex)
+      }
     }
-  }, [blogData.products])
+  }, [blogData.products, categories])
 
   return (
     <section className=" bg-white pt-30">
@@ -110,23 +146,37 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
           {/* Category Tabs */}
           <motion.div
             variants={itemVariants}
-            className="mb-[80px] m-auto rounded-[50px] bg-black w-fit py-[12px] px-[16px]"
+            className="mb-[80px] mx-auto overflow-hidden"
             transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+            style={{ width: 'fit-content', maxWidth: '100%' }}
           >
-            <div className="flex flex-wrap gap-3">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => handleCategoryChange(category)}
-                  className={`px-[28px] py-[13px] rounded-[50px] not-first:flex items-center gap-4  text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-medium transition ease-[0.4s] w-fit cursor-pointer ${
-                    highlightedCategory === category
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-white hover:text-gray-300'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
+            <div className="rounded-[50px] bg-black py-[12px] px-[16px] overflow-hidden">
+              <motion.div
+                className="flex gap-3"
+                animate={{
+                  x: categories.length <= 3 ? 0 :
+                     -Math.max(0, Math.min(activeCategoryIndex - 1, categories.length - 3)) * 140
+                }}
+                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                style={{
+                  width: categories.length > 3 ? `${categories.length * 140}px` : 'auto'
+                }}
+              >
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => handleCategoryChange(category)}
+                    className={`px-[28px] py-[13px] rounded-[50px] flex items-center justify-center text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-medium transition-all duration-300 cursor-pointer whitespace-nowrap ${
+                      highlightedCategory === category
+                        ? 'bg-white text-gray-900 shadow-sm transform scale-105'
+                        : 'text-white hover:text-gray-300 hover:scale-102'
+                    }`}
+                    style={{ minWidth: '120px' }}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </motion.div>
             </div>
           </motion.div>
 
@@ -143,12 +193,16 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
             className="flex space-x-[43px] cursor-grab active:cursor-grabbing"
             drag="x"
             dragConstraints={{
-              left: -((blogData.products.length - 1) * 450),
+              left: -((blogData.products.length - 3) * 493),
               right: 0
             }}
             onDrag={handleDrag}
             onDragEnd={handleDragEnd}
-            animate={{ x: -currentIndex * 450 }}
+            animate={{
+              x: currentIndex <= 1 ? 0 :
+                 currentIndex >= blogData.products.length - 2 ? -((blogData.products.length - 3) * 493) :
+                 -((currentIndex - 1) * 493)
+            }}
             transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
           >
             {blogData.products.map((product, index) => (
@@ -171,16 +225,14 @@ const BlogCard: React.FC<{ product: BlogProduct; index: number }> = React.memo((
     <motion.div
       variants={cardVariants}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
-      className="group bg-white font-helvetica w-[430px] flex-shrink-0"
+      className="group bg-white font-helvetica w-[32%] flex-shrink-0 h-[500px]"
     >
       {/* Image */}
-      <div className="relative  rounded-2xl">
-        <motion.img
+      <div className="relative rounded-2xl h-[400px] w-full">
+        <img
           src={product.image.asset.url}
           alt={product.image.alt || product.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-2xl"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+          className="w-full h-full object-cover rounded-2xl"
         />
 
         {/* Category Badge */}
@@ -204,5 +256,6 @@ const BlogCard: React.FC<{ product: BlogProduct; index: number }> = React.memo((
 })
 
 BlogCard.displayName = 'BlogCard'
+
 
 export default BlogSection

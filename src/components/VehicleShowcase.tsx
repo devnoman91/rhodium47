@@ -420,22 +420,39 @@ const VehicleSlide: React.FC<{
         </p>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-[16px] justify-center items-center">
-          <motion.button
-            className="cursor-pointer py-[16px] px-[12px] flex w-[132px] h-[48px] justify-center items-center flex-shrink-0 bg-black text-white rounded-[50px] font-helvetica text-[16px] font-medium hover:bg-gray-800 transition-colors duration-200"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Explore
-          </motion.button>
-          <motion.button
-            className="cursor-pointer py-[16px] px-[12px] flex w-[132px] h-[48px] justify-center items-center flex-shrink-0 bg-white text-black rounded-[50px] font-helvetica text-[16px] font-medium hover:bg-black hover:text-white transition-colors duration-200"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Buy Now
-          </motion.button>
-        </div>
+  <div className="flex flex-col sm:flex-row gap-[16px] justify-center items-center">
+  {/* Black → White */}
+  <motion.button
+    className="relative overflow-hidden cursor-pointer w-[132px] h-[48px] flex justify-center items-center 
+               rounded-[50px] font-helvetica text-[16px] font-medium bg-black text-white border border-black group"
+    whileHover={{ scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
+  >
+    {/* sliding overlay (white) */}
+    <span className="absolute inset-0 bg-white translate-x-full transition-transform duration-500 ease-in-out rounded-[50px] group-hover:translate-x-0" />
+    {/* text */}
+    <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
+      Explore
+    </span>
+  </motion.button>
+
+  {/* White → Black */}
+  <motion.button
+    className="relative overflow-hidden cursor-pointer w-[132px] h-[48px] flex justify-center items-center 
+               rounded-[50px] font-helvetica text-[16px] font-medium bg-white text-black border border-black group"
+    whileHover={{ scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
+  >
+    {/* sliding overlay (black) */}
+    <span className="absolute inset-0 bg-black translate-x-full transition-transform duration-500 ease-in-out rounded-[50px] group-hover:translate-x-0" />
+    {/* text */}
+    <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+      Buy Now
+    </span>
+  </motion.button>
+</div>
+
+
       </div>
     </motion.div>
   )

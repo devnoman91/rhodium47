@@ -324,3 +324,12 @@ export interface SanityImage {
 export interface SanityFile {
   asset: SanityFileAsset
 }
+
+export interface EmailSubscription {
+  _id: string;
+  email: string;
+  zip: string;
+  subscribedAt: string;
+  isActive: boolean;
+  source?: string;
+}

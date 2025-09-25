@@ -1,6 +1,98 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 
 const Footer = () => {
+  const [email, setEmail] = useState('')
+  const [zip, setZip] = useState('')
+  const [mainEmail, setMainEmail] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [mainIsSubmitting, setMainIsSubmitting] = useState(false)
+  const [message, setMessage] = useState('')
+  const [mainMessage, setMainMessage] = useState('')
+  const [messageType, setMessageType] = useState<'success' | 'error' | ''>('')
+  const [mainMessageType, setMainMessageType] = useState<'success' | 'error' | ''>('')
+
+  const handleMainSubscription = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!mainEmail.trim()) return
+
+    setMainIsSubmitting(true)
+    setMainMessage('')
+    setMainMessageType('')
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: mainEmail,
+          zip: '',
+          source: 'footer-newsletter'
+        }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setMainMessage('Successfully subscribed!')
+        setMainMessageType('success')
+        setMainEmail('')
+      } else {
+        setMainMessage(data.error || 'Something went wrong. Please try again.')
+        setMainMessageType('error')
+      }
+    } catch (error) {
+      console.error('Subscription error:', error)
+      setMainMessage('Something went wrong. Please try again.')
+      setMainMessageType('error')
+    } finally {
+      setMainIsSubmitting(false)
+    }
+  }
+
+  const handleSubscription = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!email.trim() || !zip.trim()) return
+
+    setIsSubmitting(true)
+    setMessage('')
+    setMessageType('')
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          zip,
+          source: 'footer-hero'
+        }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setMessage('Successfully subscribed!')
+        setMessageType('success')
+        setEmail('')
+        setZip('')
+      } else {
+        setMessage(data.error || 'Something went wrong. Please try again.')
+        setMessageType('error')
+      }
+    } catch (error) {
+      console.error('Subscription error:', error)
+      setMessage('Something went wrong. Please try again.')
+      setMessageType('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
   return (
     <footer className="relative text-white overflow-hidden">
       {/* Background Image */}
@@ -22,7 +114,7 @@ const Footer = () => {
             </p>
 
             {/* Newsletter Signup */}
-            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 max-w-xl md:max-w-2xl mx-auto">
+            <form onSubmit={handleSubscription} className="flex flex-col sm:flex-row gap-3 md:gap-4 max-w-xl md:max-w-2xl mx-auto">
               <div className="flex-1">
                 <label htmlFor="email" className="text-[#F8F9FA]  font-helvetica text-[14px] md:text-[16px] not-italic font-bold leading-[20px] md:leading-[22px] flex mb-3 md:mb-[18px]">
                   Email
@@ -30,7 +122,10 @@ const Footer = () => {
                 <input
                   type="email"
                   id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Input your email in here"
+                  required
                   className="rounded-[4px]  bg-[#2A2A2A] w-full px-3 md:px-4 py-2 md:py-3 border border-[#636D79]  focus:outline-none focus:border-white  placeholder-gray-400 text-sm md:text-base text-white font-helvetica text-[16px] not-italic font-normal leading-[22px]"
                 />
               </div>
@@ -41,16 +136,46 @@ const Footer = () => {
                 <input
                   type="text"
                   id="zip"
+                  value={zip}
+                  onChange={(e) => setZip(e.target.value)}
                   placeholder="Input your zip code in here"
+                  required
                   className="rounded-[4px]  bg-[#323232] w-full px-3 md:px-4 py-2 md:py-3  border border-[#636D79] focus:outline-none focus:border-white placeholder-gray-400 text-sm md:text-base text-white font-helvetica text-[16px] not-italic font-normal leading-[22px]"
                 />
               </div>
               <div className="flex items-end">
-                <button className="cursor-pointer px-[48px] py-[16px] bg-white rounded-full  hover:bg-gray-100 transition-colors duration-200 text-black font-helvetica text-[14px] not-italic font-medium leading-[150%]">
-                  Subscribe
-                </button>
+          <button
+  type="submit"
+  disabled={isSubmitting}
+  className="relative overflow-hidden px-[48px] py-[16px] rounded-full 
+             bg-white text-black font-helvetica text-[14px] font-medium leading-[150%] 
+             transition-colors duration-500 ease-in-out cursor-pointer group
+             disabled:opacity-50 disabled:cursor-not-allowed"
+>
+  {/* sliding overlay */}
+  <span
+    className="absolute inset-0 bg-black translate-x-full 
+               transition-transform duration-500 ease-in-out rounded-full
+               group-hover:translate-x-0 disabled:group-hover:translate-x-full"
+  />
+
+  {/* text */}
+  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+    {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+  </span>
+</button>
+
               </div>
-            </div>
+            </form>
+
+            {/* Message Display */}
+            {message && (
+              <div className={`mt-4 text-center font-helvetica text-[14px] md:text-[16px] not-italic font-medium leading-[150%] ${
+                messageType === 'success' ? 'text-green-400' : 'text-red-400'
+              }`}>
+                {message}
+              </div>
+            )}
           </div>
         </div>
 
@@ -90,18 +215,34 @@ const Footer = () => {
                 {/* Bottom Row - Newsletter Subscription */}
                 <div className="max-w-xl lg:max-w-2xl pt-6 md:pt-8">
                   <p className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px]">Stay updated with the latest news and offers!</p>
-                  <div className="max-w-[320px] md:max-w-[370px] mt-3 md:mt-[14px] flex items-center px-4 md:px-[20px] py-3 md:py-[16px] gap-3 md:gap-[16px] self-stretch rounded-[70px] border border-white">
+                  <form onSubmit={handleMainSubscription} className="max-w-[320px] md:max-w-[370px] mt-3 md:mt-[14px] flex items-center px-4 md:px-[20px] py-3 md:py-[16px] gap-3 md:gap-[16px] self-stretch rounded-[70px] border border-white">
                     <input
                       type="email"
+                      value={mainEmail}
+                      onChange={(e) => setMainEmail(e.target.value)}
                       placeholder="Email address"
+                      required
                       className="w-full focus:outline-none text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[20px] md:leading-[28px] tracking-[-0.28px] md:tracking-[-0.38px] bg-transparent placeholder-gray-400"
                     />
-                    <button className="cursor-pointer w-4 md:w-[20px] h-5 md:h-[24px] flex-shrink-0">
+                    <button
+                      type="submit"
+                      disabled={mainIsSubmitting}
+                      className="cursor-pointer w-4 md:w-[20px] h-5 md:h-[24px] flex-shrink-0 disabled:opacity-50"
+                    >
                      <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
                       <path d="M11.22 6.8L5.72 1.94L6.64 0.839999L12.68 6.06L11.22 6.8ZM0.36 6.78V5.32H11.36V6.78H0.36ZM6.62 11.24L5.7 10.14L11.22 5.3L12.68 6.06L6.62 11.24Z" fill="white"/>
                       </svg>
                     </button>
-                  </div>
+                  </form>
+
+                  {/* Main Message Display */}
+                  {mainMessage && (
+                    <div className={`mt-3 text-[14px] md:text-[16px] font-helvetica not-italic font-medium leading-[150%] ${
+                      mainMessageType === 'success' ? 'text-green-400' : 'text-red-400'
+                    }`}>
+                      {mainMessage}
+                    </div>
+                  )}
                 </div>
               </div>
               </div>

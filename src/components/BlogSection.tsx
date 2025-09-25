@@ -218,36 +218,37 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
 // BlogCard component
 const BlogCard: React.FC<{ product: BlogProduct; index: number }> = React.memo(({ product, index }) => {
   return (
-    <motion.div
-      variants={cardVariants}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
-      className="group bg-white font-helvetica w-[32%] flex-shrink-0 h-[500px]"
-    >
-      {/* Image */}
-      <div className="relative rounded-2xl h-[400px] w-full">
-        <img
-          src={product.image.asset.url}
-          alt={product.image.alt || product.title}
-          className="w-full h-full object-cover rounded-2xl"
-        />
+   <motion.div
+  variants={cardVariants}
+  transition={{ duration: 0.6, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
+  className="group bg-white font-helvetica  w-[32%] flex-shrink-0 h-[600px] flex flex-col"
+>
+  {/* Image */}
+  <div className="relative rounded-2xl h-[400px] w-full">
+    <img
+      src={product.image.asset.url}
+      alt={product.image.alt || product.title}
+      className="w-full h-full object-cover rounded-2xl"
+    />
 
-        {/* Category Badge */}
-        <div className="absolute top-4 left-4 rounded-2xl">
-          <span className="inline-block bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-gray-700 font-helvetica">
-            {product.category}
-          </span>
-        </div>
-      </div>
+    {/* Category Badge */}
+    <div className="absolute top-4 left-4 rounded-2xl">
+      <span className="inline-block bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-gray-700 font-helvetica">
+        {product.category}
+      </span>
+    </div>
+  </div>
 
-      {/* Content */}
-      <div className="p-[28px]">
-        <h3 className="  text-[16px] leading-[20px] tracking-[0] m-0 font-normal  text-[#3F3E4B] text-center font-helvetica">
-          {product.title}
-        </h3>
+  {/* Content */}
+  <div className="p-[28px] flex flex-col flex-1">
+    <h3 className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal text-[#3F3E4B] text-center font-helvetica">
+      {product.title}
+    </h3>
 
-      
-      </div>
-    </motion.div>
+    
+  </div>
+</motion.div>
+
   )
 })
 

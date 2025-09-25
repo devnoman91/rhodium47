@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
-
+import { motion } from "framer-motion"
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -60,11 +60,28 @@ export default function Navbar() {
               Support
             </Link>
           </div>
+ <motion.button
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+  className="relative overflow-hidden hidden md:inline-flex 
+             pt-[12.5px] pr-[15.5px] pb-[12.5px] pl-[23.5px] 
+             rounded-[50px] items-center gap-4 
+             bg-white text-black font-helvetica text-[16px] leading-[110%] font-medium
+             w-fit cursor-pointer border border-transparent group"
+>
+  {/* sliding overlay */}
+  <span
+    className="absolute inset-0 bg-black translate-x-full 
+               transition-transform duration-700 ease-out rounded-[50px]
+               group-hover:translate-x-0"
+  />
 
-          <button className="hidden  md:inline-flex pt-[12.5px] pr-[15.5px] pb-[12.5px] pl-[23.5px] rounded-[50px] flex items-center gap-4 bg-white text-black no-underline font-helvetica text-[16px] leading-[110%] tracking-[0] font-medium transition ease-[0.4s] w-fit cursor-pointer">
-            Book a Consultation
-          </button>
-
+  {/* text */}
+  <span className="relative z-10 transition-colors duration-700 ease-out group-hover:text-white">
+    Book a Consultation
+  </span>
+</motion.button>
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}

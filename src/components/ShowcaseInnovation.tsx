@@ -191,21 +191,33 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
       </div>
 
       {/* Learn More Button */}
-      <motion.button
-      className="px-[24px] py-[5px] rounded-[50px] border-1 border-white text-white no-underline font-helvetica text-[14px] leading-[24px] tracking-[0] font-medium transition ease-[0.4s] w-fit block cursor-pointer mt-auto"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        transition={{ duration: 0.2 }}
-        onClick={() => {
-          // Handle navigation to blog post
-          if (blog.slug.current) {
-            window.location.href = `/blog/${blog.slug.current}`
-          }
-        }}
-      >
-        <span>Learn More</span>
-       
-      </motion.button>
+   <motion.button
+  className="relative overflow-hidden px-[24px] py-[5px] rounded-[50px] 
+             border border-white text-white font-helvetica text-[14px] leading-[24px] 
+             font-medium transition-colors duration-500 ease-in-out 
+             w-fit block cursor-pointer mt-auto group"
+  whileHover={{ scale: 1.02 }}
+  whileTap={{ scale: 0.98 }}
+  transition={{ duration: 0.2 }}
+  onClick={() => {
+    if (blog.slug.current) {
+      window.location.href = `/blog/${blog.slug.current}`
+    }
+  }}
+>
+  {/* sliding overlay */}
+  <span
+    className="absolute inset-0 bg-white translate-x-full 
+               transition-transform duration-500 ease-in-out rounded-[50px]
+               group-hover:translate-x-0"
+  />
+
+  {/* text */}
+  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
+    Learn More
+  </span>
+</motion.button>
+
     </motion.div>
   )
 })

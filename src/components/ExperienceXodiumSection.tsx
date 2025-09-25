@@ -62,22 +62,36 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
 
 
                 {/* CTA Button */}
-              <div className="lg:col-span-1 space-y-8 ">
-                <motion.a
-                  href={data.button.link}
-                  variants={buttonVariants}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.3,
-                    ease: [0.4, 0, 0.2, 1]
-                  }}
-                  className="px-[24px] py-[8px] rounded-[50px] border-1  text-white bg-black no-underline font-helvetica text-[14px] leading-[20px] tracking-[0] font-bold transition ease-[0.4s] w-fit block cursor-pointer"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span className="text-base lg:text-lg">{data.button.text}</span>
-                </motion.a>
-              </div>
+            {/* CTA Button */}
+<div className="lg:col-span-1 space-y-8">
+  <motion.a
+    href={data.button.link}
+    variants={buttonVariants}
+    transition={{
+      duration: 0.6,
+      delay: 0.3,
+      ease: [0.4, 0, 0.2, 1],
+    }}
+    className="relative overflow-hidden px-[24px] py-[8px] rounded-[50px] 
+               border border-black bg-black text-white font-helvetica 
+               text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
+    whileHover={{ scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
+  >
+    {/* sliding overlay */}
+    <span
+      className="absolute inset-0 bg-white translate-x-full 
+                 transition-transform duration-500 ease-in-out rounded-[50px]
+                 group-hover:translate-x-0"
+    />
+
+    {/* text */}
+    <span className="relative z-10 text-base lg:text-lg transition-colors duration-500 ease-in-out group-hover:text-black">
+      {data.button.text}
+    </span>
+  </motion.a>
+</div>
+
             </motion.div>
 
             {/* Right - Description */}

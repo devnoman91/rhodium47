@@ -12,7 +12,8 @@ import utility from './utility'
 import keepExploring from './keepExploring'
 import newsUpdates from './newsUpdates'
 import experienceXodiumTechnology from './experienceXodiumTechnology'
+import emailSubscription from './emailSubscription'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [video, product, homeAbout, productDetail, productBlog, productShowcase, showcaseInnovation, protection, frequentlyAskedQuestions, utility, keepExploring, newsUpdates, experienceXodiumTechnology],
+  types: [video, product, homeAbout, productDetail, productBlog, productShowcase, showcaseInnovation, protection, frequentlyAskedQuestions, utility, keepExploring, newsUpdates, experienceXodiumTechnology, emailSubscription],
 }

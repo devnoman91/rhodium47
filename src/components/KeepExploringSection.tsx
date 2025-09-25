@@ -154,23 +154,46 @@ const KeepExploringSection: React.FC<KeepExploringSectionProps> = ({ data }) => 
 // Separate NavigationButton component for better performance
 const NavigationButton: React.FC<{ item: KeepExploringSectionType; index: number }> = React.memo(({ item, index }) => {
   return (
-    <motion.a
-      href={item.link}
-      variants={buttonVariants}
-      transition={{
-        duration: 0.5,
-        delay: index * 0.1 + 0.4,
-        ease: [0.4, 0, 0.2, 1]
-      }}
-      className="px-[32px]  py-[14px] rounded-[50px] border-1 flex items-center gap-[8px] border-[#ddd] text-black no-underline font-helvetica text-[20px] leading-[24px] tracking-[0] font-medium transition ease-[0.4s] w-fit cursor-pointer"
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+<motion.a
+  href={item.link}
+  variants={buttonVariants}
+  transition={{
+    duration: 0.5,
+    delay: index * 0.1 + 0.4,
+    ease: [0.4, 0, 0.2, 1],
+  }}
+  className="relative overflow-hidden px-[32px] py-[14px] rounded-[50px] border border-[#ddd] 
+             flex items-center gap-[8px] text-black no-underline font-helvetica text-[20px] 
+             leading-[24px] font-medium w-fit cursor-pointer group"
+  whileHover={{ scale: 1.02 }}
+  whileTap={{ scale: 0.98 }}
+>
+  {/* sliding overlay */}
+  <span
+    className="absolute inset-0 bg-black translate-x-full 
+               transition-transform duration-500 ease-in-out rounded-[50px]
+               group-hover:translate-x-0"
+  />
+
+  {/* text + icon */}
+  <span className="relative z-10 flex items-center gap-[8px] transition-colors duration-500 ease-in-out group-hover:text-white">
+    <motion.svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="15"
+      viewBox="0 0 22 18"
+      fill="currentColor"
+      className="md:w-[20px] md:h-[17px] transition-transform duration-300 ease-out"
+      whileHover={{ x: 4 }} // arrow slides right
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="15" viewBox="0 0 22 18" fill="none" className="md:w-[20px] md:h-[17px]">
-        <path d="M21.2441 9.61857L13.3691 17.4936C13.2049 17.6578 12.9822 17.75 12.75 17.75C12.5178 17.75 12.2951 17.6578 12.1309 17.4936C11.9668 17.3294 11.8745 17.1067 11.8745 16.8745C11.8745 16.6423 11.9668 16.4196 12.1309 16.2554L18.513 9.87451H1.375C1.14294 9.87451 0.920376 9.78232 0.756282 9.61823C0.592187 9.45413 0.5 9.23157 0.5 8.99951C0.5 8.76745 0.592187 8.54489 0.756282 8.38079C0.920376 8.2167 1.14294 8.12451 1.375 8.12451H18.513L12.1309 1.74357C11.9668 1.57939 11.8745 1.3567 11.8745 1.12451C11.8745 0.892316 11.9668 0.669633 12.1309 0.505447C12.2951 0.341262 12.5178 0.249023 12.75 0.249023C12.9822 0.249023 13.2049 0.341262 13.3691 0.505447L21.2441 8.38045C21.3254 8.46171 21.39 8.55821 21.434 8.66444C21.478 8.77066 21.5007 8.88452 21.5007 8.99951C21.5007 9.1145 21.478 9.22836 21.434 9.33458C21.39 9.44081 21.3254 9.53731 21.2441 9.61857Z" fill="black"/>
-      </svg>
-      <span>{item.name}</span>
-    </motion.a>
+      <path d="M21.2441 9.61857L13.3691 17.4936C13.2049 17.6578 12.9822 17.75 12.75 17.75C12.5178 17.75 12.2951 17.6578 12.1309 17.4936C11.9668 17.3294 11.8745 17.1067 11.8745 16.8745C11.8745 16.6423 11.9668 16.4196 12.1309 16.2554L18.513 9.87451H1.375C1.14294 9.87451 0.920376 9.78232 0.756282 9.61823C0.592187 9.45413 0.5 9.23157 0.5 8.99951C0.5 8.76745 0.592187 8.54489 0.756282 8.38079C0.920376 8.2167 1.14294 8.12451 1.375 8.12451H18.513L12.1309 1.74357C11.9668 1.57939 11.8745 1.3567 11.8745 1.12451C11.8745 0.892316 11.9668 0.669633 12.1309 0.505447C12.2951 0.341262 12.5178 0.249023 12.75 0.249023C12.9822 0.249023 13.2049 0.341262 13.3691 0.505447L21.2441 8.38045C21.3254 8.46171 21.39 8.55821 21.434 8.66444C21.478 8.77066 21.5007 8.88452 21.5007 8.99951C21.5007 9.1145 21.478 9.22836 21.434 9.33458C21.39 9.44081 21.3254 9.53731 21.2441 9.61857Z" />
+    </motion.svg>
+    {item.name}
+  </span>
+</motion.a>
+
+
   )
 })
 

@@ -110,25 +110,37 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
             })}
           </p>
 
-          {/* Button */}
-          <motion.button
-            className="px-[22px] py-[5px] rounded-[50px] border-1 border-black  text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-medium transition ease-[0.4s] w-fit block cursor-pointer"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => {
-              if (product.buttonLink) {
-                if (product.buttonLink.startsWith('http')) {
-                  window.open(product.buttonLink, '_blank')
-                } else {
-                  window.location.href = product.buttonLink
-                }
-              }
-            }}
-          >
-            <span className="text-sm lg:text-base">{product.buttonText}</span>
-           
-          </motion.button>
+        {/* Button */}
+<motion.button
+  className="relative overflow-hidden px-[22px] py-[5px] rounded-[50px] 
+             border border-black text-black bg-white font-helvetica 
+             text-[16px] leading-[24px] font-medium w-fit block cursor-pointer group"
+  whileHover={{ scale: 1.02 }}
+  whileTap={{ scale: 0.98 }}
+  transition={{ duration: 0.2 }}
+  onClick={() => {
+    if (product.buttonLink) {
+      if (product.buttonLink.startsWith('http')) {
+        window.open(product.buttonLink, '_blank')
+      } else {
+        window.location.href = product.buttonLink
+      }
+    }
+  }}
+>
+  {/* sliding overlay */}
+  <span
+    className="absolute inset-0 bg-black translate-x-full 
+               transition-transform duration-500 ease-in-out rounded-[50px]
+               group-hover:translate-x-0"
+  />
+
+  {/* text */}
+  <span className="relative z-10 text-sm lg:text-base transition-colors duration-500 ease-in-out group-hover:text-white">
+    {product.buttonText}
+  </span>
+</motion.button>
+
         </div>
       </div>
     </motion.div>

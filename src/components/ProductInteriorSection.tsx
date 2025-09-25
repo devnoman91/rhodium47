@@ -62,7 +62,7 @@ const ProductInteriorSection: React.FC<ProductInteriorSectionProps> = ({ interio
   }
 
   return (
-    <section className="py-16 lg:py-24 bg-white text-black overflow-hidden" style={{ contain: 'layout style' }}>
+    <section className="py-16 lg:py-24 bg-[#F4F1F2] text-black overflow-hidden" style={{ contain: 'layout style' }}>
       {/* Header Section - Constrained */}
       <div className="max-w-7xl mx-auto px-6 mb-[63px]" style={{ contain: 'layout style' }}>
         <motion.div
@@ -74,7 +74,7 @@ const ProductInteriorSection: React.FC<ProductInteriorSectionProps> = ({ interio
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             {/* Left - Title */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h1 className="text-[64px] not-italic tracking-normal leading-[70px] font-bold font-helvetica text-black mb-0">
+              <h1 className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
                 {interiorSection.name || 'Interior'}
               </h1>
             </motion.div>
@@ -85,7 +85,7 @@ const ProductInteriorSection: React.FC<ProductInteriorSectionProps> = ({ interio
               className="lg:col-span-1 flex items-center justify-end"
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             >
-              <p className="text-[16px] leading-[25px] tracking-[0] m-0 font-medium font-helvetica max-w-[480px] text-black">
+              <p className="text-black font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px] ">
                 {interiorSection.description || 'Experience the ultimate in luxury and technology.'}
               </p>
             </motion.div>
@@ -120,7 +120,7 @@ const ProductInteriorSection: React.FC<ProductInteriorSectionProps> = ({ interio
               {interiorSection.sections.map((section, index) => (
                 <motion.div
                   key={`${section.name}-${index}`}
-                  className="w-[550px] flex-shrink-0"
+                  className="w-[1000px] flex-shrink-0"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{
                     opacity: 1,
@@ -195,7 +195,7 @@ const InteriorCard: React.FC<{
         className="group transition-all duration-300"
       >
         {/* Placeholder Media Content */}
-        <div className="relative aspect-[1/0.85] overflow-hidden rounded-[20px] bg-gray-800 flex items-center justify-center" style={{ contain: 'layout style paint' }}>
+        <div className="relative aspect-[1/0.55] overflow-hidden rounded-[20px] bg-gray-800 flex items-center justify-center" style={{ contain: 'layout style paint' }}>
           <div className="text-white/40 text-center">
             <div className="text-4xl mb-2">{section.contentType === 'video' ? '🎥' : '🖼️'}</div>
             <div className="text-sm">Content Coming Soon</div>
@@ -210,9 +210,9 @@ const InteriorCard: React.FC<{
         </div>
 
         {/* Content */}
-        <div className="pt-6 pr-[5%]">
-          <div className="mb-[48px]">
-            <h3 className="text-black font-medium text-[24px] leading-[110%] tracking-[-0.24px] mb-2 font-helvetica">
+        <div className="pt-6 max-w-[420px]">
+          <div className="mb-0">
+            <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[4px]">
               {section.name || 'Interior Feature'}
             </h3>
 
@@ -220,16 +220,6 @@ const InteriorCard: React.FC<{
               {section.title || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ultrices nulla vitae faucibus rutrum. Quisque viverra, massa.'}
             </p>
           </div>
-
-          {/* Learn More Button */}
-          <motion.button
-            className="px-[24px] py-[5px] rounded-[50px] border-1 border-black text-black no-underline font-helvetica text-[14px] leading-[24px] tracking-[0] font-medium transition ease-[0.4s] w-fit block cursor-pointer mt-auto"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.2 }}
-          >
-            <span>Learn More</span>
-          </motion.button>
         </div>
       </motion.div>
     )
@@ -246,7 +236,7 @@ const InteriorCard: React.FC<{
       className="group transition-all duration-300"
     >
       {/* Media Content */}
-      <div className="relative aspect-[1/0.85] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
+      <div className="relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
         {section.contentType === 'video' && section.videoFile?.asset?.url ? (
           <video
             src={section.videoFile.asset.url}
@@ -280,26 +270,16 @@ const InteriorCard: React.FC<{
       </div>
 
       {/* Content */}
-      <div className="pt-6 pr-[5%]">
+      <div className="pt-6 max-w-[420px]">
         <div className="mb-[48px]">
-          <h3 className="text-black font-medium text-[24px] leading-[110%] tracking-[-0.24px] mb-2 font-helvetica">
+          <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[4px]">
             {section.name || 'Interior Feature'}
           </h3>
 
-          <p className="text-[16px] leading-[21px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
+          <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
             {section.title || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ultrices nulla vitae faucibus rutrum. Quisque viverra, massa.'}
           </p>
         </div>
-
-        {/* Learn More Button */}
-        <motion.button
-          className="px-[24px] py-[5px] rounded-[50px] border-1 border-black text-black no-underline font-helvetica text-[14px] leading-[24px] tracking-[0] font-medium transition ease-[0.4s] w-fit block cursor-pointer mt-auto"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          transition={{ duration: 0.2 }}
-        >
-          <span>Learn More</span>
-        </motion.button>
       </div>
     </motion.div>
   )

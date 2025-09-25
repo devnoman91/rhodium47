@@ -77,14 +77,14 @@ const ProductShowcaseInnovation: React.FC<ProductShowcaseInnovationProps> = ({ s
           >
             {/* Title Section */}
             <div className="flex-shrink-0">
-              <h1 className="text-[64px] not-italic tracking-normal leading-[70px] font-medium font-helvetica">
+              <h1 className="text-white font-helvetica text-[64px] font-medium leading-[70px]">
                 {showcaseInnovation.main.title}
               </h1>
             </div>
 
             {/* Description Section */}
-            <div className="flex flex-col gap-3 max-w-4xl">
-              <p className="text-[16px] leading-[30px] tracking-[0] m-0 font-medium font-helvetica opacity-70">
+            <div className="flex flex-col gap-3 max-w-[450px] ml-auto">
+              <p className="text-[16px] leading-[30px] tracking-[0] m-0 font-normal font-helvetica opacity-70">
                 {showcaseInnovation.main.description}
               </p>
             </div>

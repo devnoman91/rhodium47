@@ -67,7 +67,7 @@ const ProductAboutSection: React.FC<ProductAboutSectionProps> = ({ aboutSection 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="mb-20 lg:mb-[70px]"
+          className="mb-[40px]"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 xl:gap-20">
             {/* Left Logo */}
@@ -153,10 +153,10 @@ const ProductAboutSection: React.FC<ProductAboutSectionProps> = ({ aboutSection 
             className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 xl:gap-20 2xl:gap-24 items-start"
           >
             <div className="lg:col-span-12">
-              <div className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-12 xl:gap-16">
+              <div className="flex flex-col lg:flex-row ">
                 {/* Image */}
-                <div className="w-full lg:w-[60%]">
-                  <div className="relative aspect-[16/9] lg:aspect-auto h-full rounded-2xl overflow-hidden bg-gray-100">
+                <div className="w-full lg:w-[50%]">
+                  <div className="relative aspect-[1/0.65] h-full rounded-2xl overflow-hidden bg-gray-100">
                     {firstImage.image?.asset?.url && (
                       <motion.img
                         src={firstImage.image.asset.url}
@@ -174,33 +174,29 @@ const ProductAboutSection: React.FC<ProductAboutSectionProps> = ({ aboutSection 
                 </div>
 
                 {/* Product Info and Counts */}
-                <div className="w-full lg:w-[40%] flex items-center">
+                <div className="w-full lg:w-[50%] flex items-center relative left-[-6%]">
                   <motion.div
                     variants={itemVariants}
                     className="w-full"
                   >
-                    <h3 className="text-[#161618] font-medium text-[24px] leading-[120%] tracking-[-0.48px] font-helvetica mb-[24px]">
-                      {firstImage.name || firstImage.title}
-                    </h3>
-
                     {/* Counts Section */}
                     {firstImage.counts && firstImage.counts.length > 0 && (
-                      <div className="mb-[24px]">
-                        <div className="grid grid-cols-1 gap-6">
+                      <div className="rounded-[22px] bg-white  p-[20px]">
+                        <div className="grid grid-cols-3">
                           {firstImage.counts.map((count, index) => (
                             <motion.div
                               key={index}
-                              className="border-b border-gray-200 pb-4"
+                              className=""
                               initial={{ opacity: 0, y: 20 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: index * 0.1 }}
                             >
-                              <div className="flex justify-between items-center">
-                                <span className="text-[#7F7F7F] font-helvetica text-[16px] font-normal tracking-[-0.32px]">
-                                  {count.name}
-                                </span>
-                                <span className="text-[#161618] font-helvetica text-[20px] font-medium">
+                              <div className={`flex flex-col items-center text-center justify-center  px-[20px] border-r border-[#ddd] ${((index + 1) % 3 === 0) ? 'border-r-0' : ''}`}>
+                                <span className="text-black text-center font-helvetica text-[50px] not-italic font-bold leading-[120%] tracking-[-1px]">
                                   {count.value || count.title}
+                                </span>
+                                <span className="text-black text-center font-helvetica text-[20px] not-italic font-normal leading-[120%] tracking-[-0.4px]">
+                                  {count.name}
                                 </span>
                               </div>
                             </motion.div>
@@ -208,16 +204,6 @@ const ProductAboutSection: React.FC<ProductAboutSectionProps> = ({ aboutSection 
                         </div>
                       </div>
                     )}
-
-                    <motion.button
-                      className="inline-flex cursor-pointer items-center text-[#161618] font-helvetica text-[20px] gap-3 not-italic font-medium leading-[24px] tracking-[-0.4px]"
-                      whileHover={{ x: 5 }}
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
-                        <path d="M21.5536 10.9272L13.6786 18.8022C13.432 19.0488 13.0976 19.1873 12.7489 19.1873C12.4002 19.1873 12.0658 19.0488 11.8192 18.8022C11.5727 18.5556 11.4341 18.2212 11.4341 17.8725C11.4341 17.5238 11.5727 17.1894 11.8192 16.9428L17.4531 11.3111H1.375C1.0269 11.3111 0.693064 11.1728 0.446922 10.9267C0.200781 10.6805 1.0269 10.3467 0.0625 9.99861C0.0625 9.65051 0.200781 9.31667 0.446922 9.07053C0.693064 8.82438 1.0269 8.68611 1.375 8.68611H17.4531L11.8214 3.0511C11.5748 2.80454 11.4363 2.47012 11.4363 2.12142C11.4363 1.77272 11.5748 1.4383 11.8214 1.19173C12.068 0.945161 12.4024 0.806641 12.7511 0.806641C13.0998 0.806641 13.4342 0.945161 13.6808 1.19173L21.5558 9.06673C21.6782 9.18883 21.7752 9.3339 21.8414 9.49362C21.9075 9.65333 21.9415 9.82454 21.9413 9.99742C21.9411 10.1703 21.9067 10.3414 21.8402 10.501C21.7737 10.6605 21.6763 10.8054 21.5536 10.9272Z" fill="black" />
-                      </svg>
-                      <span>Learn more</span>
-                    </motion.button>
                   </motion.div>
                 </div>
               </div>

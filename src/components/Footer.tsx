@@ -253,7 +253,7 @@ const Footer = () => {
                 <ul className="space-y-4 text-gray-300">
                   <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Consultation</a></li>
                   <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Custom Design</a></li>
-                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Maintenance / Service Centers</a></li>
+                  <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Maintenance Service </a></li>
                   <li className="mb-0"><a href="#" className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity">Training</a></li>
                 </ul>
               </div>

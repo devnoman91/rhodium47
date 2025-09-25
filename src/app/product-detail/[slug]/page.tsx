@@ -75,7 +75,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                       
                     )}
                     <h3 className="text-[#111] text-center font-helvetica text-[16px] font-medium leading-[150%] capitalize mb-[14px]">{section.name}</h3>
-                    <p className="text-center text-[16px] font-normal leading-[20px] font-helvetica">{section.description}</p>
+                    <p className="text-center text-[#111] text-[16px] font-normal leading-[20px] font-helvetica">{section.description}</p>
                   </div>
                 ))}
               </div>

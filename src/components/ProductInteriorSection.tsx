@@ -138,36 +138,6 @@ const ProductInteriorSection: React.FC<ProductInteriorSectionProps> = ({ interio
         viewport={{ once: true, margin: "-100px" }}
         className="relative"
       >
-        {/* Navigation Arrows */}
-        <div className="absolute top-1/2 -translate-y-1/2 z-10 flex justify-between w-full px-4">
-          <motion.button
-            onClick={slideLeft}
-            disabled={currentIndex === 0}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className={`w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm border border-black/10 flex items-center justify-center shadow-lg transition-all duration-300 ${
-              currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white hover:shadow-xl'
-            }`}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-black">
-              <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </motion.button>
-
-          <motion.button
-            onClick={slideRight}
-            disabled={currentIndex === totalSections - 1}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className={`w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm border border-black/10 flex items-center justify-center shadow-lg transition-all duration-300 ${
-              currentIndex === totalSections - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white hover:shadow-xl'
-            }`}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-black">
-              <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </motion.button>
-        </div>
 
         {/* Left Padding for Content Alignment */}
         <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
@@ -220,21 +190,7 @@ const ProductInteriorSection: React.FC<ProductInteriorSectionProps> = ({ interio
           </div>
         </div>
 
-        {/* Slider Indicators */}
-        <div className="flex justify-center mt-8 gap-2">
-          {interiorSection.sections.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setCurrentIndex(index)
-                setDragX(-index * cardWidth)
-              }}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex ? 'bg-black w-6' : 'bg-black/30 hover:bg-black/50'
-              }`}
-            />
-          ))}
-        </div>
+
       </motion.div>
 
     </section>

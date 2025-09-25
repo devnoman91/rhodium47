@@ -96,7 +96,7 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.3 }}
-                    className="flex-shrink-0"
+                    className="flex-shrink-0 ml-auto"
                   >
                     <img
                       src={section.image.asset.url}
@@ -120,9 +120,7 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
               )}
             </div>
           ))}
-        </motion.div>
-
-        {/* Others Section */}
+    {/* Others Section */}
         {othersSection && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -137,7 +135,7 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="w-full h-px bg-white/20 mb-12 lg:mb-16"
+              className="w-full h-px  mb-12 lg:mb-16"
               style={{ transformOrigin: 'left' }}
             />
 
@@ -170,6 +168,9 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
           
           </motion.div>
         )}
+        </motion.div>
+
+    
       </div>
     </section>
   )

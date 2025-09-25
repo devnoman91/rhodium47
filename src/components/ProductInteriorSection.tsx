@@ -260,11 +260,7 @@ const InteriorCard: React.FC<{
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
 
-          {/* Navigation Dots */}
-          <div className="absolute bottom-4 left-4 flex gap-2">
-            <div className="w-2 h-2 bg-white/60 rounded-full" />
-            <div className="w-2 h-2 bg-white rounded-full" />
-          </div>
+
         </div>
 
         {/* Content */}
@@ -320,11 +316,7 @@ const InteriorCard: React.FC<{
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
 
-        {/* Navigation Dots */}
-        <div className="absolute bottom-4 left-4 flex gap-2">
-          <div className="w-2 h-2 bg-white/60 rounded-full" />
-          <div className="w-2 h-2 bg-white rounded-full" />
-        </div>
+
       </div>
 
       {/* Content */}

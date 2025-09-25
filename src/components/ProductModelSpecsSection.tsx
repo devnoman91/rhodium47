@@ -47,7 +47,7 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
           transition={{ duration: 0.6 }}
           className="mb-12 lg:mb-16"
         >
-          <h1 className="text-white font-helvetica text-[48px] lg:text-[64px] not-italic font-medium leading-[110%] tracking-[-1.28px]">
+          <h1 className="text-white font-helvetica text-[64px] font-medium leading-[80px]">
             {title}
           </h1>
         </motion.div>
@@ -60,9 +60,13 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           {specificationSections.map((section, sectionIndex) => (
-            <div key={sectionIndex} className="mb-12 lg:mb-16">
+            <div key={sectionIndex} className="mb-[40px]">
               {/* Section specifications in grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-x-8 gap-y-8 lg:gap-y-12">
+              <div className="mb-[30px] flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal font-helvetica items-center uppercase">
+                <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
+                <h4 className="text-white font-helvetica text-base font-normal leading-[120%] tracking-[-0.32px] uppercase">Drive</h4>
+              </div>
+              <div className="flex items-start gap-[60px] flex-wrap">
                 {section.specifications.map((spec, specIndex) => (
                   <motion.div
                     key={specIndex}
@@ -73,10 +77,10 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
                     className="flex flex-col"
                   >
                     <div className="flex flex-col">
-                      <h3 className="text-white font-helvetica text-[16px] not-italic font-medium leading-[120%] mb-2">
+                      <h3 className="text-white text-base font-normal leading-[150%] capitalize font-helvetica">
                         {spec.label}
                       </h3>
-                      <p className="text-white font-helvetica text-[16px] not-italic font-normal leading-[120%] opacity-80">
+                      <p className="text-white text-base font-normal leading-[150%] capitalize font-helvetica">
                         {spec.value}
                       </p>
                     </div>
@@ -91,7 +95,7 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
                   whileInView={{ scaleX: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="w-full h-px bg-white/20 mt-12 lg:mt-16"
+                  className="w-full h-px bg-white/20 mt-[40px]"
                   style={{ transformOrigin: 'left' }}
                 />
               )}
@@ -119,11 +123,11 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
             />
 
             {/* Others Title */}
-            <div className="flex items-center mb-8">
+            <div className="mb-[30px] flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal font-helvetica items-center uppercase">
               <div className="w-2 h-2 bg-white rounded-full mr-3" />
-              <h2 className="text-white font-helvetica text-[16px] not-italic font-medium leading-[120%] uppercase tracking-wider">
+              <h3 className="text-white font-helvetica text-base font-normal leading-[120%] tracking-[-0.32px] uppercase">
                 {othersSection.title || 'OTHERS'}
-              </h2>
+              </h3>
             </div>
 
             {/* Others Content */}

@@ -24,6 +24,7 @@ interface ProductModelSpecsSectionProps {
     title?: string
     specificationSections?: SpecificationSection[]
     othersSection?: {
+      name?: string
       title?: string
       bulletPoints?: string[]
     }
@@ -64,7 +65,8 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
               {/* Section specifications in grid */}
               <div className="mb-[30px] flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal font-helvetica items-center uppercase">
                 <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
-                <h4 className="text-white font-helvetica text-base font-normal leading-[120%] tracking-[-0.32px] uppercase">Drive</h4>
+                <h4 className="text-white font-helvetica text-base font-normal leading-[120%] tracking-[-0.32px] uppercase">{section.name}</h4>
+
               </div>
               <div className="flex items-start gap-[60px] flex-wrap">
                 {section.specifications.map((spec, specIndex) => (
@@ -86,6 +88,23 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
                     </div>
                   </motion.div>
                 ))}
+
+                {/* Section Image */}
+                {section.image?.asset?.url && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    className="flex-shrink-0"
+                  >
+                    <img
+                      src={section.image.asset.url}
+                      alt={section.image.alt || section.name}
+                      className="max-w-full h-auto rounded-lg"
+                    />
+                  </motion.div>
+                )}
               </div>
 
               {/* Separator line between sections */}
@@ -122,34 +141,33 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
               style={{ transformOrigin: 'left' }}
             />
 
-            {/* Others Title */}
-            <div className="mb-[30px] flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal font-helvetica items-center uppercase">
-              <div className="w-2 h-2 bg-white rounded-full mr-3" />
-              <h3 className="text-white font-helvetica text-base font-normal leading-[120%] tracking-[-0.32px] uppercase">
-                {othersSection.title || 'OTHERS'}
-              </h3>
-            </div>
+          {/* Other Section Content */}
+          {othersSection?.title && (
+            <h2 className="text-white font-helvetica text-2xl font-medium leading-tight mb-8 uppercase">
+              {othersSection.title}
+            </h2>
+          )}
 
-            {/* Others Content */}
-            <div className="space-y-6">
-              {othersSection.bulletPoints?.map((point, index) => (
+          {othersSection?.bulletPoints && othersSection.bulletPoints.length > 0 && (
+            <div className="space-y-4">
+              {othersSection.bulletPoints.map((point, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex items-start"
+                  className="flex items-start gap-3"
                 >
-                  <div className="text-white/60 font-helvetica text-[14px] font-medium mr-4 mt-1 min-w-[20px]">
-                    {index + 1}
-                  </div>
-                  <p className="text-white/80 font-helvetica text-[14px] not-italic font-normal leading-[140%]">
+                  <div className="w-2 h-2 bg-white rounded-full mt-2 flex-shrink-0"></div>
+                  <p className="text-white font-helvetica text-base font-normal leading-[150%]">
                     {point}
                   </p>
                 </motion.div>
               ))}
             </div>
+          )}
+          
           </motion.div>
         )}
       </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 
@@ -56,10 +56,47 @@ const cardVariants = {
 }
 
 const ProductInteriorSection: React.FC<ProductInteriorSectionProps> = ({ interiorSection }) => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [dragX, setDragX] = useState(0)
+  const constraintsRef = useRef(null)
 
   if (!interiorSection.sections || interiorSection.sections.length === 0) {
     return null
   }
+
+  const totalSections = interiorSection.sections.length
+  const cardWidth = 1000 + 20 // card width + gap
+  const maxScroll = -(totalSections - 1) * cardWidth
+
+  const slideLeft = () => {
+    if (currentIndex > 0) {
+      const newIndex = currentIndex - 1
+      setCurrentIndex(newIndex)
+      setDragX(-newIndex * cardWidth)
+    }
+  }
+
+  const slideRight = () => {
+    if (currentIndex < totalSections - 1) {
+      const newIndex = currentIndex + 1
+      setCurrentIndex(newIndex)
+      setDragX(-newIndex * cardWidth)
+    }
+  }
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowLeft') {
+        slideLeft()
+      } else if (event.key === 'ArrowRight') {
+        slideRight()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [currentIndex, totalSections])
 
   return (
     <section className="py-16 lg:py-24 bg-[#F4F1F2] text-black overflow-hidden" style={{ contain: 'layout style' }}>
@@ -101,20 +138,64 @@ const ProductInteriorSection: React.FC<ProductInteriorSectionProps> = ({ interio
         viewport={{ once: true, margin: "-100px" }}
         className="relative"
       >
+        {/* Navigation Arrows */}
+        <div className="absolute top-1/2 -translate-y-1/2 z-10 flex justify-between w-full px-4">
+          <motion.button
+            onClick={slideLeft}
+            disabled={currentIndex === 0}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className={`w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm border border-black/10 flex items-center justify-center shadow-lg transition-all duration-300 ${
+              currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white hover:shadow-xl'
+            }`}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-black">
+              <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </motion.button>
+
+          <motion.button
+            onClick={slideRight}
+            disabled={currentIndex === totalSections - 1}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className={`w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm border border-black/10 flex items-center justify-center shadow-lg transition-all duration-300 ${
+              currentIndex === totalSections - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white hover:shadow-xl'
+            }`}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-black">
+              <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </motion.button>
+        </div>
+
         {/* Left Padding for Content Alignment */}
         <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
           {/* Slider Container */}
-          <div className="relative overflow-visible">
+          <div className="relative overflow-visible" ref={constraintsRef}>
             <motion.div
               className="flex gap-5 cursor-grab active:cursor-grabbing"
               drag="x"
               dragConstraints={{
-                left: -((interiorSection.sections.length - 2.5) * 400),
+                left: maxScroll,
                 right: 0
               }}
-              whileHover={{ x: -20 }}
-              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-              whileDrag={{ cursor: "grabbing" }}
+              dragElastic={0.1}
+              dragMomentum={false}
+              animate={{ x: dragX }}
+              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+              onDragEnd={(_, info) => {
+                const offset = info.offset.x
+                const velocity = info.velocity.x
+
+                if (Math.abs(offset) > 100 || Math.abs(velocity) > 500) {
+                  if (offset > 0 && currentIndex > 0) {
+                    slideLeft()
+                  } else if (offset < 0 && currentIndex < totalSections - 1) {
+                    slideRight()
+                  }
+                }
+              }}
               style={{ width: 'max-content' }}
             >
               {interiorSection.sections.map((section, index) => (
@@ -137,6 +218,22 @@ const ProductInteriorSection: React.FC<ProductInteriorSectionProps> = ({ interio
               ))}
             </motion.div>
           </div>
+        </div>
+
+        {/* Slider Indicators */}
+        <div className="flex justify-center mt-8 gap-2">
+          {interiorSection.sections.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setCurrentIndex(index)
+                setDragX(-index * cardWidth)
+              }}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === currentIndex ? 'bg-black w-6' : 'bg-black/30 hover:bg-black/50'
+              }`}
+            />
+          ))}
         </div>
       </motion.div>
 

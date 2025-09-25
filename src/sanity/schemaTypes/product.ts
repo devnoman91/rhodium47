@@ -412,27 +412,7 @@ export default defineType({
           ],
         }),
 
-        // Others Section
-        defineField({
-          name: 'othersSection',
-          title: 'Others',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'title',
-              title: 'Section Title',
-              type: 'string',
-              initialValue: 'OTHERS',
-            }),
-            defineField({
-              name: 'bulletPoints',
-              title: 'Bullet Points',
-              type: 'array',
-              of: [{ type: 'text' }],
-              description: 'Add detailed notes and disclaimers',
-            }),
-          ],
-        }),
+       
       ],
     }),
 

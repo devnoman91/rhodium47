@@ -69,7 +69,7 @@ export async function updateEmailSubscription(
     .set(updates)
     .commit();
 
-  return updatedSubscription as EmailSubscription;
+  return updatedSubscription as unknown as EmailSubscription;
 }
 
 export async function deleteEmailSubscription(id: string): Promise<void> {

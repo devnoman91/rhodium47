@@ -307,7 +307,7 @@ const VehicleShowcase: React.FC = () => {
                 <button
                   onClick={() => handleCategoryChange('armored')}
                   className={`cursor-pointer flex w-[215px] h-[48px] flex-shrink-0 rounded-[50px] px-[16px] py-[14px] text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] transition-colors duration-200 justify-center items-center ${
-                    selectedCategory === 'armored' ? 'bg-black text-white' : 'bg-[#CDCDCD] text-white hover:bg-gray-400'
+                    selectedCategory === 'armored' ? 'bg-black text-white' : 'bg-[#CDCDCD] text-white '
                   }`}
                 >
                   Armored Collection

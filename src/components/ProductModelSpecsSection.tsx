@@ -29,13 +29,18 @@ interface ProductModelSpecsSectionProps {
       bulletPoints?: string[]
     }
   }
+  othersSection?: {
+    name?: string
+    title?: string
+    bulletPoints?: string[]
+  }
 }
 
 
-const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ modelSpecsSection }) => {
+const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ modelSpecsSection, othersSection: mainOthersSection }) => {
   if (!modelSpecsSection) return null
 
-  const { title = 'Model Specs', specificationSections = [], othersSection } = modelSpecsSection
+  const { title = 'Model Specs', specificationSections = [] } = modelSpecsSection
 
   return (
     <section className="py-16 lg:py-20 bg-black text-white">
@@ -120,8 +125,10 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
               )}
             </div>
           ))}
-    {/* Others Section */}
-        {othersSection && (
+   
+
+        {/* Main Others Section */}
+        {mainOthersSection && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -129,48 +136,59 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mt-16 lg:mt-20"
           >
-            {/* Separator line before Others section */}
+            {/* Separator line before Main Others section */}
             <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="w-full h-px  mb-12 lg:mb-16"
+              className="w-full h-px bg-white/20 mb-12 lg:mb-16"
               style={{ transformOrigin: 'left' }}
             />
 
-          {/* Other Section Content */}
-          {othersSection?.title && (
-            <h2 className="text-white font-helvetica text-2xl font-medium leading-tight mb-8 uppercase">
-              {othersSection.title}
-            </h2>
-          )}
+            {/* Main Others Section Content */}
+            {mainOthersSection?.name && (
+              <h2 className="text-white font-helvetica text-2xl font-medium leading-tight mb-4 uppercase">
+                {mainOthersSection.name}
+              </h2>
+            )}
 
-          {othersSection?.bulletPoints && othersSection.bulletPoints.length > 0 && (
-            <div className="space-y-4">
-              {othersSection.bulletPoints.map((point, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex items-start gap-3"
-                >
-                  <div className="w-2 h-2 bg-white rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-white font-helvetica text-base font-normal leading-[150%]">
-                    {point}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          )}
-          
+            {mainOthersSection?.title && (
+              <h3 className="text-white font-helvetica underline text-base font-normal  leading-tight mb-8">
+                {mainOthersSection.title}
+              </h3>
+            )}
+
+            {mainOthersSection?.bulletPoints && mainOthersSection.bulletPoints.length > 0 && (
+              <div className="space-y-4">
+                {mainOthersSection.bulletPoints.map((point, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="flex items-start gap-3"
+                  >
+                   
+                    <p className="text-white font-helvetica text-base font-normal leading-[150%]">
+                      {point.split(/(learn more)/gi).map((part, partIndex) =>
+                        part.toLowerCase() === 'learn more' ? (
+                          <span key={partIndex} className="underline">{part}</span>
+                        ) : (
+                          part
+                        )
+                      )}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </motion.div>
         )}
         </motion.div>
 
-    
+
       </div>
     </section>
   )

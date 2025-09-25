@@ -24,6 +24,11 @@ interface ProductInteriorSectionProps {
         alt?: string
       }
     }>
+    othersSection?: {
+      name?: string
+      title?: string
+      bulletPoints?: string[]
+    }
   }
 }
 

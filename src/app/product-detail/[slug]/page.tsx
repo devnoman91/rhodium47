@@ -100,36 +100,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       )}
   {/* Model Specs Section */}
       {product.modelSpecsSection && (
-        <ProductModelSpecsSection modelSpecsSection={product.modelSpecsSection} />
+        <ProductModelSpecsSection
+          modelSpecsSection={product.modelSpecsSection}
+          othersSection={product.othersSection}
+        />
       )}
-      <div className="p-8">
-        <div className="max-w-7xl mx-auto">
-
-        {/* Warranty Section */}
-       
-
-        {/* Others Section */}
-        {product.othersSection && (
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold mb-4">Others</h2>
-            <div className="bg-gray-100 p-6 rounded-lg">
-              <h3 className="text-xl mb-2">{product.othersSection.name}</h3>
-              <p className="mb-4">{product.othersSection.title}</p>
-              {product.othersSection.bulletPoints && product.othersSection.bulletPoints.length > 0 && (
-                <div>
-                  <h4 className="font-medium mb-2">Features:</h4>
-                  <ul className="list-disc list-inside">
-                    {product.othersSection.bulletPoints.map((point, index) => (
-                      <li key={index}>{point}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-        </div>
-      </div>
 
       
       {utilityData && (

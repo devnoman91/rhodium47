@@ -58,38 +58,32 @@ const criticalInlineStyles = `
   .survey-wizard-container {
     display: flex;
     height: 100vh;
-    background: #f8f9fa;
+    background: #F4F1F2;
+    padding: 40px;
+    padding-top: 120px;
   }
   .survey-image-panel {
     flex: 1;
     background: #000;
     position: relative;
     overflow: hidden;
+    border-radius: 20px;
   }
   .survey-form-panel {
     flex: 1;
     display: flex;
     flex-direction: column;
     padding: 2rem;
-    background: white;
   }
   .survey-step-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-  }
-  .survey-step-indicator {
-    margin-bottom: 2rem;
-    padding: 0 2rem;
-    position: relative;
-  }
-  .survey-step-line {
-    width: 100%;
-    height: 4px;
-    position: relative;
-    border-radius: 2px;
-    overflow: hidden;
+    color: #000;
+    font-family: "Helvetica Neue";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; 
+    letter-spacing: -0.24px;
+    text-decoration-line: underline;
   }
   .survey-step-line-segment {
     position: absolute;
@@ -110,14 +104,21 @@ const criticalInlineStyles = `
     );
   }
   .survey-back-button {
-    background: none;
-    border: none;
-    font-size: 16px;
-    color: #6b7280;
+    color: #000;
+    font-family: 'helveticaNeue';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -0.4px;
+    border-bottom: 1px solid #000;
+    margin-bottom: 20px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    display: block;
+    width: fit-content;
+  }
+  a.survey-back-button {
+    border: none !important;
   }
   .survey-back-button:hover {
     color: #374151;
@@ -132,11 +133,14 @@ const criticalInlineStyles = `
     width: 100%;
   }
   .survey-question-title {
-    font-size: 28px;
-    font-weight: 600;
-    color: #111827;
-    margin-bottom: 2rem;
-    line-height: 1.3;
+    color: #000;
+    font-family: 'helveticaNeue';
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -0.6px;
+    margin-bottom: 24px;
   }
   .survey-form-field {
     margin-bottom: 1.5rem;
@@ -159,36 +163,51 @@ const criticalInlineStyles = `
   .survey-option-button {
     width: 100%;
     padding: 16px 20px;
-    border: 2px solid #e5e7eb;
-    border-radius: 12px;
-    background: #f9fafb;
-    font-size: 16px;
     text-align: left;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
+    color: #000;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    text-transform: capitalize;
+    border-radius: 4px;
+    border: 1px solid #D7D7D7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .survey-option-button:hover {
-    border-color: #d1d5db;
-    background: white;
+    border-color: #000;
+    background: #eceaeb;
   }
   .survey-option-button.selected {
-    border-color: #3b82f6;
-    background: #eff6ff;
-    color: #1d4ed8;
+    border-color: #000;
+    background: #eceaeb;
   }
   .survey-next-button {
-    background: #111827;
-    color: white;
-    border: none;
-    padding: 16px 32px;
-    border-radius: 50px;
+    display: flex;
+    width: 200px;
+    height: 48px;
+    padding: 14px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: "Helvetica Neue";
     font-size: 16px;
-    font-weight: 500;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+    border-radius: 71px;
+    background: #000;
     cursor: pointer;
-    transition: all 0.2s ease;
-    align-self: flex-start;
-    margin-top: 2rem;
+    transition: 0.4s ease;
   }
   .survey-next-button:hover {
     background: #374151;
@@ -220,52 +239,29 @@ const criticalInlineStyles = `
   /* Product Showcase Styles */
   .product-showcase-container {
     width: 100%;
-    min-height: 100vh;
-    background: #f5f5f5;
+    height: 100vh;
+    background: #F4F1F2;
     display: flex;
     flex-direction: column;
-    padding: 40px 0;
-  }
-  .product-showcase-header {
-    padding: 20px 40px;
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .product-showcase-close {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 5px;
+    padding: 40px;
+    padding-top: 120px;
   }
   .product-showcase-content {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px;
     overflow: hidden;
   }
   .product-card {
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     display: flex;
-    max-width: 1200px;
-    width: 100%;
-    max-height: 600px;
-    overflow: hidden;
+    height: 100%;
   }
   .product-image-section {
     flex: 1;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
+    border-radius: 20px;
+    overflow: hidden;
   }
   .product-image {
     width: 100%;
@@ -277,7 +273,11 @@ const criticalInlineStyles = `
     padding: 40px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+  }
+  .info_inner_content {
+    max-width: 500px;
+    margin: 0 auto;
   }
   .product-category {
     color: #666;
@@ -287,34 +287,48 @@ const criticalInlineStyles = `
     letter-spacing: 1px;
   }
   .product-name {
-    font-size: 36px;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin-bottom: 16px;
+    color: #000;
+    font-family: 'helveticaNeue';
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -0.6px;
+    margin-bottom: 18px;
   }
   .product-description {
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 24px;
+    color: #000;
+    font-family: 'helveticaNeue';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: -0.28px;
+    margin-bottom: 18px;
   }
   .product-price-section {
     margin-bottom: 24px;
   }
   .product-price-name {
+    color: #000;
+    font-family: 'helveticaNeue';
     font-size: 14px;
-    color: #666;
-    margin-bottom: 4px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.28px;
   }
   .product-starting-price {
-    font-size: 20px;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin-bottom: 4px;
+    color: #000;
+    font-family: 'helveticaNeue';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.28px;
   }
-  .product-options-section {
-    margin-top: 24px;
+  .product-option-item {
+    margin-bottom: 20px;
   }
   .product-options-title {
     font-size: 16px;
@@ -327,23 +341,23 @@ const criticalInlineStyles = `
     flex-direction: column;
     gap: 8px;
   }
-  .product-option-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    background: #f8f9fa;
-    border-radius: 6px;
-    border: 1px solid #e9ecef;
-  }
   .option-name {
+    color: #000;
+    font-family: 'helveticaNeue';
     font-size: 14px;
-    color: #495057;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.28px;
   }
   .option-price {
+    color: #000;
+    font-family: 'helveticaNeue';
     font-size: 14px;
-    font-weight: 600;
-    color: #1a1a1a;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.28px;
   }
   .product-after-price {
     font-size: 16px;
@@ -358,34 +372,73 @@ const criticalInlineStyles = `
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
+    margin-bottom: 20px;
   }
   .product-btn-primary {
     background: #1a1a1a;
-    color: white;
     border: none;
-    padding: 14px 24px;
-    border-radius: 25px;
-    font-weight: 500;
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: flex;
+    width: 124px;
+    height: 48px;
+    padding: 14px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: 'helveticaNeue';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    text-transform: capitalize;
+    cursor: pointer;
   }
   .product-btn-primary:hover {
     background: #333;
     transform: translateY(-1px);
   }
   .product-btn-secondary {
-    background: white;
-    color: #1a1a1a;
-    border: 2px solid #1a1a1a;
-    padding: 12px 24px;
-    border-radius: 25px;
-    font-weight: 500;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: flex;
+    width: 124px;
+    height: 48px;
+    padding: 14px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    color: #000;
+    text-align: center;
+    font-family: 'helveticaNeue';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    text-transform: capitalize;
+    cursor: pointer;
+    border: 1px solid #1a1a1a;
   }
   .product-btn-secondary:hover {
     background: #1a1a1a;
     color: white;
+  }
+  .save_option{
+    color: #000;
+    font-family: 'helveticaNeue';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%;
+    letter-spacing: -0.24px;
+    text-decoration-line: underline;
   }
   .product-navigation {
     position: absolute;
@@ -761,13 +814,6 @@ export default function SurveyPage() {
             transition={{ duration: 0.5 }}
             className="product-showcase-container"
           >
-            {/* Header */}
-            <div className="product-showcase-header">
-              <h2>{currentSurvey?.postSubmissionSection?.title || 'Recommended Products'}</h2>
-              <button className="product-showcase-close" onClick={closeProductShowcase}>
-                ✕
-              </button>
-            </div>
 
             {/* Content */}
             <div className="product-showcase-content">
@@ -834,7 +880,15 @@ export default function SurveyPage() {
 
                     {/* Product Info - Simplified */}
                     <div className="product-info-section">
-                      <div>
+                      <div className="info_inner_content">
+                          <div className="survey-step-header">
+                              <a href='/'
+                                type="button"
+                                className="survey-back-button"
+                              >
+                                Back
+                              </a>
+                          </div>
                         {/* Product Name */}
                         <h3 className="product-name">
                           {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.name}
@@ -862,27 +916,30 @@ export default function SurveyPage() {
                         {/* Multiple Options */}
                         {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.options && currentSurvey.postSubmissionSection!.products![currentProductIndex].options!.length > 0 && (
                           <div className="product-options-section">
-                            <h4 className="product-options-title">Available Options:</h4>
                             <div className="product-options-list">
                               {currentSurvey.postSubmissionSection!.products![currentProductIndex].options!.map((option, index) => (
                                 <div key={index} className="product-option-item">
-                                  <span className="option-name">{option.optionName}</span>
+                                  <div className="option-name">{option.optionName}</div>
                                   {option.optionPrice && (
-                                    <span className="option-price">{option.optionPrice}</span>
+                                    <div className="option-price">{option.optionPrice}</div>
                                   )}
                                 </div>
                               ))}
                             </div>
                           </div>
                         )}
+                        {/* Simple Button */}
+                        <div className="product-buttons">
+                          <button className="product-btn-primary">
+                            {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.name || 'View Details'}
+                          </button>
+                           <button className="product-btn-secondary">
+                            Design yours
+                          </button>
+                        </div>
+                        <a href="#" className="save_option">Save Options</a>
                       </div>
 
-                      {/* Simple Button */}
-                      <div className="product-buttons">
-                        <button className="product-btn-primary">
-                          {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.name || 'View Details'}
-                        </button>
-                      </div>
                     </div>
                   </motion.div>
                 </AnimatePresence>
@@ -949,7 +1006,7 @@ export default function SurveyPage() {
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 className="relative overflow-hidden flex items-center gap-[12px] px-6 py-3 rounded-full
-                           bg-white text-black font-helvetica font-medium text-[16px]
+                           bg-white text-black font-helvetica font-medium text-[20px] leading-[24px]
                            border border-transparent cursor-pointer group
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 onClick={handleStartSurvey}
@@ -957,8 +1014,20 @@ export default function SurveyPage() {
                 <span className="absolute inset-0 bg-black translate-x-full
                                transition-transform duration-500 ease-in-out rounded-full
                                group-hover:translate-x-0" />
+                               <svg
+                                  width="22"
+                                  height="18"
+                                  viewBox="0 0 22 18"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="relative z-10 transition-colors duration-500 ease-in-out group-hover:fill-white fill-black"
+                                >
+                                  <path
+                                    d="M21.2441 9.61955L13.3691 17.4946C13.2049 17.6587 12.9822 17.751 12.75 17.751C12.5178 17.751 12.2951 17.6587 12.1309 17.4946C11.9668 17.3304 11.8745 17.1077 11.8745 16.8755C11.8745 16.6433 11.9668 16.4206 12.1309 16.2564L18.513 9.87549H1.375C1.14294 9.87549 0.920376 9.7833 0.756282 9.61921C0.592187 9.45511 0.5 9.23255 0.5 9.00049C0.5 8.76842 0.592187 8.54586 0.756282 8.38177C0.920376 8.21767 1.14294 8.12549 1.375 8.12549H18.513L12.1309 1.74455C11.9668 1.58036 11.8745 1.35768 11.8745 1.12549C11.8745 0.893293 11.9668 0.67061 12.1309 0.506424C12.2951 0.342238 12.5178 0.25 12.75 0.25C12.9822 0.25 13.2049 0.342238 13.3691 0.506424L21.2441 8.38142C21.3254 8.46269 21.39 8.55919 21.434 8.66541C21.478 8.77164 21.5007 8.8855 21.5007 9.00049C21.5007 9.11548 21.478 9.22934 21.434 9.33556C21.39 9.44178 21.3254 9.53829 21.2441 9.61955Z"
+                                  />
+                                </svg>
+
                 <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
-                  Start Survey
+                  Get Started
                 </span>
               </motion.button>
             </div>
@@ -984,41 +1053,18 @@ export default function SurveyPage() {
 
             {/* Form Panel */}
             <div className="survey-form-panel">
-              {/* Step Progress Line */}
-              <div className="survey-step-indicator">
-                <div className="survey-step-line">
-                  {[0, 1, 2].map((segmentIndex) => (
-                    <div
-                      key={segmentIndex}
-                      className={`survey-step-line-segment ${
-                        segmentIndex < currentStep || completedSteps.has(segmentIndex)
-                          ? 'completed'
-                          : 'remaining'
-                      }`}
-                      style={{
-                        left: `${(segmentIndex * 100) / 3}%`,
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Header */}
-              <div className="survey-step-header">
-                <button
-                  type="button"
-                  className="survey-back-button"
-                  onClick={handleBack}
-                >
-                  ← Back
-                </button>
-                <div style={{ fontSize: '14px', color: '#6b7280' }}>
-                  {currentStep + 1} of {steps.length}
-                </div>
-              </div>
-
               {/* Form Content */}
               <div className="survey-form-content">
+                {/* Header */}
+                <div className="survey-step-header">
+                  <button
+                    type="button"
+                    className="survey-back-button"
+                    onClick={handleBack}
+                  >
+                    Back
+                  </button>
+              </div>
                 {/* Success/Error Message */}
                 {submitMessage && (
                   <motion.div
@@ -1053,7 +1099,10 @@ export default function SurveyPage() {
                             onClick={handleNext}
                             disabled={!isStepValid() || isSubmitting}
                           >
-                            Next →
+                            Next
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="10" viewBox="0 0 20 10" fill="none">
+                              <path d="M15 1L19 5M19 5L15 9M19 5L1 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                           </button>
                         ) : (
                           <button
@@ -1061,12 +1110,11 @@ export default function SurveyPage() {
                             className="survey-next-button"
                             onClick={handleFinalSubmit}
                             disabled={isSubmitting}
-                            style={{
-                              background: '#059669',
-                              border: 'none'
-                            }}
                           >
-                            {isSubmitting ? 'Submitting...' : 'Submit Survey'}
+                            {isSubmitting ? 'Submitting...' : 'Submit'}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="10" viewBox="0 0 20 10" fill="none">
+                              <path d="M15 1L19 5M19 5L15 9M19 5L1 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                           </button>
                         )}
                       </div>

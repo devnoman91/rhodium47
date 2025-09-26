@@ -278,7 +278,7 @@ export default function SurveyPage() {
 
           // Steps 2-4: Additional Sections - select from each section's field names
           if (survey.formSection.additionalSections) {
-            survey.formSection.additionalSections.forEach((section, index) => {
+            survey.formSection.additionalSections.forEach((section: any, index :any) => {
               if (section.fields && section.fields.length > 0) {
                 const fieldNames = section.fields.map((field: any) => field.fieldName)
                 surveySteps.push({

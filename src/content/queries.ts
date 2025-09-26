@@ -630,6 +630,27 @@ export const surveyFormQuery = `
           options[]
         }
       }
+    },
+    postSubmissionSection {
+      title,
+      products[] {
+        name,
+        description,
+        image {
+          asset-> {
+            url
+          },
+          alt
+        },
+        priceSection {
+          priceName,
+          priceValue
+        },
+        options[] {
+          optionName,
+          optionPrice
+        }
+      }
     }
   }
 `
@@ -685,6 +706,27 @@ export const surveyFormBySlugQuery = (slug: string) => `
           placeholder,
           required,
           options[]
+        }
+      }
+    },
+    postSubmissionSection {
+      title,
+      products[] {
+        name,
+        description,
+        image {
+          asset-> {
+            url
+          },
+          alt
+        },
+        priceSection {
+          priceName,
+          priceValue
+        },
+        options[] {
+          optionName,
+          optionPrice
         }
       }
     }

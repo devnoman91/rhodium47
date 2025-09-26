@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getAllSurveyForms } from '@/content/queries'
 import { SurveyForm, SurveyFormField } from '@/content/types'
-import { client } from '@/sanity/lib/client'
 
 const criticalInlineStyles = `
   .survey-hero-container {
@@ -217,6 +216,225 @@ const criticalInlineStyles = `
     color: #dc2626;
     border: 2px solid #ef4444;
   }
+
+  /* Product Showcase Styles */
+  .product-showcase-container {
+    width: 100%;
+    min-height: 100vh;
+    background: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0;
+  }
+  .product-showcase-header {
+    padding: 20px 40px;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .product-showcase-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+  }
+  .product-showcase-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    overflow: hidden;
+  }
+  .product-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    max-height: 600px;
+    overflow: hidden;
+  }
+  .product-image-section {
+    flex: 1;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .product-info-section {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .product-category {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .product-name {
+    font-size: 36px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+  .product-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .product-price-section {
+    margin-bottom: 24px;
+  }
+  .product-price-name {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .product-starting-price {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+  .product-options-section {
+    margin-top: 24px;
+  }
+  .product-options-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+  .product-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .product-option-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+  }
+  .option-name {
+    font-size: 14px;
+    color: #495057;
+  }
+  .option-price {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  .product-after-price {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .product-range-info {
+    font-size: 14px;
+    color: #666;
+  }
+  .product-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .product-btn-primary {
+    background: #1a1a1a;
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .product-btn-primary:hover {
+    background: #333;
+    transform: translateY(-1px);
+  }
+  .product-btn-secondary {
+    background: white;
+    color: #1a1a1a;
+    border: 2px solid #1a1a1a;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .product-btn-secondary:hover {
+    background: #1a1a1a;
+    color: white;
+  }
+  .product-navigation {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+  .product-nav-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .product-nav-dot.active {
+    background: white;
+    transform: scale(1.2);
+  }
+  .product-nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s ease;
+    z-index: 10;
+  }
+  .product-nav-arrow:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.1);
+  }
+  .product-nav-arrow.left {
+    left: 20px;
+  }
+  .product-nav-arrow.right {
+    right: 20px;
+  }
 `
 
 interface Step {
@@ -237,12 +455,44 @@ export default function SurveyPage() {
   const [currentStep, setCurrentStep] = useState(0)
   const [steps, setSteps] = useState<Step[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [surveyResponseId, setSurveyResponseId] = useState<string | null>(null)
-  const [selectedSection, setSelectedSection] = useState<string | null>(null)
   const [submitMessage, setSubmitMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set())
+  const [showProductShowcase, setShowProductShowcase] = useState(false)
+  const [currentProductIndex, setCurrentProductIndex] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
   const imageRef = useRef<HTMLImageElement>(null)
+
+  // Product showcase navigation functions with smooth motion
+  const nextProduct = () => {
+    const products = currentSurvey?.postSubmissionSection?.products
+    if (products && products.length > 0) {
+      setCurrentProductIndex((prev) =>
+        prev < products.length - 1 ? prev + 1 : 0
+      )
+    }
+  }
+
+  const prevProduct = () => {
+    const products = currentSurvey?.postSubmissionSection?.products
+    if (products && products.length > 0) {
+      setCurrentProductIndex((prev) =>
+        prev > 0 ? prev - 1 : products.length - 1
+      )
+    }
+  }
+
+  const goToProduct = (index: number) => {
+    setCurrentProductIndex(index)
+  }
+
+  const closeProductShowcase = () => {
+    setShowProductShowcase(false)
+    setCurrentProductIndex(0)
+    setFormData({})
+    setCurrentStep(0)
+    setShowHero(true)
+    setSubmitMessage(null)
+  }
 
   useEffect(() => {
     const fetchSurveyForms = async () => {
@@ -403,14 +653,12 @@ export default function SurveyPage() {
           text: 'Survey submitted successfully! Thank you for your participation.'
         })
 
-        // Reset form after delay
+        // Show product showcase after brief delay
         setTimeout(() => {
-          setFormData({})
-          setCurrentStep(0)
-          setShowHero(true)
-          setSurveyResponseId(null)
-          setSubmitMessage(null)
-        }, 3000)
+          setShowProductShowcase(true)
+        }, 1500)
+
+        // Note: Removed auto-reset - user must manually close showcase
 
       } else {
         throw new Error(result.error || 'Failed to submit survey')
@@ -504,7 +752,144 @@ export default function SurveyPage() {
       <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
 
       <AnimatePresence mode="wait">
-        {showHero ? (
+        {showProductShowcase ? (
+          <motion.div
+            key="showcase"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="product-showcase-container"
+          >
+            {/* Header */}
+            <div className="product-showcase-header">
+              <h2>{currentSurvey?.postSubmissionSection?.title || 'Recommended Products'}</h2>
+              <button className="product-showcase-close" onClick={closeProductShowcase}>
+                ✕
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="product-showcase-content">
+              {currentSurvey?.postSubmissionSection?.products && currentSurvey.postSubmissionSection.products.length > 0 && (
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentProductIndex}
+                    initial={{ opacity: 0, x: 300, scale: 0.8 }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                      scale: 1,
+                      transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 30,
+                        duration: 0.6
+                      }
+                    }}
+                    exit={{
+                      opacity: 0,
+                      x: -300,
+                      scale: 0.8,
+                      transition: {
+                        duration: 0.4,
+                        ease: "easeInOut"
+                      }
+                    }}
+                    className="product-card"
+                  >
+                    {/* Product Image */}
+                    <div className="product-image-section">
+                      <img
+                        src={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.image?.asset?.url}
+                        alt={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.image?.alt || 'Product'}
+                        className="product-image"
+                      />
+
+                      {/* Navigation Arrows */}
+                      {currentSurvey.postSubmissionSection!.products!.length > 1 && (
+                        <>
+                          <button className="product-nav-arrow left" onClick={prevProduct}>
+                            ←
+                          </button>
+                          <button className="product-nav-arrow right" onClick={nextProduct}>
+                            →
+                          </button>
+                        </>
+                      )}
+
+                      {/* Navigation Dots */}
+                      {currentSurvey.postSubmissionSection!.products!.length > 1 && (
+                        <div className="product-navigation">
+                          {currentSurvey.postSubmissionSection!.products!.map((_, index) => (
+                            <div
+                              key={index}
+                              className={`product-nav-dot ${index === currentProductIndex ? 'active' : ''}`}
+                              onClick={() => goToProduct(index)}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Product Info - Simplified */}
+                    <div className="product-info-section">
+                      <div>
+                        {/* Product Name */}
+                        <h3 className="product-name">
+                          {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.name}
+                        </h3>
+
+                        {/* Product Description */}
+                        {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.description && (
+                          <p className="product-description">
+                            {currentSurvey.postSubmissionSection!.products![currentProductIndex].description}
+                          </p>
+                        )}
+
+                        {/* Price Section - With Name and Value */}
+                        {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.priceSection && (
+                          <div className="product-price-section">
+                            <div className="product-price-name">
+                              {currentSurvey.postSubmissionSection!.products![currentProductIndex].priceSection!.priceName}
+                            </div>
+                            <div className="product-starting-price">
+                              {currentSurvey.postSubmissionSection!.products![currentProductIndex].priceSection!.priceValue}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Multiple Options */}
+                        {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.options && currentSurvey.postSubmissionSection!.products![currentProductIndex].options!.length > 0 && (
+                          <div className="product-options-section">
+                            <h4 className="product-options-title">Available Options:</h4>
+                            <div className="product-options-list">
+                              {currentSurvey.postSubmissionSection!.products![currentProductIndex].options!.map((option, index) => (
+                                <div key={index} className="product-option-item">
+                                  <span className="option-name">{option.optionName}</span>
+                                  {option.optionPrice && (
+                                    <span className="option-price">{option.optionPrice}</span>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Simple Button */}
+                      <div className="product-buttons">
+                        <button className="product-btn-primary">
+                          {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.name || 'View Details'}
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              )}
+            </div>
+          </motion.div>
+        ) : showHero ? (
           <motion.div
             key="hero"
             initial={{ opacity: 1 }}

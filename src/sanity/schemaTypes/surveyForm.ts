@@ -218,6 +218,120 @@ export default defineType({
         }),
       ],
     }),
+
+    // Post-Submission Section
+    defineField({
+      name: 'postSubmissionSection',
+      title: 'Post-Submission Product Showcase',
+      type: 'object',
+      description: 'Section that appears after successful survey submission with product slider',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+          description: 'Title for the product showcase section',
+        }),
+        defineField({
+          name: 'products',
+          title: 'Products',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'name',
+                  title: 'Product Name',
+                  type: 'string',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'description',
+                  title: 'Product Description',
+                  type: 'text',
+                }),
+                defineField({
+                  name: 'image',
+                  title: 'Product Image',
+                  type: 'image',
+                  options: {
+                    hotspot: true,
+                  },
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'priceSection',
+                  title: 'Price Section',
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'priceName',
+                      title: 'Price Name',
+                      type: 'string',
+                      description: 'e.g., "Starting Price", "Base Price"',
+                      validation: (Rule) => Rule.required(),
+                    }),
+                    defineField({
+                      name: 'priceValue',
+                      title: 'Price Value',
+                      type: 'string',
+                      description: 'e.g., "$79,900"',
+                      validation: (Rule) => Rule.required(),
+                    }),
+                  ],
+                }),
+                defineField({
+                  name: 'options',
+                  title: 'Additional Options',
+                  type: 'array',
+                  of: [
+                    {
+                      type: 'object',
+                      fields: [
+                        defineField({
+                          name: 'optionName',
+                          title: 'Option Name',
+                          type: 'string',
+                          validation: (Rule) => Rule.required(),
+                        }),
+                        defineField({
+                          name: 'optionPrice',
+                          title: 'Option Price',
+                          type: 'string',
+                          description: 'e.g., "+$5,000", "$2,500"',
+                        }),
+                      ],
+                      preview: {
+                        select: {
+                          title: 'optionName',
+                          subtitle: 'optionPrice',
+                        },
+                      },
+                    },
+                  ],
+                  description: 'Add multiple options/upgrades for this product',
+                }),
+              ],
+              preview: {
+                select: {
+                  title: 'name',
+                  priceValue: 'priceSection.priceValue',
+                  media: 'image',
+                },
+                prepare({ title, priceValue, media }) {
+                  return {
+                    title: title || 'Untitled Product',
+                    subtitle: priceValue || 'No price',
+                    media: media || undefined,
+                  }
+                },
+              },
+            },
+          ],
+        }),
+      ],
+    }),
   ],
 
   preview: {

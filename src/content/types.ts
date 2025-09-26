@@ -387,4 +387,25 @@ export interface SurveyForm {
     fields: SurveyFormField[];
     additionalSections?: SurveyFormSection[];
   };
+  postSubmissionSection?: {
+    title?: string;
+    products?: Array<{
+      name: string;
+      description?: string;
+      image: {
+        asset: {
+          url: string;
+        };
+        alt?: string;
+      };
+      priceSection?: {
+        priceName: string;
+        priceValue: string;
+      };
+      options?: Array<{
+        optionName: string;
+        optionPrice?: string;
+      }>;
+    }>;
+  };
 }

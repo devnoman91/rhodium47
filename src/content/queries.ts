@@ -740,3 +740,82 @@ export const getAllSurveyForms = async () => {
 export const getSurveyFormBySlug = async (slug: string) => {
   return await client.fetch(surveyFormBySlugQuery(slug))
 }
+
+export const inquiryFormQuery = `
+  *[_type == "inquiryForm"] | order(_createdAt asc) {
+    _id,
+    name,
+    slug,
+    heroSection {
+      name,
+      title,
+      contentType,
+      videoFile {
+        asset-> {
+          url
+        }
+      },
+      image {
+        asset-> {
+          url
+        },
+        alt
+      }
+    },
+    formSection {
+      name,
+      title,
+      image {
+        asset-> {
+          url
+        },
+        alt
+      },
+      fields[] {
+        fieldName,
+        fieldType,
+        options[]
+      },
+      additionalSections[] {
+        title,
+        image {
+          asset-> {
+            url
+          },
+          alt
+        },
+        fields[] {
+          fieldName,
+          fieldType,
+          options[]
+        }
+      }
+    }
+  }
+`
+
+export const getAllInquiryForms = async () => {
+  return await client.fetch(inquiryFormQuery)
+}
+
+export const currentOffersQuery = `
+  *[_type == "currentOffers"][0] {
+    _id,
+    title,
+    offers[] {
+      name,
+      title,
+      image {
+        asset-> {
+          url
+        },
+        alt
+      },
+      link
+    }
+  }
+`
+
+export const getCurrentOffers = async () => {
+  return await client.fetch(currentOffersQuery)
+}

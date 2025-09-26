@@ -15,7 +15,10 @@ import experienceXodiumTechnology from './experienceXodiumTechnology'
 import emailSubscription from './emailSubscription'
 import surveyForm from './surveyForm'
 import surveyResponse from './surveyResponse'
+import inquiryForm from './inquiryForm'
+import inquiryResponse from './inquiryResponse'
+import currentOffers from './currentOffers'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [video, product, homeAbout, productDetail, productBlog, productShowcase, showcaseInnovation, protection, frequentlyAskedQuestions, utility, keepExploring, newsUpdates, experienceXodiumTechnology, emailSubscription, surveyForm, surveyResponse],
+  types: [video, product, homeAbout, productDetail, productBlog, productShowcase, showcaseInnovation, protection, frequentlyAskedQuestions, utility, keepExploring, newsUpdates, experienceXodiumTechnology, emailSubscription, surveyForm, surveyResponse, inquiryForm, inquiryResponse, currentOffers],
 }

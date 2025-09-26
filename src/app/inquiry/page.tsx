@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { getAllInquiryForms } from '@/content/queries'
 
@@ -56,84 +56,147 @@ const criticalInlineStyles = `
   }
   .inquiry-wizard-container {
     display: flex;
-    width: 100%;
-    min-height: 100vh;
-    background: #f8f9fa;
+    height: 100vh;
+    background: #F4F1F2;
+    padding: 40px;
+    padding-top: 120px;
   }
   .inquiry-image-panel {
     flex: 1;
     background: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
+    overflow: hidden;
+    border-radius: 20px;
   }
   .inquiry-form-panel {
     flex: 1;
-    background: white;
-    padding: 40px;
     display: flex;
     flex-direction: column;
-    max-width: 600px;
-  }
-  .inquiry-step-indicator {
-    margin-bottom: 40px;
-  }
-  .inquiry-step-line {
-    width: 100%;
-    height: 4px;
-    position: relative;
-    border-radius: 2px;
-    overflow: hidden;
-    background: #e5e7eb;
-  }
-  .inquiry-step-line-segment {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: calc(100% / 3);
-    transition: all 0.3s ease;
-  }
-  .inquiry-step-line-segment.completed {
-    background: #111827;
-  }
-  .inquiry-step-line-segment.current {
-    background: #3b82f6;
-  }
-  .inquiry-step-line-segment.remaining {
-    background: repeating-linear-gradient(
-      to right,
-      #3b82f6 0px,
-      #3b82f6 4px,
-      transparent 4px,
-      transparent 8px
-    );
+    padding: 2rem;
   }
   .inquiry-step-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+    color: #000;
+    font-family: "Helvetica Neue";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%;
+    letter-spacing: -0.24px;
+    text-decoration-line: underline;
   }
   .inquiry-back-button {
-    background: none;
-    border: none;
-    font-size: 16px;
-    color: #6b7280;
+    color: #000;
+    font-family: 'helveticaNeue';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -0.4px;
+    border-bottom: 1px solid #000;
+    margin-bottom: 20px;
     cursor: pointer;
-    padding: 8px 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: block;
+    width: fit-content;
+  }
+  a.inquiry-back-button {
+    border: none !important;
   }
   .inquiry-back-button:hover {
     color: #374151;
   }
-  .inquiry-step-title {
-    font-size: 24px;
-    font-weight: 600;
-    color: #111827;
+  .inquiry-form-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .inquiry-question-title {
+    color: #000;
+    font-family: 'helveticaNeue';
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: -0.6px;
+    margin-bottom: 24px;
+  }
+  .inquiry-option-button {
+    width: 100%;
+    padding: 16px 20px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
     margin-bottom: 20px;
+    color: #000;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    text-transform: capitalize;
+    border-radius: 4px;
+    border: 1px solid #D7D7D7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .inquiry-option-button:hover {
+    border-color: #000;
+    background: #eceaeb;
+  }
+  .inquiry-option-button.selected {
+    border-color: #000;
+    background: #eceaeb;
+  }
+  .inquiry-next-button {
+    display: flex;
+    width: 200px;
+    height: 48px;
+    padding: 14px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: "Helvetica Neue";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+    border-radius: 71px;
+    background: #000;
+    cursor: pointer;
+    transition: 0.4s ease;
+  }
+  .inquiry-next-button:hover {
+    background: #374151;
+    transform: translateX(4px);
+  }
+  .inquiry-next-button:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .inquiry-message {
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .inquiry-message.success {
+    background: #d1fae5;
+    color: #059669;
+    border: 2px solid #10b981;
+  }
+  .inquiry-message.error {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 2px solid #ef4444;
   }
   .inquiry-form-group {
     margin-bottom: 24px;
@@ -144,9 +207,9 @@ const criticalInlineStyles = `
   }
   .inquiry-form-input {
     width: 100%;
-    padding: 12px 16px;
+    padding: 16px 20px;
     border: 2px solid #e5e7eb;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 16px;
     transition: all 0.2s ease;
     background: #f9fafb;
@@ -189,94 +252,6 @@ const criticalInlineStyles = `
     background: white;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   }
-  .inquiry-selection-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-  .inquiry-option-button {
-    width: 100%;
-    padding: 16px 20px;
-    border: 2px solid #e5e7eb;
-    border-radius: 12px;
-    background: #f9fafb;
-    font-size: 16px;
-    font-weight: 500;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: #374151;
-  }
-  .inquiry-option-button:hover {
-    border-color: #d1d5db;
-    background: white;
-  }
-  .inquiry-option-button.selected {
-    border-color: #3b82f6;
-    background: #eff6ff;
-    color: #1d4ed8;
-    font-weight: 600;
-  }
-  .inquiry-checkbox-group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 16px;
-  }
-  .inquiry-checkbox-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .inquiry-checkbox {
-    width: 18px;
-    height: 18px;
-    accent-color: #3b82f6;
-  }
-  .inquiry-checkbox-label {
-    font-size: 16px;
-    color: #374151;
-  }
-  .inquiry-next-button {
-    background: #111827;
-    color: white;
-    border: none;
-    padding: 16px 32px;
-    border-radius: 50px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    align-self: flex-start;
-    margin-top: 2rem;
-  }
-  .inquiry-next-button:hover {
-    background: #374151;
-    transform: translateX(4px);
-  }
-  .inquiry-next-button:disabled {
-    background: #d1d5db;
-    cursor: not-allowed;
-    transform: none;
-  }
-  .inquiry-message {
-    padding: 16px 20px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    font-weight: 500;
-    text-align: center;
-  }
-  .inquiry-message.success {
-    background: #d1fae5;
-    color: #059669;
-    border: 2px solid #10b981;
-  }
-  .inquiry-message.error {
-    background: #fee2e2;
-    color: #dc2626;
-    border: 2px solid #ef4444;
-  }
   .inquiry-review-section {
     background: #f9fafb;
     border-radius: 12px;
@@ -301,6 +276,18 @@ const criticalInlineStyles = `
   }
 `
 
+interface Step {
+  id: string
+  question: string
+  field: {
+    fieldName: string
+    fieldType: string
+    required: boolean
+    options?: string[]
+  }
+  image?: string
+}
+
 interface InquiryFormData {
   bodyStyle?: string
   model?: string
@@ -315,45 +302,86 @@ interface InquiryFormData {
 }
 
 export default function InquiryPage() {
+  const [currentInquiry, setCurrentInquiry] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [currentInquiry, setCurrentInquiry] = useState<any>(null)
+  const [formData, setFormData] = useState<InquiryFormData>({})
   const [mediaLoaded, setMediaLoaded] = useState(false)
   const [showHero, setShowHero] = useState(true)
   const [currentStep, setCurrentStep] = useState(0)
-  const [formData, setFormData] = useState<InquiryFormData>({})
+  const [steps, setSteps] = useState<Step[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const imageRef = useRef<HTMLImageElement>(null)
-
-  const steps = [
-    currentInquiry?.formSection?.additionalSections?.[0]?.title || 'Select Body Style',
-    currentInquiry?.formSection?.additionalSections?.[1]?.title || 'Select Model',
-    currentInquiry?.formSection?.additionalSections?.[2]?.title || 'Personal Information'
-  ]
 
   useEffect(() => {
     const fetchInquiryForms = async () => {
       try {
         setLoading(true)
         const data = await getAllInquiryForms()
-        console.log('Inquiry forms data:', data)
-
         if (!data || data.length === 0) {
           setError('No inquiry forms found')
           return
         }
+        setCurrentInquiry(data[0])
 
-        const inquiry = data[0] // Use the first inquiry form
-        console.log('Inquiry form data:', inquiry)
-        console.log('Form section:', inquiry?.formSection)
-        console.log('Additional sections:', inquiry?.formSection?.additionalSections)
-        setCurrentInquiry(inquiry)
-        setLoading(false)
+        // Create 3 steps: Body Style + Model + Personal Info
+        const inquirySteps: Step[] = []
+        const inquiry = data[0]
+
+        if (inquiry.formSection) {
+          // Step 1: Body Style Selection from additionalSections[0]
+          const bodyStyleSection = inquiry.formSection.additionalSections?.[0]
+          if (bodyStyleSection?.fields?.length > 0) {
+            const bodyStyleOptions = bodyStyleSection.fields.map((field: any) => field.fieldName)
+            inquirySteps.push({
+              id: 'bodyStyle',
+              question: bodyStyleSection.title || 'Select a body style',
+              field: {
+                fieldName: 'bodyStyle',
+                fieldType: 'radio',
+                required: true,
+                options: bodyStyleOptions
+              },
+              image: bodyStyleSection.image?.asset?.url || inquiry.formSection?.image?.asset?.url
+            })
+          }
+
+          // Step 2: Model Selection from formSection.fields
+          if (inquiry.formSection.fields?.length > 0) {
+            const modelOptions = inquiry.formSection.fields.map((field: any) => field.fieldName)
+            inquirySteps.push({
+              id: 'model',
+              question: 'Select a model',
+              field: {
+                fieldName: 'model',
+                fieldType: 'radio',
+                required: true,
+                options: modelOptions
+              },
+              image: inquiry.formSection?.image?.asset?.url
+            })
+          }
+
+          // Step 3: Personal Information (hardcoded)
+          inquirySteps.push({
+            id: 'personalInfo',
+            question: 'Personal Information',
+            field: {
+              fieldName: 'personalInfo',
+              fieldType: 'form',
+              required: true
+            },
+            image: inquiry.formSection?.image?.asset?.url
+          })
+        }
+
+        setSteps(inquirySteps)
       } catch (err) {
-        console.error('Error fetching inquiry forms:', err)
-        setError('Failed to load inquiry form')
+        setError('Failed to load inquiry forms')
+        console.error(err)
+      } finally {
         setLoading(false)
       }
     }
@@ -361,29 +389,23 @@ export default function InquiryPage() {
     fetchInquiryForms()
   }, [])
 
-  const handleMediaLoad = () => {
+  const handleMediaLoad = useCallback(() => {
     setMediaLoaded(true)
-  }
+  }, [])
 
   const handleStartInquiry = () => {
     setShowHero(false)
+    setSubmitMessage(null)
   }
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (fieldName: string, value: any) => {
     setFormData(prev => ({
       ...prev,
-      [field]: value
+      [fieldName]: value
     }))
   }
 
-  const handleSelectionChange = (field: string, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }))
-  }
-
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1)
     }
@@ -394,13 +416,14 @@ export default function InquiryPage() {
       setCurrentStep(currentStep - 1)
     } else {
       setShowHero(true)
-      setCurrentStep(0)
     }
   }
 
-  const handleSubmit = async () => {
-    setIsSubmitting(true)
+  const handleFinalSubmit = async () => {
     try {
+      setIsSubmitting(true)
+      setSubmitMessage(null)
+
       const response = await fetch('/api/inquiry', {
         method: 'POST',
         headers: {
@@ -427,6 +450,7 @@ export default function InquiryPage() {
       } else {
         throw new Error(result.error || 'Failed to submit inquiry')
       }
+
     } catch (error) {
       console.error('Error submitting inquiry:', error)
       setSubmitMessage({
@@ -438,212 +462,155 @@ export default function InquiryPage() {
     }
   }
 
+  const renderStepField = (step: Step) => {
+    const fieldKey = step.id
+
+    if (step.field.fieldType === 'form') {
+      // Personal Information Form
+      return (
+        <div>
+          <div className="inquiry-form-group">
+            <select
+              className="inquiry-form-select"
+              value={formData.title || ''}
+              onChange={(e) => handleInputChange('title', e.target.value)}
+            >
+              <option value="">Title</option>
+              <option value="Mr.">Mr.</option>
+              <option value="Mrs.">Mrs.</option>
+              <option value="Ms.">Ms.</option>
+              <option value="Dr.">Dr.</option>
+            </select>
+          </div>
+
+          <div className="inquiry-form-group">
+            <div className="inquiry-form-row">
+              <input
+                type="text"
+                className="inquiry-form-input"
+                placeholder="First Name *"
+                value={formData.firstName || ''}
+                onChange={(e) => handleInputChange('firstName', e.target.value)}
+                required
+              />
+              <input
+                type="text"
+                className="inquiry-form-input"
+                placeholder="Last Name *"
+                value={formData.lastName || ''}
+                onChange={(e) => handleInputChange('lastName', e.target.value)}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="inquiry-form-group">
+            <div className="inquiry-form-row">
+              <input
+                type="email"
+                className="inquiry-form-input"
+                placeholder="Email *"
+                value={formData.email || ''}
+                onChange={(e) => handleInputChange('email', e.target.value)}
+                required
+              />
+              <input
+                type="tel"
+                className="inquiry-form-input"
+                placeholder="Phone Number *"
+                value={formData.phone || ''}
+                onChange={(e) => handleInputChange('phone', e.target.value)}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="inquiry-form-group">
+            <select
+              className="inquiry-form-select"
+              value={formData.country || ''}
+              onChange={(e) => handleInputChange('country', e.target.value)}
+              required
+            >
+              <option value="">Select Country *</option>
+              <option value="United States">United States</option>
+              <option value="Canada">Canada</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="Germany">Germany</option>
+              <option value="France">France</option>
+              <option value="Australia">Australia</option>
+              <option value="Japan">Japan</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div className="inquiry-form-group">
+            <textarea
+              className="inquiry-form-textarea"
+              placeholder="Additional Comments (Optional)"
+              value={formData.additionalComments || ''}
+              onChange={(e) => handleInputChange('additionalComments', e.target.value)}
+              rows={4}
+            />
+          </div>
+
+          {/* Review Section */}
+          <div className="inquiry-review-section">
+            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#111827' }}>Review Your Selection</h3>
+            {formData.bodyStyle && (
+              <div className="inquiry-review-item">
+                <span className="inquiry-review-label">Body Style:</span>
+                <span className="inquiry-review-value">{formData.bodyStyle}</span>
+              </div>
+            )}
+            {formData.model && (
+              <div className="inquiry-review-item">
+                <span className="inquiry-review-label">Model:</span>
+                <span className="inquiry-review-value">{formData.model}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      )
+    }
+
+    // Selection options for Steps 1 & 2
+    return (
+      <div className="space-y-3">
+        {step.field.options?.map((option, index) => (
+          <button
+            key={index}
+            type="button"
+            className={`inquiry-option-button ${formData[fieldKey] === option ? 'selected' : ''}`}
+            onClick={() => {
+              handleInputChange(fieldKey, option)
+            }}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    )
+  }
+
+  const getCurrentStepData = () => {
+    if (currentStep >= steps.length) return null
+    return steps[currentStep]
+  }
+
   const isStepValid = () => {
-    if (currentStep === 0) {
-      return !!formData.bodyStyle // Body style must be selected
-    }
-    if (currentStep === 1) {
-      return !!formData.model // Model must be selected
-    }
-    if (currentStep === 2) {
+    const step = getCurrentStepData()
+    if (!step) return false
+
+    if (step.id === 'personalInfo') {
       return formData.firstName && formData.lastName && formData.email && formData.phone && formData.country
     }
-    return false
+
+    const value = formData[step.id]
+    return value !== undefined && value !== null && value !== ''
   }
 
-  const renderStep1 = () => {
-    // Get first additional section (Body Style)
-    const bodyStyleSection = currentInquiry?.formSection?.additionalSections?.[0]
-    // Get the field names as options since that's how the data is structured
-    const bodyStyleOptions = bodyStyleSection?.fields?.map((field: any) => field.fieldName) || []
-
-    return (
-      <div>
-        <h2 className="inquiry-step-title">{bodyStyleSection?.title || 'Select a body style'}</h2>
-
-        <div className="inquiry-selection-list">
-          {bodyStyleOptions.map((option: string, index: number) => (
-            <button
-              key={index}
-              type="button"
-              className={`inquiry-option-button ${
-                formData.bodyStyle === option ? 'selected' : ''
-              }`}
-              onClick={() => handleSelectionChange('bodyStyle', option)}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-      </div>
-    )
-  }
-
-  const renderStep2 = () => {
-    // Get model options from formSection.fields (they're in the main fields, not additionalSections)
-    const modelOptions = currentInquiry?.formSection?.fields?.map((field: any) => field.fieldName) || []
-
-    return (
-      <div>
-        <h2 className="inquiry-step-title">{'Select a model'}</h2>
-
-        <div className="inquiry-selection-list">
-          {modelOptions.map((option: string, index: number) => (
-            <button
-              key={index}
-              type="button"
-              className={`inquiry-option-button ${
-                formData.model === option ? 'selected' : ''
-              }`}
-              onClick={() => handleSelectionChange('model', option)}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-      </div>
-    )
-  }
-
-  const handleCheckboxChange = (value: string, checked: boolean) => {
-    setFormData(prev => {
-      const currentPreferences = prev.contactPreferences || []
-      if (checked) {
-        return {
-          ...prev,
-          contactPreferences: [...currentPreferences, value]
-        }
-      } else {
-        return {
-          ...prev,
-          contactPreferences: currentPreferences.filter((pref: string) => pref !== value)
-        }
-      }
-    })
-  }
-
-  const renderStep3 = () => {
-    // Get third additional section (Personal Information) or use default
-    const personalInfoSection = currentInquiry?.formSection?.additionalSections?.[2]
-
-    return (
-      <div>
-        <h2 className="inquiry-step-title">{personalInfoSection?.title || 'Personal Information'}</h2>
-        <p style={{ color: '#6b7280', marginBottom: '24px' }}>
-          Please provide your contact information so we can get in touch.
-        </p>
-
-      {/* Hardcoded form fields */}
-      <div className="inquiry-form-group">
-        <select
-          className="inquiry-form-select"
-          value={formData.title || ''}
-          onChange={(e) => handleInputChange('title', e.target.value)}
-        >
-          <option value="">Title</option>
-          <option value="Mr.">Mr.</option>
-          <option value="Mrs.">Mrs.</option>
-          <option value="Ms.">Ms.</option>
-          <option value="Dr.">Dr.</option>
-        </select>
-      </div>
-
-      <div className="inquiry-form-group">
-        <div className="inquiry-form-row">
-          <input
-            type="text"
-            className="inquiry-form-input"
-            placeholder="First Name *"
-            value={formData.firstName || ''}
-            onChange={(e) => handleInputChange('firstName', e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            className="inquiry-form-input"
-            placeholder="Last Name *"
-            value={formData.lastName || ''}
-            onChange={(e) => handleInputChange('lastName', e.target.value)}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="inquiry-form-group">
-        <div className="inquiry-form-row">
-          <input
-            type="email"
-            className="inquiry-form-input"
-            placeholder="Email *"
-            value={formData.email || ''}
-            onChange={(e) => handleInputChange('email', e.target.value)}
-            required
-          />
-          <input
-            type="tel"
-            className="inquiry-form-input"
-            placeholder="Phone Number *"
-            value={formData.phone || ''}
-            onChange={(e) => handleInputChange('phone', e.target.value)}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="inquiry-form-group">
-        <select
-          className="inquiry-form-select"
-          value={formData.country || ''}
-          onChange={(e) => handleInputChange('country', e.target.value)}
-          required
-        >
-          <option value="">Select Country *</option>
-          <option value="United States">United States</option>
-          <option value="Canada">Canada</option>
-          <option value="United Kingdom">United Kingdom</option>
-          <option value="Germany">Germany</option>
-          <option value="France">France</option>
-          <option value="Australia">Australia</option>
-          <option value="Japan">Japan</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-
-      <div className="inquiry-form-group">
-        <textarea
-          className="inquiry-form-textarea"
-          placeholder="Additional Comments (Optional)"
-          value={formData.additionalComments || ''}
-          onChange={(e) => handleInputChange('additionalComments', e.target.value)}
-          rows={4}
-        />
-      </div>
-
-      {/* Review Section */}
-      <div className="inquiry-review-section">
-        <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#111827' }}>Review Your Selection</h3>
-        {formData.bodyStyle && (
-          <div className="inquiry-review-item">
-            <span className="inquiry-review-label">Body Style:</span>
-            <span className="inquiry-review-value">{formData.bodyStyle}</span>
-          </div>
-        )}
-        {formData.model && (
-          <div className="inquiry-review-item">
-            <span className="inquiry-review-label">Model:</span>
-            <span className="inquiry-review-value">{formData.model}</span>
-          </div>
-        )}
-      </div>
-
-      {submitMessage && (
-        <div className={`inquiry-message ${submitMessage.type}`}>
-          {submitMessage.text}
-        </div>
-      )}
-    </div>
-    )
-  }
+  const currentStepData = getCurrentStepData()
 
   if (loading) {
     return (
@@ -738,7 +705,7 @@ export default function InquiryPage() {
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 className="relative overflow-hidden flex items-center gap-[12px] px-6 py-3 rounded-full
-                           bg-white text-black font-helvetica font-medium text-[16px]
+                           bg-white text-black font-helvetica font-medium text-[20px] leading-[24px]
                            border border-transparent cursor-pointer group
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 onClick={handleStartInquiry}
@@ -746,8 +713,20 @@ export default function InquiryPage() {
                 <span className="absolute inset-0 bg-black translate-x-full
                                transition-transform duration-500 ease-in-out rounded-full
                                group-hover:translate-x-0" />
+                <svg
+                  width="22"
+                  height="18"
+                  viewBox="0 0 22 18"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="relative z-10 transition-colors duration-500 ease-in-out group-hover:fill-white fill-black"
+                >
+                  <path
+                    d="M21.2441 9.61955L13.3691 17.4946C13.2049 17.6587 12.9822 17.751 12.75 17.751C12.5178 17.751 12.2951 17.6587 12.1309 17.4946C11.9668 17.3304 11.8745 17.1077 11.8745 16.8755C11.8745 16.6433 11.9668 16.4206 12.1309 16.2564L18.513 9.87549H1.375C1.14294 9.87549 0.920376 9.7833 0.756282 9.61921C0.592187 9.45511 0.5 9.23255 0.5 9.00049C0.5 8.76842 0.592187 8.54586 0.756282 8.38177C0.920376 8.21767 1.14294 8.12549 1.375 8.12549H18.513L12.1309 1.74455C11.9668 1.58036 11.8745 1.35768 11.8745 1.12549C11.8745 0.893293 11.9668 0.67061 12.1309 0.506424C12.2951 0.342238 12.5178 0.25 12.75 0.25C12.9822 0.25 13.2049 0.342238 13.3691 0.506424L21.2441 8.38142C21.3254 8.46269 21.39 8.55919 21.434 8.66541C21.478 8.77164 21.5007 8.8855 21.5007 9.00049C21.5007 9.11548 21.478 9.22934 21.434 9.33556C21.39 9.44178 21.3254 9.53829 21.2441 9.61955Z"
+                  />
+                </svg>
+
                 <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
-                  Start Inquiry
+                  Get Started
                 </span>
               </motion.button>
             </div>
@@ -762,10 +741,10 @@ export default function InquiryPage() {
           >
             {/* Image Panel */}
             <div className="inquiry-image-panel">
-              {currentInquiry.heroSection?.image?.asset?.url && (
+              {currentStepData?.image && (
                 <img
-                  src={currentInquiry.heroSection.image.asset.url}
-                  alt="Inquiry"
+                  src={currentStepData.image}
+                  alt="Inquiry step"
                   className="w-full h-full object-cover"
                 />
               )}
@@ -773,92 +752,75 @@ export default function InquiryPage() {
 
             {/* Form Panel */}
             <div className="inquiry-form-panel">
-              {/* Step Progress Line */}
-              <div className="inquiry-step-indicator">
-                <div className="inquiry-step-line">
-                  {[0, 1, 2].map((segmentIndex) => (
-                    <div
-                      key={segmentIndex}
-                      className={`inquiry-step-line-segment ${
-                        segmentIndex < currentStep
-                          ? 'completed'
-                          : segmentIndex === currentStep
-                          ? 'current'
-                          : 'remaining'
-                      }`}
-                      style={{
-                        left: `${(segmentIndex * 100) / 3}%`,
-                      }}
-                    />
-                  ))}
+              {/* Form Content */}
+              <div className="inquiry-form-content">
+                {/* Header */}
+                <div className="inquiry-step-header">
+                  <button
+                    type="button"
+                    className="inquiry-back-button"
+                    onClick={handleBack}
+                  >
+                    Back
+                  </button>
                 </div>
-              </div>
 
-              {/* Header */}
-              <div className="inquiry-step-header">
-                <button
-                  type="button"
-                  className="inquiry-back-button"
-                  onClick={handleBack}
-                >
-                  ← Back
-                </button>
-                <span style={{ color: '#6b7280', fontSize: '14px' }}>
-                  Step {currentStep + 1} of {steps.length}
-                </span>
-              </div>
-
-              {/* Form Title */}
-              {currentInquiry.formSection?.title && (
-                <h1 style={{ fontSize: '28px', fontWeight: '600', color: '#111827', marginBottom: '8px' }}>
-                  {currentInquiry.formSection.title}
-                </h1>
-              )}
-              {currentInquiry.formSection?.subtitle && (
-                <p style={{ color: '#6b7280', marginBottom: '32px' }}>
-                  {currentInquiry.formSection.subtitle}
-                </p>
-              )}
-
-              {/* Step Content */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentStep}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
-                  style={{ flex: 1 }}
-                >
-                  {currentStep === 0 && renderStep1()}
-                  {currentStep === 1 && renderStep2()}
-                  {currentStep === 2 && renderStep3()}
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Navigation */}
-              <div style={{ marginTop: 'auto', paddingTop: '24px' }}>
-                {currentStep < 2 ? (
-                  <button
-                    className="inquiry-next-button"
-                    onClick={handleNext}
-                    disabled={!isStepValid()}
+                {/* Success/Error Message */}
+                {submitMessage && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`inquiry-message ${submitMessage.type}`}
                   >
-                    Next →
-                  </button>
-                ) : (
-                  <button
-                    className="inquiry-next-button"
-                    onClick={handleSubmit}
-                    disabled={isSubmitting || !isStepValid()}
-                    style={{
-                      background: isSubmitting || !isStepValid() ? '#d1d5db' : '#059669',
-                      border: 'none'
-                    }}
-                  >
-                    {isSubmitting ? 'Submitting...' : 'Submit Inquiry'}
-                  </button>
+                    {submitMessage.text}
+                  </motion.div>
                 )}
+
+                <AnimatePresence mode="wait">
+                  {currentStepData && !submitMessage && (
+                    <motion.div
+                      key={currentStep}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <h2 className="inquiry-question-title">
+                        {currentStepData.question}
+                      </h2>
+
+                      {renderStepField(currentStepData)}
+
+                      <div style={{ display: 'flex', gap: '12px', marginTop: '2rem' }}>
+                        {currentStep < steps.length - 1 ? (
+                          <button
+                            type="button"
+                            className="inquiry-next-button"
+                            onClick={handleNext}
+                            disabled={!isStepValid() || isSubmitting}
+                          >
+                            Next
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="10" viewBox="0 0 20 10" fill="none">
+                              <path d="M15 1L19 5M19 5L15 9M19 5L1 5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            className="inquiry-next-button"
+                            onClick={handleFinalSubmit}
+                            disabled={isSubmitting || !isStepValid()}
+                          >
+                            {isSubmitting ? 'Submitting...' : 'Submit Inquiry'}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="10" viewBox="0 0 20 10" fill="none">
+                              <path d="M15 1L19 5M19 5L15 9M19 5L1 5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </button>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
           </motion.div>

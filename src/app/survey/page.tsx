@@ -262,7 +262,7 @@ export default function SurveyPage() {
         if (survey.formSection) {
           // Step 1: Form Section - select from its field names
           if (survey.formSection.fields && survey.formSection.fields.length > 0) {
-            const fieldNames = survey.formSection.fields.map(field => field.fieldName)
+            const fieldNames = survey.formSection.fields.map((field: any) => field.fieldName)
             surveySteps.push({
               id: 'form_section_step',
               question: survey.formSection.title || 'Select from Form Section:',
@@ -280,7 +280,7 @@ export default function SurveyPage() {
           if (survey.formSection.additionalSections) {
             survey.formSection.additionalSections.forEach((section, index) => {
               if (section.fields && section.fields.length > 0) {
-                const fieldNames = section.fields.map(field => field.fieldName)
+                const fieldNames = section.fields.map((field: any) => field.fieldName)
                 surveySteps.push({
                   id: `additional_section_${index}`,
                   question: section.title || `Select from Section ${index + 1}:`,

@@ -333,3 +333,58 @@ export interface EmailSubscription {
   isActive: boolean;
   source?: string;
 }
+
+export interface SurveyFormField {
+  fieldName: string;
+  fieldType: 'text' | 'email' | 'number' | 'textarea' | 'select' | 'radio' | 'checkbox';
+  placeholder?: string;
+  required: boolean;
+  options?: string[];
+}
+
+export interface SurveyFormSection {
+  title: string;
+  image?: {
+    asset: {
+      url: string;
+    };
+    alt?: string;
+  };
+  fields: SurveyFormField[];
+}
+
+export interface SurveyForm {
+  _id: string;
+  name: string;
+  slug: {
+    current: string;
+  };
+  heroSection?: {
+    name?: string;
+    title?: string;
+    contentType?: 'video' | 'image';
+    videoFile?: {
+      asset: {
+        url: string;
+      };
+    };
+    image?: {
+      asset: {
+        url: string;
+      };
+      alt?: string;
+    };
+  };
+  formSection?: {
+    name?: string;
+    title?: string;
+    image?: {
+      asset: {
+        url: string;
+      };
+      alt?: string;
+    };
+    fields: SurveyFormField[];
+    additionalSections?: SurveyFormSection[];
+  };
+}

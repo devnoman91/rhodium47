@@ -17,3 +17,10 @@ export const writeClient = createClient({
   useCdn: false, // Don't use CDN for write operations
   token: process.env.SANITY_API_WRITE_TOKEN, // Server-side write token
 })
+
+// Debug the token
+if (typeof window === 'undefined') {
+  console.log('Sanity writeClient configured with token:', !!process.env.SANITY_API_WRITE_TOKEN)
+  console.log('Project ID:', projectId)
+  console.log('Dataset:', dataset)
+}

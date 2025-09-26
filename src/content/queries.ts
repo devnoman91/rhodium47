@@ -576,3 +576,125 @@ export const getProductById = async (id: string): Promise<Product> => {
 export const getProductBySlug = async (slug: string): Promise<Product> => {
   return await client.fetch(productBySlugQuery(slug))
 }
+
+export const surveyFormQuery = `
+  *[_type == "surveyForm"] | order(_createdAt asc) {
+    _id,
+    name,
+    slug,
+    heroSection {
+      name,
+      title,
+      contentType,
+      videoFile {
+        asset-> {
+          url
+        }
+      },
+      image {
+        asset-> {
+          url
+        },
+        alt
+      }
+    },
+    formSection {
+      name,
+      title,
+      image {
+        asset-> {
+          url
+        },
+        alt
+      },
+      fields[] {
+        fieldName,
+        fieldType,
+        placeholder,
+        required,
+        options[]
+      },
+      additionalSections[] {
+        title,
+        image {
+          asset-> {
+            url
+          },
+          alt
+        },
+        fields[] {
+          fieldName,
+          fieldType,
+          placeholder,
+          required,
+          options[]
+        }
+      }
+    }
+  }
+`
+
+export const surveyFormBySlugQuery = (slug: string) => `
+  *[_type == "surveyForm" && slug.current == "${slug}"][0] {
+    _id,
+    name,
+    slug,
+    heroSection {
+      name,
+      title,
+      contentType,
+      videoFile {
+        asset-> {
+          url
+        }
+      },
+      image {
+        asset-> {
+          url
+        },
+        alt
+      }
+    },
+    formSection {
+      name,
+      title,
+      image {
+        asset-> {
+          url
+        },
+        alt
+      },
+      fields[] {
+        fieldName,
+        fieldType,
+        placeholder,
+        required,
+        options[]
+      },
+      additionalSections[] {
+        title,
+        image {
+          asset-> {
+            url
+          },
+          alt
+        },
+        fields[] {
+          fieldName,
+          fieldType,
+          placeholder,
+          required,
+          options[]
+        }
+      }
+    }
+  }
+`
+
+export const getAllSurveyForms = async () => {
+  return await client.fetch(surveyFormQuery)
+}
+
+export const getSurveyFormBySlug = async (slug: string) => {
+  return await client.fetch(surveyFormBySlugQuery(slug))
+}

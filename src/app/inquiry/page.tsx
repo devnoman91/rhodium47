@@ -95,11 +95,6 @@ const criticalInlineStyles = `
     border-bottom: 1px solid #000;
     margin-bottom: 20px;
     cursor: pointer;
-    display: block;
-    width: fit-content;
-  }
-  a.inquiry-back-button {
-    border: none !important;
   }
   .inquiry-back-button:hover {
     color: #374151;
@@ -115,13 +110,13 @@ const criticalInlineStyles = `
   }
   .inquiry-question-title {
     color: #000;
-    font-family: 'helveticaNeue';
-    font-size: 30px;
+    font-family: "Helvetica Neue";
+    font-size: 14px;
     font-style: normal;
-    font-weight: 500;
-    line-height: 120%;
-    letter-spacing: -0.6px;
-    margin-bottom: 24px;
+    font-weight: 400;
+    line-height: 110%;
+    letter-spacing: -0.28px;
+    margin-bottom: 25px;
   }
   .inquiry-option-button {
     width: 100%;
@@ -173,13 +168,12 @@ const criticalInlineStyles = `
     transition: 0.4s ease;
   }
   .inquiry-next-button:hover {
-    background: #374151;
     transform: translateX(4px);
   }
   .inquiry-next-button:disabled {
-    background: #d1d5db;
     cursor: not-allowed;
     transform: none;
+    opacity: 0.6;
   }
   .inquiry-message {
     padding: 16px 20px;
@@ -207,57 +201,76 @@ const criticalInlineStyles = `
   }
   .inquiry-form-input {
     width: 100%;
-    padding: 16px 20px;
-    border: 2px solid #e5e7eb;
-    border-radius: 12px;
-    font-size: 16px;
+    padding: 13px 20px;
     transition: all 0.2s ease;
-    background: #f9fafb;
+    border-radius: 4px;
+    border: 1px solid #D7D7D7;
+    color: #000;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: "Helvetica Neue";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    text-transform: capitalize;
   }
   .inquiry-form-input:focus {
     outline: none;
-    border-color: #3b82f6;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: #000;
   }
   .inquiry-form-textarea {
     width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 16px;
+    padding: 13px 20px;
     transition: all 0.2s ease;
-    background: #f9fafb;
+    border-radius: 4px;
+    border: 1px solid #D7D7D7;
+    color: #000;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: "Helvetica Neue";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    text-transform: capitalize;
     min-height: 100px;
     resize: vertical;
   }
   .inquiry-form-textarea:focus {
     outline: none;
-    border-color: #3b82f6;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        border-color: #000;
   }
   .inquiry-form-select {
     width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 16px;
+    padding: 13px 20px;
     transition: all 0.2s ease;
-    background: #f9fafb;
+    border-radius: 4px;
+    border: 1px solid #D7D7D7;
+    color: #000;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: "Helvetica Neue";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    text-transform: capitalize;
   }
   .inquiry-form-select:focus {
     outline: none;
-    border-color: #3b82f6;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+     border: 1px solid #000;
   }
-  .inquiry-review-section {
-    background: #f9fafb;
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 24px;
-  }
+ .inquiry-review-section, 
+.inquiry-review-section p {
+    color: #000;
+    font-family: "Helvetica Neue";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: -0.24px;
+}
+.inquiry-review-section p {
+  margin-bottom: 12px;
+}
   .inquiry-review-item {
     display: flex;
     justify-content: space-between;
@@ -367,7 +380,7 @@ export default function InquiryPage() {
           // Step 3: Personal Information (hardcoded)
           inquirySteps.push({
             id: 'personalInfo',
-            question: 'Personal Information',
+            question: 'Your preferred dealer will be in touch soon.',
             field: {
               fieldName: 'personalInfo',
               fieldType: 'form',
@@ -556,19 +569,18 @@ export default function InquiryPage() {
 
           {/* Review Section */}
           <div className="inquiry-review-section">
-            <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px', color: '#111827' }}>Review Your Selection</h3>
-            {formData.bodyStyle && (
-              <div className="inquiry-review-item">
-                <span className="inquiry-review-label">Body Style:</span>
-                <span className="inquiry-review-value">{formData.bodyStyle}</span>
-              </div>
-            )}
-            {formData.model && (
-              <div className="inquiry-review-item">
-                <span className="inquiry-review-label">Model:</span>
-                <span className="inquiry-review-value">{formData.model}</span>
-              </div>
-            )}
+            <div className='inquiry-review-section_text'>
+              <p>We will never sell your data, will keep your details secure and will never share your data with third parties for marketing purposes.
+                For further details on how your data is used and stored please refer to our Privacy Policy</p>
+                <p>Stay Connected</p>
+                <p>We would like to stay in touch with you to:</p>
+                <ul className='list-disc pl-5'>
+                  <li>Share news.</li>
+                  <li>Inform you about new products and services.</li>
+                  <li>Offer you first sight of any promotions including cars, merchandise and accessories.</li>
+                  <li>Invite you to join Aston Martin at events.</li>
+                </ul>
+            </div>
           </div>
         </div>
       )

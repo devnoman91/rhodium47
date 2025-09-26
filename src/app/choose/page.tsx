@@ -114,7 +114,6 @@ const criticalInlineStyles = `
     border-bottom: 1px solid #000;
     margin-bottom: 20px;
     cursor: pointer;
-    display: block;
     width: fit-content;
   }
   a.survey-back-button {
@@ -210,13 +209,12 @@ const criticalInlineStyles = `
     transition: 0.4s ease;
   }
   .survey-next-button:hover {
-    background: #374151;
     transform: translateX(4px);
   }
   .survey-next-button:disabled {
-    background: #d1d5db;
     cursor: not-allowed;
     transform: none;
+    opacity: 0.6;
   }
   .survey-message {
     padding: 16px 20px;
@@ -382,8 +380,8 @@ const criticalInlineStyles = `
     transition: all 0.2s ease;
     display: flex;
     width: 124px;
-    height: 48px;
-    padding: 14px 16px;
+    height: 34px;
+    padding: 8px 10px;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -409,8 +407,8 @@ const criticalInlineStyles = `
     transition: all 0.2s ease;
     display: flex;
     width: 124px;
-    height: 48px;
-    padding: 14px 16px;
+    height: 34px;
+    padding: 8px 10px;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -882,12 +880,12 @@ export default function SurveyPage() {
                     <div className="product-info-section">
                       <div className="info_inner_content">
                           <div className="survey-step-header">
-                              <a href='/'
+                              <button 
                                 type="button"
                                 className="survey-back-button"
                               >
                                 Back
-                              </a>
+                              </button>
                           </div>
                         {/* Product Name */}
                         <h3 className="product-name">

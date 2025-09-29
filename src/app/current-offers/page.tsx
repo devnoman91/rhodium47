@@ -8,78 +8,100 @@ import { getCurrentOffers } from '@/content/queries'
 
 const criticalInlineStyles = `
   .offers-container {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 80px 20px 40px;
-    background: #f8f9fa;
-    min-height: 100vh;
+    padding-top: 120px;
+    background: #F4F1F2;
+    padding-inline: calc(var(--spacing) * 12);
+    padding-bottom: 60px;
   }
   .offers-hero {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
   }
   .offers-hero-title {
-    font-size: 48px;
-    font-weight: 600;
-    color: #111827;
-    margin-bottom: 16px;
+    text-align: center;
+    color: #000;
     font-family: 'helveticaNeue', sans-serif;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%;
+    letter-spacing: -1.28px;
+  }
+  .offers-hero-desc {
+    color: #111;
+    text-align: center;
+    font-family: 'helveticaNeue', sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    text-transform: capitalize;
+    margin-top: 4px;
   }
   .offers-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    justify-content: space-between;
+  }
+  .card_wrapper {
+    width: calc(33% - 5px);
+    min-height: 560px;
+  }
+  .card_wrapper:nth-child(1),
+  .card_wrapper:nth-child(3) {
+    width: calc(67% - 10px);
   }
   .offer-card {
-    border-radius: 16px;
     overflow: hidden;
     position: relative;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background: white;
-    height: 400px;
-  }
-  .offer-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  }
-  .offer-image {
+    border-radius: 12px;
+    background: #000;
     width: 100%;
-    height: 250px;
-    object-fit: cover;
+    height: 100%;
   }
   .offer-content {
-    padding: 24px;
-    height: 150px;
+    padding: 18px 40% 60px 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
+    gap: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  .offer-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
   .offer-name {
-    font-size: 14px;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
+    color: #FFF;
+    font-family: 'helveticaNeue', sans-serif;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 73.19px;
+    letter-spacing: -1.906px;
   }
   .offer-title {
+    color: #FFF;
+    font-family: 'helveticaNeue', sans-serif;
     font-size: 20px;
-    font-weight: 600;
-    color: #111827;
-    line-height: 1.3;
-    margin-bottom: 16px;
-  }
-  .offer-link {
-    color: #3b82f6;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .offer-link:hover {
-    color: #1d4ed8;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28.09px;
+    letter-spacing: -0.562px;
+    max-width: 600px;
   }
   .offer-arrow {
     transition: transform 0.2s ease;
@@ -176,6 +198,7 @@ export default function CurrentOffersPage() {
           transition={{ duration: 0.6 }}
         >
           <h1 className="offers-hero-title">{offersData.title}</h1>
+          <div className="offers-hero-desc">Limited Inventory – Take Delivery Today</div>
         </motion.div>
 
         {/* Offers Grid */}
@@ -186,7 +209,7 @@ export default function CurrentOffersPage() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {offersData.offers.map((offer, index) => (
-            <Link key={index} href={offer.link}>
+            <Link key={index} href={offer.link} className="card_wrapper">
               <motion.div
                 className="offer-card"
                 initial={{ opacity: 0, y: 20 }}
@@ -201,14 +224,8 @@ export default function CurrentOffersPage() {
                   />
                 )}
                 <div className="offer-content">
-                  <div>
                     <div className="offer-name">{offer.name}</div>
-                    <h3 className="offer-title">{offer.title}</h3>
-                  </div>
-                  <div className="offer-link">
-                    Learn More
-                    <span className="offer-arrow">→</span>
-                  </div>
+                    <div className="offer-title">{offer.title}</div>
                 </div>
               </motion.div>
             </Link>

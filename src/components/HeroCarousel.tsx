@@ -54,7 +54,7 @@ const criticalInlineStyles = `
   }
   .hero-title {
     color: #FFF;
-    font-family: 'helveticaNeue';
+    font-family: 'helveticaNeue', sans-serif;
     font-size: 40px;
     font-style: normal;
     font-weight: 500;
@@ -87,7 +87,7 @@ const criticalInlineStyles = `
     align-items: center;
     gap: 8px;
     color: #000;
-    font-family: 'helveticaNeue';
+    font-family: 'helveticaNeue', sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 500;

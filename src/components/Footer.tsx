@@ -96,7 +96,7 @@ const Footer = () => {
   return (
     <footer className="relative text-white overflow-hidden">
       {/* Background Image */}
-      <div className="absolute inset-0 bg-[url('/footer.png')] bg-cover bg-center bg-no-repeat"></div>
+      <div className="absolute inset-0 bg-[#000000d9] bg-[url('/footer.png')] bg-cover bg-center bg-no-repeat "></div>
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(0deg,#111111_0%,rgba(17,17,17,0)_100%)]"></div>
 

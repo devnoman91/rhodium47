@@ -39,12 +39,7 @@ export default async function Home() {
         />
       )}
  <VehicleShowcase />
-      {blogData && (
-        <BlogSection
-          blogData={blogData}
-        />
-      )}      
-      {showcaseData.length > 0 && (
+    {showcaseData.length > 0 && (
         <ProductShowcase
           products={showcaseData}
         />
@@ -54,27 +49,36 @@ export default async function Home() {
           data={innovationData}
         />
       )}
-      {protectionData && (
-        <ProtectionSection
-          data={protectionData}
-        />
-      )}
-      {faqData && (
-        <FAQSection
-          data={faqData}
-        />
-      )}
-      {utilityData && (
+       {utilityData && (
         <UtilitySection
           data={utilityData}
         />
       )}
       <VehicleDiagram />
+      {protectionData && (
+        <ProtectionSection
+          data={protectionData}
+        />
+      )}
+       {faqData && (
+        <FAQSection
+          data={faqData}
+        />
+      )}
       {keepExploringData && (
         <KeepExploringSection
           data={keepExploringData}
         />
       )}
+      
+     
+        {blogData && (
+        <BlogSection
+          blogData={blogData}
+        />
+      )}      
+      
+     
       {newsUpdatesData && (
         <NewsUpdatesSection
           data={newsUpdatesData}

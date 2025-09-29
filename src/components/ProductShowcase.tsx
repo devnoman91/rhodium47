@@ -31,7 +31,7 @@ const cardVariants = {
 const ProductShowcase: React.FC<ProductShowcaseProps> = ({ products }) => {
   return (
     <section className="py-[80px] lg:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="mx-auto px-6 px-12">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -69,16 +69,16 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
         delay: index * 0.2,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="group bg-[#F4F1F2] rounded-[20px] p-[18px] transition-colors duration-300"
+      className="group bg-[#F4F1F2] rounded-[16px] transition-colors duration-300"
     >
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-6 flex-row-reverse justify-between">
         {/* Image Section */}
         <div className="flex-shrink-0">
-          <div className="relative w-[168px] h-[143px]  rounded-2xl overflow-hidden bg-gray-200">
+          <div className="relative w-[280px] h-[240px]  rounded-tl-none rounded-tr-[20px] rounded-br-[20px] rounded-bl-none overflow-hidden bg-gray-200">
             <motion.img
               src={product.image.asset.url}
               alt={product.image.alt || product.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="w-full rounded-tl-none rounded-tr-[20px] rounded-br-[20px] rounded-bl-none h-full object-cover group-hover:scale-105 transition-transform duration-500"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
             />
@@ -86,9 +86,9 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
         </div>
 
         {/* Content Section */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 px-[50px]">
           {/* Title */}
-          <h3 className="text-[16px]  leading-[150%] tracking-[0] m-0 font-medium  text-black font-helvetica">
+          <h3 className="text-[22px]  leading-[32px] tracking-[0] m-0 font-medium  text-black font-helvetica">
             {product.title}
           </h3>
 
@@ -111,35 +111,35 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
           </p>
 
         {/* Button */}
-<motion.button
-  className="relative overflow-hidden px-[22px] py-[5px] rounded-[50px] 
-             border border-black text-black bg-white font-helvetica 
-             text-[16px] leading-[24px] font-medium w-fit block cursor-pointer group"
-  whileHover={{ scale: 1.02 }}
-  whileTap={{ scale: 0.98 }}
-  transition={{ duration: 0.2 }}
-  onClick={() => {
-    if (product.buttonLink) {
-      if (product.buttonLink.startsWith('http')) {
-        window.open(product.buttonLink, '_blank')
-      } else {
-        window.location.href = product.buttonLink
-      }
-    }
-  }}
->
-  {/* sliding overlay */}
-  <span
-    className="absolute inset-0 bg-black translate-x-full 
-               transition-transform duration-500 ease-in-out rounded-[50px]
-               group-hover:translate-x-0"
-  />
+          <motion.button
+            className="relative overflow-hidden px-[22px] py-[5px] rounded-[50px]
+                      border border-black text-black font-helvetica
+                      text-[16px] leading-[24px] font-medium w-fit block cursor-pointer group"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => {
+              if (product.buttonLink) {
+                if (product.buttonLink.startsWith('http')) {
+                  window.open(product.buttonLink, '_blank')
+                } else {
+                  window.location.href = product.buttonLink
+                }
+              }
+            }}
+          >
+            {/* sliding overlay */}
+            <span
+              className="absolute inset-0 bg-black translate-x-full 
+                        transition-transform duration-500 ease-in-out rounded-[50px]
+                        group-hover:translate-x-0"
+            />
 
-  {/* text */}
-  <span className="relative z-10 text-sm lg:text-base transition-colors duration-500 ease-in-out group-hover:text-white">
-    {product.buttonText}
-  </span>
-</motion.button>
+            {/* text */}
+            <span className="relative z-10 text-sm lg:text-base transition-colors duration-500 ease-in-out group-hover:text-white">
+              {product.buttonText}
+            </span>
+          </motion.button>
 
         </div>
       </div>

@@ -100,7 +100,7 @@ const Footer = () => {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(0deg,#111111_0%,rgba(17,17,17,0)_100%)]"></div>
 
-      <div className="relative z-10">
+      <div className="relative z-10 pt-[70px]">
   
 
         {/* Company Info and Contact */}

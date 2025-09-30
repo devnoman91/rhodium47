@@ -145,9 +145,9 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
             transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             style={{ width: 'fit-content', maxWidth: '100%' }}
           >
-            <div className="rounded-[50px] bg-black py-[12px] px-[16px] overflow-hidden">
+            <div className="tabs relative flex gap-2 p-1 w-fit bg-black border border-[#333] rounded-3xl shadow-lg overflow-hidden">
               <motion.div
-                className="flex gap-3"
+                className="flex gap-2"
                 animate={{
                   x: categories.length <= 3 ? 0 :
                      -Math.max(0, Math.min(activeCategoryIndex - 1, categories.length - 3)) * 140
@@ -158,18 +158,32 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
                 }}
               >
                 {categories.map((category) => (
-                  <button
+                  <motion.button
                     key={category}
                     onClick={() => handleCategoryChange(category)}
-                    className={`px-[28px] py-[13px] rounded-[50px] flex items-center justify-center text-black no-underline font-helvetica text-[16px] leading-[24px] tracking-[0] font-medium transition-all duration-300 cursor-pointer whitespace-nowrap ${
+                    className={`tab relative px-7 py-3 border-none bg-transparent rounded-[20px] text-base cursor-pointer font-medium h-fit transition-colors duration-300 font-helvetica whitespace-nowrap ${
                       highlightedCategory === category
-                        ? 'bg-white text-gray-900 shadow-sm transform scale-105'
-                        : 'text-white hover:text-gray-300 hover:scale-102'
+                        ? 'text-black z-10'
+                        : 'text-white hover:text-[#ccc]'
                     }`}
                     style={{ minWidth: '120px' }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     {category}
-                  </button>
+                    {highlightedCategory === category && (
+                      <motion.div
+                        layoutId="activeBlogTab"
+                        className="absolute inset-0 bg-white rounded-[20px] -z-10"
+                        transition={{
+                          type: "spring",
+                          stiffness: 500,
+                          damping: 30,
+                          duration: 0.5
+                        }}
+                      />
+                    )}
+                  </motion.button>
                 ))}
               </motion.div>
             </div>

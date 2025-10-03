@@ -95,12 +95,12 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
             variants={itemVariants}
             className="mb-[50px] w-fit"
           >
-            <div className="tabs relative flex gap-2 p-1 w-fit bg-[#f4f4f5] border border-[#cfcfcf] rounded-3xl shadow-lg">
+            <div className="tabs relative flex gap-2 p-1 w-fit bg-[#f4f4f5] border border-[#cfcfcf] rounded-[100px] shadow-lg">
               {categories.map((category) => (
                 <motion.button
                   key={category}
                   onClick={() => handleCategoryChange(category)}
-                  className={`tab relative px-4 py-3 border-none bg-transparent rounded-[20px] text-base cursor-pointer font-medium h-fit transition-colors duration-300 font-helvetica ${
+                  className={`tab relative px-4 py-3 border-none min-w-[140px] bg-transparent rounded-[100px] text-base cursor-pointer font-medium h-fit transition-colors duration-300 font-helvetica ${
                     activeCategory === category
                       ? 'text-white z-10'
                       : 'text-[#71717a] hover:text-[#555]'
@@ -112,7 +112,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
                   {activeCategory === category && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 bg-black rounded-[20px] -z-10"
+                      className="absolute inset-0 min-w-[140px] bg-black rounded-[100px] -z-10"
                       transition={{
                         type: "spring",
                         stiffness: 500,

@@ -145,7 +145,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
             transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             style={{ width: 'fit-content', maxWidth: '100%' }}
           >
-            <div className="tabs relative flex gap-2 p-1 w-fit bg-black border border-[#333] rounded-3xl shadow-lg overflow-hidden">
+            <div className="tabs relative flex gap-2 p-[6px] w-fit bg-black border border-[#333] rounded-[100px] shadow-lg overflow-hidden">
               <motion.div
                 className="flex gap-2"
                 animate={{
@@ -174,7 +174,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
                     {highlightedCategory === category && (
                       <motion.div
                         layoutId="activeBlogTab"
-                        className="absolute inset-0 bg-white rounded-[20px] -z-10"
+                        className="absolute inset-0 bg-white  rounded-[100px] -z-10"
                         transition={{
                           type: "spring",
                           stiffness: 500,

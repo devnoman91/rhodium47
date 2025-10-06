@@ -32,18 +32,20 @@ export default async function Home() {
   return (
     <div className="relative">
       <HeroCarousel />
-      {aboutData && (
+      
+ <VehicleShowcase />
+ {aboutData && (
         <AboutSection
           aboutData={aboutData}
           products={products}
         />
       )}
- <VehicleShowcase />
     {showcaseData.length > 0 && (
         <ProductShowcase
           products={showcaseData}
         />
       )}
+      
       {innovationData && (
         <ShowcaseInnovationComponent
           data={innovationData}

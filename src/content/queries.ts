@@ -846,3 +846,41 @@ export const navbarQuery = `
 export const getNavbar = async () => {
   return await client.fetch(navbarQuery)
 }
+
+export const footerQuery = `
+  *[_type == "footer"][0] {
+    _id,
+    logo {
+      asset-> {
+        _id,
+        url
+      },
+      alt
+    },
+    logoAlt,
+    contactEmail,
+    description,
+    learnMoreText,
+    learnMoreLink,
+    newsletterTitle,
+    newsletterPlaceholder,
+    footerSections[] {
+      title,
+      links[] {
+        label,
+        href
+      }
+    },
+    copyrightText,
+    socialLinks {
+      facebook,
+      twitter,
+      instagram,
+      linkedin
+    }
+  }
+`
+
+export const getFooter = async () => {
+  return await client.fetch(footerQuery)
+}

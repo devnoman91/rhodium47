@@ -434,3 +434,41 @@ export interface Navbar {
   links: NavLink[]
   ctaButton: NavbarCTA
 }
+
+export interface FooterLink {
+  label: string
+  href: string
+}
+
+export interface FooterSection {
+  title: string
+  links: FooterLink[]
+}
+
+export interface FooterSocialLinks {
+  facebook?: string
+  twitter?: string
+  instagram?: string
+  linkedin?: string
+}
+
+export interface Footer {
+  _id: string
+  logo: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  logoAlt: string
+  contactEmail: string
+  description: string
+  learnMoreText: string
+  learnMoreLink?: string
+  newsletterTitle: string
+  newsletterPlaceholder: string
+  footerSections: FooterSection[]
+  copyrightText: string
+  socialLinks: FooterSocialLinks
+}

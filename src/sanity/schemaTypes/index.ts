@@ -20,7 +20,8 @@ import inquiryForm from './inquiryForm'
 import inquiryResponse from './inquiryResponse'
 import currentOffers from './currentOffers'
 import navbar from './navbar'
+import footer from './footer'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [video, product, homeAbout, productDetail, productBlog, productShowcase, showcaseInnovation, protection, frequentlyAskedQuestions, utility, keepExploring, newsUpdates, experienceXodiumTechnology, emailSubscription, surveyForm, surveyResponse, inquiryForm, inquiryResponse, currentOffers, navbar],
+  types: [video, product, homeAbout, productDetail, productBlog, productShowcase, showcaseInnovation, protection, frequentlyAskedQuestions, utility, keepExploring, newsUpdates, experienceXodiumTechnology, emailSubscription, surveyForm, surveyResponse, inquiryForm, inquiryResponse, currentOffers, navbar, footer],
 }

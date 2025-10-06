@@ -41,6 +41,7 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
   if (!modelSpecsSection) return null
 
   const { title = 'Model Specs', specificationSections = [] } = modelSpecsSection
+  const safeSpecificationSections = specificationSections || []
 
   return (
     <section className="py-16 lg:py-20 bg-black text-white">
@@ -65,7 +66,7 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          {specificationSections.map((section, sectionIndex) => (
+          {safeSpecificationSections.map((section, sectionIndex) => (
             <div key={sectionIndex} className="mb-[40px]">
               {/* Section specifications in grid */}
               <div className="mb-[30px] flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal font-helvetica items-center uppercase">
@@ -113,7 +114,7 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
               </div>
 
               {/* Separator line between sections */}
-              {sectionIndex < specificationSections.length - 1 && (
+              {sectionIndex < safeSpecificationSections.length - 1 && (
                 <motion.div
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}

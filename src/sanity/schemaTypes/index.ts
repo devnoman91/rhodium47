@@ -1,27 +1,67 @@
-
 import { type SchemaTypeDefinition } from 'sanity'
+
+// Global Components
+import navbar from './navbar'
+import footer from './footer'
+
+// Home Page Sections
 import video from './video'
-import product from './product'
 import homeAbout from './homeAbout'
 import productDetail from './productDetail'
-import productBlog from './productBlog'
 import productShowcase from './productShowcase'
 import showcaseInnovation from './showcaseInnovation'
+import utility from './utility'
 import protection from './protection'
 import frequentlyAskedQuestions from './frequentlyAskedQuestions'
-import utility from './utility'
 import keepExploring from './keepExploring'
+import productBlog from './productBlog'
 import newsUpdates from './newsUpdates'
 import experienceXodiumTechnology from './experienceXodiumTechnology'
-import emailSubscription from './emailSubscription'
+
+// Products
+import product from './product'
+
+// Forms
 import surveyForm from './surveyForm'
 import surveyResponse from './surveyResponse'
 import inquiryForm from './inquiryForm'
 import inquiryResponse from './inquiryResponse'
+
+// Other
+import emailSubscription from './emailSubscription'
 import currentOffers from './currentOffers'
-import navbar from './navbar'
-import footer from './footer'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [video, product, homeAbout, productDetail, productBlog, productShowcase, showcaseInnovation, protection, frequentlyAskedQuestions, utility, keepExploring, newsUpdates, experienceXodiumTechnology, emailSubscription, surveyForm, surveyResponse, inquiryForm, inquiryResponse, currentOffers, navbar, footer],
+  types: [
+    // Global Components
+    navbar,
+    footer,
+
+    // Home Page Sections
+    video,
+    homeAbout,
+    productDetail,
+    productShowcase,
+    showcaseInnovation,
+    utility,
+    protection,
+    frequentlyAskedQuestions,
+    keepExploring,
+    productBlog,
+    newsUpdates,
+    experienceXodiumTechnology,
+
+    // Products
+    product,
+
+    // Forms
+    surveyForm,
+    surveyResponse,
+    inquiryForm,
+    inquiryResponse,
+
+    // Other
+    emailSubscription,
+    currentOffers,
+  ],
 }

@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 import Footer from "@/components/Footer";
+import PasswordProtection from "@/components/PasswordProtection";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -128,9 +129,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${helveticaNeue.variable}`}
         suppressHydrationWarning={true}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <PasswordProtection>
+          <Navbar />
+          {children}
+          <Footer />
+        </PasswordProtection>
       </body>
     </html>
   );

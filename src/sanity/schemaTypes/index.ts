@@ -1,3 +1,4 @@
+
 import { type SchemaTypeDefinition } from 'sanity'
 import video from './video'
 import product from './product'
@@ -18,7 +19,8 @@ import surveyResponse from './surveyResponse'
 import inquiryForm from './inquiryForm'
 import inquiryResponse from './inquiryResponse'
 import currentOffers from './currentOffers'
+import navbar from './navbar'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [video, product, homeAbout, productDetail, productBlog, productShowcase, showcaseInnovation, protection, frequentlyAskedQuestions, utility, keepExploring, newsUpdates, experienceXodiumTechnology, emailSubscription, surveyForm, surveyResponse, inquiryForm, inquiryResponse, currentOffers],
+  types: [video, product, homeAbout, productDetail, productBlog, productShowcase, showcaseInnovation, protection, frequentlyAskedQuestions, utility, keepExploring, newsUpdates, experienceXodiumTechnology, emailSubscription, surveyForm, surveyResponse, inquiryForm, inquiryResponse, currentOffers, navbar],
 }

@@ -819,3 +819,30 @@ export const currentOffersQuery = `
 export const getCurrentOffers = async () => {
   return await client.fetch(currentOffersQuery)
 }
+
+export const navbarQuery = `
+  *[_type == "navbar"][0] {
+    _id,
+    logo {
+      asset-> {
+        _id,
+        url
+      },
+      alt
+    },
+    logoAlt,
+    links[] | order(order asc) {
+      label,
+      href,
+      order
+    },
+    ctaButton {
+      text,
+      link
+    }
+  }
+`
+
+export const getNavbar = async () => {
+  return await client.fetch(navbarQuery)
+}

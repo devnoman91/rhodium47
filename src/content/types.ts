@@ -409,3 +409,28 @@ export interface SurveyForm {
     }>;
   };
 }
+
+export interface NavLink {
+  label: string
+  href: string
+  order: number
+}
+
+export interface NavbarCTA {
+  text: string
+  link?: string
+}
+
+export interface Navbar {
+  _id: string
+  logo: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  logoAlt: string
+  links: NavLink[]
+  ctaButton: NavbarCTA
+}

@@ -49,7 +49,7 @@ export default function PasswordProtection({ children }: { children: React.React
             <div className="w-[200px] h-[60px] relative mx-auto mb-6">
               <Image
                 src="/logo.png"
-                alt="Rhodium 47"
+                alt="Rhodium 45"
                 fill
                 className="object-contain"
                 priority
@@ -91,7 +91,7 @@ export default function PasswordProtection({ children }: { children: React.React
 
           <div className="mt-8 text-center">
             <p className="text-gray-500 text-xs font-helvetica">
-              &copy; {new Date().getFullYear()} Rhodium 47. All rights reserved.
+              &copy; {new Date().getFullYear()} Rhodium 45. All rights reserved.
             </p>
           </div>
         </div>

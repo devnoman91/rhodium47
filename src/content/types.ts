@@ -575,3 +575,76 @@ export interface CustomDesign {
     buttonLink: string
   }
 }
+
+export interface MaintenanceInfoSection {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface MaintenanceSlide {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface MaintenanceStat {
+  value: string
+  label: string
+}
+
+export interface MaintenancePackage {
+  name: string
+  price: string
+  priceDescription?: string
+  features: string[]
+  buttonText: string
+  buttonLink?: string
+  featured: boolean
+}
+
+export interface Maintenance {
+  _id: string
+  heroSection: {
+    title: string
+    description: string
+  }
+  expertMaintenance: {
+    title: string
+    description: string
+  }
+  infoSections: MaintenanceInfoSection[]
+  sliderSection: {
+    mainName: string
+    mainTitle: string
+    slides: MaintenanceSlide[]
+  }
+  emergencyService: {
+    title: string
+    description: string
+    stats: MaintenanceStat[]
+    buttonText: string
+    buttonLink?: string
+  }
+  servicePricing: {
+    packages: MaintenancePackage[]
+  }
+  callToAction: {
+    title: string
+    description: string
+    buttonText: string
+    buttonLink: string
+  }
+}

@@ -989,3 +989,74 @@ export const customDesignQuery = `
 export const getCustomDesign = async () => {
   return await client.fetch(customDesignQuery)
 }
+
+export const maintenanceQuery = `
+  *[_type == "maintenance"][0] {
+    _id,
+    heroSection {
+      title,
+      description
+    },
+    expertMaintenance {
+      title,
+      description
+    },
+    infoSections[] {
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      name,
+      description
+    },
+    sliderSection {
+      mainName,
+      mainTitle,
+      slides[] {
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        name,
+        description
+      }
+    },
+    emergencyService {
+      title,
+      description,
+      stats[] {
+        value,
+        label
+      },
+      buttonText,
+      buttonLink
+    },
+    servicePricing {
+      packages[] {
+        name,
+        price,
+        priceDescription,
+        features[],
+        buttonText,
+        buttonLink,
+        featured
+      }
+    },
+    callToAction {
+      title,
+      description,
+      buttonText,
+      buttonLink
+    }
+  }
+`
+
+export const getMaintenance = async () => {
+  return await client.fetch(maintenanceQuery)
+}

@@ -30,6 +30,8 @@ import inquiryResponse from './inquiryResponse'
 // Other
 import emailSubscription from './emailSubscription'
 import currentOffers from './currentOffers'
+import consultation from './consultation'
+import customDesign from './customDesign'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -63,5 +65,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     // Other
     emailSubscription,
     currentOffers,
+    consultation,
+    customDesign,
   ],
 }

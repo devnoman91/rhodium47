@@ -83,4 +83,18 @@ export const structure: StructureResolver = (S) =>
               S.documentTypeListItem('currentOffers').title('Current Offers'),
             ])
         ),
+
+      S.divider(),
+
+      // Pages
+      S.listItem()
+        .title('📄 Pages')
+        .child(
+          S.list()
+            .title('Pages')
+            .items([
+              S.documentTypeListItem('consultation').title('Consultation Page'),
+              S.documentTypeListItem('customDesign').title('Custom Design Page'),
+            ])
+        ),
     ])

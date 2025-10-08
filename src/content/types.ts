@@ -472,3 +472,106 @@ export interface Footer {
   copyrightText: string
   socialLinks: FooterSocialLinks
 }
+
+export interface ConsultationInfoSection {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface ConsultationSlide {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface Consultation {
+  _id: string
+  heroSection: {
+    title: string
+    description: string
+  }
+  infoSections: ConsultationInfoSection[]
+  sliderSection: {
+    mainName: string
+    mainTitle: string
+    slides: ConsultationSlide[]
+  }
+}
+
+export interface CustomDesignInfoSection {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface CustomDesignSlide {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface CustomDesignProcessSection {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  title: string
+  description: string
+}
+
+export interface CustomDesign {
+  _id: string
+  heroSection: {
+    title: string
+    description: string
+  }
+  designPhilosophy: {
+    title: string
+    description: string
+  }
+  infoSections: CustomDesignInfoSection[]
+  sliderSection: {
+    mainName: string
+    mainTitle: string
+    slides: CustomDesignSlide[]
+  }
+  designProcess: {
+    title: string
+    description: string
+    sections: CustomDesignProcessSection[]
+  }
+  callToAction: {
+    title: string
+    description: string
+    buttonText: string
+    buttonLink: string
+  }
+}

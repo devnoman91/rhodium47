@@ -884,3 +884,108 @@ export const footerQuery = `
 export const getFooter = async () => {
   return await client.fetch(footerQuery)
 }
+
+export const consultationQuery = `
+  *[_type == "consultation"][0] {
+    _id,
+    heroSection {
+      title,
+      description
+    },
+    infoSections[] {
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      name,
+      description
+    },
+    sliderSection {
+      mainName,
+      mainTitle,
+      slides[] {
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        name,
+        description
+      }
+    }
+  }
+`
+
+export const getConsultation = async () => {
+  return await client.fetch(consultationQuery)
+}
+
+export const customDesignQuery = `
+  *[_type == "customDesign"][0] {
+    _id,
+    heroSection {
+      title,
+      description
+    },
+    designPhilosophy {
+      title,
+      description
+    },
+    infoSections[] {
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      name,
+      description
+    },
+    sliderSection {
+      mainName,
+      mainTitle,
+      slides[] {
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        name,
+        description
+      }
+    },
+    designProcess {
+      title,
+      description,
+      sections[] {
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        title,
+        description
+      }
+    },
+    callToAction {
+      title,
+      description,
+      buttonText,
+      buttonLink
+    }
+  }
+`
+
+export const getCustomDesign = async () => {
+  return await client.fetch(customDesignQuery)
+}

@@ -648,3 +648,76 @@ export interface Maintenance {
     buttonLink: string
   }
 }
+
+export interface TrainingInfoSection {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+  bulletPoints: string[]
+}
+
+export interface TrainingSlide {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface TrainingLevelCard {
+  name: string
+  description: string
+}
+
+export interface TrainingFacility {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  title: string
+  description: string
+  bulletPoints: string[]
+}
+
+export interface Training {
+  _id: string
+  heroSection: {
+    title: string
+    description: string
+  }
+  infoSections: TrainingInfoSection[]
+  sliderSection: {
+    mainName: string
+    mainTitle: string
+    slides: TrainingSlide[]
+  }
+  trainingLevels: {
+    title: string
+    description: string
+    cards: TrainingLevelCard[]
+  }
+  trainingFacilities: {
+    title: string
+    description: string
+    facilities: TrainingFacility[]
+  }
+  callToAction: {
+    title: string
+    description: string
+    buttonText: string
+    buttonLink: string
+  }
+}

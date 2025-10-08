@@ -1060,3 +1060,74 @@ export const maintenanceQuery = `
 export const getMaintenance = async () => {
   return await client.fetch(maintenanceQuery)
 }
+
+export const trainingQuery = `
+  *[_type == "training"][0] {
+    _id,
+    heroSection {
+      title,
+      description
+    },
+    infoSections[] {
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      name,
+      description,
+      bulletPoints[]
+    },
+    sliderSection {
+      mainName,
+      mainTitle,
+      slides[] {
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        name,
+        description
+      }
+    },
+    trainingLevels {
+      title,
+      description,
+      cards[] {
+        name,
+        description
+      }
+    },
+    trainingFacilities {
+      title,
+      description,
+      facilities[] {
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        title,
+        description,
+        bulletPoints[]
+      }
+    },
+    callToAction {
+      title,
+      description,
+      buttonText,
+      buttonLink
+    }
+  }
+`
+
+export const getTraining = async () => {
+  return await client.fetch(trainingQuery)
+}

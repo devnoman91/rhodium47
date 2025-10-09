@@ -432,7 +432,7 @@ export default function MaintenancePage() {
                     {maintenanceData.sliderSection.slides.map((slide, index) => (
                       <motion.div
                         key={`${slide.name}-${index}`}
-                        className="w-[936px] flex-shrink-0 group transition-all duration-300"
+                        className="w-[936px] 2xl:w-[1100px] flex-shrink-0 group transition-all duration-300"
                         initial={{ opacity: 0, x: 50 }}
                         animate={{
                           opacity: 1,

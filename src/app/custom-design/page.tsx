@@ -378,7 +378,7 @@ export default function CustomDesignPage() {
       <div className="custom-design-container" style={{ paddingTop: 0 }}>
         {/* Slider Section */}
         {customDesignData.sliderSection.slides.length > 0 && (
-          <section className=" bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
+          <section className="pt-[79px] pb-[82px] bg-[#000] text-white overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
             {/* Header Section - Constrained max-w-7xl */}
             <div className="max-w-[1304px] mx-auto mb-[64px]" style={{ contain: 'layout style' }}>
               <motion.div
@@ -393,7 +393,7 @@ export default function CustomDesignPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="lg:col-span-1"
                   >
-                    <h2 className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+                    <h2 className="text-white font-medium text-[64px] leading-[110%] tracking-[-3.28px] font-helvetica m-0">
                       {customDesignData.sliderSection.mainName}
                     </h2>
                   </motion.div>
@@ -405,7 +405,7 @@ export default function CustomDesignPage() {
                     transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
                     className="lg:col-span-1 flex items-center justify-end"
                   >
-                    <p className="text-black font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                    <p className="text-white font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
                       {customDesignData.sliderSection.mainTitle}
                     </p>
                   </motion.div>
@@ -452,7 +452,7 @@ export default function CustomDesignPage() {
                     {customDesignData.sliderSection.slides.map((slide, index) => (
                       <motion.div
                         key={`${slide.name}-${index}`}
-                        className="w-[936px] flex-shrink-0 group transition-all duration-300"
+                        className="w-[936px] 2xl:w-[1100px]  flex-shrink-0 group transition-all duration-300"
                         initial={{ opacity: 0, x: 50 }}
                         animate={{
                           opacity: 1,
@@ -483,10 +483,10 @@ export default function CustomDesignPage() {
                         {/* Content */}
                         <div className="pt-[42px] max-w-[656px]">
                           <div className="">
-                            <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
+                            <h3 className="text-[#fff] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                               {slide.name}
                             </h3>
-                            <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
+                            <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-white opacity-60">
                               {slide.description}
                             </p>
                           </div>

@@ -201,7 +201,7 @@ const DesignPhilosophySection: React.FC<{ title: string; description: string }> 
             </motion.div>
 
             {/* Right - Content */}
-            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black ">
+            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black max-w-[783px] ">
               {/* Section Label */}
               <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center uppercase">
                 <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
@@ -452,7 +452,7 @@ export default function CustomDesignPage() {
                     {customDesignData.sliderSection.slides.map((slide, index) => (
                       <motion.div
                         key={`${slide.name}-${index}`}
-                        className="w-[1000px] flex-shrink-0 group transition-all duration-300"
+                        className="w-[936px] flex-shrink-0 group transition-all duration-300"
                         initial={{ opacity: 0, x: 50 }}
                         animate={{
                           opacity: 1,
@@ -481,7 +481,7 @@ export default function CustomDesignPage() {
                         </div>
 
                         {/* Content */}
-                        <div className="pt-[42px] max-w-[420px]">
+                        <div className="pt-[42px] max-w-[656px]">
                           <div className="">
                             <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                               {slide.name}
@@ -510,7 +510,7 @@ export default function CustomDesignPage() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, staggerChildren: 0.15 }}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12  lg:gap-16">
                   {/* Left - Title */}
                   <motion.div
                     initial={{ opacity: 0, y: 40 }}
@@ -539,7 +539,7 @@ export default function CustomDesignPage() {
 
             {/* Design Process Grid - 2 columns */}
             <div className="max-w-[1304px] mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-[42px]">
                 {customDesignData.designProcess.sections.map((section, index) => (
                   <motion.div
                     key={`${section.title}-${index}`}
@@ -570,7 +570,7 @@ export default function CustomDesignPage() {
                     </div>
 
                     {/* Content */}
-                    <div className="pt-[42px] max-w-[420px]">
+                    <div className="pt-[42px] max-w-[656px]">
                       <div className="">
                         <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                           {section.title}

@@ -958,7 +958,8 @@ export interface SecuritySystems {
   securityFeatures: {
     title: string
     description: string
-    countSection: SecuritySystemsCountItem[]
+    bulletPoints?: string[]
+    cards?: SecuritySystemsCard[]
   }
   advancedProtection: {
     title: string

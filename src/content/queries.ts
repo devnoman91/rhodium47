@@ -1572,6 +1572,8 @@ export const careersQuery = `
       positions[] {
         name,
         role,
+        location,
+        createdAt,
         salary,
         jobType,
         slug
@@ -1653,7 +1655,16 @@ export const customerStoryBySlugQuery = (slug: string) => `
       },
       slug,
       excerpt,
-      content
+      content[] {
+        ...,
+        _type == "image" => {
+          ...,
+          asset-> {
+            _id,
+            url
+          }
+        }
+      }
     }
   }
 `

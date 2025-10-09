@@ -9,7 +9,7 @@ export default defineType({
       name: 'title',
       title: 'Event Title',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'slug',
@@ -19,7 +19,7 @@ export default defineType({
         source: 'title',
         maxLength: 96,
       },
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'category',
@@ -34,7 +34,7 @@ export default defineType({
           { title: 'Other', value: 'other' },
         ],
       },
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'featuredImage',
@@ -50,13 +50,13 @@ export default defineType({
           title: 'Alternative text',
         },
       ],
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'eventDate',
       title: 'Event Date',
       type: 'datetime',
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'eventEndDate',
@@ -74,7 +74,7 @@ export default defineType({
       name: 'detailDescription',
       title: 'Detail Description',
       type: 'text',
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'overviewText',
@@ -95,13 +95,13 @@ export default defineType({
           name: 'venueName',
           title: 'Venue Name',
           type: 'string',
-          validation: (Rule) => Rule.required(),
+          
         }),
         defineField({
           name: 'address',
           title: 'Address',
           type: 'text',
-          validation: (Rule) => Rule.required(),
+          
         }),
         defineField({
           name: 'mapLink',

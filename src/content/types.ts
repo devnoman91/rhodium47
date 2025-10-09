@@ -1198,6 +1198,8 @@ export interface CareersInfoSection {
 export interface CareersPosition {
   name: string
   role: string
+  location: string
+  createdAt: string
   salary: string
   jobType: 'Full Time' | 'Part Time'
   slug: {

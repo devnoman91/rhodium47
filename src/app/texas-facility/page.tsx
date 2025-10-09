@@ -4,51 +4,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import type { AboutUs } from '@/content/types'
-import { getAboutUs } from '@/content/queries'
-
-const criticalInlineStyles = `
-  .consultation-container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding-top: 138px;
-    background: #F4F1F2;
-    padding-inline: calc(var(--spacing) * 12);
-    padding-bottom: 69px;
-  }
-
-  /* Hero Section */
-  .consultation-hero {
-    text-align: center;
-    margin-bottom: 72px;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .consultation-hero-title {
-   color: #000;
- text-align: center;
- font-size: 64px;
- font-style: normal;
- font-weight: 500;
- line-height: 110%; /* 70.4px */
- letter-spacing: -1.28px;
- margin-bottom:14px;
-  }
-  .consultation-hero-description {
-    color: #111;
- text-align: center;
- font-feature-settings: 'liga' off, 'clig' off;
-
- font-size: 24px;
- font-style: normal;
- font-weight: 500;
- line-height: 150%; /* 36px */
- text-transform: capitalize;
- max-width: 855px;
- margin:auto;
-  }
-`
+import type { TexasFacility } from '@/content/types'
+import { getTexasFacility } from '@/content/queries'
 
 // Hero Section Component
 const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
@@ -56,18 +13,18 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
   mainHeading,
 }) => {
   return (
-    <section className="relative pt-[138px] pb-[69px]">
-      <div className="max-w-[1200px] mx-auto">
+    <section className="relative pt-[120px] pb-[60px] lg:pt-[160px] lg:pb-[80px] bg-white">
+      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <p className="text-[24px] font-medium text-[#111] leading-[150%] capitalize max-w-[855px] mx-auto mb-[14px] font-helvetica">
+          <p className="text-[14px] lg:text-[16px] font-medium text-gray-600 mb-[16px] uppercase tracking-wider">
             {sectionLabel}
           </p>
-          <h1 className="text-[64px] font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto font-helvetica">
+          <h1 className="text-[32px] lg:text-[56px] xl:text-[64px] font-bold leading-tight text-black max-w-[1000px] mx-auto">
             {mainHeading}
           </h1>
         </motion.div>
@@ -76,15 +33,106 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
   )
 }
 
-// Forever Starts Now Slider Section
-const ForeverStartsNowSection: React.FC<{
+// Manufacturing Excellence Section
+const ManufacturingExcellenceSection: React.FC<{
+  title: string
+  description: string
+}> = ({ title, description }) => {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  })
+
+  const words = description.split(' ')
+
+  return (
+    <section ref={containerRef} className="py-[80px] bg-[#F4F1F2]">
+      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center"
+        >
+          <h2 className="text-[28px] lg:text-[48px] font-bold text-black mb-[24px]">{title}</h2>
+          <div className="text-[16px] lg:text-[20px] leading-relaxed max-w-[900px] mx-auto">
+            {words.map((word, index) => {
+              const start = index / words.length
+              const end = start + 1 / words.length
+              const opacity = useTransform(scrollYProgress, [start, end], [0.3, 1])
+              const color = useTransform(
+                scrollYProgress,
+                [start, end],
+                ['rgb(156, 163, 175)', 'rgb(0, 0, 0)']
+              )
+
+              return (
+                <motion.span
+                  key={index}
+                  style={{ opacity, color }}
+                  className="inline-block mr-[0.3em]"
+                >
+                  {word}
+                </motion.span>
+              )
+            })}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+// Info Sections Component
+const InfoSections: React.FC<{
+  sections: Array<{
+    name: string
+    description: string
+    image: { asset: { url: string }; alt?: string }
+  }>
+}> = ({ sections }) => {
+  return (
+    <section className="py-[80px] bg-white">
+      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[40px]">
+          {sections.map((section, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="text-center"
+            >
+              <div className="relative h-[200px] w-full rounded-[16px] overflow-hidden mb-[24px] mx-auto">
+                <Image
+                  src={section.image.asset.url}
+                  alt={section.image.alt || section.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <h3 className="text-[24px] font-bold text-black mb-[16px]">{section.name}</h3>
+              <p className="text-[16px] text-gray-700 leading-relaxed">{section.description}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+
+// Slider Section Component
+const SliderSection: React.FC<{
   mainName: string
   mainTitle: string
   slides: Array<{
-    image: { asset: { url: string }; alt?: string }
     name: string
     description: string
-    bulletPoints?: string[]
+    image: { asset: { url: string }; alt?: string }
   }>
 }> = ({ mainName, mainTitle, slides }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -105,7 +153,7 @@ const ForeverStartsNowSection: React.FC<{
   }
 
   return (
-    <section className="py-6 lg:py-[80px] bg-white">
+    <section className="py-[80px] bg-[#F4F1F2]">
       <div className="max-w-7xl mx-auto px-6">
         {/* Top Section - with word animation */}
         <motion.div
@@ -131,9 +179,7 @@ const ForeverStartsNowSection: React.FC<{
                   transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
                   viewBox="0 0 102 102"
                 >
-                    <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="51" cy="51" r="40" stroke="#161618" strokeWidth="22" strokeDasharray="2 4"/>
-                  </svg>
+                  <circle cx="51" cy="51" r="40" stroke="#161618" strokeWidth="22" strokeDasharray="2 4"/>
                 </motion.svg>
 
                 <div className="relative w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center cursor-pointer z-10">
@@ -265,25 +311,6 @@ const ForeverStartsNowSection: React.FC<{
                   <p className="text-[#7F7F7F] font-helvetica text-[20px] not-italic font-normal leading-[24px] tracking-[-0.4px] mb-[24px]">
                     {slides[currentSlide].description}
                   </p>
-                  {slides[currentSlide].bulletPoints && slides[currentSlide].bulletPoints!.length > 0 && (
-                    <ul className="space-y-[12px] mb-[24px]">
-                      {slides[currentSlide].bulletPoints!.map((point, idx) => (
-                        <li key={idx} className="flex items-start gap-[12px]">
-                          <span className="w-[6px] h-[6px] bg-black rounded-full mt-[8px] flex-shrink-0" />
-                          <span className="text-[16px] text-gray-700">{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  <motion.button
-                    className="inline-flex cursor-pointer items-center text-[#161618] font-helvetica text-[20px] gap-3 not-italic font-medium leading-[24px] tracking-[-0.4px]"
-                    whileHover={{ x: 5 }}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
-                      <path d="M21.5536 10.9272L13.6786 18.8022C13.432 19.0488 13.0976 19.1873 12.7489 19.1873C12.4002 19.1873 12.0658 19.0488 11.8192 18.8022C11.5727 18.5556 11.4341 18.2212 11.4341 17.8725C11.4341 17.5238 11.5727 17.1894 11.8192 16.9428L17.4531 11.3111H1.375C1.0269 11.3111 0.693064 11.1728 0.446922 10.9267C0.200781 10.6805 0.0625 10.3467 0.0625 9.99861C0.0625 9.65051 0.200781 9.31667 0.446922 9.07053C0.693064 8.82438 1.0269 8.68611 1.375 8.68611H17.4531L11.8214 3.0511C11.5748 2.80454 11.4363 2.47012 11.4363 2.12142C11.4363 1.77272 11.5748 1.4383 11.8214 1.19173C12.068 0.945161 12.4024 0.806641 12.7511 0.806641C13.0998 0.806641 13.4342 0.945161 13.6808 1.19173L21.5558 9.06673C21.6782 9.18883 21.7752 9.3339 21.8414 9.49362C21.9075 9.65333 21.9415 9.82454 21.9413 9.99742C21.9411 10.1703 21.9067 10.3414 21.8402 10.501C21.7737 10.6605 21.6763 10.8054 21.5536 10.9272Z" fill="black" />
-                    </svg>
-                    <span>Learn more</span>
-                  </motion.button>
                 </motion.div>
               </div>
             </div>
@@ -294,35 +321,25 @@ const ForeverStartsNowSection: React.FC<{
   )
 }
 
-// Forever Section with Cards
-const ForeverSection: React.FC<{
+// Design Process Section
+const DesignProcessSection: React.FC<{
   title: string
   description: string
-  cards: Array<{
+  sections: Array<{
     title: string
-    image: { asset: { url: string }; alt?: string }
     description: string
+    image: { asset: { url: string }; alt?: string }
   }>
-}> = ({ title, description, cards }) => {
-  const [currentIndex, setCurrentIndex] = React.useState(0)
-
-  const nextCard = () => {
-    setCurrentIndex((prev) => (prev + 1) % cards.length)
-  }
-
-  const prevCard = () => {
-    setCurrentIndex((prev) => (prev - 1 + cards.length) % cards.length)
-  }
-
+}> = ({ title, description, sections }) => {
   return (
-    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-white">
+    <section className="py-[80px] bg-white">
       <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-[48px]"
+          className="text-center mb-[60px]"
         >
           <h2 className="text-[28px] lg:text-[48px] font-bold text-black mb-[16px]">{title}</h2>
           <p className="text-[16px] lg:text-[18px] text-gray-700 max-w-[800px] mx-auto">
@@ -330,52 +347,8 @@ const ForeverSection: React.FC<{
           </p>
         </motion.div>
 
-        {/* Slider for mobile, grid for desktop */}
-        <div className="lg:hidden">
-          <div className="relative">
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.5 }}
-              className="bg-white rounded-[24px] border-2 border-black p-[24px]"
-            >
-              <div className="relative h-[200px] rounded-[16px] overflow-hidden mb-[16px]">
-                <Image
-                  src={cards[currentIndex].image.asset.url}
-                  alt={cards[currentIndex].image.alt || cards[currentIndex].title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <h3 className="text-[20px] font-bold text-black mb-[12px]">
-                {cards[currentIndex].title}
-              </h3>
-              <p className="text-[14px] text-gray-700">{cards[currentIndex].description}</p>
-            </motion.div>
-
-            {/* Navigation */}
-            <div className="flex justify-center gap-[16px] mt-[24px]">
-              <button
-                onClick={prevCard}
-                className="w-[40px] h-[40px] rounded-full bg-black text-white flex items-center justify-center"
-              >
-                ←
-              </button>
-              <button
-                onClick={nextCard}
-                className="w-[40px] h-[40px] rounded-full bg-black text-white flex items-center justify-center"
-              >
-                →
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Grid for desktop */}
-        <div className="hidden lg:grid grid-cols-3 gap-[24px]">
-          {cards.map((card, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[40px]">
+          {sections.map((section, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -384,16 +357,16 @@ const ForeverSection: React.FC<{
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="bg-white rounded-[24px] border-2 border-black p-[24px] hover:shadow-xl transition-shadow"
             >
-              <div className="relative h-[200px] rounded-[16px] overflow-hidden mb-[16px]">
+              <div className="relative h-[200px] rounded-[16px] overflow-hidden mb-[24px]">
                 <Image
-                  src={card.image.asset.url}
-                  alt={card.image.alt || card.title}
+                  src={section.image.asset.url}
+                  alt={section.image.alt || section.title}
                   fill
                   className="object-cover"
                 />
               </div>
-              <h3 className="text-[20px] font-bold text-black mb-[12px]">{card.title}</h3>
-              <p className="text-[14px] text-gray-700">{card.description}</p>
+              <h3 className="text-[20px] font-bold text-black mb-[12px]">{section.title}</h3>
+              <p className="text-[14px] text-gray-700">{section.description}</p>
             </motion.div>
           ))}
         </div>
@@ -402,121 +375,7 @@ const ForeverSection: React.FC<{
   )
 }
 
-// Core Values Section
-const CoreValuesSection: React.FC<{
-  title: string
-  description: string
-  cards: Array<{
-    title: string
-    image: { asset: { url: string }; alt?: string }
-    description: string
-  }>
-}> = ({ title, description, cards }) => {
-  return (
-    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2]">
-      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-[48px]"
-        >
-          <h2 className="text-[28px] lg:text-[48px] font-bold text-black mb-[16px]">{title}</h2>
-          <p className="text-[16px] lg:text-[18px] text-gray-700 max-w-[800px] mx-auto">
-            {description}
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">
-          {cards.map((card, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-[24px] p-[32px] border-2 border-black hover:shadow-xl transition-shadow"
-            >
-              <div className="relative h-[80px] w-[80px] rounded-full overflow-hidden mb-[24px] mx-auto">
-                <Image
-                  src={card.image.asset.url}
-                  alt={card.image.alt || card.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <h3 className="text-[20px] font-bold text-black mb-[12px] text-center">
-                {card.title}
-              </h3>
-              <p className="text-[14px] text-gray-700 text-center">{card.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// Leadership Team Section
-const LeadershipTeamSection: React.FC<{
-  title: string
-  description: string
-  cards: Array<{
-    Name: string
-    title: string
-    description: string
-    image: { asset: { url: string }; alt?: string }
-  }>
-}> = ({ title, description, cards }) => {
-  return (
-    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-white">
-      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-[48px]"
-        >
-          <h2 className="text-[28px] lg:text-[48px] font-bold text-black mb-[16px]">{title}</h2>
-          <p className="text-[16px] lg:text-[18px] text-gray-700 max-w-[800px] mx-auto">
-            {description}
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[32px]">
-          {cards.map((card, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-[24px] overflow-hidden border-2 border-black hover:shadow-xl transition-shadow"
-            >
-              <div className="relative h-[300px] w-full">
-                <Image
-                  src={card.image.asset.url}
-                  alt={card.image.alt || card.Name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-[24px]">
-                <h3 className="text-[22px] font-bold text-black mb-[8px]">{card.Name}</h3>
-                <p className="text-[16px] font-semibold text-gray-600 mb-[12px]">{card.title}</p>
-                <p className="text-[14px] text-gray-700">{card.description}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// By The Numbers Section with Word Animation
+// By The Numbers Section
 const ByTheNumbersSection: React.FC<{
   title: string
   description: string
@@ -531,7 +390,7 @@ const ByTheNumbersSection: React.FC<{
   const words = description.split(' ')
 
   return (
-    <section ref={containerRef} className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2]">
+    <section ref={containerRef} className="py-[80px] bg-[#F4F1F2]">
       <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -596,7 +455,7 @@ const CallToActionSection: React.FC<{
   buttonLink: string
 }> = ({ title, description, buttonText, buttonLink }) => {
   return (
-    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-black">
+    <section className="py-[80px] bg-black">
       <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -622,22 +481,22 @@ const CallToActionSection: React.FC<{
 }
 
 // Main Page Component
-export default function AboutUsPage() {
+export default function TexasFacilityPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [data, setData] = useState<AboutUs | null>(null)
+  const [data, setData] = useState<TexasFacility | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const aboutUsData = await getAboutUs()
-        console.log('About Us data:', aboutUsData)
-        setData(aboutUsData)
+        const texasFacilityData = await getTexasFacility()
+        console.log('Texas Facility data:', texasFacilityData)
+        setData(texasFacilityData)
         setLoading(false)
       } catch (err) {
-        console.error('Error fetching About Us:', err)
-        setError('Failed to load About Us page')
+        console.error('Error fetching Texas Facility:', err)
+        setError('Failed to load Texas Facility page')
         setLoading(false)
       }
     }
@@ -648,7 +507,7 @@ export default function AboutUsPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
-        <p className="text-[18px] text-gray-600">Loading About Us...</p>
+        <p className="text-[18px] text-gray-600">Loading Texas Facility...</p>
       </div>
     )
   }
@@ -656,16 +515,13 @@ export default function AboutUsPage() {
   if (error || !data) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
-        <p className="text-[18px] text-red-600">{error || 'No About Us data found'}</p>
+        <p className="text-[18px] text-red-600">{error || 'No Texas Facility data found'}</p>
       </div>
     )
   }
 
   return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
-
-      <div className="consultation-container">
+    <main className="min-h-screen bg-white">
       {/* Hero Section */}
       {data.heroSection && (
         <HeroSection
@@ -674,48 +530,43 @@ export default function AboutUsPage() {
         />
       )}
 
-      {/* Forever Starts Now Section */}
-      {data.foreverStartsNowSection && (
-        <ForeverStartsNowSection
-          mainName={data.foreverStartsNowSection.mainName}
-          mainTitle={data.foreverStartsNowSection.mainTitle}
-          slides={data.foreverStartsNowSection.slides}
+      {/* Manufacturing Excellence Section */}
+      {data.manufacturingExcellence && (
+        <ManufacturingExcellenceSection
+          title={data.manufacturingExcellence.title}
+          description={data.manufacturingExcellence.description}
         />
       )}
 
-      {/* Forever Section Slider */}
-      {data.ForeversSection && (
-        <ForeverSection
-          title={data.ForeversSection.title}
-          description={data.ForeversSection.description}
-          cards={data.ForeversSection.cards}
+      {/* Info Sections */}
+      {data.infoSections && data.infoSections.length > 0 && (
+        <InfoSections sections={data.infoSections} />
+      )}
+
+      {/* Slider Section */}
+      {data.sliderSection && (
+        <SliderSection
+          mainName={data.sliderSection.mainName}
+          mainTitle={data.sliderSection.mainTitle}
+          slides={data.sliderSection.slides}
         />
       )}
 
-      {/* Core Values Section */}
-      {data.coreValuesSection && (
-        <CoreValuesSection
-          title={data.coreValuesSection.title}
-          description={data.coreValuesSection.description}
-          cards={data.coreValuesSection.cards}
-        />
-      )}
-
-      {/* Leadership Team Section */}
-      {data.leadershipTeamSection && (
-        <LeadershipTeamSection
-          title={data.leadershipTeamSection.title}
-          description={data.leadershipTeamSection.description}
-          cards={data.leadershipTeamSection.cards}
+      {/* Design Process Section */}
+      {data.designProcess && (
+        <DesignProcessSection
+          title={data.designProcess.title}
+          description={data.designProcess.description}
+          sections={data.designProcess.sections}
         />
       )}
 
       {/* By The Numbers Section */}
-      {data.internByheNumbersSection && (
+      {data.byTheNumbersSection && (
         <ByTheNumbersSection
-          title={data.internByheNumbersSection.title}
-          description={data.internByheNumbersSection.description}
-          countSection={data.internByheNumbersSection.countSection}
+          title={data.byTheNumbersSection.title}
+          description={data.byTheNumbersSection.description}
+          countSection={data.byTheNumbersSection.countSection}
         />
       )}
 
@@ -728,8 +579,6 @@ export default function AboutUsPage() {
           buttonLink={data.callToAction.buttonLink}
         />
       )}
-    </div>
-  </>
+    </main>
   )
 }
-

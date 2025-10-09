@@ -134,6 +134,18 @@ export default defineType({
                   validation: (Rule) => Rule.required(),
                 }),
                 defineField({
+                  name: 'location',
+                  title: 'Location',
+                  type: 'string',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'createdAt',
+                  title: 'Created At',
+                  type: 'datetime',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
                   name: 'salary',
                   title: 'Salary',
                   type: 'string',

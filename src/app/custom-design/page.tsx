@@ -13,13 +13,13 @@ const criticalInlineStyles = `
     padding-top: 120px;
     background: #F4F1F2;
     padding-inline: calc(var(--spacing) * 12);
-    padding-bottom: 80px;
+    padding-bottom: 42px;
   }
 
   /* Hero Section */
   .custom-design-hero {
     text-align: center;
-    margin-bottom: 72px;
+    // margin-bottom: 72px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -160,7 +160,7 @@ const DesignPhilosophySection: React.FC<{ title: string; description: string }> 
   const words = useMemo(() => description.split(' '), [description])
 
   return (
-    <section className="py-12 md:py-16 lg:py-24 bg-white">
+    <section className="py-12 md:pb-[90px] md:pt-[106px] ">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <motion.div
           variants={containerVariants}
@@ -201,7 +201,7 @@ const DesignPhilosophySection: React.FC<{ title: string; description: string }> 
             </motion.div>
 
             {/* Right - Content */}
-            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black mb-8 md:mb-12 lg:mb-[60px]">
+            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black ">
               {/* Section Label */}
               <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center uppercase">
                 <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
@@ -214,7 +214,7 @@ const DesignPhilosophySection: React.FC<{ title: string; description: string }> 
               <div className="space-y-6">
                 <p
                   ref={descriptionRef}
-                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-normal m-0 font-medium font-helvetica mb-6 md:mb-8 lg:mb-[50px] flex flex-wrap"
+                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-normal m-0 flex flex-wrap"
                 >
                   {words.map((word, i) => {
                     const start = i / words.length
@@ -338,6 +338,12 @@ export default function CustomDesignPage() {
           <h1 className="custom-design-hero-title font-helvetica">{customDesignData.heroSection.title}</h1>
           <p className="custom-design-hero-description">{customDesignData.heroSection.description}</p>
         </motion.div>
+        
+          {/* Design Philosophy Section */}
+          <DesignPhilosophySection
+            title={customDesignData.designPhilosophy.title}
+            description={customDesignData.designPhilosophy.description}
+          />
 
         {/* Info Sections */}
         <div className="info-sections">
@@ -367,16 +373,12 @@ export default function CustomDesignPage() {
         </div>
       </div>
 
-      {/* Design Philosophy Section */}
-      <DesignPhilosophySection
-        title={customDesignData.designPhilosophy.title}
-        description={customDesignData.designPhilosophy.description}
-      />
+    
 
       <div className="custom-design-container" style={{ paddingTop: 0 }}>
         {/* Slider Section */}
         {customDesignData.sliderSection.slides.length > 0 && (
-          <section className="pt-[50px] lg:pt-[90px] bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
+          <section className=" bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
             {/* Header Section - Constrained max-w-7xl */}
             <div className="max-w-[1304px] mx-auto mb-[64px]" style={{ contain: 'layout style' }}>
               <motion.div
@@ -419,7 +421,7 @@ export default function CustomDesignPage() {
               className="relative"
             >
               {/* Left Padding for Content Alignment */}
-              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
+              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+-1rem)]">
                 {/* Slider Container */}
                 <div className="relative overflow-visible" ref={constraintsRef}>
                   <motion.div
@@ -500,9 +502,9 @@ export default function CustomDesignPage() {
 
         {/* Design Process Section */}
         {customDesignData.designProcess.sections.length > 0 && (
-          <section className="pt-[50px] lg:pt-[90px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] text-black -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]" style={{ contain: 'layout style' }}>
+          <section className="pt-[50px] lg:pt-[94px] bg-[#F4F1F2] text-black -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]" style={{ contain: 'layout style' }}>
             {/* Header Section */}
-            <div className="max-w-[1304px] mx-auto mb-[64px]" style={{ contain: 'layout style' }}>
+            <div className="max-w-[1304px] mx-auto mb-[62px]" style={{ contain: 'layout style' }}>
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

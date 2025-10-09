@@ -201,9 +201,9 @@ const DesignPhilosophySection: React.FC<{ title: string; description: string }> 
             </motion.div>
 
             {/* Right - Content */}
-            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black max-w-[783px] ">
+            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black max-w-[773px] ">
               {/* Section Label */}
-              <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center uppercase">
+              <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-[27px] font-helvetica items-center uppercase">
                 <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
                 <span className="">
                   {title}
@@ -214,7 +214,7 @@ const DesignPhilosophySection: React.FC<{ title: string; description: string }> 
               <div className="space-y-6">
                 <p
                   ref={descriptionRef}
-                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-normal m-0 flex flex-wrap"
+                  className="text-[24px] md:text-[32px]  lg:text-[40px] leading-[1.2] tracking-[-0.8px] font-[500] m-0 flex flex-wrap"
                 >
                   {words.map((word, i) => {
                     const start = i / words.length
@@ -636,7 +636,7 @@ export default function CustomDesignPage() {
                     />
 
                     {/* text */}
-                    <span className="relative z-10 text-base lg:text-lg transition-colors duration-500 ease-in-out group-hover:text-black">
+                    <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
                       {customDesignData.callToAction.buttonText}
                     </span>
                   </motion.a>
@@ -654,7 +654,7 @@ export default function CustomDesignPage() {
                   {customDesignData.callToAction.description.split('\n\n').map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[550px]"
+                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
                     >
                       {paragraph.trim()}
                     </p>

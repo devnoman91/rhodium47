@@ -1131,3 +1131,252 @@ export const trainingQuery = `
 export const getTraining = async () => {
   return await client.fetch(trainingQuery)
 }
+
+export const xodiumArmorQuery = `
+  *[_type == "xodiumArmor"][0] {
+    _id,
+    heroSection {
+      title,
+      description
+    },
+    manufacturingExcellence {
+      title,
+      description
+    },
+    infoSections[] {
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      name,
+      description
+    },
+    technicalSpecifications {
+      title,
+      countSection[] {
+        name,
+        value
+      },
+      cards[] {
+        name,
+        description
+      }
+    },
+    sliderSection {
+      mainName,
+      mainTitle,
+      slides[] {
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        name,
+        description
+      }
+    },
+    callToAction {
+      title,
+      description,
+      buttonText,
+      buttonLink
+    }
+  }
+`
+
+export const getXodiumArmor = async () => {
+  return await client.fetch(xodiumArmorQuery)
+}
+
+export const br6ProtectionQuery = `
+  *[_type == "br6Protection"][0] {
+    _id,
+    heroSection {
+      title,
+      description
+    },
+    internationalCertifications {
+      title,
+      description,
+      countSection[] {
+        name,
+        value
+      }
+    },
+    infoSections[] {
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      name,
+      description
+    },
+    testingCertificationSlider {
+      mainName,
+      mainTitle,
+      slides[] {
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        name,
+        description
+      }
+    },
+    threatProtectionMatrix {
+      title,
+      description,
+      cards[] {
+        title,
+        description
+      }
+    },
+    callToAction {
+      title,
+      description,
+      buttonText,
+      buttonLink
+    }
+  }
+`
+
+export const getBR6Protection = async () => {
+  return await client.fetch(br6ProtectionQuery)
+}
+
+export const hybridElectricQuery = `
+  *[_type == "hybridElectric"][0] {
+    _id,
+    heroSection {
+      title,
+      description
+    },
+    infoSections[] {
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      name,
+      description
+    },
+    performanceMetrics {
+      title,
+      description,
+      countSection[] {
+        name,
+        value
+      }
+    },
+    intelligentPowerManagement {
+      title,
+      description,
+      bulletPoints[],
+      cards[] {
+        title,
+        description
+      }
+    },
+    sliderSection {
+      mainName,
+      mainTitle,
+      slides[] {
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        name,
+        description
+      }
+    },
+    callToAction {
+      title,
+      description,
+      buttonText,
+      buttonLink
+    }
+  }
+`
+
+export const getHybridElectric = async () => {
+  return await client.fetch(hybridElectricQuery)
+}
+
+export const securitySystemsQuery = `
+  *[_type == "securitySystems"][0] {
+    _id,
+    heroSection {
+      title,
+      description
+    },
+    infoSections[] {
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      name,
+      description
+    },
+    securityFeatures {
+      title,
+      description,
+      countSection[] {
+        name,
+        value
+      }
+    },
+    advancedProtection {
+      title,
+      description,
+      bulletPoints[],
+      cards[] {
+        title,
+        description
+      }
+    },
+    sliderSection {
+      mainName,
+      mainTitle,
+      slides[] {
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        name,
+        description
+      }
+    },
+    callToAction {
+      title,
+      description,
+      buttonText,
+      buttonLink
+    }
+  }
+`
+
+export const getSecuritySystems = async () => {
+  return await client.fetch(securitySystemsQuery)
+}

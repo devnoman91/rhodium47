@@ -97,6 +97,10 @@ export const structure: StructureResolver = (S) =>
               S.documentTypeListItem('customDesign').title('Custom Design Page'),
               S.documentTypeListItem('maintenance').title('Maintenance Page'),
               S.documentTypeListItem('training').title('Training Page'),
+              S.documentTypeListItem('xodiumArmor').title('XODIUM Armor Page'),
+              S.documentTypeListItem('br6Protection').title('BR6+ Protection Page'),
+              S.documentTypeListItem('hybridElectric').title('Hybrid Electric Page'),
+              S.documentTypeListItem('securitySystems').title('Security Systems Page'),
             ])
         ),
     ])

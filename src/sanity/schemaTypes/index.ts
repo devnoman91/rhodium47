@@ -34,6 +34,10 @@ import consultation from './consultation'
 import customDesign from './customDesign'
 import maintenance from './maintenance'
 import training from './training'
+import xodiumArmor from './xodiumArmor'
+import br6Protection from './br6Protection'
+import hybridElectric from './hybridElectric'
+import securitySystems from './securitySystems'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -71,5 +75,9 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     customDesign,
     maintenance,
     training,
+    xodiumArmor,
+    br6Protection,
+    hybridElectric,
+    securitySystems,
   ],
 }

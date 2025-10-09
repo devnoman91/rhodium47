@@ -721,3 +721,260 @@ export interface Training {
     buttonLink: string
   }
 }
+
+export interface XodiumArmorInfoSection {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface XodiumArmorSlide {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface XodiumArmorSpecificationCard {
+  name: string
+  description: string
+}
+
+export interface XodiumArmorCountItem {
+  name: string
+  value: string
+}
+
+export interface XodiumArmor {
+  _id: string
+  heroSection: {
+    title: string
+    description: string
+  }
+  manufacturingExcellence: {
+    title: string
+    description: string
+  }
+  infoSections: XodiumArmorInfoSection[]
+  technicalSpecifications: {
+    title: string
+    countSection: XodiumArmorCountItem[]
+    cards: XodiumArmorSpecificationCard[]
+  }
+  sliderSection: {
+    mainName: string
+    mainTitle: string
+    slides: XodiumArmorSlide[]
+  }
+  callToAction: {
+    title: string
+    description: string
+    buttonText: string
+    buttonLink: string
+  }
+}
+
+export interface BR6ProtectionInfoSection {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface BR6ProtectionCountItem {
+  name: string
+  value: string
+}
+
+export interface BR6ProtectionSlide {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface BR6ProtectionThreatCard {
+  title: string
+  description: string
+}
+
+export interface BR6Protection {
+  _id: string
+  heroSection: {
+    title: string
+    description: string
+  }
+  internationalCertifications: {
+    title: string
+    description: string
+    countSection: BR6ProtectionCountItem[]
+  }
+  infoSections: BR6ProtectionInfoSection[]
+  testingCertificationSlider: {
+    mainName: string
+    mainTitle: string
+    slides: BR6ProtectionSlide[]
+  }
+  threatProtectionMatrix: {
+    title: string
+    description: string
+    cards: BR6ProtectionThreatCard[]
+  }
+  callToAction: {
+    title: string
+    description: string
+    buttonText: string
+    buttonLink: string
+  }
+}
+
+export interface HybridElectricInfoSection {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface HybridElectricCountItem {
+  name: string
+  value: string
+}
+
+export interface HybridElectricSlide {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface HybridElectricCard {
+  title: string
+  description: string
+}
+
+export interface HybridElectric {
+  _id: string
+  heroSection: {
+    title: string
+    description: string
+  }
+  infoSections: HybridElectricInfoSection[]
+  performanceMetrics: {
+    title: string
+    description: string
+    countSection: HybridElectricCountItem[]
+  }
+  intelligentPowerManagement: {
+    title: string
+    description: string
+    bulletPoints: string[]
+    cards: HybridElectricCard[]
+  }
+  sliderSection: {
+    mainName: string
+    mainTitle: string
+    slides: HybridElectricSlide[]
+  }
+  callToAction: {
+    title: string
+    description: string
+    buttonText: string
+    buttonLink: string
+  }
+}
+
+export interface SecuritySystemsInfoSection {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface SecuritySystemsCountItem {
+  name: string
+  value: string
+}
+
+export interface SecuritySystemsSlide {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+}
+
+export interface SecuritySystemsCard {
+  title: string
+  description: string
+}
+
+export interface SecuritySystems {
+  _id: string
+  heroSection: {
+    title: string
+    description: string
+  }
+  infoSections: SecuritySystemsInfoSection[]
+  securityFeatures: {
+    title: string
+    description: string
+    countSection: SecuritySystemsCountItem[]
+  }
+  advancedProtection: {
+    title: string
+    description: string
+    bulletPoints: string[]
+    cards: SecuritySystemsCard[]
+  }
+  sliderSection: {
+    mainName: string
+    mainTitle: string
+    slides: SecuritySystemsSlide[]
+  }
+  callToAction: {
+    title: string
+    description: string
+    buttonText: string
+    buttonLink: string
+  }
+}

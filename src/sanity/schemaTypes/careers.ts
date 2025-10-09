@@ -1,14 +1,35 @@
 import { defineType, defineField } from 'sanity'
 
 export default defineType({
-  name: 'securitySystems',
-  title: 'Security Systems',
+  name: 'careers',
+  title: 'Careers',
   type: 'document',
   fields: [
-    // First Section: Hero Section
+    // First Section: Hero Section (like homeAbout)
     defineField({
       name: 'heroSection',
       title: 'Hero Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'sectionLabel',
+          title: 'Section Label',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'mainHeading',
+          title: 'Main Heading',
+          type: 'text',
+          validation: (Rule) => Rule.required(),
+        }),
+      ],
+    }),
+
+    // Second Section: Manufacturing Excellence
+    defineField({
+      name: 'manufacturingExcellence',
+      title: 'Manufacturing Excellence',
       type: 'object',
       fields: [
         defineField({
@@ -26,11 +47,12 @@ export default defineType({
       ],
     }),
 
-    // Second Section: Info Sections with Image, Name, Description
+    // Third Section: 3 Info Sections with Image, Name, Description
     defineField({
       name: 'infoSections',
       title: 'Info Sections',
       type: 'array',
+      validation: (Rule) => Rule.max(3),
       of: [
         {
           type: 'object',
@@ -73,10 +95,10 @@ export default defineType({
       ],
     }),
 
-    // Third Section: Security Features (with bullet points and cards)
+    // Fourth Section: Open Positions
     defineField({
-      name: 'securityFeatures',
-      title: 'Security Features',
+      name: 'openPositions',
+      title: 'Open Positions',
       type: 'object',
       fields: [
         defineField({
@@ -92,123 +114,8 @@ export default defineType({
           validation: (Rule) => Rule.required(),
         }),
         defineField({
-          name: 'bulletPoints',
-          title: 'Bullet Points',
-          type: 'array',
-          of: [{ type: 'string' }],
-        }),
-        defineField({
-          name: 'cards',
-          title: 'Cards',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                defineField({
-                  name: 'title',
-                  title: 'Title',
-                  type: 'string',
-                  validation: (Rule) => Rule.required(),
-                }),
-                defineField({
-                  name: 'description',
-                  title: 'Description',
-                  type: 'text',
-                  validation: (Rule) => Rule.required(),
-                }),
-              ],
-              preview: {
-                select: {
-                  title: 'title',
-                  subtitle: 'description',
-                },
-              },
-            },
-          ],
-        }),
-      ],
-    }),
-
-    // Fourth Section: Advanced Protection (with description, bullet points and cards)
-    defineField({
-      name: 'advancedProtection',
-      title: 'Advanced Protection',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'title',
-          title: 'Title',
-          type: 'string',
-          validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-          name: 'description',
-          title: 'Description',
-          type: 'text',
-          validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-          name: 'bulletPoints',
-          title: 'Bullet Points',
-          type: 'array',
-          of: [{ type: 'string' }],
-          validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-          name: 'cards',
-          title: 'Cards',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                defineField({
-                  name: 'title',
-                  title: 'Title',
-                  type: 'string',
-                  validation: (Rule) => Rule.required(),
-                }),
-                defineField({
-                  name: 'description',
-                  title: 'Description',
-                  type: 'text',
-                  validation: (Rule) => Rule.required(),
-                }),
-              ],
-              preview: {
-                select: {
-                  title: 'title',
-                  subtitle: 'description',
-                },
-              },
-            },
-          ],
-        }),
-      ],
-    }),
-
-    // Fifth Section: Slider
-    defineField({
-      name: 'sliderSection',
-      title: 'Slider Section',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'mainName',
-          title: 'Main Name',
-          type: 'string',
-          validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-          name: 'mainTitle',
-          title: 'Main Title',
-          type: 'string',
-          validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-          name: 'slides',
-          title: 'Slides',
+          name: 'positions',
+          title: 'Positions',
           type: 'array',
           of: [
             {
@@ -216,7 +123,89 @@ export default defineType({
               fields: [
                 defineField({
                   name: 'name',
-                  title: 'Name',
+                  title: 'Role Title',
+                  type: 'string',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'role',
+                  title: 'Role',
+                  type: 'string',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'salary',
+                  title: 'Salary',
+                  type: 'string',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'jobType',
+                  title: 'Job Type',
+                  type: 'string',
+                  options: {
+                    list: ['Full Time', 'Part Time'],
+                  },
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'slug',
+                  title: 'Slug',
+                  type: 'slug',
+                  options: {
+                    source: 'name',
+                    maxLength: 96,
+                    slugify: (input: string) => {
+                      return input
+                        .toLowerCase()
+                        .replace(/\s+/g, '-')
+                        .replace(/[^\w-]+/g, '')
+                    },
+                  },
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
+              preview: {
+                select: {
+                  title: 'name',
+                  subtitle: 'role',
+                },
+              },
+            },
+          ],
+        }),
+      ],
+    }),
+
+    // Fifth Section: Benefits & Perks
+    defineField({
+      name: 'benefitsPerks',
+      title: 'Benefits & Perks',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Title',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'benefits',
+          title: 'Benefits',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'title',
+                  title: 'Title',
                   type: 'string',
                   validation: (Rule) => Rule.required(),
                 }),
@@ -244,7 +233,7 @@ export default defineType({
               ],
               preview: {
                 select: {
-                  title: 'name',
+                  title: 'title',
                   media: 'image',
                 },
               },
@@ -254,7 +243,58 @@ export default defineType({
       ],
     }),
 
-    // Sixth Section: Call to Action
+    // Sixth Section: By the Numbers Section
+    defineField({
+      name: 'byTheNumbersSection',
+      title: 'By the Numbers Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Title',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'countSection',
+          title: 'Count Section',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'name',
+                  title: 'Name',
+                  type: 'string',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'value',
+                  title: 'Value',
+                  type: 'string',
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
+              preview: {
+                select: {
+                  title: 'name',
+                  subtitle: 'value',
+                },
+              },
+            },
+          ],
+        }),
+      ],
+    }),
+
+    // Seventh Section: Call to Action
     defineField({
       name: 'callToAction',
       title: 'Call to Action',

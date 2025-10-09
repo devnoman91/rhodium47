@@ -38,6 +38,15 @@ import xodiumArmor from './xodiumArmor'
 import br6Protection from './br6Protection'
 import hybridElectric from './hybridElectric'
 import securitySystems from './securitySystems'
+import aboutUs from './aboutUs'
+import texasFacility from './texasFacility'
+import careers from './careers'
+import customerStories from './customerStories'
+import event from './event'
+import eventsPage from './eventsPage'
+import eventRegistration from './eventRegistration'
+import contactPage from './contactPage'
+import contactFormSubmission from './contactFormSubmission'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -79,5 +88,14 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     br6Protection,
     hybridElectric,
     securitySystems,
+    aboutUs,
+    texasFacility,
+    careers,
+    customerStories,
+    event,
+    eventsPage,
+    eventRegistration,
+    contactPage,
+    contactFormSubmission,
   ],
 }

@@ -978,3 +978,422 @@ export interface SecuritySystems {
     buttonLink: string
   }
 }
+
+export interface AboutUsHeroSection {
+  sectionLabel: string
+  mainHeading: string
+}
+
+export interface AboutUsSlide {
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  name: string
+  description: string
+  bulletPoints?: string[]
+}
+
+export interface AboutUsForeverStartsNowSection {
+  mainName: string
+  mainTitle: string
+  slides: AboutUsSlide[]
+}
+
+export interface AboutUsForeverCard {
+  title: string
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  description: string
+}
+
+export interface AboutUsForeverSection {
+  title: string
+  description: string
+  cards: AboutUsForeverCard[]
+}
+
+export interface AboutUsCoreValueCard {
+  title: string
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  description: string
+}
+
+export interface AboutUsCoreValuesSection {
+  title: string
+  description: string
+  cards: AboutUsCoreValueCard[]
+}
+
+export interface AboutUsLeadershipCard {
+  Name: string
+  title: string
+  description: string
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+}
+
+export interface AboutUsLeadershipTeamSection {
+  title: string
+  description: string
+  cards: AboutUsLeadershipCard[]
+}
+
+export interface AboutUsByTheNumbersSection {
+  title: string
+  description: string
+  countSection: Array<{
+    name: string
+    value: string
+  }>
+}
+
+export interface AboutUsCallToAction {
+  title: string
+  description: string
+  buttonText: string
+  buttonLink: string
+}
+
+export interface AboutUs {
+  _id: string
+  heroSection: AboutUsHeroSection
+  foreverStartsNowSection: AboutUsForeverStartsNowSection
+  ForeversSection: AboutUsForeverSection
+  coreValuesSection: AboutUsCoreValuesSection
+  leadershipTeamSection: AboutUsLeadershipTeamSection
+  internByheNumbersSection: AboutUsByTheNumbersSection
+  callToAction: AboutUsCallToAction
+}
+
+export interface TexasFacilityHeroSection {
+  sectionLabel: string
+  mainHeading: string
+}
+
+export interface TexasFacilityManufacturingExcellence {
+  title: string
+  description: string
+}
+
+export interface TexasFacilityInfoSection {
+  name: string
+  description: string
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+}
+
+export interface TexasFacilitySlide {
+  name: string
+  description: string
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+}
+
+export interface TexasFacilitySliderSection {
+  mainName: string
+  mainTitle: string
+  slides: TexasFacilitySlide[]
+}
+
+export interface TexasFacilityDesignProcessSection {
+  title: string
+  description: string
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+}
+
+export interface TexasFacilityDesignProcess {
+  title: string
+  description: string
+  sections: TexasFacilityDesignProcessSection[]
+}
+
+export interface TexasFacilityCountItem {
+  name: string
+  value: string
+}
+
+export interface TexasFacilityByTheNumbersSection {
+  title: string
+  description: string
+  countSection: TexasFacilityCountItem[]
+}
+
+export interface TexasFacilityCallToAction {
+  title: string
+  description: string
+  buttonText: string
+  buttonLink: string
+}
+
+export interface TexasFacility {
+  _id: string
+  heroSection: TexasFacilityHeroSection
+  manufacturingExcellence: TexasFacilityManufacturingExcellence
+  infoSections: TexasFacilityInfoSection[]
+  sliderSection: TexasFacilitySliderSection
+  designProcess: TexasFacilityDesignProcess
+  byTheNumbersSection: TexasFacilityByTheNumbersSection
+  callToAction: TexasFacilityCallToAction
+}
+
+export interface CareersHeroSection {
+  sectionLabel: string
+  mainHeading: string
+}
+
+export interface CareersManufacturingExcellence {
+  title: string
+  description: string
+}
+
+export interface CareersInfoSection {
+  name: string
+  description: string
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+}
+
+export interface CareersPosition {
+  name: string
+  role: string
+  salary: string
+  jobType: 'Full Time' | 'Part Time'
+  slug: {
+    current: string
+  }
+}
+
+export interface CareersOpenPositions {
+  title: string
+  description: string
+  positions: CareersPosition[]
+}
+
+export interface CareersBenefit {
+  title: string
+  description: string
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+}
+
+export interface CareersBenefitsPerks {
+  title: string
+  description: string
+  benefits: CareersBenefit[]
+}
+
+export interface CareersCountItem {
+  name: string
+  value: string
+}
+
+export interface CareersByTheNumbersSection {
+  title: string
+  description: string
+  countSection: CareersCountItem[]
+}
+
+export interface CareersCallToAction {
+  title: string
+  description: string
+  buttonText: string
+  buttonLink: string
+}
+
+export interface Careers {
+  _id: string
+  heroSection: CareersHeroSection
+  manufacturingExcellence: CareersManufacturingExcellence
+  infoSections: CareersInfoSection[]
+  openPositions: CareersOpenPositions
+  benefitsPerks: CareersBenefitsPerks
+  byTheNumbersSection: CareersByTheNumbersSection
+  callToAction: CareersCallToAction
+}
+
+export interface CustomerStoriesHeroSection {
+  sectionLabel: string
+  mainHeading: string
+}
+
+export interface CustomerStory {
+  title: string
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  slug: {
+    current: string
+  }
+  excerpt: string
+  content: any[] // Portable Text content
+}
+
+export interface CustomerStories {
+  _id: string
+  heroSection: CustomerStoriesHeroSection
+  stories: CustomerStory[]
+}
+
+export interface Event {
+  _id: string
+  title: string
+  slug: {
+    current: string
+  }
+  category: string
+  featuredImage: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  eventDate: string
+  eventEndDate?: string
+  shortDescription: string
+  detailDescription: string
+  overviewText?: string
+  additionalInfo?: string
+  location: {
+    venueName: string
+    address: string
+    mapLink?: string
+  }
+  registrationEnabled: boolean
+  maxAttendees?: number
+  featured: boolean
+}
+
+export interface EventsPageHeroSection {
+  title: string
+  description: string
+}
+
+export interface EventsPage {
+  _id: string
+  heroSection: EventsPageHeroSection
+}
+
+export interface EventRegistration {
+  _id: string
+  event: {
+    _ref: string
+    _type: string
+  }
+  firstName: string
+  lastName: string
+  email: string
+  phoneNumber: string
+  region: string
+  zipCode: string
+  getUpdates: boolean
+  consentText?: string
+  registeredAt: string
+  status: 'pending' | 'confirmed' | 'cancelled' | 'attended'
+  notes?: string
+}
+
+export interface ContactPageEmail {
+  label: string
+  email: string
+}
+
+export interface ContactPagePhone {
+  label: string
+  phone: string
+}
+
+export interface ContactPageAddress {
+  street: string
+  city: string
+  state: string
+  zipCode: string
+  country: string
+}
+
+export interface ContactPageBusinessHours {
+  day: string
+  hours: string
+}
+
+export interface ContactPageHeroSection {
+  title: string
+  description: string
+}
+
+export interface ContactPageInfo {
+  sectionTitle: string
+  emails: ContactPageEmail[]
+  phones: ContactPagePhone[]
+  address: ContactPageAddress
+  businessHours: ContactPageBusinessHours[]
+}
+
+export interface ContactPage {
+  _id: string
+  heroSection: ContactPageHeroSection
+  contactInfo: ContactPageInfo
+}
+
+export interface ContactFormSubmission {
+  _id: string
+  firstName: string
+  lastName: string
+  email: string
+  phone?: string
+  subject: string
+  message: string
+  submittedAt: string
+  status: 'new' | 'read' | 'responded'
+  notes?: string
+}

@@ -86,6 +86,21 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
+      // Events
+      S.listItem()
+        .title('🎫 Events')
+        .child(
+          S.list()
+            .title('Events')
+            .items([
+              S.documentTypeListItem('eventsPage').title('Events Page Settings'),
+              S.documentTypeListItem('event').title('All Events'),
+              S.documentTypeListItem('eventRegistration').title('Event Registrations'),
+            ])
+        ),
+
+      S.divider(),
+
       // Pages
       S.listItem()
         .title('📄 Pages')
@@ -101,6 +116,24 @@ export const structure: StructureResolver = (S) =>
               S.documentTypeListItem('br6Protection').title('BR6+ Protection Page'),
               S.documentTypeListItem('hybridElectric').title('Hybrid Electric Page'),
               S.documentTypeListItem('securitySystems').title('Security Systems Page'),
+              S.documentTypeListItem('aboutUs').title('About Us Page'),
+              S.documentTypeListItem('texasFacility').title('Texas Facility Page'),
+              S.documentTypeListItem('careers').title('Careers Page'),
+              S.documentTypeListItem('customerStories').title('Customer Stories Page'),
+              S.documentTypeListItem('contactPage').title('Contact Page'),
+            ])
+        ),
+
+      S.divider(),
+
+      // Contact
+      S.listItem()
+        .title('📬 Contact')
+        .child(
+          S.list()
+            .title('Contact')
+            .items([
+              S.documentTypeListItem('contactFormSubmission').title('Contact Form Submissions'),
             ])
         ),
     ])

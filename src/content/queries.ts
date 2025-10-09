@@ -1380,3 +1380,513 @@ export const securitySystemsQuery = `
 export const getSecuritySystems = async () => {
   return await client.fetch(securitySystemsQuery)
 }
+
+export const aboutUsQuery = `
+  *[_type == "aboutUs"][0] {
+    _id,
+    heroSection {
+      sectionLabel,
+      mainHeading
+    },
+    foreverStartsNowSection {
+      mainName,
+      mainTitle,
+      slides[] {
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        name,
+        description,
+        bulletPoints[]
+      }
+    },
+    ForeversSection {
+      title,
+      description,
+      cards[] {
+        title,
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        description
+      }
+    },
+    coreValuesSection {
+      title,
+      description,
+      cards[] {
+        title,
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        description
+      }
+    },
+    leadershipTeamSection {
+      title,
+      description,
+      cards[] {
+        Name,
+        title,
+        description,
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        }
+      }
+    },
+    internByheNumbersSection {
+      title,
+      description,
+      countSection[] {
+        name,
+        value
+      }
+    },
+    callToAction {
+      title,
+      description,
+      buttonText,
+      buttonLink
+    }
+  }
+`
+
+export const getAboutUs = async () => {
+  return await client.fetch(aboutUsQuery)
+}
+
+export const texasFacilityQuery = `
+  *[_type == "texasFacility"][0] {
+    _id,
+    heroSection {
+      sectionLabel,
+      mainHeading
+    },
+    manufacturingExcellence {
+      title,
+      description
+    },
+    infoSections[] {
+      name,
+      description,
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      }
+    },
+    sliderSection {
+      mainName,
+      mainTitle,
+      slides[] {
+        name,
+        description,
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        }
+      }
+    },
+    designProcess {
+      title,
+      description,
+      sections[] {
+        title,
+        description,
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        }
+      }
+    },
+    byTheNumbersSection {
+      title,
+      description,
+      countSection[] {
+        name,
+        value
+      }
+    },
+    callToAction {
+      title,
+      description,
+      buttonText,
+      buttonLink
+    }
+  }
+`
+
+export const getTexasFacility = async () => {
+  return await client.fetch(texasFacilityQuery)
+}
+
+export const careersQuery = `
+  *[_type == "careers"][0] {
+    _id,
+    heroSection {
+      sectionLabel,
+      mainHeading
+    },
+    manufacturingExcellence {
+      title,
+      description
+    },
+    infoSections[] {
+      name,
+      description,
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      }
+    },
+    openPositions {
+      title,
+      description,
+      positions[] {
+        name,
+        role,
+        salary,
+        jobType,
+        slug
+      }
+    },
+    benefitsPerks {
+      title,
+      description,
+      benefits[] {
+        title,
+        description,
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        }
+      }
+    },
+    byTheNumbersSection {
+      title,
+      description,
+      countSection[] {
+        name,
+        value
+      }
+    },
+    callToAction {
+      title,
+      description,
+      buttonText,
+      buttonLink
+    }
+  }
+`
+
+export const getCareers = async () => {
+  return await client.fetch(careersQuery)
+}
+
+export const customerStoriesQuery = `
+  *[_type == "customerStories"][0] {
+    _id,
+    heroSection {
+      sectionLabel,
+      mainHeading
+    },
+    stories[] {
+      title,
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      slug,
+      excerpt,
+      content
+    }
+  }
+`
+
+export const getCustomerStories = async () => {
+  return await client.fetch(customerStoriesQuery)
+}
+
+export const customerStoryBySlugQuery = (slug: string) => `
+  *[_type == "customerStories"][0] {
+    stories[slug.current == "${slug}"][0] {
+      title,
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      slug,
+      excerpt,
+      content
+    }
+  }
+`
+
+export const getCustomerStoryBySlug = async (slug: string) => {
+  return await client.fetch(customerStoryBySlugQuery(slug))
+}
+
+export const eventsPageQuery = `
+  *[_type == "eventsPage"][0] {
+    _id,
+    heroSection {
+      title,
+      description
+    }
+  }
+`
+
+export const getEventsPage = async () => {
+  return await client.fetch(eventsPageQuery)
+}
+
+export const eventsQuery = `
+  *[_type == "event"] | order(eventDate desc) {
+    _id,
+    title,
+    slug,
+    category,
+    featuredImage {
+      asset-> {
+        _id,
+        url
+      },
+      alt
+    },
+    eventDate,
+    eventEndDate,
+    shortDescription,
+    detailDescription,
+    overviewText,
+    additionalInfo,
+    location {
+      venueName,
+      address,
+      mapLink
+    },
+    registrationEnabled,
+    maxAttendees,
+    featured
+  }
+`
+
+export const getAllEvents = async () => {
+  return await client.fetch(eventsQuery)
+}
+
+export const eventBySlugQuery = (slug: string) => `
+  *[_type == "event" && slug.current == "${slug}"][0] {
+    _id,
+    title,
+    slug,
+    category,
+    featuredImage {
+      asset-> {
+        _id,
+        url
+      },
+      alt
+    },
+    eventDate,
+    eventEndDate,
+    shortDescription,
+    detailDescription,
+    overviewText,
+    additionalInfo,
+    location {
+      venueName,
+      address,
+      mapLink
+    },
+    registrationEnabled,
+    maxAttendees,
+    featured
+  }
+`
+
+export const getEventBySlug = async (slug: string) => {
+  return await client.fetch(eventBySlugQuery(slug))
+}
+
+export const featuredEventsQuery = `
+  *[_type == "event" && featured == true] | order(eventDate desc) {
+    _id,
+    title,
+    slug,
+    category,
+    featuredImage {
+      asset-> {
+        _id,
+        url
+      },
+      alt
+    },
+    eventDate,
+    shortDescription,
+    featured
+  }
+`
+
+export const getFeaturedEvents = async () => {
+  return await client.fetch(featuredEventsQuery)
+}
+
+export const eventRegistrationsQuery = `
+  *[_type == "eventRegistration"] | order(registeredAt desc) {
+    _id,
+    event {
+      _ref,
+      _type
+    },
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    region,
+    zipCode,
+    getUpdates,
+    consentText,
+    registeredAt,
+    status,
+    notes
+  }
+`
+
+export const getAllEventRegistrations = async () => {
+  return await client.fetch(eventRegistrationsQuery)
+}
+
+export const eventRegistrationsByEventQuery = (eventId: string) => `
+  *[_type == "eventRegistration" && event._ref == "${eventId}"] | order(registeredAt desc) {
+    _id,
+    event {
+      _ref,
+      _type
+    },
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    region,
+    zipCode,
+    getUpdates,
+    consentText,
+    registeredAt,
+    status,
+    notes
+  }
+`
+
+export const getEventRegistrationsByEvent = async (eventId: string) => {
+  return await client.fetch(eventRegistrationsByEventQuery(eventId))
+}
+
+export const contactPageQuery = `
+  *[_type == "contactPage"][0] {
+    _id,
+    heroSection {
+      title,
+      description
+    },
+    contactInfo {
+      sectionTitle,
+      emails[] {
+        label,
+        email
+      },
+      phones[] {
+        label,
+        phone
+      },
+      address {
+        street,
+        city,
+        state,
+        zipCode,
+        country
+      },
+      businessHours[] {
+        day,
+        hours
+      }
+    }
+  }
+`
+
+export const getContactPage = async () => {
+  return await client.fetch(contactPageQuery)
+}
+
+export const contactFormSubmissionsQuery = `
+  *[_type == "contactFormSubmission"] | order(submittedAt desc) {
+    _id,
+    firstName,
+    lastName,
+    email,
+    phone,
+    subject,
+    message,
+    submittedAt,
+    status,
+    notes
+  }
+`
+
+export const getAllContactFormSubmissions = async () => {
+  return await client.fetch(contactFormSubmissionsQuery)
+}
+
+export const contactFormSubmissionsByStatusQuery = (status: string) => `
+  *[_type == "contactFormSubmission" && status == "${status}"] | order(submittedAt desc) {
+    _id,
+    firstName,
+    lastName,
+    email,
+    phone,
+    subject,
+    message,
+    submittedAt,
+    status,
+    notes
+  }
+`
+
+export const getContactFormSubmissionsByStatus = async (status: string) => {
+  return await client.fetch(contactFormSubmissionsByStatusQuery(status))
+}

@@ -468,7 +468,7 @@ export default function ConsultationPage() {
               className="relative"
             >
               {/* Left Padding for Content Alignment */}
-              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
+              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+-1rem)]">
                 {/* Slider Container */}
                 <div className="relative overflow-visible" ref={constraintsRef}>
                   <motion.div
@@ -499,7 +499,7 @@ export default function ConsultationPage() {
                     {consultationData.sliderSection.slides.map((slide, index) => (
                       <motion.div
                         key={`${slide.name}-${index}`}
-                        className="w-[1000px] flex-shrink-0 group transition-all duration-300"
+                        className="w-[936px] flex-shrink-0 group transition-all duration-300"
                         initial={{ opacity: 0, x: 50 }}
                         animate={{
                           opacity: 1,
@@ -528,7 +528,7 @@ export default function ConsultationPage() {
                         </div>
 
                         {/* Content */}
-                        <div className="pt-[42px] max-w-[420px]">
+                        <div className="pt-[42px] max-w-[656px]">
                           <div className="">
                             <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                               {slide.name}

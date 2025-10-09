@@ -33,6 +33,7 @@ import currentOffers from './currentOffers'
 import consultation from './consultation'
 import customDesign from './customDesign'
 import maintenance from './maintenance'
+import training from './training'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -69,5 +70,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     consultation,
     customDesign,
     maintenance,
+    training,
   ],
 }

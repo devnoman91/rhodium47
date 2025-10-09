@@ -19,7 +19,7 @@ const criticalInlineStyles = `
   /* Hero Section */
   .maintenance-hero {
     text-align: center;
-    margin-bottom: 72px;
+    // margin-bottom: 72px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -48,12 +48,12 @@ margin:auto;
   }
 
   /* Info Sections */
-  .info-sections {
+  .maintenance-container .info-sections {
     display:flex;
     gap: 30px;
     max-width: 1304px;
     margin: auto;
-    margin-bottom: 49px;
+    margin-bottom: 0;
   }
   .info-card {
     max-width: 392px;
@@ -160,7 +160,7 @@ const ExpertMaintenanceSection: React.FC<{ title: string; description: string }>
   const words = useMemo(() => description.split(' '), [description])
 
   return (
-    <section className="py-12 md:py-16 lg:py-24 bg-white">
+    <section className="py-12 md:pb-[90px] md:pt-[106px] ">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <motion.div
           variants={containerVariants}
@@ -196,7 +196,7 @@ const ExpertMaintenanceSection: React.FC<{ title: string; description: string }>
             </motion.div>
 
             {/* Right - Content */}
-            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black mb-8 md:mb-12 lg:mb-[60px]">
+            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black max-w-[783px] ">
               <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center uppercase">
                 <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
                 <span>{title}</span>
@@ -205,7 +205,7 @@ const ExpertMaintenanceSection: React.FC<{ title: string; description: string }>
               <div className="space-y-6">
                 <p
                   ref={descriptionRef}
-                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-normal m-0 font-medium font-helvetica mb-6 md:mb-8 lg:mb-[50px] flex flex-wrap"
+                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-normal m-0 font-medium font-helvetica flex flex-wrap"
                 >
                   {words.map((word, i) => {
                     const start = i / words.length
@@ -328,6 +328,11 @@ export default function MaintenancePage() {
           <h1 className="maintenance-hero-title font-helvetica">{maintenanceData.heroSection.title}</h1>
           <p className="maintenance-hero-description">{maintenanceData.heroSection.description}</p>
         </motion.div>
+          {/* Expert Maintenance Section */}
+          <ExpertMaintenanceSection
+            title={maintenanceData.expertMaintenance.title}
+            description={maintenanceData.expertMaintenance.description}
+          />
 
         {/* Info Sections */}
         <div className="info-sections">
@@ -356,17 +361,10 @@ export default function MaintenancePage() {
           ))}
         </div>
       </div>
-
-      {/* Expert Maintenance Section */}
-      <ExpertMaintenanceSection
-        title={maintenanceData.expertMaintenance.title}
-        description={maintenanceData.expertMaintenance.description}
-      />
-
       <div className="maintenance-container" style={{ paddingTop: 0 }}>
         {/* Slider Section */}
         {maintenanceData.sliderSection.slides.length > 0 && (
-          <section className="pt-[50px] lg:pt-[90px] bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
+          <section className="py-[50px] lg:pt-[90px] lg:pb-[102px] bg-[#111111] text-white overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
             <div className="max-w-[1304px] mx-auto mb-[64px]" style={{ contain: 'layout style' }}>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -379,7 +377,7 @@ export default function MaintenancePage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="lg:col-span-1"
                   >
-                    <h2 className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+                    <h2 className="text-white font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
                       {maintenanceData.sliderSection.mainName}
                     </h2>
                   </motion.div>
@@ -390,7 +388,7 @@ export default function MaintenancePage() {
                     transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
                     className="lg:col-span-1 flex items-center justify-end"
                   >
-                    <p className="text-black font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                    <p className="text-white font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
                       {maintenanceData.sliderSection.mainTitle}
                     </p>
                   </motion.div>
@@ -404,7 +402,7 @@ export default function MaintenancePage() {
               transition={{ duration: 0.8, staggerChildren: 0.15 }}
               className="relative"
             >
-              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
+              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+-1rem)]">
                 <div className="relative overflow-visible" ref={constraintsRef}>
                   <motion.div
                     className="flex gap-5 cursor-grab active:cursor-grabbing"
@@ -434,7 +432,7 @@ export default function MaintenancePage() {
                     {maintenanceData.sliderSection.slides.map((slide, index) => (
                       <motion.div
                         key={`${slide.name}-${index}`}
-                        className="w-[1000px] flex-shrink-0 group transition-all duration-300"
+                        className="w-[936px] flex-shrink-0 group transition-all duration-300"
                         initial={{ opacity: 0, x: 50 }}
                         animate={{
                           opacity: 1,
@@ -461,12 +459,12 @@ export default function MaintenancePage() {
                           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
                         </div>
 
-                        <div className="pt-[42px] max-w-[420px]">
+                        <div className="pt-[42px] max-w-[656px]">
                           <div className="">
-                            <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
+                            <h3 className="text-[#fff] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                               {slide.name}
                             </h3>
-                            <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
+                            <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-white opacity-60">
                               {slide.description}
                             </p>
                           </div>
@@ -481,13 +479,13 @@ export default function MaintenancePage() {
         )}
 
         {/* Emergency Service Section (24/7) */}
-        <section className="pt-[50px] lg:pt-[90px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+        <section className="pt-[50px] lg:pt-[90px]  bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
           <div className="max-w-[1304px] mx-auto text-center">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-[64px] font-medium leading-[110%] tracking-[-1.28px] font-helvetica mb-[24px]"
+              className="text-[64px] font-medium leading-[110%] tracking-[-1.28px] font-helvetica mb-[14px]"
             >
               {maintenanceData.emergencyService.title}
             </motion.h2>
@@ -496,7 +494,7 @@ export default function MaintenancePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-[16px] leading-[160%] font-helvetica max-w-[855px] mx-auto mb-[52px]"
+              className="text-[16px] leading-[160%] font-helvetica max-w-[855px] mx-auto mb-[48px]"
             >
               {maintenanceData.emergencyService.description}
             </motion.p>
@@ -507,11 +505,11 @@ export default function MaintenancePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-[48px]"
+              className="grid grid-cols-1 md:grid-cols-3  mb-[73px] max-w-[720px] m-auto"
             >
               {maintenanceData.emergencyService.stats.map((stat, index) => (
-                <div key={index} className="border-r border-black last:border-r-0">
-                  <div className="text-[48px] md:text-[64px] font-medium leading-[110%] font-helvetica mb-[8px]">
+                <div key={index} className=" border-r border-[#00000033] last:border-r-0">
+                  <div className="text-[50px] font-medium leading-[110%] font-helvetica mb-[3px]">
                     {stat.value}
                   </div>
                   <div className="text-[16px] leading-[24px] font-helvetica opacity-80">
@@ -528,7 +526,7 @@ export default function MaintenancePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="inline-block px-[32px] py-[14px] rounded-[50px] bg-black text-white font-helvetica text-[16px] font-medium hover:bg-gray-800 transition-colors"
+              className="inline-block px-[32px] py-[8px] rounded-[50px] bg-black text-white font-helvetica text-[14px] font-medium hover:bg-gray-800 transition-colors"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -539,9 +537,9 @@ export default function MaintenancePage() {
 
         {/* Pricing Section */}
         {maintenanceData.servicePricing.packages.length > 0 && (
-          <section className="pt-[50px] lg:pt-[90px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+          <section className="pt-[50px] lg:pt-[72px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
             <div className="max-w-[1304px] mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-[9px]">
                 {maintenanceData.servicePricing.packages.map((pkg, index) => (
                   <motion.div
                     key={index}
@@ -549,26 +547,26 @@ export default function MaintenancePage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className={`rounded-[24px] p-[32px] border-2 ${
+                    className={`rounded-[25px] h-fit p-[35px] border-[3px] border-black shadow-[0_6px_0_0_#000,0_3px_0_0_#000] ${
                       pkg.featured
                         ? 'bg-black text-white border-black'
                         : 'bg-white text-black border-black'
                     }`}
                   >
                     {/* Package Name */}
-                    <div className={`inline-block px-[16px] py-[6px] rounded-[50px] text-[14px] font-medium mb-[24px] ${
+                    <div className={`inline-block px-[16px] py-[6px] rounded-[50px] text-[14px] font-medium mb-[25px] ${
                       pkg.featured ? 'bg-white text-black' : 'bg-black text-white'
                     }`}>
                       {pkg.name}
                     </div>
 
                     {/* Price */}
-                    <div className="mb-[8px]">
-                      <span className="text-[48px] font-medium leading-[110%] font-helvetica">
+                    <div className="mb-[15px]">
+                      <span className="text-[48px] font-[800] leading-[110%] font-helvetica">
                         {pkg.price}
                       </span>
                     </div>
-                    <div className={`text-[14px] mb-[32px] ${pkg.featured ? 'text-gray-400' : 'text-gray-600'}`}>
+                    <div className={`text-[14px] mb-[34px] ${pkg.featured ? 'text-gray-400' : 'text-gray-600'}`}>
                       {pkg.priceDescription || 'Per service interval'}
                     </div>
 
@@ -576,8 +574,8 @@ export default function MaintenancePage() {
                     <div className="space-y-[16px] mb-[32px]">
                       {pkg.features.map((feature, idx) => (
                         <div key={idx} className="flex items-start gap-[12px]">
-                          <svg className="w-5 h-5 mt-[2px] flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 20 24" fill="none">
+                            <path d="M2.5 12.5L8.23083 16.9083C8.65932 17.2379 9.27218 17.1673 9.6145 16.7489L18 6.5" stroke="#828282" stroke-width="2" stroke-linecap="round"/>
                           </svg>
                           <span className="text-[14px] leading-[20px]">{feature}</span>
                         </div>
@@ -587,7 +585,7 @@ export default function MaintenancePage() {
                     {/* Button */}
                     <motion.a
                       href={pkg.buttonLink || '#'}
-                      className={`block w-full py-[14px] rounded-[50px] text-center font-helvetica text-[16px] font-medium transition-colors ${
+                      className={`flex gap-[10px] items-center justify-center w-full py-[15px] px-5  rounded-[50px] text-center font-helvetica text-[16px] font-medium transition-colors ${
                         pkg.featured
                           ? 'bg-white text-black hover:bg-gray-100'
                           : 'bg-black text-white hover:bg-gray-800'
@@ -596,6 +594,9 @@ export default function MaintenancePage() {
                       whileTap={{ scale: 0.98 }}
                     >
                       {pkg.buttonText}
+                      <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
+                      <path d="M26.2071 8.70711C26.5976 8.31658 26.5976 7.68342 26.2071 7.29289L19.8431 0.928932C19.4526 0.538408 18.8195 0.538408 18.4289 0.928932C18.0384 1.31946 18.0384 1.95262 18.4289 2.34315L24.0858 8L18.4289 13.6569C18.0384 14.0474 18.0384 14.6805 18.4289 15.0711C18.8195 15.4616 19.4526 15.4616 19.8431 15.0711L26.2071 8.70711ZM0.5 8V9H25.5V8V7H0.5V8Z" fill="currentcolor"/>
+                    </svg>
                     </motion.a>
                   </motion.div>
                 ))}

@@ -7,23 +7,24 @@ import { getConsultation } from '@/content/queries'
 import { getProductShowcaseData, getExperienceXodiumData } from '@/sanity/lib/sanity'
 import type { Consultation } from '@/content/types'
 import type { ShowcaseProduct } from '@/content/types'
-import ProductShowcase from '@/components/ProductShowcase'
+
 import ExperienceXodiumSection from '@/components/ExperienceXodiumSection'
+import ProductShowcase from '@/components/Productconsultation'
 
 const criticalInlineStyles = `
   .consultation-container {
     max-width: 100%;
     margin: 0 auto;
-    padding-top: 120px;
+    padding-top: 138px;
     background: #F4F1F2;
     padding-inline: calc(var(--spacing) * 12);
-    padding-bottom: 80px;
+    padding-bottom: 69px;
   }
 
   /* Hero Section */
   .consultation-hero {
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 72px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -31,43 +32,53 @@ const criticalInlineStyles = `
   .consultation-hero-title {
    color: #000;
 text-align: center;
-font-family: "Helvetica Neue";
 font-size: 64px;
 font-style: normal;
 font-weight: 500;
 line-height: 110%; /* 70.4px */
 letter-spacing: -1.28px;
+margin-bottom:14px;
   }
   .consultation-hero-description {
     color: #111;
 text-align: center;
 font-feature-settings: 'liga' off, 'clig' off;
-font-family: "Helvetica Neue";
+
 font-size: 24px;
 font-style: normal;
 font-weight: 500;
 line-height: 150%; /* 36px */
 text-transform: capitalize;
+max-width: 855px;
+margin:auto;
   }
 
   /* Info Sections */
   .info-sections {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    // display: grid;
+    // grid-template-columns: repeat(3, 1fr);
+    display:flex;
     gap: 30px;
-    margin-bottom: 100px;
+    max-width: 1304px;
+    margin: auto;
+    margin-bottom: 49px;
   }
   .info-card {
-   
+    max-width: 392px;
+    width: 100%;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  
+  .info-card:nth-child(2){
+      max-width: 463px;
+      width: 100%;
+  }
   .info-card-image-wrapper {
     position: relative;
     width: 100%;
-    height: 300px;
-    overflow: hidden;
+    height: 260px;
+        border-radius: 20px;
+    overflow: hidden;    display: flex;
   }
   .info-card-image {
     width: 100%;
@@ -79,23 +90,24 @@ text-transform: capitalize;
     transform: scale(1.05);
   }
   .info-card-content {
-    padding: 30px;
+    padding-top: 31px;
   }
   .info-card-name {
    color: #111;
 text-align: center;
 font-feature-settings: 'liga' off, 'clig' off;
-font-family: "Helvetica Neue";
+
 font-size: 16px;
 font-style: normal;
 font-weight: 500;
 line-height: 150%; /* 24px */
 text-transform: capitalize;
+    margin-bottom: 8px;
   }
   .info-card-description {
-  color: var(--Text-2, #3F3E4B);
+  color: #3F3E4B;
 text-align: center;
-font-family: "Helvetica Neue";
+
 font-size: 16px;
 font-style: normal;
 font-weight: 400;
@@ -376,7 +388,7 @@ export default function ConsultationPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="consultation-hero-title">{consultationData.heroSection.title}</h1>
+          <h1 className="consultation-hero-title font-helvetica">{consultationData.heroSection.title}</h1>
           <p className="consultation-hero-description">{consultationData.heroSection.description}</p>
         </motion.div>
 
@@ -413,9 +425,9 @@ export default function ConsultationPage() {
       )}
         {/* Slider Section */}
         {consultationData.sliderSection.slides.length > 0 && (
-          <section className="py-16 lg:py-24 bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
-            {/* Header Section - Constrained */}
-            <div className="max-w-7xl mx-auto px-6 mb-[63px]" style={{ contain: 'layout style' }}>
+          <section className="pt-[50px] lg:pt-[90px] bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
+            {/* Header Section - Constrained max-w-7xl */}
+            <div className="max-w-[1304px] mx-auto  mb-[64px]" style={{ contain: 'layout style' }}>
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -500,7 +512,7 @@ export default function ConsultationPage() {
                         }}
                       >
                         {/* Media Content */}
-                        <div className="relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
+                        <div className= " h-[468px] w-full relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
                           {slide.image?.asset?.url && (
                             <Image
                               src={slide.image.asset.url}
@@ -516,9 +528,9 @@ export default function ConsultationPage() {
                         </div>
 
                         {/* Content */}
-                        <div className="pt-6 max-w-[420px]">
-                          <div className="mb-[48px]">
-                            <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[4px]">
+                        <div className="pt-[42px] max-w-[420px]">
+                          <div className="">
+                            <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                               {slide.name}
                             </h3>
                             <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">

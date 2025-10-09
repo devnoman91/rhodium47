@@ -494,7 +494,7 @@ export default function MaintenancePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-[16px] leading-[160%] font-helvetica max-w-[855px] mx-auto mb-[48px]"
+              className="text-[16px] leading-[160%] font-helvetica max-w-[855px] mx-auto mb-[52px]"
             >
               {maintenanceData.emergencyService.description}
             </motion.p>

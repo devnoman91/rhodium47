@@ -1339,9 +1339,10 @@ export const securitySystemsQuery = `
     securityFeatures {
       title,
       description,
-      countSection[] {
-        name,
-        value
+      bulletPoints[],
+      cards[] {
+        title,
+        description
       }
     },
     advancedProtection {

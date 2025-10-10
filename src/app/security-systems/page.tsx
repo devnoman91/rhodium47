@@ -158,13 +158,13 @@ const SecurityFeaturesSection: React.FC<{
   cards?: Array<{ title: string; description: string }>
 }> = ({ title, description, bulletPoints, cards }) => {
   return (
-    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+    <section className="pt-[79px] pb-[50px] lg:pb-[93px] bg-[#111111] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
       <div className="max-w-[1304px] mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[32px]"
+          className="text-white font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[44px]"
         >
           {title}
         </motion.h2>
@@ -174,7 +174,7 @@ const SecurityFeaturesSection: React.FC<{
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-[16px] leading-[24px] text-gray-700 mb-[48px] max-w-[800px]"
+          className="text-[16px] leading-[20px] text-[#FFFFFF80] mb-[20px] max-w-[855px]"
         >
           {description}
         </motion.p>
@@ -186,7 +186,7 @@ const SecurityFeaturesSection: React.FC<{
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="space-y-4 mb-[64px]"
+            className="space-y-4 mb-[68px]"
           >
             {bulletPoints.map((point, index) => (
               <motion.li
@@ -195,10 +195,10 @@ const SecurityFeaturesSection: React.FC<{
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="flex items-start gap-4"
+                className="flex items-center gap-2 m-0"
               >
-                <div className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></div>
-                <span className="text-[16px] leading-[24px] text-gray-800">
+                <div className="w-2 h-2 bg-[#FFFFFF80] rounded-full flex-shrink-0"></div>
+                <span className="text-[16px] leading-[24px] text-[#FFFFFF80]">
                   {point}
                 </span>
               </motion.li>
@@ -208,7 +208,7 @@ const SecurityFeaturesSection: React.FC<{
 
         {/* Cards */}
         {cards && cards.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[11px]">
             {cards.map((card, index) => (
               <motion.div
                 key={index}
@@ -216,12 +216,12 @@ const SecurityFeaturesSection: React.FC<{
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-[24px] p-[32px] border-2 border-black"
+                className="bg-[#1d1d1d] rounded-[30px] px-[40px] pt-[61px] pb-[67px]"
               >
-                <h3 className="text-[24px] font-medium leading-[150%] font-helvetica mb-[16px]">
+                <h3 className="text-[26px] text-white font-[400] leading-[30px] font-helvetica mb-[21px]">
                   {card.title}
                 </h3>
-                <p className="text-[16px] leading-[24px] text-gray-700">
+                <p className="text-[16px] leading-[26px] text-[#FFFFFFA1] max-w-[325px]">
                   {card.description}
                 </p>
               </motion.div>
@@ -233,7 +233,7 @@ const SecurityFeaturesSection: React.FC<{
   )
 }
 
-// Intelligent Power Management Section Component (with description, bullet points and cards)
+// Advanced Protection Section Component (with description, bullet points and cards)
 const AdvancedProtectionSection: React.FC<{
   title: string
   description: string
@@ -241,13 +241,13 @@ const AdvancedProtectionSection: React.FC<{
   cards: Array<{ title: string; description: string }>
 }> = ({ title, description, bulletPoints, cards }) => {
   return (
-    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+    <section className="pt-[79px] pb-[50px] lg:pb-[93px] bg-[#111111] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
       <div className="max-w-[1304px] mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[32px]"
+          className="text-white font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[44px]"
         >
           {title}
         </motion.h2>
@@ -257,7 +257,7 @@ const AdvancedProtectionSection: React.FC<{
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-[16px] leading-[24px] text-gray-700 mb-[48px] max-w-[800px]"
+          className="text-[16px] leading-[20px] text-[#FFFFFF80] mb-[20px] max-w-[855px]"
         >
           {description}
         </motion.p>
@@ -269,7 +269,7 @@ const AdvancedProtectionSection: React.FC<{
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="space-y-4 mb-[64px]"
+            className="space-y-4 mb-[68px]"
           >
             {bulletPoints.map((point, index) => (
               <motion.li
@@ -278,10 +278,10 @@ const AdvancedProtectionSection: React.FC<{
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="flex items-start gap-4"
+                className="flex items-center gap-2 m-0"
               >
-                <div className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></div>
-                <span className="text-[16px] leading-[24px] text-gray-800">
+                <div className="w-2 h-2 bg-[#FFFFFF80] rounded-full flex-shrink-0"></div>
+                <span className="text-[16px] leading-[24px] text-[#FFFFFF80]">
                   {point}
                 </span>
               </motion.li>
@@ -291,7 +291,7 @@ const AdvancedProtectionSection: React.FC<{
 
         {/* Cards */}
         {cards && cards.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[11px]">
             {cards.map((card, index) => (
               <motion.div
                 key={index}
@@ -299,12 +299,12 @@ const AdvancedProtectionSection: React.FC<{
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-[24px] p-[32px] border-2 border-black"
+                className="bg-[#1d1d1d] rounded-[30px] px-[40px] pt-[61px] pb-[67px]"
               >
-                <h3 className="text-[24px] font-medium leading-[150%] font-helvetica mb-[16px]">
+                <h3 className="text-[26px] text-white font-[400] leading-[30px] font-helvetica mb-[21px]">
                   {card.title}
                 </h3>
-                <p className="text-[16px] leading-[24px] text-gray-700">
+                <p className="text-[16px] leading-[26px] text-[#FFFFFFA1] max-w-[325px]">
                   {card.description}
                 </p>
               </motion.div>

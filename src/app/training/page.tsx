@@ -13,7 +13,7 @@ const criticalInlineStyles = `
     padding-top: 138px;
     background: #F4F1F2;
     padding-inline: calc(var(--spacing) * 12);
-    padding-bottom: 89px;
+    // padding-bottom: 89px;
   }
 
   /* Hero Section */
@@ -251,7 +251,7 @@ export default function TrainingPage() {
         </motion.div>
 
         {/* Info Sections with Bullet Points */}
-        <div className="info-sections">
+        <div className="info-sections pb-[89px]">
           {trainingData.infoSections.map((section, index) => (
             <motion.div
               key={index}
@@ -297,7 +297,7 @@ export default function TrainingPage() {
       <div className="training-container" style={{ paddingTop: 0 }}>
         {/* Slider Section */}
         {trainingData.sliderSection.slides.length > 0 && (
-          <section className="py-[50px] lg:pt-[90px] lg:pb-[87px] bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
+          <section className="py-[50px] lg:pt-[90px] lg:pb-[67px] bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
             <div className="max-w-[1332px] mx-auto mb-[44px]" style={{ contain: 'layout style' }}>
               <motion.div
                 initial={{ opacity: 0 }}

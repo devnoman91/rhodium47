@@ -1494,6 +1494,21 @@ export const texasFacilityQuery = `
         alt
       }
     },
+    facilityFeatures {
+      title,
+      description,
+      cards[] {
+        title,
+        description,
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        }
+      }
+    },
     sliderSection {
       mainName,
       mainTitle,

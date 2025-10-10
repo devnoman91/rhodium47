@@ -95,7 +95,73 @@ export default defineType({
       ],
     }),
 
-    // Fourth Section: Slider Section
+    // Fourth Section: Facility Features
+    defineField({
+      name: 'facilityFeatures',
+      title: 'Facility Features',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Title',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'cards',
+          title: 'Feature Cards',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'title',
+                  title: 'Title',
+                  type: 'string',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'description',
+                  title: 'Description',
+                  type: 'text',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'image',
+                  title: 'Image',
+                  type: 'image',
+                  options: {
+                    hotspot: true,
+                  },
+                  fields: [
+                    {
+                      name: 'alt',
+                      type: 'string',
+                      title: 'Alternative text',
+                    },
+                  ],
+                }),
+              ],
+              preview: {
+                select: {
+                  title: 'title',
+                  media: 'image',
+                },
+              },
+            },
+          ],
+        }),
+      ],
+    }),
+
+    // Fifth Section: Slider Section
     defineField({
       name: 'sliderSection',
       title: 'Slider Section',
@@ -161,7 +227,7 @@ export default defineType({
       ],
     }),
 
-    // Fifth Section: Design Process
+    // Sixth Section: Design Process
     defineField({
       name: 'designProcess',
       title: 'Production Process',
@@ -227,7 +293,7 @@ export default defineType({
       ],
     }),
 
-    // Sixth Section: By the Numbers Section
+    // Seventh Section: By the Numbers Section
     defineField({
       name: 'byTheNumbersSection',
       title: 'By the Numbers Section',
@@ -278,7 +344,7 @@ export default defineType({
       ],
     }),
 
-    // Seventh Section: Call to Action
+    // Eighth Section: Call to Action
     defineField({
       name: 'callToAction',
       title: 'Call to Action',

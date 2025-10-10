@@ -487,7 +487,11 @@ export default function BR6ProtectionPage() {
         />
 
        
-
+ {/* Threat Protection Matrix Section */}
+        <ThreatProtectionMatrixSection
+          title={protectionData.threatProtectionMatrix.title}
+          cards={protectionData.threatProtectionMatrix.cards}
+        />
         {/* Testing & Certification Slider Section */}
         {protectionData.testingCertificationSlider.slides.length > 0 && (
           <section className="pt-[50px] lg:pt-[89px]  bg-[#F4F1F2] pb-24 text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
@@ -604,11 +608,7 @@ export default function BR6ProtectionPage() {
           </section>
         )}
 
-        {/* Threat Protection Matrix Section */}
-        <ThreatProtectionMatrixSection
-          title={protectionData.threatProtectionMatrix.title}
-          cards={protectionData.threatProtectionMatrix.cards}
-        />
+       
       </div>
 
       {/* Call to Action Section */}

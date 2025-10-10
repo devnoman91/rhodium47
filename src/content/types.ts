@@ -1108,6 +1108,24 @@ export interface TexasFacilityInfoSection {
   }
 }
 
+export interface TexasFacilityFeatureCard {
+  title: string
+  description: string
+  image: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+}
+
+export interface TexasFacilityFeatures {
+  title: string
+  description: string
+  cards: TexasFacilityFeatureCard[]
+}
+
 export interface TexasFacilitySlide {
   name: string
   description: string
@@ -1167,6 +1185,7 @@ export interface TexasFacility {
   heroSection: TexasFacilityHeroSection
   manufacturingExcellence: TexasFacilityManufacturingExcellence
   infoSections: TexasFacilityInfoSection[]
+  facilityFeatures: TexasFacilityFeatures
   sliderSection: TexasFacilitySliderSection
   designProcess: TexasFacilityDesignProcess
   byTheNumbersSection: TexasFacilityByTheNumbersSection

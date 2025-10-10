@@ -109,8 +109,8 @@ const helveticaNeue = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "XHODIUM - Advanced Protection Technology",
-  description: "Experience revolutionary armor technology and luxury automotive excellence with XHODIUM's military-grade protection vehicles.",
+  title: "Luxury Armored Vehicles | Rhodium 45 Technologies",
+  description: "Leader in luxury armored vehicles crafted with Rhodium metal. From bulletproof SUVs and sedans to fully customized hybrid electric models, we deliver unmatched safety, performance, and comfort for VIPs, executives, and families worldwide.",
 };
 
 export default function RootLayout({

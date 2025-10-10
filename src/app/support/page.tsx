@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, JSX } from 'react'
 import { PortableText } from '@portabletext/react'
 import { getSupportPage } from '@/content/queries'
 import { getFAQData } from '@/sanity/lib/sanity'
@@ -396,9 +396,7 @@ export default function SupportPage() {
   const getCategoryIcon = (name: string) => {
     const icons: { [key: string]: string } = {
       'Purchasing': '🛒',
-      'Products': '🚗',
-      'Ownership': '🔑',
-      'Company': '🏢'
+     
     }
     return icons[name] || '📋'
   }

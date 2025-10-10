@@ -39,7 +39,7 @@ const buttonVariants = {
 
 const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data }) => {
   return (
-    <section className="py-16 lg:py-24 bg-gray-50">
+    <section className="py-16 lg:py-[120px] bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           variants={containerVariants}
@@ -47,10 +47,10 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[71px]">
             {/* Left - Title and Button */}
             <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
-                <h1 className="text-[62px] not-italic tracking-normal leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
+                <h1 className="text-[62px] not-italic tracking-[-1px] leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
                   style={{
                     background: "conic-gradient(from 180deg at 50% 116.28%, #000 0.91deg, rgba(0, 0, 0, 0.24) 360deg)",
                     WebkitBackgroundClip: "text",
@@ -72,16 +72,16 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
       delay: 0.3,
       ease: [0.4, 0, 0.2, 1],
     }}
-    className="relative overflow-hidden px-[24px] py-[8px] rounded-[50px] 
+    className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px] 
                border border-black bg-black text-white font-helvetica 
-               text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
+               text-[14px] font-[700] leading-[20px]  w-fit block cursor-pointer group"
     whileHover={{ scale: 1.02 }}
     whileTap={{ scale: 0.98 }}
   >
     {/* sliding overlay */}
     <span
       className="absolute inset-0 bg-white translate-x-full 
-                 transition-transform duration-500 ease-in-out rounded-[50px]
+                 transition-transform duration-500 ease-in-out rounded-[32px]
                  group-hover:translate-x-0"
     />
 

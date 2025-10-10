@@ -589,7 +589,7 @@ export default function CustomDesignPage() {
       </div>
 
       {/* Call to Action Section */}
-      <section className="py-16 lg:py-[120px] bg-gray-50">
+      <section className="py-16 lg:py-[120px] bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             variants={containerVariants}
@@ -622,7 +622,7 @@ export default function CustomDesignPage() {
                       delay: 0.3,
                       ease: [0.4, 0, 0.2, 1],
                     }}
-                    className="relative overflow-hidden px-[24px] py-[8px] rounded-[50px]
+                    className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
                                border border-black bg-black text-white font-helvetica
                                text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
                     whileHover={{ scale: 1.02 }}
@@ -631,7 +631,7 @@ export default function CustomDesignPage() {
                     {/* sliding overlay */}
                     <span
                       className="absolute inset-0 bg-white translate-x-full
-                                 transition-transform duration-500 ease-in-out rounded-[50px]
+                                 transition-transform duration-500 ease-in-out rounded-[32px]
                                  group-hover:translate-x-0"
                     />
 

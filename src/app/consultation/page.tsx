@@ -512,7 +512,7 @@ export default function ConsultationPage() {
                         }}
                       >
                         {/* Media Content */}
-                        <div className= " h-[468px] w-full relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
+                        <div className= "h-[468px] w-full relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
                           {slide.image?.asset?.url && (
                             <Image
                               src={slide.image.asset.url}

@@ -554,7 +554,7 @@ export default function TrainingPage() {
       </div>
 
       {/* Call to Action Section */}
-      <section className="py-16 lg:py-[120px] bg-gray-50">
+      <section className="py-16 lg:py-[120px] bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             variants={containerVariants}

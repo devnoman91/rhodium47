@@ -161,7 +161,7 @@ const ExpertMaintenanceSection: React.FC<{ title: string; description: string }>
 
   return (
     <section className="py-12 md:pb-[90px] md:pt-[106px] ">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+      <div className="max-w-[1304px] mx-auto px-4 md:px-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"

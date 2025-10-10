@@ -86,7 +86,7 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
     />
 
     {/* text */}
-    <span className="relative z-10 text-base lg:text-lg transition-colors duration-500 ease-in-out group-hover:text-black">
+    <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
       {data.button.text}
     </span>
   </motion.a>

@@ -16,6 +16,7 @@ const criticalInlineStyles = `
     padding-bottom: 0px;
   }
 
+
   /* Hero Section */
   .xodium-armor-hero {
     text-align: center;
@@ -161,7 +162,7 @@ const ManufacturingExcellenceSection: React.FC<{ title: string; description: str
 
   return (
     <section className="py-12 md:pb-[62px] md:pt-[0px]">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+      <div className="max-w-[1304px] mx-auto px-4 md:px-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -205,7 +206,7 @@ const ManufacturingExcellenceSection: React.FC<{ title: string; description: str
               <div className="space-y-6">
                 <p
                   ref={descriptionRef}
-                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-normal m-0 font-medium font-helvetica flex flex-wrap"
+                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-[-0.8px] m-0 font-medium font-helvetica flex flex-wrap"
                 >
                   {words.map((word, i) => {
                     const start = i / words.length
@@ -400,10 +401,10 @@ export default function XodiumArmorPage() {
                       transition={{ delay: index * 0.1 }}
                       className=""
                     >
-                      <div className="text-[35px] font-[500] text-white font-helvetica mb-[35px]">
+                      <div className="text-[35px] font-[500] text-white font-helvetica mb-[35px] leading-[30px]">
                          {count.name}
                       </div>
-                      <div className="max-w-[110px] text-[16px] text-[#FFFFFF80] font-[500] font-helvetica uppercase tracking-wider">
+                      <div className="max-w-[110px] text-[16px] text-[#FFFFFF80] font-[500] font-helvetica uppercase tracking-wider leading-[24px]">
                         {count.value} 
                       </div>
                     </motion.div>

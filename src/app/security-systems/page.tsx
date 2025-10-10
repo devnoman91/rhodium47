@@ -13,13 +13,13 @@ const criticalInlineStyles = `
     padding-top: 138px;
     background: #F4F1F2;
     padding-inline: calc(var(--spacing) * 12);
-    padding-bottom: 69px;
+    padding-bottom: 89px;
   }
 
   /* Hero Section */
   .security-systems-hero {
     text-align: center;
-    margin-bottom: 72px;
+    margin-bottom: 89px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -47,20 +47,24 @@ max-width: 855px;
 margin:auto;
   }
 
-  /* Info Sections */
+   /* Info Sections */
   .info-sections {
     display:flex;
     gap: 30px;
     max-width: 1304px;
     margin: auto;
-    margin-bottom: 49px;
-    flex-wrap: wrap;
+    margin-bottom: 62px;
+    // flex-wrap: wrap;
   }
-  .info-card {
-    max-width: 637px;
+    .info-card {
+    max-width: 392px;
     width: 100%;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .info-card:nth-child(2){
+      max-width: 463px;
+      width: 100%;
   }
   .info-card-image-wrapper {
     position: relative;
@@ -500,7 +504,7 @@ export default function SecuritySystemsPage() {
               transition={{ duration: 0.8, staggerChildren: 0.15 }}
               className="relative"
             >
-              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
+              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+-0.5rem)]">
                 <div className="relative overflow-visible" ref={constraintsRef}>
                   <motion.div
                     className="flex gap-5 cursor-grab active:cursor-grabbing"
@@ -530,7 +534,7 @@ export default function SecuritySystemsPage() {
                     {securityData.sliderSection.slides.map((slide, index) => (
                       <motion.div
                         key={`${slide.name}-${index}`}
-                        className="w-[1000px] flex-shrink-0 group transition-all duration-300"
+                        className="w-[936px] 2xl:w-[1100px] flex-shrink-0 group transition-all duration-300"
                         initial={{ opacity: 0, x: 50 }}
                         animate={{
                           opacity: 1,
@@ -557,7 +561,7 @@ export default function SecuritySystemsPage() {
                           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
                         </div>
 
-                        <div className="pt-[42px] max-w-[420px]">
+                        <div className="pt-[42px] max-w-[630px]">
                           <div className="">
                             <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                               {slide.name}

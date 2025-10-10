@@ -73,7 +73,7 @@ const portableTextComponents = {
 
       return (
         <div className="my-[40px] rounded-[16px] overflow-hidden">
-          <div className="relative w-full h-[400px] lg:h-[600px]">
+          <div className="relative flex-row w-full h-[400px] lg:h-[600px]">
             <Image
               src={imageUrl}
               alt={value.alt || 'Story image'}
@@ -104,21 +104,11 @@ const StoryHeroSection: React.FC<{
   }
 }> = ({ title, image }) => {
   return (
-    <section className="relative pt-[120px] pb-[60px] lg:pt-[160px] lg:pb-[80px] bg-black">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src={image.asset.url}
-          alt={image.alt || title}
-          fill
-          className="object-cover opacity-40"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black" />
-      </div>
+    <section  className=' pt-72'>
+     
 
       {/* Content */}
-      <div className="relative z-10 max-w-[1200px] mx-auto px-[20px] lg:px-[80px]">
+      <div className="">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -127,7 +117,7 @@ const StoryHeroSection: React.FC<{
           {/* Back Button */}
           <Link
             href="/customer-stories"
-            className="inline-flex items-center text-white/80 hover:text-white text-[14px] font-medium mb-[32px] transition-colors group"
+            className="inline-flex items-center  text-black text-[14px] font-medium mb-[32px] transition-colors group"
           >
             <svg
               className="w-5 h-5 mr-2 transition-transform group-hover:-translate-x-1"

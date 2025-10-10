@@ -602,7 +602,7 @@ export default function SecuritySystemsPage() {
       </div>
 
       {/* Call to Action Section */}
-      <section className="py-16 lg:py-24 bg-gray-50">
+      <section className="py-16 lg:py-[120px] bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             variants={containerVariants}
@@ -610,7 +610,7 @@ export default function SecuritySystemsPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[71px]">
               <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
                 <h1 className="text-[62px] not-italic tracking-normal leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
                   style={{
@@ -633,7 +633,7 @@ export default function SecuritySystemsPage() {
                       delay: 0.3,
                       ease: [0.4, 0, 0.2, 1],
                     }}
-                    className="relative overflow-hidden px-[24px] py-[8px] rounded-[50px]
+                    className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
                                border border-black bg-black text-white font-helvetica
                                text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
                     whileHover={{ scale: 1.02 }}
@@ -641,10 +641,10 @@ export default function SecuritySystemsPage() {
                   >
                     <span
                       className="absolute inset-0 bg-white translate-x-full
-                                 transition-transform duration-500 ease-in-out rounded-[50px]
+                                 transition-transform duration-500 ease-in-out rounded-[32px]
                                  group-hover:translate-x-0"
                     />
-                    <span className="relative z-10 text-base lg:text-lg transition-colors duration-500 ease-in-out group-hover:text-black">
+                    <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
                       {securityData.callToAction.buttonText}
                     </span>
                   </motion.a>
@@ -660,7 +660,7 @@ export default function SecuritySystemsPage() {
                   {securityData.callToAction.description.split('\n\n').map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[550px]"
+                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
                     >
                       {paragraph.trim()}
                     </p>

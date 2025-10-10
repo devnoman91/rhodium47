@@ -1400,3 +1400,30 @@ export interface ContactFormSubmission {
   status: 'new' | 'read' | 'responded'
   notes?: string
 }
+
+export interface SupportCategory {
+  name: string
+  icon?: string
+  content: any[] // Portable Text content
+}
+
+export interface SupportContactOption {
+  type: 'contact' | 'chat' | 'call'
+  label: string
+  value?: string
+  buttonText?: string
+}
+
+export interface SupportContactSection {
+  title: string
+  contactOptions: SupportContactOption[]
+}
+
+export interface SupportPage {
+  _id: string
+  title: string
+  description: string
+  searchPlaceholder?: string
+  categories: SupportCategory[]
+  contactSection: SupportContactSection
+}

@@ -13,6 +13,9 @@ import VehicleShowcase from "@/components/VehicleShowcase";
 import VehicleDiagram from "@/components/VehicleDiagram";
 import { getExperienceXodiumData, getFAQData, getHomeAboutData, getKeepExploringData, getNewsUpdatesData, getProductBlogData, getProductDetails, getProductShowcaseData, getProtectionData, getShowcaseInnovationData, getUtilityData } from "@/sanity/lib/sanity";
 
+// Revalidate every 60 seconds
+export const revalidate = 60
+
 export default async function Home() {
   // Fetch data from Sanity CMS
   const [aboutData, products, blogData, showcaseData, innovationData, protectionData, faqData, utilityData, keepExploringData, newsUpdatesData, experienceXodiumData] = await Promise.all([

@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
-import Link from 'next/link'
 import type { TexasFacility } from '@/content/types'
 import { getTexasFacility } from '@/content/queries'
 
@@ -38,46 +37,84 @@ const ManufacturingExcellenceSection: React.FC<{
   title: string
   description: string
 }> = ({ title, description }) => {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const descriptionRef = useRef<HTMLParagraphElement>(null)
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
+    target: descriptionRef,
+    offset: ["start 0.8", "end 0.2"]
   })
 
-  const words = description.split(' ')
+  const words = React.useMemo(() => description.split(' '), [description])
 
   return (
-    <section ref={containerRef} className="py-[80px] bg-[#F4F1F2]">
-      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
+    <section className="py-12 md:pb-[90px] md:pt-[106px] bg-[#F4F1F2]">
+      <div className="max-w-[1304px] mx-auto px-4 md:px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, staggerChildren: 0.15 }}
         >
-          <h2 className="text-[28px] lg:text-[48px] font-bold text-black mb-[24px]">{title}</h2>
-          <div className="text-[16px] lg:text-[20px] leading-relaxed max-w-[900px] mx-auto">
-            {words.map((word, index) => {
-              const start = index / words.length
-              const end = start + 1 / words.length
-              const opacity = useTransform(scrollYProgress, [start, end], [0.3, 1])
-              const color = useTransform(
-                scrollYProgress,
-                [start, end],
-                ['rgb(156, 163, 175)', 'rgb(0, 0, 0)']
-              )
-
-              return (
-                <motion.span
-                  key={index}
-                  style={{ opacity, color }}
-                  className="inline-block mr-[0.3em]"
+          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16">
+            {/* Left - Sunburst Icon */}
+            <motion.div
+              className="w-full max-w-[400px] hidden lg:flex lg:justify-start justify-center"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="relative mb-8 w-20 h-20 lg:w-20 lg:h-20 xl:w-25 xl:h-25 flex items-center justify-center">
+                <motion.svg
+                  className="absolute inset-0 w-full h-full"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+                  viewBox="0 0 102 102"
                 >
-                  {word}
-                </motion.span>
-              )
-            })}
+                <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="51" cy="51" r="40" stroke="#161618" strokeWidth="22" strokeDasharray="2 4"/>
+                  </svg>
+                </motion.svg>
+
+                <div className="relative w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center cursor-pointer z-10">
+                  <div className="text-lg md:text-2xl lg:text-3xl text-gray-900" style={{ transform: 'rotate(0deg)' }}>
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18.0006 1V14C18.0006 14.2652 17.8952 14.5196 17.7077 14.7071C17.5201 14.8946 17.2658 15 17.0006 15C16.7353 15 16.481 14.8946 16.2934 14.7071C16.1059 14.5196 16.0006 14.2652 16.0006 14V3.41375L1.70806 17.7075C1.52042 17.8951 1.26592 18.0006 1.00056 18.0006C0.735192 18.0006 0.480697 17.8951 0.293056 17.7075C0.105415 17.5199 0 17.2654 0 17C0 16.7346 0.105415 16.4801 0.293056 16.2925L14.5868 2H4.00056C3.73534 2 3.48099 1.89464 3.29345 1.70711C3.10591 1.51957 3.00056 1.26522 3.00056 1C3.00056 0.734784 3.10591 0.48043 3.29345 0.292893C3.48099 0.105357 3.73534 0 4.00056 0H17.0006C17.2658 0 17.5201 0.105357 17.7077 0.292893C17.8952 0.48043 18.0006 0.734784 18.0006 1Z" fill="#343330"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right - Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="my-0 pt-3 border-t border-black max-w-[773px]"
+            >
+              <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-[27px] font-helvetica items-center uppercase">
+                <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
+                <span>{title}</span>
+              </div>
+
+              <div className="space-y-6">
+                <p
+                  ref={descriptionRef}
+                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-[-0.8px] m-0 font-medium font-helvetica flex flex-wrap"
+                >
+                  {words.map((word, i) => {
+                    const start = i / words.length
+                    const end = (i + 1) / words.length
+                    const color = useTransform(scrollYProgress, [start, end], ['#7F7F7F', '#161618'])
+                    const opacity = useTransform(scrollYProgress, [start, end], [0.6, 1])
+                    return (
+                      <motion.span key={i} style={{ color, opacity }} className="mr-2">
+                        {word}
+                      </motion.span>
+                    )
+                  })}
+                </p>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
@@ -94,28 +131,37 @@ const InfoSections: React.FC<{
   }>
 }> = ({ sections }) => {
   return (
-    <section className="py-[80px] bg-white">
-      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[40px]">
+    <section className="bg-[#F4F1F2] pb-[49px]">
+      <div className="max-w-[1304px] mx-auto px-4 md:px-6">
+        <div className="flex flex-col lg:flex-row gap-[30px]">
           {sections.map((section, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="text-center"
+              transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+              className={`${
+                index === 1 ? 'max-w-[463px]' : 'max-w-[392px]'
+              } w-full overflow-hidden`}
             >
-              <div className="relative h-[200px] w-full rounded-[16px] overflow-hidden mb-[24px] mx-auto">
-                <Image
-                  src={section.image.asset.url}
-                  alt={section.image.alt || section.name}
-                  fill
-                  className="object-cover"
-                />
+              <div className="relative w-full h-[260px] rounded-[20px] overflow-hidden">
+                {section.image?.asset?.url && (
+                  <img
+                    src={section.image.asset.url}
+                    alt={section.image.alt || section.name}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                )}
               </div>
-              <h3 className="text-[24px] font-bold text-black mb-[16px]">{section.name}</h3>
-              <p className="text-[16px] text-gray-700 leading-relaxed">{section.description}</p>
+              <div className="pt-[31px]">
+                <h3 className="text-[#111] text-center font-medium text-[16px] leading-[150%] capitalize mb-[8px]">
+                  {section.name}
+                </h3>
+                <p className="text-[#3F3E4B] text-center text-[16px] font-normal leading-[20px]">
+                  {section.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -179,14 +225,17 @@ const SliderSection: React.FC<{
                   transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
                   viewBox="0 0 102 102"
                 >
-                  <circle cx="51" cy="51" r="40" stroke="#161618" strokeWidth="22" strokeDasharray="2 4"/>
+               <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="51" cy="51" r="40" stroke="#161618" strokeWidth="22" strokeDasharray="2 4"/>
+                  </svg>
                 </motion.svg>
 
                 <div className="relative w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center cursor-pointer z-10">
                   <div className="text-lg md:text-2xl lg:text-3xl text-gray-900" style={{ transform: 'rotate(0deg)' }}>
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M18.0006 1V14C18.0006 14.2652 17.8952 14.5196 17.7077 14.7071C17.5201 14.8946 17.2658 15 17.0006 15C16.7353 15 16.481 14.8946 16.2934 14.7071C16.1059 14.5196 16.0006 14.2652 16.0006 14V3.41375L1.70806 17.7075C1.52042 17.8951 1.26592 18.0006 1.00056 18.0006C0.735192 18.0006 0.480697 17.8951 0.293056 17.7075C0.105415 17.5199 0 17.2654 0 17C0 16.7346 0.105415 16.4801 0.293056 16.2925L14.5868 2H4.00056C3.73534 2 3.48099 1.89464 3.29345 1.70711C3.10591 1.51957 3.00056 1.26522 3.00056 1C3.00056 0.734784 3.10591 0.48043 3.29345 0.292893C3.48099 0.105357 3.73534 0 4.00056 0H17.0006C17.2658 0 17.5201 0.105357 17.7077 0.292893C17.8952 0.48043 18.0006 0.734784 18.0006 1Z" fill="#343330"/>
-                    </svg>
+                  </svg>
+
                   </div>
                 </div>
               </div>
@@ -278,9 +327,10 @@ const SliderSection: React.FC<{
                     className="absolute left-2 cursor-pointer md:left-4 top-auto bottom-[10px] -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 border border-white rounded-full flex items-center justify-center hover:bg-white/10 transition"
                     aria-label="Previous slide"
                   >
-                    <svg className="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
+                      <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="51" cy="51" r="40" stroke="#161618" strokeWidth="22" strokeDasharray="2 4"/>
+                  </svg>
+
                   </button>
 
                   <button
@@ -288,9 +338,9 @@ const SliderSection: React.FC<{
                     className="absolute right-2 cursor-pointer md:right-4 top-auto bottom-[10px] -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 border border-white rounded-full flex items-center justify-center hover:bg-white/10 transition"
                     aria-label="Next slide"
                   >
-                    <svg className="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18.0006 1V14C18.0006 14.2652 17.8952 14.5196 17.7077 14.7071C17.5201 14.8946 17.2658 15 17.0006 15C16.7353 15 16.481 14.8946 16.2934 14.7071C16.1059 14.5196 16.0006 14.2652 16.0006 14V3.41375L1.70806 17.7075C1.52042 17.8951 1.26592 18.0006 1.00056 18.0006C0.735192 18.0006 0.480697 17.8951 0.293056 17.7075C0.105415 17.5199 0 17.2654 0 17C0 16.7346 0.105415 16.4801 0.293056 16.2925L14.5868 2H4.00056C3.73534 2 3.48099 1.89464 3.29345 1.70711C3.10591 1.51957 3.00056 1.26522 3.00056 1C3.00056 0.734784 3.10591 0.48043 3.29345 0.292893C3.48099 0.105357 3.73534 0 4.00056 0H17.0006C17.2658 0 17.5201 0.105357 17.7077 0.292893C17.8952 0.48043 18.0006 0.734784 18.0006 1Z" fill="#343330"/>
+                  </svg>
                   </button>
                 </div>
               </div>
@@ -447,6 +497,26 @@ const ByTheNumbersSection: React.FC<{
   )
 }
 
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.8,
+      staggerChildren: 0.15
+    }
+  }
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0
+  }
+}
+
 // Call to Action Section
 const CallToActionSection: React.FC<{
   title: string
@@ -455,25 +525,72 @@ const CallToActionSection: React.FC<{
   buttonLink: string
 }> = ({ title, description, buttonText, buttonLink }) => {
   return (
-    <section className="py-[80px] bg-black">
-      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
+    <section className="py-16 lg:py-[120px] bg-white">
+      <div className="max-w-7xl mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
         >
-          <h2 className="text-[28px] lg:text-[48px] font-bold text-white mb-[16px]">{title}</h2>
-          <p className="text-[16px] lg:text-[18px] text-gray-300 max-w-[800px] mx-auto mb-[32px]">
-            {description}
-          </p>
-          <Link
-            href={buttonLink}
-            className="inline-block bg-white text-black px-[32px] py-[16px] rounded-full text-[16px] font-semibold hover:bg-gray-200 transition-colors"
-          >
-            {buttonText}
-          </Link>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[71px]">
+            <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
+              <h1 className="pr-1 text-[62px] not-italic tracking-normal leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
+                style={{
+                  background: "conic-gradient(from 180deg at 50% 116.28%, #000 0.91deg, rgba(0, 0, 0, 0.24) 360deg)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                {title}
+              </h1>
+
+              <div className="lg:col-span-1 space-y-8">
+                <motion.a
+                  href={buttonLink}
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.3,
+                    ease: [0.4, 0, 0.2, 1],
+                  }}
+                  className="relative overflow-hidden px-[24px] py-[8px] rounded-[50px]
+                             border border-black bg-black text-white font-helvetica
+                             text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span
+                    className="absolute inset-0 bg-white translate-x-full
+                               transition-transform duration-500 ease-in-out rounded-[50px]
+                               group-hover:translate-x-0"
+                  />
+                  <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
+                    {buttonText}
+                  </span>
+                </motion.a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              variants={itemVariants}
+              className="lg:col-span-1"
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <div className="space-y-5 flex flex-col justify-end items-end">
+                {description.split('\n\n').map((paragraph, index) => (
+                  <p
+                    key={index}
+                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
+                  >
+                    {paragraph.trim()}
+                  </p>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

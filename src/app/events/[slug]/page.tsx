@@ -313,34 +313,10 @@ export default function EventPage() {
 
       {/* Hero Section */}
       <section className="event-hero">
-        {event.featuredImage?.asset?.url && (
-          <img
-            src={event.featuredImage.asset.url}
-            alt={event.featuredImage.alt || event.title}
-            className="event-hero-image"
-          />
-        )}
+     
         <div className="event-hero-content">
           <h1 className="event-hero-title">{event.title}</h1>
-          <div className="event-hero-meta">
-            <div>{event.category}</div>
-            <div>
-              {new Date(event.eventDate).toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-              {event.eventEndDate && (
-                <> - {new Date(event.eventEndDate).toLocaleDateString('en-US', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}</>
-              )}
-            </div>
-          </div>
+         
           <p className="event-hero-description">{event.shortDescription}</p>
         </div>
       </section>

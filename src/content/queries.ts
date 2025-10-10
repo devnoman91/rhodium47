@@ -1901,3 +1901,30 @@ export const contactFormSubmissionsByStatusQuery = (status: string) => `
 export const getContactFormSubmissionsByStatus = async (status: string) => {
   return await client.fetch(contactFormSubmissionsByStatusQuery(status))
 }
+
+export const supportPageQuery = `
+  *[_type == "support-page"][0] {
+    _id,
+    title,
+    description,
+    searchPlaceholder,
+    categories[] {
+      name,
+      icon,
+      content
+    },
+    contactSection {
+      title,
+      contactOptions[] {
+        type,
+        label,
+        value,
+        buttonText
+      }
+    }
+  }
+`
+
+export const getSupportPage = async () => {
+  return await client.fetch(supportPageQuery)
+}

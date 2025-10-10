@@ -589,7 +589,7 @@ export default function CustomDesignPage() {
       </div>
 
       {/* Call to Action Section */}
-      <section className="py-16 lg:py-24 bg-gray-50">
+      <section className="py-16 lg:py-[120px] bg-gray-50">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             variants={containerVariants}
@@ -597,7 +597,7 @@ export default function CustomDesignPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[71px]">
               {/* Left - Title and Button */}
               <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
                 <h1 className="text-[62px] not-italic tracking-normal leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"

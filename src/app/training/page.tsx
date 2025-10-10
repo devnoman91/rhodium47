@@ -13,7 +13,7 @@ const criticalInlineStyles = `
     padding-top: 138px;
     background: #F4F1F2;
     padding-inline: calc(var(--spacing) * 12);
-    padding-bottom: 69px;
+    padding-bottom: 89px;
   }
 
   /* Hero Section */
@@ -48,12 +48,12 @@ margin:auto;
   }
 
   /* Info Sections */
-  .info-sections {
+  .training-container .info-sections {
     display:flex;
     gap: 30px;
     max-width: 1304px;
     margin: auto;
-    margin-bottom: 49px;
+    margin-bottom: 0;
   }
   .info-card {
     max-width: 392px;
@@ -85,9 +85,9 @@ margin:auto;
   .info-card-content {
     padding-top: 31px;
   }
-  .info-card-name {
+  .training-container .info-card-name {
    color: #111;
-text-align: center;
+text-align: left;
 font-feature-settings: 'liga' off, 'clig' off;
 font-size: 16px;
 font-style: normal;
@@ -96,9 +96,9 @@ line-height: 150%;
 text-transform: capitalize;
     margin-bottom: 8px;
   }
-  .info-card-description {
+ .training-container .info-card-description {
   color: #3F3E4B;
-text-align: center;
+text-align: left;
 font-size: 16px;
 font-style: normal;
 font-weight: 400;
@@ -269,16 +269,20 @@ export default function TrainingPage() {
                   />
                 )}
               </div>
-              <div className="info-card-content">
-                <h3 className="info-card-name">{section.name}</h3>
-                <p className="info-card-description">{section.description}</p>
+              <div className="info-card-content max-w-[347px]">
+                <h3 className="info-card-name text-left">{section.name}</h3>
+                <p className="info-card-description text-left">{section.description}</p>
                 {section.bulletPoints && section.bulletPoints.length > 0 && (
                   <ul className="mt-4 space-y-2 text-left">
                     {section.bulletPoints.map((point, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-[14px] text-gray-700">
-                        <svg className="w-4 h-4 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                      <li key={idx} className="flex items-start gap-1 m-0 text-[14px] text-gray-700">
+                        {/* <svg className="w-4 h-4 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg> */}
+                        <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="dot">
+                          <circle cx="12" cy="12" r="4" fill="currentColor"/>
                         </svg>
+
                         {point}
                       </li>
                     ))}
@@ -293,8 +297,8 @@ export default function TrainingPage() {
       <div className="training-container" style={{ paddingTop: 0 }}>
         {/* Slider Section */}
         {trainingData.sliderSection.slides.length > 0 && (
-          <section className="pt-[50px] lg:pt-[90px] bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
-            <div className="max-w-[1304px] mx-auto mb-[64px]" style={{ contain: 'layout style' }}>
+          <section className="py-[50px] lg:pt-[90px] lg:pb-[87px] bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
+            <div className="max-w-[1332px] mx-auto mb-[44px]" style={{ contain: 'layout style' }}>
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -331,7 +335,7 @@ export default function TrainingPage() {
               transition={{ duration: 0.8, staggerChildren: 0.15 }}
               className="relative"
             >
-              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
+              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+-1.5rem)]">
                 <div className="relative overflow-visible" ref={constraintsRef}>
                   <motion.div
                     className="flex gap-5 cursor-grab active:cursor-grabbing"
@@ -361,7 +365,7 @@ export default function TrainingPage() {
                     {trainingData.sliderSection.slides.map((slide, index) => (
                       <motion.div
                         key={`${slide.name}-${index}`}
-                        className="w-[1000px] flex-shrink-0 group transition-all duration-300"
+                        className="w-[936px] 2xl-w-[1100px] flex-shrink-0 group transition-all duration-300"
                         initial={{ opacity: 0, x: 50 }}
                         animate={{
                           opacity: 1,
@@ -388,7 +392,7 @@ export default function TrainingPage() {
                           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
                         </div>
 
-                        <div className="pt-[42px] max-w-[420px]">
+                        <div className="pt-[42px] max-w-[656px]">
                           <div className="">
                             <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                               {slide.name}
@@ -409,17 +413,17 @@ export default function TrainingPage() {
 
         {/* Training Levels Section */}
         {trainingData.trainingLevels.cards.length > 0 && (
-          <section className="pt-[50px] lg:pt-[90px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
-            <div className="max-w-[1304px] mx-auto">
+          <section className="pt-[50px] lg:pt-[90px] pb-[50px] lg:pb-[115px] bg-[#111] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+            <div className="max-w-[1332px] mx-auto">
               {/* Header */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-[64px]">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-[79px]">
                 <motion.div
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   className="lg:col-span-1"
                 >
-                  <h2 className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+                  <h2 className="text-white font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
                     {trainingData.trainingLevels.title}
                   </h2>
                 </motion.div>
@@ -431,14 +435,14 @@ export default function TrainingPage() {
                   transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
                   className="lg:col-span-1 flex items-center justify-end"
                 >
-                  <p className="text-black font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                  <p className="text-[#FFFFFFA1] font-medium text-[16px] leading-[160%] font-helvetica max-w-[517px]">
                     {trainingData.trainingLevels.description}
                   </p>
                 </motion.div>
               </div>
 
               {/* Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-[22px]">
                 {trainingData.trainingLevels.cards.map((card, index) => (
                   <motion.div
                     key={index}
@@ -446,12 +450,12 @@ export default function TrainingPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-white rounded-[24px] p-[32px] border-2 border-black"
+                    className="bg-[#1d1d1d] rounded-[30px] pt-[61px] pb-[57px] px-[40px] "
                   >
-                    <h3 className="text-[24px] font-medium leading-[150%] font-helvetica mb-[16px]">
+                    <h3 className="text-[26px]  text-white font-[400] leading-[30px] font-helvetica mb-[21px]">
                       {card.name}
                     </h3>
-                    <p className="text-[16px] leading-[24px] text-gray-700">
+                    <p className="text-[16px] leading-[24px] text-[#FFFFFFA1] max-w-[325px]">
                       {card.description}
                     </p>
                   </motion.div>
@@ -463,10 +467,10 @@ export default function TrainingPage() {
 
         {/* Training Facilities Section */}
         {trainingData.trainingFacilities.facilities.length > 0 && (
-          <section className="pt-[50px] lg:pt-[90px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
-            <div className="max-w-[1304px] mx-auto">
+          <section className="pt-[50px] lg:pt-[93px] pb-[50px] lg:pb-[87px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+            <div className="max-w-[1332px] mx-auto">
               {/* Header */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-[64px]">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-[71px]">
                 <motion.div
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -517,20 +521,24 @@ export default function TrainingPage() {
                       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
                     </div>
 
-                    <div className="pt-[42px]">
+                    <div className="pt-[32px] max-w-[530px]">
                       <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                         {facility.title}
                       </h3>
-                      <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60 mb-4">
+                      <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-[#3F3E4B] mb-4">
                         {facility.description}
                       </p>
                       {facility.bulletPoints && facility.bulletPoints.length > 0 && (
                         <ul className="space-y-2">
                           {facility.bulletPoints.map((point, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-[14px] text-gray-700">
-                              <svg className="w-4 h-4 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                            <li key={idx} className="flex items-start gap-2 text-[14px] m-0 text-[#3F3E4B]">
+                              {/* <svg className="w-4 h-4 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                              </svg>
+                              </svg> */}
+                              <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="dot">
+                                  <circle cx="12" cy="12" r="4" fill="currentColor"/>
+                                </svg>
+
                               {point}
                             </li>
                           ))}
@@ -546,7 +554,7 @@ export default function TrainingPage() {
       </div>
 
       {/* Call to Action Section */}
-      <section className="py-16 lg:py-24 bg-gray-50">
+      <section className="py-16 lg:py-[120px] bg-gray-50">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             variants={containerVariants}
@@ -554,9 +562,9 @@ export default function TrainingPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[71px]">
               <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
-                <h1 className="text-[62px] not-italic tracking-normal leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
+                <h1 className="pr-1 text-[62px] not-italic tracking-normal leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
                   style={{
                     background: "conic-gradient(from 180deg at 50% 116.28%, #000 0.91deg, rgba(0, 0, 0, 0.24) 360deg)",
                     WebkitBackgroundClip: "text",
@@ -588,7 +596,7 @@ export default function TrainingPage() {
                                  transition-transform duration-500 ease-in-out rounded-[50px]
                                  group-hover:translate-x-0"
                     />
-                    <span className="relative z-10 text-base lg:text-lg transition-colors duration-500 ease-in-out group-hover:text-black">
+                    <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
                       {trainingData.callToAction.buttonText}
                     </span>
                   </motion.a>
@@ -604,7 +612,7 @@ export default function TrainingPage() {
                   {trainingData.callToAction.description.split('\n\n').map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[550px]"
+                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
                     >
                       {paragraph.trim()}
                     </p>

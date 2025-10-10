@@ -12,20 +12,21 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
   mainHeading,
 }) => {
   return (
-    <section className="relative pt-[120px] pb-[60px] lg:pt-[160px] lg:pb-[80px] bg-white">
-      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
+    <section className="relative pb-[106px]">
+      <div className="max-w-[1200px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <p className="text-[14px] lg:text-[16px] font-medium text-gray-600 mb-[16px] uppercase tracking-wider">
-            {sectionLabel}
-          </p>
-          <h1 className="text-[32px] lg:text-[56px] xl:text-[64px] font-bold leading-tight text-black max-w-[1000px] mx-auto">
-            {mainHeading}
+          <h1 className="text-[64px] pt-30 font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto mb-6 font-helvetica">
+             {sectionLabel}
           </h1>
+          <p className="text-[24px] font-medium text-[#111] leading-[150%] capitalize max-w-[855px] mx-auto mb-[14px] font-helvetica">
+           {mainHeading}
+          </p>
+
         </motion.div>
       </div>
     </section>
@@ -382,41 +383,84 @@ const DesignProcessSection: React.FC<{
   }>
 }> = ({ title, description, sections }) => {
   return (
-    <section className="py-[80px] bg-white">
-      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
+    <section className="pt-[50px] lg:pt-[94px] bg-[#F4F1F2] text-black" style={{ contain: 'layout style' }}>
+      {/* Header Section */}
+      <div className="max-w-[1304px] mx-auto mb-[62px]" style={{ contain: 'layout style' }}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-[60px]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, staggerChildren: 0.15 }}
         >
-          <h2 className="text-[28px] lg:text-[48px] font-bold text-black mb-[16px]">{title}</h2>
-          <p className="text-[16px] lg:text-[18px] text-gray-700 max-w-[800px] mx-auto">
-            {description}
-          </p>
-        </motion.div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12  lg:gap-16">
+            {/* Left - Title */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="lg:col-span-1"
+            >
+              <h2 className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+                {title}
+              </h2>
+            </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[40px]">
+            {/* Right - Description */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+              className="lg:col-span-1 flex items-center justify-end"
+            >
+              <p className="text-black font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                {description}
+              </p>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Design Process Grid - 2 columns */}
+      <div className="max-w-[1304px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-[42px]">
           {sections.map((section, index) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
+              key={`${section.title}-${index}`}
+              className="group transition-all duration-300"
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-[24px] border-2 border-black p-[24px] hover:shadow-xl transition-shadow"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{
+                delay: (index % 2) * 0.1,
+                duration: 0.6,
+                ease: "easeOut"
+              }}
             >
-              <div className="relative h-[200px] rounded-[16px] overflow-hidden mb-[24px]">
-                <Image
-                  src={section.image.asset.url}
-                  alt={section.image.alt || section.title}
-                  fill
-                  className="object-cover"
-                />
+              {/* Media Content */}
+              <div className="h-[468px] w-full relative overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
+                {section.image?.asset?.url && (
+                  <Image
+                    src={section.image.asset.url}
+                    alt={section.image.alt || section.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px]"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
+                    loading="lazy"
+                    style={{ contain: 'layout style paint' }}
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
               </div>
-              <h3 className="text-[20px] font-bold text-black mb-[12px]">{section.title}</h3>
-              <p className="text-[14px] text-gray-700">{section.description}</p>
+
+              {/* Content */}
+              <div className="pt-[42px] max-w-[656px]">
+                <div className="">
+                  <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
+                    {section.title}
+                  </h3>
+                  <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
+                    {section.description}
+                  </p>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -440,17 +484,21 @@ const ByTheNumbersSection: React.FC<{
   const words = description.split(' ')
 
   return (
-    <section ref={containerRef} className="py-[80px] bg-[#F4F1F2]">
-      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
+    <section ref={containerRef} className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2]">
+      <div className="max-w-[1304px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-[48px]"
+          className="text-center mb-[96px] max-w-[810px] m-auto"
         >
-          <h2 className="text-[28px] lg:text-[48px] font-bold text-black mb-[24px]">{title}</h2>
-          <div className="text-[16px] lg:text-[20px] leading-relaxed max-w-[900px] mx-auto">
+          <div className="pt-3 border-t border-black flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-[30px] font-helvetica items-center uppercase">
+            <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
+             <h2>{title}</h2>
+          </div>
+
+          <div className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-[-0.8px] m-0 font-medium font-helvetica flex flex-wrap max-w-[810px] mx-auto">
             {words.map((word, index) => {
               const start = index / words.length
               const end = start + 1 / words.length
@@ -465,7 +513,7 @@ const ByTheNumbersSection: React.FC<{
                 <motion.span
                   key={index}
                   style={{ opacity, color }}
-                  className="inline-block mr-[0.3em]"
+                  className="inline-block mr-[0.2em]"
                 >
                   {word}
                 </motion.span>
@@ -475,7 +523,7 @@ const ByTheNumbersSection: React.FC<{
         </motion.div>
 
         {/* Count Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-[24px] lg:gap-[48px] mt-[48px]">
+        <div className="max-[1280px] m-auto grid grid-cols-2 md:grid-cols-4 gap-[24px] lg:gap-[48px] mt-[48px]">
           {countSection.map((item, index) => (
             <motion.div
               key={index}
@@ -485,10 +533,10 @@ const ByTheNumbersSection: React.FC<{
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="text-center"
             >
-              <p className="text-[36px] lg:text-[56px] font-bold text-black mb-[8px]">
+              <p className="border-b  border-[#777777] text-[20px] tracking-[-0.8px] font-[400] text-[#16161880] font-helvetica mb-[24px] pb-[31px]">
                 {item.value}
               </p>
-              <p className="text-[14px] lg:text-[16px] text-gray-700">{item.name}</p>
+              <p className="text-[20px] tracking-[-0.8px]  font-[500] text-[#7F7F7F] font-helvetica uppercase ">{item.name}</p>
             </motion.div>
           ))}
         </div>

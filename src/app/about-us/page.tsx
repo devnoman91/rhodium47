@@ -305,100 +305,164 @@ const ForeverSection: React.FC<{
     description: string
   }>
 }> = ({ title, description, cards }) => {
-  const [currentIndex, setCurrentIndex] = React.useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [dragX, setDragX] = useState(0)
+  const constraintsRef = useRef(null)
 
-  const nextCard = () => {
-    setCurrentIndex((prev) => (prev + 1) % cards.length)
+  const totalSlides = cards.length
+  const cardWidth = 1000 + 20 // card width + gap
+  const maxScroll = -(totalSlides - 1) * cardWidth
+
+  const slideLeft = () => {
+    if (currentIndex > 0) {
+      const newIndex = currentIndex - 1
+      setCurrentIndex(newIndex)
+      setDragX(-newIndex * cardWidth)
+    }
   }
 
-  const prevCard = () => {
-    setCurrentIndex((prev) => (prev - 1 + cards.length) % cards.length)
+  const slideRight = () => {
+    if (currentIndex < totalSlides - 1) {
+      const newIndex = currentIndex + 1
+      setCurrentIndex(newIndex)
+      setDragX(-newIndex * cardWidth)
+    }
   }
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowLeft') {
+        slideLeft()
+      } else if (event.key === 'ArrowRight') {
+        slideRight()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [currentIndex, totalSlides])
 
   return (
-    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-black">
-      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
+    <section className="pt-[50px] lg:pt-[90px] bg-black text-white overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
+      {/* Header Section - Constrained max-w-7xl */}
+      <div className="max-w-[1304px] mx-auto  mb-[64px]" style={{ contain: 'layout style' }}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-[64px] flex justify-between gap-[182px]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, staggerChildren: 0.15 }}
         >
-          <h2 className="text-[64px] lg:text-[48px] font-[500] text-white mb-[16px]">{title}</h2>
-          <p className="text-[16px] lg:text-[18px] text-white max-w-[517px] ml-auto">
-            {description}
-          </p>
-        </motion.div>
-
-        {/* Slider for mobile, grid for desktop */}
-        <div className="lg:hidden">
-          <div className="relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            {/* Left - Title */}
             <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.5 }}
-              className="bg-white rounded-[24px] border-2 border-black p-[24px]"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="lg:col-span-1"
             >
-              <div className="relative h-[468px] rounded-[20px] overflow-hidden mb-[42px]">
-                <Image
-                  src={cards[currentIndex].image.asset.url}
-                  alt={cards[currentIndex].image.alt || cards[currentIndex].title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <h3 className="text-[24px] font-[500] text-white mb-[9px]">
-                {cards[currentIndex].title}
-              </h3>
-              <p className="text-[14px] text-[#000]">{cards[currentIndex].description}</p>
+              <h2 className="text-white font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+                {title}
+              </h2>
             </motion.div>
 
-            {/* Navigation */}
-            <div className="flex justify-center gap-[16px] mt-[24px]">
-              <button
-                onClick={prevCard}
-                className="w-[40px] h-[40px] rounded-full bg-black text-white flex items-center justify-center"
-              >
-                ←
-              </button>
-              <button
-                onClick={nextCard}
-                className="w-[40px] h-[40px] rounded-full bg-black text-white flex items-center justify-center"
-              >
-                →
-              </button>
-            </div>
+            {/* Right - Description */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+              className="lg:col-span-1 flex items-center justify-end"
+            >
+              <p className="text-white font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                {description}
+              </p>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Slider - Extending Full Width */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, staggerChildren: 0.15 }}
+        className="relative"
+      >
+        {/* Left Padding for Content Alignment */}
+        <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+-1rem)]">
+          {/* Slider Container */}
+          <div className="relative overflow-visible" ref={constraintsRef}>
+            <motion.div
+              className="flex gap-5 cursor-grab active:cursor-grabbing"
+              drag="x"
+              dragConstraints={{
+                left: maxScroll,
+                right: 0
+              }}
+              dragElastic={0.1}
+              dragMomentum={false}
+              animate={{ x: dragX }}
+              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+              onDragEnd={(_, info) => {
+                const offset = info.offset.x
+                const velocity = info.velocity.x
+
+                if (Math.abs(offset) > 100 || Math.abs(velocity) > 500) {
+                  if (offset > 0 && currentIndex > 0) {
+                    slideLeft()
+                  } else if (offset < 0 && currentIndex < totalSlides - 1) {
+                    slideRight()
+                  }
+                }
+              }}
+              style={{ width: 'max-content' }}
+            >
+              {cards.map((card, index) => (
+                <motion.div
+                  key={`${card.title}-${index}`}
+                  className="w-[936px] 2xl:w-[1100px] flex-shrink-0 group transition-all duration-300"
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                    transition: {
+                      delay: index * 0.1,
+                      duration: 0.6,
+                      ease: "easeOut"
+                    }
+                  }}
+                >
+                  {/* Media Content */}
+                  <div className= "h-[468px] w-full relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
+                    {card.image?.asset?.url && (
+                      <Image
+                        src={card.image.asset.url}
+                        alt={card.image.alt || card.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px]"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        loading="lazy"
+                        style={{ contain: 'layout style paint' }}
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
+                  </div>
+
+                  {/* Content */}
+                  <div className="pt-[42px] max-w-[656px]">
+                    <div className="">
+                      <h3 className="text-white font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
+                        {card.title}
+                      </h3>
+                      <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-white opacity-60">
+                        {card.description}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </div>
-
-        {/* Grid for desktop */}
-        <div className="hidden lg:grid grid-cols-3 gap-[24px]">
-          {cards.map((card, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-[24px] border-2 border-black p-[24px] hover:shadow-xl transition-shadow"
-            >
-              <div className="relative h-[468px] rounded-[16px] overflow-hidden mb-[16px]">
-                <Image
-                  src={card.image.asset.url}
-                  alt={card.image.alt || card.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <h3 className="text-[20px] font-bold text-black mb-[12px]">{card.title}</h3>
-              <p className="text-[14px] text-gray-700">{card.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
+      </motion.div>
     </section>
   )
 }
@@ -595,8 +659,26 @@ const ByTheNumbersSection: React.FC<{
     </section>
   )
 }
+// Animation variants for Call to Action
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.8,
+      staggerChildren: 0.15
+    }
+  }
+}
 
-// Call to Action Section
+const itemVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0
+  }
+}
+
 const CallToActionSection: React.FC<{
   title: string
   description: string
@@ -604,25 +686,72 @@ const CallToActionSection: React.FC<{
   buttonLink: string
 }> = ({ title, description, buttonText, buttonLink }) => {
   return (
-    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-black">
-      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
+    <section className="py-16 lg:py-[120px] bg-white">
+      <div className="max-w-7xl mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
         >
-          <h2 className="text-[28px] lg:text-[48px] font-bold text-white mb-[16px]">{title}</h2>
-          <p className="text-[16px] lg:text-[18px] text-gray-300 max-w-[800px] mx-auto mb-[32px]">
-            {description}
-          </p>
-          <Link
-            href={buttonLink}
-            className="inline-block bg-white text-black px-[32px] py-[16px] rounded-full text-[16px] font-semibold hover:bg-gray-200 transition-colors"
-          >
-            {buttonText}
-          </Link>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[71px]">
+            <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
+              <h1 className="pr-1 text-[62px] not-italic tracking-normal leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
+                style={{
+                  background: "conic-gradient(from 180deg at 50% 116.28%, #000 0.91deg, rgba(0, 0, 0, 0.24) 360deg)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                {title}
+              </h1>
+
+              <div className="lg:col-span-1 space-y-8">
+                <motion.a
+                  href={buttonLink}
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.3,
+                    ease: [0.4, 0, 0.2, 1],
+                  }}
+                  className="relative overflow-hidden px-[24px] py-[8px] rounded-[50px]
+                             border border-black bg-black text-white font-helvetica
+                             text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span
+                    className="absolute inset-0 bg-white translate-x-full
+                               transition-transform duration-500 ease-in-out rounded-[50px]
+                               group-hover:translate-x-0"
+                  />
+                  <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
+                    {buttonText}
+                  </span>
+                </motion.a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              variants={itemVariants}
+              className="lg:col-span-1"
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <div className="space-y-5 flex flex-col justify-end items-end">
+                {description.split('\n\n').map((paragraph, index) => (
+                  <p
+                    key={index}
+                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
+                  >
+                    {paragraph.trim()}
+                  </p>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

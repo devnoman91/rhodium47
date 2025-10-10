@@ -267,40 +267,86 @@ const ThreatProtectionMatrixSection: React.FC<{
   cards: Array<{ title: string; description: string }>
 }> = ({ title, cards }) => {
   return (
-    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
-      <div className="max-w-[1304px] mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[64px]"
+    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#111111] text-white overflow-hidden -mx-[calc(var(--spacing)*12)] px-0">
+      {/* Top Section - Constrained */}
+      <div className="max-w-7xl mx-auto px-6 mb-16 lg:mb-20">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
         >
-          {title}
-        </motion.h2>
-
-        {/* Threat Cards */}
-        {cards && cards.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {cards.map((card, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-[24px] p-[32px] border-2 border-black"
-              >
-                <h3 className="text-[24px] font-medium leading-[150%] font-helvetica mb-[16px]">
-                  {card.title}
-                </h3>
-                <p className="text-[16px] leading-[24px] text-gray-700">
-                  {card.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        )}
+          {/* Main Title */}
+          <motion.div variants={itemVariants} className="mb-[70px]">
+            <h1 className="text-[64px] not-italic tracking-normal leading-[70px] font-medium font-helvetica">
+              {title}
+            </h1>
+          </motion.div>
+        </motion.div>
       </div>
+
+      {/* Cards Section - Extending Full Width */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="relative"
+      >
+        {/* Left Padding for Content Alignment */}
+        <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
+          {/* Slider Container */}
+          <div className="relative overflow-visible">
+            <motion.div
+              className="flex gap-6 cursor-grab active:cursor-grabbing pr-12"
+              drag="x"
+              dragConstraints={{ left: -((cards.length - 2.5) * 420), right: 0 }}
+              whileHover={{ x: -20 }}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+              whileDrag={{ cursor: "grabbing" }}
+              style={{ width: 'max-content' }}
+            >
+              {cards.map((card, index) => (
+                <motion.div
+                  key={`${card.title}-${index}`}
+                  className="w-[455px] flex-shrink-0"
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                    transition: {
+                      delay: index * 0.1,
+                      duration: 0.6,
+                      ease: "easeOut"
+                    }
+                  }}
+                >
+                  <motion.div
+                    variants={itemVariants}
+                    transition={{
+                      duration: 0.6,
+                      delay: index * 0.1,
+                      ease: [0.4, 0, 0.2, 1]
+                    }}
+                    className="pt-[60px] pr-[60px] pb-[30px] pl-[60px] rounded-[30px] bg-[rgba(255,255,255,0.05)] group flex flex-col justify-between h-[100%] w-[455px] p-6 duration-300"
+                  >
+                    {/* Content */}
+                    <div className="flex flex-col flex-1 mb-[30px]">
+                      <h3 className="text-white font-helvetica text-[26px] font-normal leading-[49px] mb-[12px]">
+                        {card.title}
+                      </h3>
+
+                      <p className="text-white/63 font-helvetica text-[16px] font-normal leading-[24px] m-0 flex-1">
+                        {card.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </motion.div>
     </section>
   )
 }

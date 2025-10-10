@@ -4,7 +4,10 @@ import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { getTraining } from '@/content/queries'
+import { getProductShowcaseData } from '@/sanity/lib/sanity'
 import type { Training } from '@/content/types'
+import type { ShowcaseProduct } from '@/content/types'
+import ProductShowcase from '@/components/Productconsultation'
 
 const criticalInlineStyles = `
   .training-container {
@@ -153,6 +156,7 @@ export default function TrainingPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [trainingData, setTrainingData] = useState<Training | null>(null)
+  const [showcaseData, setShowcaseData] = useState<ShowcaseProduct[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [dragX, setDragX] = useState(0)
   const constraintsRef = useRef(null)
@@ -161,9 +165,14 @@ export default function TrainingPage() {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const training = await getTraining()
+        const [training, showcase] = await Promise.all([
+          getTraining(),
+          getProductShowcaseData()
+        ])
         console.log('Training data:', training)
+        console.log('Showcase data:', showcase)
         setTrainingData(training)
+        setShowcaseData(showcase)
         setLoading(false)
       } catch (err) {
         console.error('Error fetching training:', err)
@@ -292,6 +301,12 @@ export default function TrainingPage() {
             </motion.div>
           ))}
         </div>
+
+        {showcaseData.length > 0 && (
+          <ProductShowcase
+            products={showcaseData}
+          />
+        )}
       </div>
 
       <div className="training-container" style={{ paddingTop: 0 }}>

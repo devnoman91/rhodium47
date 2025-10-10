@@ -143,29 +143,33 @@ const InfoSectionsComponent: React.FC<{
   }>
 }> = ({ sections }) => {
   return (
-    <section className="py-[50px] lg:py-[90px] bg-[#F4F1F2]">
-      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[32px]">
+    <section className="pb-[80px] bg-[#F4F1F2]">
+      <div className="max-w-[1304px] mx-auto">
+        <div className="flex gap-[30px]">
           {sections.map((section, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-[24px] overflow-hidden hover:shadow-xl transition-shadow"
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+              className={`overflow-hidden transition-transform duration-300 ease-in-out ${
+                index === 1 ? 'max-w-[463px] w-full' : 'max-w-[392px] w-full'
+              }`}
             >
-              <div className="relative h-[260px] w-full">
-                <Image
+              <div className="relative w-full h-[260px] rounded-[20px] overflow-hidden flex">
+                <img
                   src={section.image.asset.url}
                   alt={section.image.alt || section.name}
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-in-out hover:scale-105"
                 />
               </div>
-              <div className="p-[32px]">
-                <h3 className="text-[20px] font-semibold text-black mb-[12px]">{section.name}</h3>
-                <p className="text-[14px] text-gray-700">{section.description}</p>
+              <div className="pt-[31px]">
+                <h3 className="text-[#111] text-center font-[500] text-[16px] leading-[150%] capitalize mb-[8px] font-helvetica">
+                  {section.name}
+                </h3>
+                <p className="text-[#3F3E4B] text-center text-[16px] font-[400] leading-[20px]">
+                  {section.description}
+                </p>
               </div>
             </motion.div>
           ))}
@@ -384,42 +388,42 @@ const BenefitsPerksSection: React.FC<{
   }>
 }> = ({ title, description, benefits }) => {
   return (
-    <section className="py-[50px] lg:py-[90px] bg-[#F4F1F2]">
-      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
+    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2]">
+      <div className="max-w-[1304px] m-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-[48px]"
+          transition={{ duration: 0.6 }}
+          className="mb-[54px] flex justify-between gap-[182px]"
         >
-          <h2 className="text-[28px] lg:text-[48px] font-bold text-black mb-[16px]">{title}</h2>
-          <p className="text-[16px] lg:text-[18px] text-gray-700 max-w-[800px] mx-auto">
+          <h2 className="text-[64px] lg:text-[48px] font-[500] text-black mb-[16px]">{title}</h2>
+          <p className="text-[16px] lg:text-[18px] text-black max-w-[517px] ml-auto">
             {description}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[32px]">
           {benefits.map((benefit, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-[24px] p-[32px] border-2 border-black hover:shadow-xl transition-shadow"
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className=""
             >
-              <div className="relative h-[80px] w-[80px] rounded-full overflow-hidden mb-[24px] mx-auto">
-                <Image
+              <div className="relative h-[260px] rounded-[20px] overflow-hidden mb-[31px] mx-auto">
+                <img
                   src={benefit.image.asset.url}
                   alt={benefit.image.alt || benefit.title}
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
-              <h3 className="text-[20px] font-bold text-black mb-[12px] text-center">
+              <h3 className="text-[16px] leading-[1] font-[500] text-black mb-[8px] text-center">
                 {benefit.title}
               </h3>
-              <p className="text-[14px] text-gray-700 text-center">{benefit.description}</p>
+              <p className="text-[16px] text-[#3F3E4B] font-[400] text-center">{benefit.description}</p>
             </motion.div>
           ))}
         </div>

@@ -452,7 +452,7 @@ const ForeverSection: React.FC<{
                       <h3 className="text-white font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                         {card.title}
                       </h3>
-                      <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-white opacity-60">
+                      <p className="text-[16px] leading-[20px] pb-10 tracking-[0] m-0 font-normal font-helvetica text-white opacity-60">
                         {card.description}
                       </p>
                     </div>

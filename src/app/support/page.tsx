@@ -5,7 +5,7 @@ import { PortableText } from '@portabletext/react'
 import { getSupportPage } from '@/content/queries'
 import { getFAQData } from '@/sanity/lib/sanity'
 import type { SupportPage } from '@/content/types'
-import FAQSection from '@/components/FAQSection'
+import FAQSection from '@/components/supportfaq'
 
 const supportStyles = `
   .support-container {

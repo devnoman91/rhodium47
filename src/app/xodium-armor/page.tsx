@@ -389,7 +389,7 @@ export default function XodiumArmorPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="grid grid-cols-2 md:grid-cols-4 gap-[128px] mb-[64px]"
+                  className="flex flex-wrap gap-[128px] mb-[64px]"
                 >
                   {armorData.technicalSpecifications.countSection.map((count, index) => (
                     <motion.div
@@ -401,10 +401,10 @@ export default function XodiumArmorPage() {
                       className=""
                     >
                       <div className="text-[35px] font-[500] text-white font-helvetica mb-[35px]">
-                        {count.value}
+                         {count.name}
                       </div>
-                      <div className="text-[16px] text-[#FFFFFF80] font-[500] font-helvetica uppercase tracking-wider">
-                        {count.name}
+                      <div className="max-w-[110px] text-[16px] text-[#FFFFFF80] font-[500] font-helvetica uppercase tracking-wider">
+                        {count.value} 
                       </div>
                     </motion.div>
                   ))}
@@ -425,7 +425,7 @@ export default function XodiumArmorPage() {
                     <h3 className="text-[26px] text-white font-[400] leading-[30px] font-helvetica mb-[21px]">
                       {card.name}
                     </h3>
-                    <p className="text-[16px] leading-[26px] text-[#FFFFFFA1]">
+                    <p className="text-[16px] leading-[26px] text-[#FFFFFFA1] max-w-[325px]">
                       {card.description}
                     </p>
                   </motion.div>

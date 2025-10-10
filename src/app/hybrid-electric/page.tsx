@@ -19,32 +19,32 @@ const criticalInlineStyles = `
   /* Hero Section */
   .hybrid-electric-hero {
     text-align: center;
-    margin-bottom: 72px;
+    margin-bottom: 56px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
   }
   .hybrid-electric-hero-title {
    color: #000;
-text-align: center;
-font-size: 64px;
-font-style: normal;
-font-weight: 500;
-line-height: 110%;
-letter-spacing: -1.28px;
-margin-bottom:14px;
+  text-align: center;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 110%;
+  letter-spacing: -1.28px;
+  margin-bottom:14px;
   }
   .hybrid-electric-hero-description {
     color: #111;
-text-align: center;
-font-feature-settings: 'liga' off, 'clig' off;
-font-size: 24px;
-font-style: normal;
-font-weight: 500;
-line-height: 150%;
-text-transform: capitalize;
-max-width: 855px;
-margin:auto;
+    text-align: center;
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    text-transform: capitalize;
+    max-width: 855px;
+    margin:auto;
   }
 
   /* Info Sections */
@@ -54,13 +54,17 @@ margin:auto;
     max-width: 1304px;
     margin: auto;
     margin-bottom: 49px;
-    flex-wrap: wrap;
+    // flex-wrap: wrap;
   }
-  .info-card {
-    max-width: 637px;
+    .info-card {
+    max-width: 392px;
     width: 100%;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .info-card:nth-child(2){
+      max-width: 463px;
+      width: 100%;
   }
   .info-card-image-wrapper {
     position: relative;
@@ -161,7 +165,7 @@ const PerformanceMetricsSection: React.FC<{
   const words = useMemo(() => description ? description.split(' ') : [], [description])
 
   return (
-    <section className="pt-[50px] lg:pt-[90px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+    <section className="pt-[50px] lg:pt-[90px] pb-[50px] lg:pb-[78px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
       <div className="max-w-[1304px] mx-auto">
         <motion.div
           variants={containerVariants}
@@ -171,7 +175,7 @@ const PerformanceMetricsSection: React.FC<{
         >
           <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 mb-[64px]">
             {/* Left - Sunburst Icon */}
-            <motion.div
+            {/* <motion.div
               className="w-full max-w-[400px] hidden lg:flex lg:justify-start justify-center"
             >
               <div className="relative mb-8 w-20 h-20 lg:w-20 lg:h-20 xl:w-25 xl:h-25 flex items-center justify-center">
@@ -194,10 +198,10 @@ const PerformanceMetricsSection: React.FC<{
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </motion.div> */}
 
             {/* Right - Content */}
-            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black max-w-[783px]">
+            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black max-w-[810px] m-auto">
               <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center uppercase">
                 <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
                 <span>{title}</span>
@@ -206,7 +210,7 @@ const PerformanceMetricsSection: React.FC<{
               <div className="space-y-6">
                 <p
                   ref={descriptionRef}
-                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-normal m-0 font-medium font-helvetica flex flex-wrap"
+                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-[-0.8px] m-0 font-medium font-helvetica flex flex-wrap"
                 >
                   {words.map((word, i) => {
                     const start = i / words.length
@@ -232,7 +236,7 @@ const PerformanceMetricsSection: React.FC<{
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-[1280px] m-auto"
           >
             {countSection.map((count, index) => (
               <motion.div
@@ -243,11 +247,11 @@ const PerformanceMetricsSection: React.FC<{
                 transition={{ delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="text-[48px] font-bold text-black font-helvetica mb-2">
-                  {count.value}
-                </div>
-                <div className="text-[14px] text-gray-600 font-helvetica uppercase tracking-wider">
+               <div className="border-b  border-[#777777] text-[20px] tracking-[-0.8px] font-[400] text-[#16161880] font-helvetica mb-[24px] pb-[31px]">
                   {count.name}
+                </div>
+                <div className="text-[20px] tracking-[-0.8px]  font-[500] text-[#7F7F7F] font-helvetica uppercase ">
+                  {count.value}
                 </div>
               </motion.div>
             ))}
@@ -266,13 +270,13 @@ const IntelligentPowerManagementSection: React.FC<{
   cards: Array<{ title: string; description: string }>
 }> = ({ title, description, bulletPoints, cards }) => {
   return (
-    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+    <section className="pt-[79px] pb-[50px] lg:pb-[93px] bg-[#111111] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
       <div className="max-w-[1304px] mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[32px]"
+          className="text-white font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[44px]"
         >
           {title}
         </motion.h2>
@@ -282,7 +286,7 @@ const IntelligentPowerManagementSection: React.FC<{
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-[16px] leading-[24px] text-gray-700 mb-[48px] max-w-[800px]"
+          className="text-[16px] leading-[20px] text-[#FFFFFF80] mb-[20px] max-w-[855px]"
         >
           {description}
         </motion.p>
@@ -294,7 +298,7 @@ const IntelligentPowerManagementSection: React.FC<{
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="space-y-4 mb-[64px]"
+            className="space-y-4 mb-[68px]"
           >
             {bulletPoints.map((point, index) => (
               <motion.li
@@ -303,10 +307,10 @@ const IntelligentPowerManagementSection: React.FC<{
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="flex items-start gap-4"
+                className="flex items-center gap-2 m-0"
               >
-                <div className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></div>
-                <span className="text-[16px] leading-[24px] text-gray-800">
+                <div className="w-2 h-2 bg-[#FFFFFF80] rounded-full flex-shrink-0"></div>
+                <span className="text-[16px] leading-[24px] text-[#FFFFFF80]">
                   {point}
                 </span>
               </motion.li>
@@ -316,7 +320,7 @@ const IntelligentPowerManagementSection: React.FC<{
 
         {/* Cards */}
         {cards && cards.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[11px]">
             {cards.map((card, index) => (
               <motion.div
                 key={index}
@@ -324,12 +328,12 @@ const IntelligentPowerManagementSection: React.FC<{
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-[24px] p-[32px] border-2 border-black"
+                className="bg-[#1d1d1d] rounded-[30px] px-[40px] pt-[61px] pb-[67px]"
               >
-                <h3 className="text-[24px] font-medium leading-[150%] font-helvetica mb-[16px]">
+                <h3 className="text-[26px] text-white font-[400] leading-[30px] font-helvetica mb-[21px]">
                   {card.title}
                 </h3>
-                <p className="text-[16px] leading-[24px] text-gray-700">
+                <p className="text-[16px] leading-[26px] text-[#FFFFFFA1] max-w-[325px]">
                   {card.description}
                 </p>
               </motion.div>
@@ -486,7 +490,7 @@ export default function HybridElectricPage() {
 
         {/* Slider Section */}
         {hybridData.sliderSection.slides.length > 0 && (
-          <section className="pt-[50px] lg:pt-[90px] bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
+          <section className="pt-[50px] lg:pt-[114px] bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
             <div className="max-w-[1304px] mx-auto mb-[64px]" style={{ contain: 'layout style' }}>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -581,7 +585,7 @@ export default function HybridElectricPage() {
                           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
                         </div>
 
-                        <div className="pt-[42px] max-w-[420px]">
+                        <div className="pt-[42px] max-w-[630px]">
                           <div className="">
                             <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                               {slide.name}
@@ -602,7 +606,7 @@ export default function HybridElectricPage() {
       </div>
 
       {/* Call to Action Section */}
-      <section className="py-16 lg:py-24 bg-gray-50">
+      <section className="py-16 lg:py-[120px] bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             variants={containerVariants}
@@ -610,9 +614,9 @@ export default function HybridElectricPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[71px]">
               <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
-                <h1 className="text-[62px] not-italic tracking-normal leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
+                <h1 className="text-[62px] not-italic tracking-[-1px] leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
                   style={{
                     background: "conic-gradient(from 180deg at 50% 116.28%, #000 0.91deg, rgba(0, 0, 0, 0.24) 360deg)",
                     WebkitBackgroundClip: "text",
@@ -633,18 +637,18 @@ export default function HybridElectricPage() {
                       delay: 0.3,
                       ease: [0.4, 0, 0.2, 1],
                     }}
-                    className="relative overflow-hidden px-[24px] py-[8px] rounded-[50px]
+                    className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
                                border border-black bg-black text-white font-helvetica
-                               text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
+                               text-[14px] leading-[20px] font-[700] w-fit block cursor-pointer group"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <span
                       className="absolute inset-0 bg-white translate-x-full
-                                 transition-transform duration-500 ease-in-out rounded-[50px]
+                                 transition-transform duration-500 ease-in-out rounded-[32px]
                                  group-hover:translate-x-0"
                     />
-                    <span className="relative z-10 text-base lg:text-lg transition-colors duration-500 ease-in-out group-hover:text-black">
+                    <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
                       {hybridData.callToAction.buttonText}
                     </span>
                   </motion.a>
@@ -660,7 +664,7 @@ export default function HybridElectricPage() {
                   {hybridData.callToAction.description.split('\n\n').map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[550px]"
+                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
                     >
                       {paragraph.trim()}
                     </p>

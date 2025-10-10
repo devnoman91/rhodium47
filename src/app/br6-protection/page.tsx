@@ -13,13 +13,13 @@ const criticalInlineStyles = `
     padding-top: 138px;
     background: #F4F1F2;
     padding-inline: calc(var(--spacing) * 12);
-    padding-bottom: 69px;
+    padding-bottom: 89px;
   }
 
   /* Hero Section */
   .br6-protection-hero {
     text-align: center;
-    margin-bottom: 72px;
+    margin-bottom: 62px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -48,18 +48,22 @@ margin:auto;
   }
 
   /* Info Sections */
-  .info-sections {
+  .br6-protection-container .info-sections {
     display:flex;
     gap: 30px;
     max-width: 1304px;
     margin: auto;
-    margin-bottom: 49px;
+    margin-bottom: 0px;
   }
-  .info-card {
-    max-width: 637px;
+    .info-card {
+    max-width: 392px;
     width: 100%;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .info-card:nth-child(2){
+      max-width: 463px;
+      width: 100%;
   }
   .info-card-image-wrapper {
     position: relative;
@@ -160,7 +164,7 @@ const InternationalCertificationsSection: React.FC<{
   const words = useMemo(() => description ? description.split(' ') : [], [description])
 
   return (
-    <section className="pt-[50px] lg:pt-[90px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+    <section className="pt-[50px] lg:pt-[108px] pb-[50px] lg:pb-[54px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
       <div className="max-w-[1304px] mx-auto">
         <motion.div
           variants={containerVariants}
@@ -168,9 +172,9 @@ const InternationalCertificationsSection: React.FC<{
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 mb-[64px]">
+          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 mb-[96px]">
             {/* Left - Sunburst Icon */}
-            <motion.div
+            {/* <motion.div
               className="w-full max-w-[400px] hidden lg:flex lg:justify-start justify-center"
             >
               <div className="relative mb-8 w-20 h-20 lg:w-20 lg:h-20 xl:w-25 xl:h-25 flex items-center justify-center">
@@ -193,10 +197,10 @@ const InternationalCertificationsSection: React.FC<{
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </motion.div> */}
 
             {/* Right - Content */}
-            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black max-w-[783px]">
+            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black max-w-[810px] m-auto">
               <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center uppercase">
                 <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
                 <span>{title}</span>
@@ -205,7 +209,7 @@ const InternationalCertificationsSection: React.FC<{
               <div className="space-y-6">
                 <p
                   ref={descriptionRef}
-                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-normal m-0 font-medium font-helvetica flex flex-wrap"
+                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-[-0.8px] m-0 font-medium font-helvetica flex flex-wrap"
                 >
                   {words.map((word, i) => {
                     const start = i / words.length
@@ -231,7 +235,7 @@ const InternationalCertificationsSection: React.FC<{
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-[1280px] m-auto"
           >
             {countSection.map((count, index) => (
               <motion.div
@@ -242,11 +246,11 @@ const InternationalCertificationsSection: React.FC<{
                 transition={{ delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="text-[48px] font-bold text-black font-helvetica mb-2">
-                  {count.value}
-                </div>
-                <div className="text-[14px] text-gray-600 font-helvetica uppercase tracking-wider">
+                <div className="border-b  border-[#777777] text-[20px] tracking-[-0.4px] font-[400] text-[#16161880] font-helvetica mb-[24px] pb-[31px]">
                   {count.name}
+                </div>
+                <div className="text-[20px] tracking-[-0.8px]  font-[500] text-[#7F7F7F] font-helvetica uppercase ">
+                  {count.value}
                 </div>
               </motion.div>
             ))}
@@ -401,15 +405,8 @@ export default function BR6ProtectionPage() {
           <h1 className="br6-protection-hero-title font-helvetica">{protectionData.heroSection.title}</h1>
           <p className="br6-protection-hero-description">{protectionData.heroSection.description}</p>
         </motion.div>
-
-        {/* International Certifications Section */}
-        <InternationalCertificationsSection
-          title={protectionData.internationalCertifications.title}
-          description={protectionData.internationalCertifications.description}
-          countSection={protectionData.internationalCertifications.countSection}
-        />
-
-        {/* Info Sections (2 cards) */}
+        
+         {/* Info Sections (2 cards) */}
         <div className="info-sections">
           {protectionData.infoSections.map((section, index) => (
             <motion.div
@@ -436,9 +433,18 @@ export default function BR6ProtectionPage() {
           ))}
         </div>
 
+        {/* International Certifications Section */}
+        <InternationalCertificationsSection
+          title={protectionData.internationalCertifications.title}
+          description={protectionData.internationalCertifications.description}
+          countSection={protectionData.internationalCertifications.countSection}
+        />
+
+       
+
         {/* Testing & Certification Slider Section */}
         {protectionData.testingCertificationSlider.slides.length > 0 && (
-          <section className="pt-[50px] lg:pt-[90px] bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
+          <section className="pt-[50px] lg:pt-[89px]  bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
             <div className="max-w-[1304px] mx-auto mb-[64px]" style={{ contain: 'layout style' }}>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -476,7 +482,7 @@ export default function BR6ProtectionPage() {
               transition={{ duration: 0.8, staggerChildren: 0.15 }}
               className="relative"
             >
-              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
+              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+-0.5rem)]">
                 <div className="relative overflow-visible" ref={constraintsRef}>
                   <motion.div
                     className="flex gap-5 cursor-grab active:cursor-grabbing"
@@ -506,7 +512,7 @@ export default function BR6ProtectionPage() {
                     {protectionData.testingCertificationSlider.slides.map((slide, index) => (
                       <motion.div
                         key={`${slide.name}-${index}`}
-                        className="w-[1000px] flex-shrink-0 group transition-all duration-300"
+                        className="w-[936px] 2xl:w-[1000px] flex-shrink-0 group transition-all duration-300"
                         initial={{ opacity: 0, x: 50 }}
                         animate={{
                           opacity: 1,
@@ -533,7 +539,7 @@ export default function BR6ProtectionPage() {
                           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
                         </div>
 
-                        <div className="pt-[42px] max-w-[420px]">
+                        <div className="pt-[42px] max-w-[630px]">
                           <div className="">
                             <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                               {slide.name}
@@ -560,7 +566,7 @@ export default function BR6ProtectionPage() {
       </div>
 
       {/* Call to Action Section */}
-      <section className="py-16 lg:py-24 bg-gray-50">
+      <section className="py-16 lg:py-[120px] bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             variants={containerVariants}
@@ -568,9 +574,9 @@ export default function BR6ProtectionPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[71px]">
               <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
-                <h1 className="text-[62px] not-italic tracking-normal leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
+                <h1 className="text-[62px] not-italic tracking-[-1px] leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
                   style={{
                     background: "conic-gradient(from 180deg at 50% 116.28%, #000 0.91deg, rgba(0, 0, 0, 0.24) 360deg)",
                     WebkitBackgroundClip: "text",
@@ -591,15 +597,15 @@ export default function BR6ProtectionPage() {
                       delay: 0.3,
                       ease: [0.4, 0, 0.2, 1],
                     }}
-                    className="relative overflow-hidden px-[24px] py-[8px] rounded-[50px]
+                    className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
                                border border-black bg-black text-white font-helvetica
-                               text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
+                               text-[14px] leading-[20px] font-[700] w-fit block cursor-pointer group"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <span
                       className="absolute inset-0 bg-white translate-x-full
-                                 transition-transform duration-500 ease-in-out rounded-[50px]
+                                 transition-transform duration-500 ease-in-out rounded-[32px]
                                  group-hover:translate-x-0"
                     />
                     <span className="relative z-10 text-base lg:text-lg transition-colors duration-500 ease-in-out group-hover:text-black">
@@ -618,7 +624,7 @@ export default function BR6ProtectionPage() {
                   {protectionData.callToAction.description.split('\n\n').map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[550px]"
+                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
                     >
                       {paragraph.trim()}
                     </p>

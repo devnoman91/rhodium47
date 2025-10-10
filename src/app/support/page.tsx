@@ -3,7 +3,9 @@
 import { useState, useEffect } from 'react'
 import { PortableText } from '@portabletext/react'
 import { getSupportPage } from '@/content/queries'
+import { getFAQData } from '@/sanity/lib/sanity'
 import type { SupportPage } from '@/content/types'
+import FAQSection from '@/components/FAQSection'
 
 const supportStyles = `
   .support-container {
@@ -342,6 +344,7 @@ const portableTextComponents = {
 
 export default function SupportPage() {
   const [supportData, setSupportData] = useState<SupportPage | null>(null)
+  const [faqData, setFaqData] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [activeCategory, setActiveCategory] = useState<number>(0)
   const [searchQuery, setSearchQuery] = useState('')
@@ -349,8 +352,12 @@ export default function SupportPage() {
   useEffect(() => {
     const fetchSupportData = async () => {
       try {
-        const data = await getSupportPage()
-        setSupportData(data)
+        const [support, faq] = await Promise.all([
+          getSupportPage(),
+          getFAQData()
+        ])
+        setSupportData(support)
+        setFaqData(faq)
       } catch (error) {
         console.error('Error fetching support data:', error)
       } finally {
@@ -485,6 +492,15 @@ export default function SupportPage() {
               ))}
             </div>
           </section>
+        )}
+
+        {/* FAQ Section */}
+        {faqData && (
+          <FAQSection
+            data={faqData}
+            backgroundColor="white"
+            textColor="#000"
+          />
         )}
       </div>
     </>

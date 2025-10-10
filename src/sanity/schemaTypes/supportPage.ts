@@ -9,13 +9,13 @@ export default defineType({
       name: 'title',
       title: 'Page Title',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+  
     }),
     defineField({
       name: 'description',
       title: 'Page Description',
       type: 'text',
-      validation: (Rule) => Rule.required(),
+  
     }),
     defineField({
       name: 'searchPlaceholder',
@@ -35,7 +35,7 @@ export default defineType({
               name: 'name',
               title: 'Category Name',
               type: 'string',
-              validation: (Rule) => Rule.required(),
+          
             }),
             defineField({
               name: 'icon',
@@ -87,7 +87,7 @@ export default defineType({
                   },
                 },
               ],
-              validation: (Rule) => Rule.required(),
+          
             }),
           ],
           preview: {
@@ -135,13 +135,13 @@ export default defineType({
                       { title: 'Call', value: 'call' },
                     ],
                   },
-                  validation: (Rule) => Rule.required(),
+              
                 }),
                 defineField({
                   name: 'label',
                   title: 'Label',
                   type: 'string',
-                  validation: (Rule) => Rule.required(),
+              
                 }),
                 defineField({
                   name: 'value',

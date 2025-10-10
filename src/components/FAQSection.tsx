@@ -6,6 +6,8 @@ import { FAQ, FAQQuestion } from '@/content/types'
 
 interface FAQSectionProps {
   data: FAQ
+  backgroundColor?: string
+  textColor?: string
 }
 
 // Animation variants for performance
@@ -36,7 +38,7 @@ const accordionVariants = {
   }
 }
 
-const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
+const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#111', textColor = 'white' }) => {
   const [activeCategory, setActiveCategory] = useState<string>('General')
   const [expandedQuestionIndex, setExpandedQuestionIndex] = useState<number | null>(null)
 
@@ -62,7 +64,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
   }
 
   return (
-    <section className="py-16 lg:py-24 bg-[#111] text-white">
+    <section className="py-16 lg:py-24" style={{ backgroundColor, color: textColor }}>
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           variants={containerVariants}
@@ -74,7 +76,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 [25px] mb-[25px] items-start">
             {/* Left - Title */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h1 className="text-[64px] not-italic tracking-normal leading-[80px] font-medium  font-helvetica text-white mb-0">
+              <h1 className="text-[64px] not-italic tracking-normal leading-[80px] font-medium  font-helvetica mb-0" style={{ color: textColor }}>
                 {data.name}
               </h1>
             </motion.div>
@@ -84,7 +86,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
               variants={itemVariants}
               className="lg:col-span-1 flex items-center max-w-[450px] ml-auto"
             >
-              <p className="text-[16px] leading-[25px] tracking-[0] m-0 font-normal font-helvetica opacity-80 ">
+              <p className="text-[16px] leading-[25px] tracking-[0] m-0 font-normal font-helvetica opacity-80" style={{ color: textColor }}>
                 {data.description}
               </p>
             </motion.div>
@@ -135,6 +137,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data }) => {
                 index={index}
                 isExpanded={expandedQuestionIndex === index}
                 onToggle={() => toggleQuestion(index)}
+                textColor={textColor}
               />
             ))}
           </div>
@@ -150,7 +153,8 @@ const FAQAccordion: React.FC<{
   index: number
   isExpanded: boolean
   onToggle: () => void
-}> = ({ question, index, isExpanded, onToggle }) => {
+  textColor: string
+}> = ({ question, index, isExpanded, onToggle, textColor }) => {
   return (
     <motion.div
       variants={accordionVariants}
@@ -168,14 +172,15 @@ const FAQAccordion: React.FC<{
         onClick={onToggle}
         className="w-full text-left transition-colors duration-200 flex items-center justify-between group py-[32px] px-[18px] cursor-pointer"
       >
-        <h3 className="text-white font-helvetica text-[20px] not-italic font-normal leading-[28px]">
+        <h3 className="font-helvetica text-[20px] not-italic font-normal leading-[28px]" style={{ color: textColor }}>
           {question.name}
         </h3>
 
         <motion.svg
           animate={{ rotate: isExpanded ? 180 : 0 }}
           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-          className="w-6 h-6 text-white flex-shrink-0"
+          className="w-6 h-6 flex-shrink-0"
+          style={{ color: textColor }}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -200,7 +205,7 @@ const FAQAccordion: React.FC<{
             className="overflow-hidden"
           >
             <div className="px-[20px] pb-[20px]">
-              <p className="text-[16px] leading-[130%] tracking-[0] m-0 font-light font-helvetica text-white/80">
+              <p className="text-[16px] leading-[130%] tracking-[0] m-0 font-light font-helvetica opacity-80" style={{ color: textColor }}>
                 {question.description}
               </p>
             </div>

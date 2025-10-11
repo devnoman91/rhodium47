@@ -276,7 +276,7 @@ const SliderSection: React.FC<{
   }, [currentIndex, totalSlides])
 
   return (
-    <section className="pt-[50px] lg:pt-[90px] bg-[#F4F1F2] overflow-hidden" style={{ contain: 'layout style' }}>
+    <section className="pt-[50px] lg:pt-[90px] bg-[#111111] overflow-hidden" style={{ contain: 'layout style' }}>
       {/* Header Section */}
       <div className="max-w-[1304px] mx-auto px-6 mb-[64px]" style={{ contain: 'layout style' }}>
         <motion.div
@@ -291,7 +291,7 @@ const SliderSection: React.FC<{
               animate={{ opacity: 1, y: 0 }}
               className="lg:col-span-1"
             >
-              <h2 className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+              <h2 className="text-white font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
                 {mainName}
               </h2>
             </motion.div>
@@ -303,7 +303,7 @@ const SliderSection: React.FC<{
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
               className="lg:col-span-1 flex items-center justify-end"
             >
-              <p className="text-black font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+              <p className="text-white font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
                 {mainTitle}
               </p>
             </motion.div>
@@ -381,10 +381,10 @@ const SliderSection: React.FC<{
                   {/* Content */}
                   <div className="pt-[42px] max-w-[656px]">
                     <div className="">
-                      <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
+                      <h3 className="font-medium text-[24px] leading-[150%] text-white capitalize font-helvetica mb-[9px]">
                         {slide.name}
                       </h3>
-                      <p className="text-[16px] leading-[20px] pb-10 tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
+                      <p className="text-[16px] leading-[20px] pb-10 tracking-[0] m-0 font-normal font-helvetica text-white opacity-60">
                         {slide.description}
                       </p>
                     </div>
@@ -410,7 +410,7 @@ const DesignProcessSection: React.FC<{
   }>
 }> = ({ title, description, sections }) => {
   return (
-    <section className="pt-[50px] lg:pt-[94px] bg-[#F4F1F2] text-black" style={{ contain: 'layout style' }}>
+    <section className="pt-[50px] lg:pt-[94px] lg:pb-[64px] bg-[#F4F1F2] text-black" style={{ contain: 'layout style' }}>
       {/* Header Section */}
       <div className="max-w-[1304px] mx-auto mb-[62px]" style={{ contain: 'layout style' }}>
         <motion.div
@@ -511,7 +511,7 @@ const ByTheNumbersSection: React.FC<{
   const words = description.split(' ')
 
   return (
-    <section ref={containerRef} className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2]">
+    <section ref={containerRef} className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#111111]">
       <div className="max-w-[1304px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -520,12 +520,12 @@ const ByTheNumbersSection: React.FC<{
           transition={{ duration: 0.6 }}
           className="text-center mb-[96px] max-w-[810px] m-auto"
         >
-          <div className="pt-3 border-t border-black flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-[30px] font-helvetica items-center uppercase">
-            <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
+          <div className="pt-3 border-t border-white flex flex-row text-white text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-[30px] font-helvetica items-center uppercase">
+            <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
              <h2>{title}</h2>
           </div>
 
-          <div className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-[-0.8px] m-0 font-medium font-helvetica flex flex-wrap max-w-[810px] mx-auto">
+          <div className="text-[24px] md:text-[32px] text-white lg:text-[40px] leading-[1.2] tracking-[-0.8px] m-0 font-medium font-helvetica flex flex-wrap max-w-[810px] mx-auto">
             {words.map((word, index) => {
               const start = index / words.length
               const end = start + 1 / words.length
@@ -533,14 +533,14 @@ const ByTheNumbersSection: React.FC<{
               const color = useTransform(
                 scrollYProgress,
                 [start, end],
-                ['rgb(156, 163, 175)', 'rgb(0, 0, 0)']
+                ['#fff', '#fff']
               )
 
               return (
                 <motion.span
                   key={index}
                   style={{ opacity, color }}
-                  className="inline-block mr-[0.2em]"
+                  className="inline-block text-white mr-[0.2em]"
                 >
                   {word}
                 </motion.span>
@@ -560,10 +560,10 @@ const ByTheNumbersSection: React.FC<{
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="text-center"
             >
-              <p className="border-b  border-[#777777] text-[20px] tracking-[-0.8px] font-[400] text-[#16161880] font-helvetica mb-[24px] pb-[31px]">
+              <p className="border-b  border-[#fff] text-[20px] tracking-[-0.8px] font-[400] text-[#fff] font-helvetica mb-[24px] pb-[31px]">
                 {item.value}
               </p>
-              <p className="text-[20px] tracking-[-0.8px]  font-[500] text-[#7F7F7F] font-helvetica uppercase ">{item.name}</p>
+              <p className="text-[20px] tracking-[-0.8px]  font-[500] text-[#fff] font-helvetica uppercase ">{item.name}</p>
             </motion.div>
           ))}
         </div>

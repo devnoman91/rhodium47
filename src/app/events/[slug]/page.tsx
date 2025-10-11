@@ -5,6 +5,9 @@ import { useParams } from 'next/navigation'
 import { getEventBySlug } from '@/content/queries'
 
 const eventStyles = `
+.event-section{
+background-color: #F4F1F2;
+ }
   .event-hero {
     position: relative;
     height: 60vh;
@@ -39,18 +42,23 @@ const eventStyles = `
     margin-bottom: 1rem;
   }
   .event-hero-description {
-    font-size: 1.25rem;
-    line-height: 1.6;
+   color: #000;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 110%; /* 55px */
+  letter-spacing: -1px;
+  margin-bottom: 28px;max-width:912px;
   }
   .event-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
+    max-width: 1332px;
+    margin:auto;
+    padding: 118px 0;
   }
   .event-details {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 4rem;
+    // display: grid;
+    // grid-template-columns: 2fr 1fr;
+    // gap: 4rem;
     margin-bottom: 4rem;
   }
   .event-info h2 {
@@ -59,8 +67,13 @@ const eventStyles = `
     margin-bottom: 2rem;
   }
   .event-description {
-    line-height: 1.7;
-    margin-bottom: 2rem;
+    color: #111;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 27px */
+    text-transform: capitalize;
+     margin-bottom: 42px;max-width:1039px;
   }
   .event-meta {
     background: #f9fafb;
@@ -70,6 +83,15 @@ const eventStyles = `
   .event-meta-item {
     margin-bottom: 1.5rem;
   }
+    .label{
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 21px */
+    text-transform: capitalize;
+    margin-bottom:9px;
+    }
   .event-meta-label {
     font-weight: 600;
     color: #374151;
@@ -79,31 +101,45 @@ const eventStyles = `
     color: #4b5563;
   }
   .registration-section {
-    background: #f9fafb;
-    padding: 3rem;
-    border-radius: 12px;
-    margin-top: 3rem;
   }
   .registration-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 2rem;
-    text-align: center;
+    color: #000;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%; /* 27.5px */
+  letter-spacing: -0.5px;
+      margin-bottom: 28px;
   }
   .form-group {
     margin-bottom: 1.5rem;
   }
   .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    // display: grid;
+    // grid-template-columns: 1fr 1fr;
+    // gap: 1rem;
   }
-  .form-input, .form-textarea, .form-select {
+  .form-input, .form-textarea, select {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    background-color:#fff;
+  }
+    select {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid #d1d5db;
     border-radius: 0.375rem;
     font-size: 1rem;
+         appearance: none;              /* Remove default arrow */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 17px center;
+      background-size: 17px;
   }
   .form-input:focus, .form-textarea:focus, .form-select:focus {
     outline: none;
@@ -159,10 +195,18 @@ const eventStyles = `
   }
   .back-link {
     color: #000;
-    text-decoration: none;
-    font-weight: 500;
-    display: inline-block;
-    margin-bottom: 2rem;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 13.2px */
+    letter-spacing: -0.24px;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+    margin-bottom: 46px; display: inline-flex;
   }
   .back-link:hover {
     text-decoration: underline;
@@ -312,27 +356,155 @@ export default function EventPage() {
       <style dangerouslySetInnerHTML={{ __html: eventStyles }} />
 
       {/* Hero Section */}
-      <section className="event-hero">
+      {/* <section className="event-hero">
      
         <div className="event-hero-content">
           <h1 className="event-hero-title">{event.title}</h1>
          
           <p className="event-hero-description">{event.shortDescription}</p>
         </div>
-      </section>
+      </section> */}
 
       {/* Content */}
-      <section className="event-content">
-        <a href="/events" className="back-link">← Back to Events</a>
-
-        <div className="event-details">
-          {/* Event Info */}
-          <div className="event-info">
-            <h2>About This Event</h2>
-            <div
+      <section className="event-section">
+       <div className="event-content">
+          <div className='max-w-[1102px]'>
+        
+         <a href="/events" className="back-link">Back</a>
+        <p className="event-hero-description">{event.shortDescription}</p>
+        <div
               className="event-description"
               dangerouslySetInnerHTML={{ __html: event.detailDescription }}
             />
+          {/* Registration Form */}
+        {event.registrationEnabled && (
+          <section className="registration-section">
+            <h2 className="registration-title">Sign Up</h2>
+
+            {submitMessage && (
+              <div className={`message ${submitMessage.type}`}>
+                {submitMessage.text}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit}>
+             {/* Row 1 */}
+              <div className="form-row grid grid-cols-3 gap-[36px]">
+                <div className="form-group flex flex-col">
+                  <label className="label">First Name</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    className="form-input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+
+                <div className="form-group flex flex-col">
+                  <label className="label">Last Name</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    className="form-input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+
+                <div className="form-group flex flex-col">
+                  <label className="label">Phone Number</label>
+                  <input
+                    type="tel"
+                    name="phoneNumber"
+                    className="form-input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+                    value={formData.phoneNumber}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+
+              {/* Row 2 */}
+              <div className="form-row grid grid-cols-3 gap-[36px] mt-6">
+                <div className="form-group flex flex-col">
+                  <label className="label">Email Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    className="form-input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+
+                <div className="form-group flex flex-col">
+                  <label className="label">Region</label>
+                  <select
+                    name="region"
+                    className="form-input w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-black"
+                    value={formData.region}
+                    onChange={handleInputChange}
+                  >
+                    <option value="United States">United States</option>
+                    <option value="Canada">Canada</option>
+                  </select>
+                </div>
+
+                <div className="form-group flex flex-col">
+                  <label className="label">Zip Code</label>
+                  <input
+                    type="text"
+                    name="zipCode"
+                    className="form-input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+                    value={formData.zipCode}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+
+
+
+              <div className="form-group">
+                <div className="checkbox-group">
+                  <input
+                    type="checkbox"
+                    name="getUpdates"
+                    id="getUpdates"
+                    checked={formData.getUpdates}
+                    onChange={handleInputChange}
+                  />
+                  <label htmlFor="getUpdates">
+                    I would like to receive updates and news from Rhodium 47
+                  </label>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <textarea
+                  name="consentText"
+                  className="form-textarea"
+                  placeholder="Please acknowledge that you have read and agree to our terms and conditions *"
+                  value={formData.consentText}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="submit-btn"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Submitting...' : 'Register for Event'}
+              </button>
+            </form>
+          </section>
+        )}   
+        <div className="event-details">
+          <div className="event-info">
             {event.overviewText && (
               <div>
                 <h3>Overview</h3>
@@ -341,7 +513,6 @@ export default function EventPage() {
             )}
             {event.additionalInfo && (
               <div>
-                <h3>Additional Information</h3>
                 <p>{event.additionalInfo}</p>
               </div>
             )}
@@ -399,127 +570,8 @@ export default function EventPage() {
             )}
           </div>
         </div>
-
-        {/* Registration Form */}
-        {event.registrationEnabled && (
-          <section className="registration-section">
-            <h2 className="registration-title">Register for This Event</h2>
-
-            {submitMessage && (
-              <div className={`message ${submitMessage.type}`}>
-                {submitMessage.text}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit}>
-              <div className="form-row">
-                <div className="form-group">
-                  <input
-                    type="text"
-                    name="firstName"
-                    className="form-input"
-                    placeholder="First Name *"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    name="lastName"
-                    className="form-input"
-                    placeholder="Last Name *"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <input
-                    type="email"
-                    name="email"
-                    className="form-input"
-                    placeholder="Email *"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="tel"
-                    name="phoneNumber"
-                    className="form-input"
-                    placeholder="Phone Number"
-                    value={formData.phoneNumber}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <input
-                    type="text"
-                    name="region"
-                    className="form-input"
-                    placeholder="Region/State"
-                    value={formData.region}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    name="zipCode"
-                    className="form-input"
-                    placeholder="Zip Code"
-                    value={formData.zipCode}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <div className="checkbox-group">
-                  <input
-                    type="checkbox"
-                    name="getUpdates"
-                    id="getUpdates"
-                    checked={formData.getUpdates}
-                    onChange={handleInputChange}
-                  />
-                  <label htmlFor="getUpdates">
-                    I would like to receive updates and news from Rhodium 47
-                  </label>
-                </div>
-              </div>
-
-              <div className="form-group">
-                <textarea
-                  name="consentText"
-                  className="form-textarea"
-                  placeholder="Please acknowledge that you have read and agree to our terms and conditions *"
-                  value={formData.consentText}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="submit-btn"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Submitting...' : 'Register for Event'}
-              </button>
-            </form>
-          </section>
-        )}
+       </div>
+       </div>
       </section>
     </>
   )

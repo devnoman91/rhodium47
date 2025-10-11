@@ -104,7 +104,7 @@ const StoryHeroSection: React.FC<{
   }
 }> = ({ title, image }) => {
   return (
-    <section  className=' pt-72'>
+    <section  className=' pt-72 max-w-[900px] mx-auto px-[20px] lg:px-[60px]'>
      
 
       {/* Content */}
@@ -135,10 +135,10 @@ const StoryHeroSection: React.FC<{
             Back to Customer Stories
           </Link>
 
-          {/* Story Title */}
+          {/* Story Title
           <h1 className="text-[36px] lg:text-[56px] xl:text-[64px] font-bold leading-tight text-white">
             {title}
-          </h1>
+          </h1> */}
         </motion.div>
       </div>
     </section>
@@ -150,7 +150,7 @@ const StoryContentSection: React.FC<{
   content: any[]
 }> = ({ content }) => {
   return (
-    <section className="py-[60px] lg:py-[100px] bg-white">
+    <section className=" bg-white">
       <div className="max-w-[900px] mx-auto px-[20px] lg:px-[60px]">
         <motion.article
           initial={{ opacity: 0, y: 20 }}

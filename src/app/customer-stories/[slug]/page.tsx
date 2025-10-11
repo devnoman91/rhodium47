@@ -104,7 +104,7 @@ const StoryHeroSection: React.FC<{
   }
 }> = ({ title, image }) => {
   return (
-    <section  className=' pt-72 max-w-[900px] mx-auto px-[20px] lg:px-[60px]'>
+    <section  className=' pt-[138px] max-w-[900px] mx-auto px-[20px] lg:px-[60px]'>
      
 
       {/* Content */}

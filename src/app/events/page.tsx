@@ -8,44 +8,46 @@ const eventsStyles = `
   .events-container {
     background: #f5f5f5;
     min-height: 100vh;
-    padding-bottom: 4rem;
+    padding-bottom: 75px;
   }
 
   .events-hero {
-    background: white;
-    padding: 4rem 2rem 3rem;
+    padding: 128px 2rem 75px;
     text-align: center;
   }
 
   .events-title {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
     color: #000;
+    text-align: center;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%; /* 70.4px */
+    letter-spacing: -1.28px;
+    margin-bottom:14px;
   }
 
   .events-description {
-    font-size: 1.125rem;
-    color: #666;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.6;
+   color: #111;
+max-width:855px;
+margin:auto;
+text-align: center;
+font-size: 24px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%; /* 36px */
+text-transform: capitalize;
   }
 
   .filters-section {
-    max-width: 1400px;
-    margin: 3rem auto 0;
     padding: 0 2rem;
   }
 
   .filters-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    background: white;
-    padding: 2rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    gap: 20px;
+    max-width:1072px;
   }
 
   .filter-group {
@@ -54,45 +56,57 @@ const eventsStyles = `
   }
 
   .filter-label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #000;
-    margin-bottom: 0.5rem;
+color: #000;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%; /* 21px */
+text-transform: capitalize;
+    margin-bottom: 9px;
   }
 
   .filter-select {
-    padding: 0.75rem 1rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.5rem;
-    font-size: 1rem;
+    padding: 14px 21px;
+    border-radius: 4px;
+   color: #000;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%; /* 21px */
+text-transform: capitalize;
     background: white;
     cursor: pointer;
     outline: none;
-    transition: border-color 0.2s;
   }
-
+    .filter-select {
+      appearance: none;              /* Remove default arrow */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 17px center;
+      background-size: 17px;
+    }
   .filter-select:focus {
     border-color: #000;
   }
 
   .events-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 3rem 2rem;
+    
+    padding: 44px 0 0 0 ;
   }
 
   .events-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    row-gap: 25px;
+    column-gap:57px;
+    max-width: 1332px;
+    margin: 0 auto;
   }
 
   .event-card {
     background: white;
-    border-radius: 0.75rem;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s;
     position: relative;
   }
 
@@ -104,7 +118,7 @@ const eventsStyles = `
   .event-image-wrapper {
     position: relative;
     width: 100%;
-    height: 260px;
+    height: 231px;
     overflow: hidden;
   }
 
@@ -115,29 +129,27 @@ const eventsStyles = `
   }
 
   .event-content {
-    padding: 1.5rem;
+    padding: 32px 20px;
   }
 
   .event-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1rem;
   }
 
   .event-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #000;
-    margin: 0;
+   color: #111;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 27px */
+  text-transform: capitalize;
     flex: 1;
   }
 
   .event-view-btn {
-    padding: 0.5rem 1rem;
     background: white;
-    border: 1px solid #d1d5db;
-    border-radius: 0.375rem;
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
@@ -145,22 +157,19 @@ const eventsStyles = `
     text-decoration: none;
     color: #000;
     white-space: nowrap;
-    margin-left: 1rem;
   }
 
-  .event-view-btn:hover {
-    background: #000;
-    color: white;
-    border-color: #000;
-  }
 
   .event-date {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: #666;
-    font-size: 0.95rem;
-    margin-top: 0.75rem;
+     color:  #3F3E4B;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 20px;
+    margin-top: 9px;
   }
 
   .event-date-icon {
@@ -168,6 +177,7 @@ const eventsStyles = `
   }
 
   .featured-badge {
+  display:none;
     position: absolute;
     top: 1rem;
     left: 1rem;
@@ -325,7 +335,8 @@ export default function EventsPage() {
 
         {/* Filters Section */}
         <section className="filters-section">
-          <div className="filters-row">
+         <div className='max-w-[1332px] mx-auto'>
+           <div className="filters-row ">
             <div className="filter-group">
               <label className="filter-label">Category</label>
               <select
@@ -369,6 +380,7 @@ export default function EventsPage() {
               </select>
             </div>
           </div>
+         </div>
         </section>
 
         {/* Events Grid */}
@@ -395,27 +407,41 @@ export default function EventsPage() {
                     )}
                   </div>
 
-                  <div className="event-content">
-                    <div className="event-header">
-                      <h3 className="event-title">{event.title}</h3>
-                      <Link
+                  <div className="flex gap-[27px]  justify-between event-content">
+                    <div className=''>
+                      <div className="event-header">
+                        <h3 className="event-title">{event.title}</h3>
+                      </div>
+
+                      <div className="event-date">
+                        <span className="event-date-icon">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0 6C0 3.79086 1.79086 2 4 2H14C16.2091 2 18 3.79086 18 6V14C18 16.2091 16.2091 18 14 18H4C1.79086 18 0 16.2091 0 14V6ZM4 4C2.89543 4 2 4.89543 2 6V14C2 15.1046 2.89543 16 4 16H14C15.1046 16 16 15.1046 16 14V6C16 4.89543 15.1046 4 14 4H4Z" fill="black"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5 0C5.55228 0 6 0.44772 6 1V3C6 3.55228 5.55228 4 5 4C4.44772 4 4 3.55228 4 3V1C4 0.44772 4.44772 0 5 0Z" fill="black"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M13 0C13.5523 0 14 0.44772 14 1V3C14 3.55228 13.5523 4 13 4C12.4477 4 12 3.55228 12 3V1C12 0.44772 12.4477 0 13 0Z" fill="black"/>
+                            <path d="M6 7C6 7.5523 5.55228 8 5 8C4.44772 8 4 7.5523 4 7C4 6.44772 4.44772 6 5 6C5.55228 6 6 6.44772 6 7Z" fill="black"/>
+                            <path d="M10 7C10 7.5523 9.5523 8 9 8C8.4477 8 8 7.5523 8 7C8 6.44772 8.4477 6 9 6C9.5523 6 10 6.44772 10 7Z" fill="black"/>
+                            <path d="M14 7C14 7.5523 13.5523 8 13 8C12.4477 8 12 7.5523 12 7C12 6.44772 12.4477 6 13 6C13.5523 6 14 6.44772 14 7Z" fill="black"/>
+                            <path d="M6 11C6 11.5523 5.55228 12 5 12C4.44772 12 4 11.5523 4 11C4 10.4477 4.44772 10 5 10C5.55228 10 6 10.4477 6 11Z" fill="black"/>
+                          </svg>
+                        </span>
+                        <span>
+                          {new Date(event.eventDate).toLocaleDateString('en-US', {
+                            day: '2-digit',
+                            month: 'long',
+                            year: 'numeric'
+                          })}
+                        </span>
+                      </div>
+
+                    </div>
+
+                    <Link
                         href={`/events/${event.slug.current}`}
-                        className="event-view-btn"
+                        className="event-view-btn border-l flex items-center border-[#00000033] pl-[27px]"
                       >
                         VIEW
                       </Link>
-                    </div>
-
-                    <div className="event-date">
-                      <span className="event-date-icon">📅</span>
-                      <span>
-                        {new Date(event.eventDate).toLocaleDateString('en-US', {
-                          day: '2-digit',
-                          month: 'long',
-                          year: 'numeric'
-                        })}
-                      </span>
-                    </div>
                   </div>
                 </div>
               ))}

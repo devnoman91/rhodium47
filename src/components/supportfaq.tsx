@@ -97,7 +97,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#111',
             variants={itemVariants}
             className="mb-[50px] w-fit"
           >
-            <div className="tabs relative flex gap-2 p-1 w-fit bg-[#f4f4f5] border border-[#cfcfcf] rounded-[100px] shadow-lg">
+            <div className="tabs relative flex gap-2 p-1 w-fit bg-[#F4F1F2] border border-[#cfcfcf] rounded-[100px] shadow-lg">
               {categories.map((category) => (
                 <motion.button
                   key={category}
@@ -165,7 +165,7 @@ const FAQAccordion: React.FC<{
         ease: "easeOut",
         delay: index * 0.05
       }}
-      className="rounded-[10px] bg-[rgba(255,255,255,0.05)] overflow-hidden"
+      className="rounded-[10px] bg-[#0000000D] overflow-hidden"
     >
       {/* Question Header */}
       <button

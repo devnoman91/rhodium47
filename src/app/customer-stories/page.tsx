@@ -13,7 +13,7 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
   mainHeading,
 }) => {
   return (
-    <section className="relative pt-[120px] pb-[60px] lg:pt-[160px] lg:pb-[80px] bg-white">
+    <section className="relative pt-[138px] pb-[62px] lg:pt-[160px] lg:pb-[80px]">
       <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -21,10 +21,10 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <p className="text-[14px] lg:text-[16px] font-medium text-gray-600 mb-[16px] uppercase tracking-wider">
+          <p className="text-black mb-[14px] text-center font-helvetica text-[64px] font-medium leading-[110%] tracking-[-1.28px]">
             {sectionLabel}
           </p>
-          <h1 className="text-[32px] lg:text-[56px] xl:text-[64px] font-bold leading-tight text-black max-w-[1000px] mx-auto">
+          <h1 className="text-[#111] text-center font-helvetica text-[24px] font-medium leading-[150%] max-w-[855px] mx-auto">
             {mainHeading}
           </h1>
         </motion.div>
@@ -51,9 +51,9 @@ const StoriesGridSection: React.FC<{
   }>
 }> = ({ stories }) => {
   return (
-    <section className="py-[50px] lg:py-[90px] bg-white">
-      <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[32px]">
+    <section className="pb-[62px]">
+      <div className="max-w-[1332px] mx-auto ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[57px] gap-y-[25px]">
           {stories.map((story, index) => (
             <motion.div
               key={index}
@@ -64,31 +64,33 @@ const StoriesGridSection: React.FC<{
             >
               <Link
                 href={`/customer-stories/${story.slug.current}`}
-                className="group block bg-white rounded-[24px] overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-black"
+                className="group block bg-white "
               >
                 {/* Story Image */}
-                <div className="relative h-[280px] w-full overflow-hidden">
+                <div className="relative h-[231px] w-full overflow-hidden">
                   <Image
                     src={story.image.asset.url}
                     alt={story.image.alt || story.title}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-500"
                   />
                   {/* Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
 
                 {/* Story Content */}
-                <div className="p-[24px] lg:p-[32px]">
-                  <h3 className="text-[22px] lg:text-[24px] font-bold text-black mb-[12px] group-hover:text-gray-800 transition-colors">
+                <div className="px-[20px] py-[32px] flex gap-[22px] items-center">
+                  <div className='border-r border-[#00000033] pr-[22px]'>
+                    <h3 className="text-[#111] mb-[6px] font-helvetica text-[18px] font-bold leading-[150%] ">
                     {story.title}
-                  </h3>
-                  <p className="text-[14px] lg:text-[16px] text-gray-700 mb-[20px] line-clamp-3">
-                    {story.excerpt}
-                  </p>
-                  <div className="flex items-center text-[14px] font-semibold text-black group-hover:translate-x-2 transition-transform duration-300">
-                    <span>Read Story</span>
-                    <svg
+                    </h3>
+                    <p className="text-[#3F3E4B] font-helvetica text-[14px] italic font-medium leading-[20px]">
+                      {story.excerpt}
+                    </p>
+                  </div>
+                  <div className="text-[#111] text-center uppercase font-helvetica text-[14px] font-bold leading-[150%] tracking-[3px] ">
+                    <span>Read</span>
+                    {/* <svg
                       className="ml-2 w-5 h-5"
                       fill="none"
                       stroke="currentColor"
@@ -100,7 +102,7 @@ const StoriesGridSection: React.FC<{
                         strokeWidth={2}
                         d="M17 8l4 4m0 0l-4 4m4-4H3"
                       />
-                    </svg>
+                    </svg> */}
                   </div>
                 </div>
               </Link>
@@ -160,7 +162,7 @@ export default function CustomerStoriesPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className=" bg-[#F4F1F2]">
       {/* Hero Section */}
       {data.heroSection && (
         <HeroSection

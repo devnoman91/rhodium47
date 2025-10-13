@@ -266,7 +266,7 @@ export default function EventPage() {
     lastName: '',
     email: '',
     phoneNumber: '',
-    region: '',
+    region: 'United States',
     zipCode: '',
     getUpdates: false,
     consentText: ''
@@ -341,7 +341,7 @@ export default function EventPage() {
           lastName: '',
           email: '',
           phoneNumber: '',
-          region: '',
+          region: 'United States',
           zipCode: '',
           getUpdates: false,
           consentText: ''

@@ -12,11 +12,11 @@ export async function POST(request: NextRequest) {
     // Validate required fields
     const { eventId, firstName, lastName, email, phoneNumber, region, zipCode, consentText } = body
 
-    if (!eventId || !firstName || !lastName || !email || !consentText) {
+    if (!eventId || !firstName || !lastName || !email) {
       return NextResponse.json(
         {
           success: false,
-          error: 'Missing required fields'
+          error: 'Missing required fields: eventId, firstName, lastName, and email are required'
         },
         { status: 400 }
       )

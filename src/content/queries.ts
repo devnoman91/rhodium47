@@ -1853,14 +1853,10 @@ export const contactPageQuery = `
     },
     contactInfo {
       sectionTitle,
-      emails[] {
-        label,
-        email
-      },
-      phones[] {
-        label,
-        phone
-      },
+      email1,
+      email2,
+      phone1,
+      phone2,
       address {
         street,
         city,

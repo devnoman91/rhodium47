@@ -39,49 +39,26 @@ export default defineType({
           initialValue: 'Get in Touch',
         }),
         defineField({
-          name: 'emails',
-          title: 'Email Addresses',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                defineField({
-                  name: 'label',
-                  title: 'Label',
-                  type: 'string',
-                }),
-                defineField({
-                  name: 'email',
-                  title: 'Email',
-                  type: 'string',
-                  validation: (Rule) => Rule.email(),
-                }),
-              ],
-            },
-          ],
+          name: 'email1',
+          title: 'Email 1',
+          type: 'string',
+          validation: (Rule) => Rule.email(),
         }),
         defineField({
-          name: 'phones',
-          title: 'Phone Numbers',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                defineField({
-                  name: 'label',
-                  title: 'Label',
-                  type: 'string',
-                }),
-                defineField({
-                  name: 'phone',
-                  title: 'Phone',
-                  type: 'string',
-                }),
-              ],
-            },
-          ],
+          name: 'email2',
+          title: 'Email 2',
+          type: 'string',
+          validation: (Rule) => Rule.email(),
+        }),
+        defineField({
+          name: 'phone1',
+          title: 'Phone 1',
+          type: 'string',
+        }),
+        defineField({
+          name: 'phone2',
+          title: 'Phone 2',
+          type: 'string',
         }),
         defineField({
           name: 'address',

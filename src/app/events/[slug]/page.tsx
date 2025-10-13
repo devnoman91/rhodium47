@@ -123,6 +123,10 @@ background-color: #F4F1F2;
     border-radius: 0.375rem;
     font-size: 1rem;
     background-color:#fff;
+    color: #000;
+  }
+  .form-input::placeholder, .form-textarea::placeholder {
+    color: #9ca3af;
   }
     select {
     width: 100%;
@@ -410,6 +414,7 @@ export default function EventPage() {
                   <input
                     type="text"
                     name="firstName"
+                    placeholder="Enter your first name"
                     className="form-input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
                     value={formData.firstName}
                     onChange={handleInputChange}
@@ -422,6 +427,7 @@ export default function EventPage() {
                   <input
                     type="text"
                     name="lastName"
+                    placeholder="Enter your last name"
                     className="form-input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
                     value={formData.lastName}
                     onChange={handleInputChange}
@@ -434,6 +440,7 @@ export default function EventPage() {
                   <input
                     type="tel"
                     name="phoneNumber"
+                    placeholder="Enter your phone number"
                     className="form-input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
                     value={formData.phoneNumber}
                     onChange={handleInputChange}
@@ -448,6 +455,7 @@ export default function EventPage() {
                   <input
                     type="email"
                     name="email"
+                    placeholder="Enter your email address"
                     className="form-input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
                     value={formData.email}
                     onChange={handleInputChange}
@@ -473,6 +481,7 @@ export default function EventPage() {
                   <input
                     type="text"
                     name="zipCode"
+                    placeholder="Enter your zip code"
                     className="form-input w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black"
                     value={formData.zipCode}
                     onChange={handleInputChange}

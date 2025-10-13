@@ -193,7 +193,7 @@ const ProductAboutSection: React.FC<ProductAboutSectionProps> = ({ aboutSection 
                             >
                               <div className={`flex flex-col items-center text-center justify-center  px-[20px] border-r border-[#ddd] ${((index + 1) % 3 === 0) ? 'border-r-0' : ''}`}>
                                 <span className="text-black text-center font-helvetica text-[50px] not-italic font-bold leading-[120%] tracking-[-1px]">
-                                  {count.value || count.title}
+                                  {count.value}
                                 </span>
                                 <span className="text-black text-center font-helvetica text-[20px] not-italic font-normal leading-[120%] tracking-[-0.4px]">
                                   {count.name}

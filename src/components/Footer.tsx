@@ -125,23 +125,7 @@ const Footer = () => {
 
       <div className="relative z-10 pt-[70px]">
 
-        {/* Company Info and Contact - Only show on home page */}
-        {isHomePage && (
-          <div className="px-4 md:px-6 py-6 md:py-8">
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
-              <div className="flex items-center space-x-4">
-                <img
-                  src={footerData.logo.asset.url}
-                  alt={footerData.logoAlt}
-                  className="w-[140px] md:w-[180px] lg:w-[210px] h-[41px] md:h-[53px] lg:h-[62px] object-contain"
-                />
-              </div>
-              <div className="text-white text-[18px] md:text-[24px] lg:text-[32px] not-italic font-normal leading-[24px] md:leading-[32px] lg:leading-[44px] tracking-[-0.36px] md:tracking-[-0.48px] lg:tracking-[-0.64px] font-helvetica text-center md:text-right">
-                {footerData.contactEmail}
-              </div>
-            </div>
-          </div>
-        )}
+     
 
         {/* Main Footer Content */}
           <div className="max-w-7xl mx-auto border-t border-white pt-8 md:pt-12 lg:pt-[60px]">

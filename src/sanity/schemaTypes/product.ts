@@ -115,9 +115,27 @@ export default defineType({
                   },
                 }),
                 defineField({
-                  name: 'count',
-                  title: 'Count',
-                  type: 'number',
+                  name: 'counts',
+                  title: 'Counts',
+                  type: 'array',
+                  of: [
+                    {
+                      type: 'object',
+                      fields: [
+                        defineField({
+                          name: 'name',
+                          title: 'Count Name',
+                          type: 'string',
+                        }),
+                        
+                        defineField({
+                          name: 'value',
+                          title: 'Count Value',
+                          type: 'number',
+                        }),
+                      ],
+                    },
+                  ],
                 }),
               ],
             },
@@ -126,77 +144,7 @@ export default defineType({
       ],
     }),
 
-    // Product Detail
-    defineField({
-      name: 'productDetail',
-      title: 'Product Detail',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'name',
-          title: 'Detail Name',
-          type: 'string',
-        }),
-        defineField({
-          name: 'description',
-          title: 'Detail Description',
-          type: 'text',
-        }),
-        defineField({
-          name: 'sections',
-          title: 'Detail Sections',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                defineField({
-                  name: 'name',
-                  title: 'Section Name',
-                  type: 'string',
-                }),
-                defineField({
-                  name: 'title',
-                  title: 'Section Title',
-                  type: 'string',
-                }),
-                defineField({
-                  name: 'contentType',
-                  title: 'Content Type',
-                  type: 'string',
-                  options: {
-                    list: [
-                      { title: 'Video', value: 'video' },
-                      { title: 'Image', value: 'image' }
-                    ],
-                    layout: 'radio'
-                  },
-                  initialValue: 'video',
-                }),
-                defineField({
-                  name: 'videoFile',
-                  title: 'Video File',
-                  type: 'file',
-                  options: {
-                    accept: 'video/*',
-                  },
-                  hidden: ({ parent }) => parent?.contentType !== 'video',
-                }),
-                defineField({
-                  name: 'image',
-                  title: 'Image',
-                  type: 'image',
-                  options: {
-                    hotspot: true,
-                  },
-                  hidden: ({ parent }) => parent?.contentType !== 'image',
-                }),
-              ],
-            },
-          ],
-        }),
-      ],
-    }),
+  
 
     // Interior Section
     defineField({

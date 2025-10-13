@@ -76,9 +76,7 @@ background-color: #F4F1F2;
      margin-bottom: 42px;max-width:1039px;
   }
   .event-meta {
-    background: #f9fafb;
-    padding: 2rem;
-    border-radius: 12px;
+
   }
   .event-meta-item {
     margin-bottom: 1.5rem;
@@ -112,7 +110,6 @@ background-color: #F4F1F2;
       margin-bottom: 28px;
   }
   .form-group {
-    margin-bottom: 1.5rem;
   }
   .form-row {
     // display: grid;
@@ -152,14 +149,15 @@ background-color: #F4F1F2;
   .checkbox-group {
     display: flex;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap:8px;
   }
   .checkbox-group input {
-    margin-top: 0.25rem;
+  border: 1px solid #ECEDED;
+background: #FFF;
   }
   .checkbox-group label {
-    font-size: 0.875rem;
-    line-height: 1.4;
+    // font-size: 0.875rem;
+    // line-height: 1.4;
   }
   .submit-btn {
     background: #000;
@@ -211,6 +209,23 @@ background-color: #F4F1F2;
   .back-link:hover {
     text-decoration: underline;
   }
+    .checkbox-group label{
+    
+    }
+    .custom-checkbox {
+  position: relative;
+}
+
+.custom-checkbox:checked::after {
+  content: '✔';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: black;
+  line-height: 1;
+}
   @media (max-width: 768px) {
     .event-details {
       grid-template-columns: 1fr;
@@ -467,22 +482,36 @@ export default function EventPage() {
 
 
 
-              <div className="form-group">
+              <div className="form-group mt-[28px]">
+                  <div className="checkbox-group mb-[19px]">
+                  <input
+                    type="checkbox"
+                    name="getUpdates"
+                    id="getUpdates"
+                    className='custom-checkbox appearance-none  border border-[#ECEDED] bg-white min-w-[16px] h-[16px]  cursor-pointer checked:bg-[#0a0a0a]'
+                    checked={formData.getUpdates}
+                    onChange={handleInputChange}
+                  />
+                  <label htmlFor="getUpdates " className='underline !text-[#747474] font-[400] text-[12px] leading-[140%] tracking-[-0.24px] font-helvetica not-italic'>
+                    Get updates
+                  </label>
+                </div>
                 <div className="checkbox-group">
                   <input
                     type="checkbox"
                     name="getUpdates"
                     id="getUpdates"
+                    className='custom-checkbox appearance-none border border-[#ECEDED] bg-white min-w-[16px] h-[16px]  cursor-pointer'
                     checked={formData.getUpdates}
                     onChange={handleInputChange}
                   />
-                  <label htmlFor="getUpdates">
-                    I would like to receive updates and news from Rhodium 47
+                  <label htmlFor="getUpdates " className='!text-[#747474] font-[400] text-[12px] leading-[140%] tracking-[-0.24px] font-helvetica not-italic'>
+                    By clicking "Submit", I authorize to contact me about this request via the contact information I provide. I understand calls or texts may use automatic or computer-assisted dialing or pre-recorded messages. Normal message and data rates apply. I can opt out at any time in the Company Service Portal or by unsubscribing. This consent is not required to complete your request.
                   </label>
                 </div>
               </div>
 
-              <div className="form-group">
+              {/* <div className="form-group">
                 <textarea
                   name="consentText"
                   className="form-textarea"
@@ -491,14 +520,14 @@ export default function EventPage() {
                   onChange={handleInputChange}
                   required
                 />
-              </div>
+              </div> */}
 
               <button
                 type="submit"
-                className="submit-btn"
+                className=" mt-[42px] mb-[59px] text-white text-center font-helvetica text-[20px] not-italic font-medium leading-[120%] tracking-[-0.4px] flex w-[196px] h-[54px] px-[50px] pt-[18px] pb-[19px] justify-center items-center shrink-0 rounded-[100px] border border-[rgba(157,192,59,0)] bg-black"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Submitting...' : 'Register for Event'}
+                {isSubmitting ? 'Submitting...' : 'Submit'}
               </button>
             </form>
           </section>
@@ -507,13 +536,13 @@ export default function EventPage() {
           <div className="event-info">
             {event.overviewText && (
               <div>
-                <h3>Overview</h3>
-                <p>{event.overviewText}</p>
+                <h3 className='mb-[18px] text-black font-helvetica text-[20px] not-italic font-bold leading-[110%] tracking-[-0.4px]'>Overview</h3>
+                <p className='mb-[31px] text-[#111] font-helvetica text-[16px] not-italic font-normal leading-[150%] capitalize'>{event.overviewText}</p>
               </div>
             )}
             {event.additionalInfo && (
               <div>
-                <p>{event.additionalInfo}</p>
+                <p className='mb-[31px] text-[#111] font-helvetica text-[16px] not-italic font-normal leading-[150%] capitalize'>{event.additionalInfo}</p>
               </div>
             )}
           </div>
@@ -521,8 +550,8 @@ export default function EventPage() {
           {/* Event Meta */}
           <div className="event-meta">
             <div className="event-meta-item">
-              <div className="event-meta-label">Date & Time</div>
-              <div className="event-meta-value">
+              <div className="mb-[18px] text-black font-helvetica text-[20px] not-italic font-bold leading-[110%] tracking-[-0.4px]">Timetable</div>
+              <div className="mb-[31px] text-[#111] font-helvetica text-[16px] not-italic font-normal leading-[150%] capitalize">
                 {new Date(event.eventDate).toLocaleDateString('en-US', {
                   weekday: 'long',
                   year: 'numeric',
@@ -546,28 +575,27 @@ export default function EventPage() {
 
             {event.location && (
               <div className="event-meta-item">
-                <div className="event-meta-label">Location</div>
-                <div className="event-meta-value">
+                <div className="mb-[18px] text-black font-helvetica text-[20px] not-italic font-bold leading-[110%] tracking-[-0.4px]">Location</div>
+                <div className="max-w-[221px] mb-[31px] text-[#111] font-helvetica text-[16px] not-italic font-normal leading-[150%] capitalize">
                   {event.location.venueName}<br />
                   {event.location.address}
                   {event.location.mapLink && (
-                    <><br /><a href={event.location.mapLink} target="_blank" rel="noopener noreferrer">View on Map</a></>
+                    <><br /><a href={event.location.mapLink} target="_blank" rel="noopener noreferrer" className='hidden'>View on Map</a></>
                   )}
                 </div>
               </div>
             )}
 
             <div className="event-meta-item">
-              <div className="event-meta-label">Category</div>
-              <div className="event-meta-value">{event.category}</div>
+              <div className="mt-[31px] underline text-[#111] font-helvetica text-[16px] not-italic font-normal leading-[150%] capitalize">Get Directions</div>
             </div>
-
+{/* 
             {event.maxAttendees && (
               <div className="event-meta-item">
                 <div className="event-meta-label">Max Attendees</div>
                 <div className="event-meta-value">{event.maxAttendees}</div>
               </div>
-            )}
+            )} */}
           </div>
         </div>
        </div>

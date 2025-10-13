@@ -1,7 +1,8 @@
 'use client'
 
-import React, { useMemo } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 
 interface ProductAboutSectionProps {
   aboutSection: {
@@ -41,10 +42,23 @@ const itemVariants = {
 
 const imageVariants = {
   initial: { scale: 1.05, opacity: 0 },
-  animate: { scale: 1, opacity: 1 }
+  animate: { scale: 1, opacity: 1 },
+  exit: { scale: 0.95, opacity: 0 }
+}
+
+const textVariants = {
+  initial: { opacity: 0, x: 20 },
+  animate: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, delay: 0.2 }
+  },
+  exit: { opacity: 0, x: -20, transition: { duration: 0.3 } }
 }
 
 const ProductAboutSection: React.FC<ProductAboutSectionProps> = ({ aboutSection }) => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [imageLoaded, setImageLoaded] = useState(false)
   const descriptionRef = React.useRef<HTMLParagraphElement | null>(null)
   const { scrollYProgress } = useScroll({
     target: descriptionRef,
@@ -52,11 +66,27 @@ const ProductAboutSection: React.FC<ProductAboutSectionProps> = ({ aboutSection 
   })
 
   const words = useMemo(() => (aboutSection.description || '').split(' '), [aboutSection.description])
-  const firstImage = aboutSection.images?.[0]
+  const images = aboutSection.images || []
+  const currentImage = useMemo(() => images[currentIndex], [images, currentIndex])
 
-  console.log('ProductAboutSection props:', aboutSection)
-  console.log('First image:', firstImage)
-  console.log('Counts from first image:', firstImage?.counts)
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex((current) => (current - 1 + images.length) % images.length)
+  }, [images.length])
+
+  const goToNext = useCallback(() => {
+    setCurrentIndex((current) => (current + 1) % images.length)
+  }, [images.length])
+
+  // Auto-advance slider
+  useEffect(() => {
+    if (images.length <= 1) return
+
+    const timer = setInterval(() => {
+      goToNext()
+    }, 5000) // Change slide every 5 seconds
+
+    return () => clearInterval(timer)
+  }, [images.length, goToNext])
 
   return (
     <section className="py-6 lg:py-[80px] bg-white">
@@ -143,8 +173,8 @@ const ProductAboutSection: React.FC<ProductAboutSectionProps> = ({ aboutSection 
           </div>
         </motion.div>
 
-        {/* Bottom Section - Image and Counts */}
-        {firstImage && (
+        {/* Bottom Section - Image and Counts Slider */}
+        {images.length > 0 && (
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -154,57 +184,95 @@ const ProductAboutSection: React.FC<ProductAboutSectionProps> = ({ aboutSection 
           >
             <div className="lg:col-span-12">
               <div className="flex flex-col lg:flex-row ">
-                {/* Image */}
+                {/* Image with Navigation */}
                 <div className="w-full lg:w-[50%]">
                   <div className="relative aspect-[1/0.65] h-full rounded-2xl overflow-hidden bg-gray-100">
-                    {firstImage.image?.asset?.url && (
-                      <motion.img
-                        src={firstImage.image.asset.url}
-                        alt={firstImage.image.alt || firstImage.name || 'Product about image'}
-                        className="w-full h-full object-cover aspect-[1/0.54]"
-                        variants={imageVariants}
-                        initial="initial"
-                        animate="animate"
-                        transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-                        loading="lazy"
-                        decoding="async"
-                      />
+                    {!imageLoaded && (
+                      <div className="absolute inset-0 animate-pulse" />
+                    )}
+                    <AnimatePresence mode="wait">
+                      {currentImage?.image?.asset?.url && (
+                        <motion.img
+                          key={currentIndex}
+                          src={currentImage.image.asset.url}
+                          alt={currentImage.image.alt || currentImage.name || 'Product about image'}
+                          className="w-full h-full object-cover aspect-[1/0.54]"
+                          variants={imageVariants}
+                          initial="initial"
+                          animate="animate"
+                          exit="exit"
+                          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+                          loading="lazy"
+                          decoding="async"
+                          onLoad={() => setImageLoaded(true)}
+                          onError={() => setImageLoaded(false)}
+                        />
+                      )}
+                    </AnimatePresence>
+
+                    {/* Navigation Arrows (only show if multiple images) */}
+                    {images.length > 1 && (
+                      <>
+                        <button
+                          onClick={goToPrevious}
+                          className="absolute left-2 cursor-pointer md:left-4 top-auto bottom-[10px] -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 border border-white rounded-full flex items-center justify-center hover:bg-white/10 transition"
+                          aria-label="Previous image"
+                        >
+                          <ChevronLeftIcon className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                        </button>
+
+                        <button
+                          onClick={goToNext}
+                          className="absolute right-2 cursor-pointer md:right-4 top-auto bottom-[10px] -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 border border-white rounded-full flex items-center justify-center hover:bg-white/10 transition"
+                          aria-label="Next image"
+                        >
+                          <ChevronRightIcon className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                        </button>
+                      </>
                     )}
                   </div>
                 </div>
 
                 {/* Product Info and Counts */}
                 <div className="w-full lg:w-[50%] flex items-center relative left-[-6%]">
-                  <motion.div
-                    variants={itemVariants}
-                    className="w-full"
-                  >
-                    {/* Counts Section */}
-                    {firstImage.counts && firstImage.counts.length > 0 && (
-                      <div className="rounded-[22px] bg-white  p-[20px]">
-                        <div className="grid grid-cols-3">
-                          {firstImage.counts.map((count, index) => (
-                            <motion.div
-                              key={index}
-                              className=""
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: index * 0.1 }}
-                            >
-                              <div className={`flex flex-col items-center text-center justify-center  px-[20px] border-r border-[#ddd] ${((index + 1) % 3 === 0) ? 'border-r-0' : ''}`}>
-                                <span className="text-black text-center font-helvetica text-[50px] not-italic font-bold leading-[120%] tracking-[-1px]">
-                                  {count.value}
-                                </span>
-                                <span className="text-black text-center font-helvetica text-[20px] not-italic font-normal leading-[120%] tracking-[-0.4px]">
-                                  {count.name}
-                                </span>
-                              </div>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </div>
+                  <AnimatePresence mode="wait">
+                    {currentImage && (
+                      <motion.div
+                        key={`counts-${currentIndex}`}
+                        variants={textVariants}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                        className="w-full"
+                      >
+                        {/* Counts Section */}
+                        {currentImage.counts && currentImage.counts.length > 0 && (
+                          <div className="rounded-[22px] bg-white  p-[20px]">
+                            <div className="grid grid-cols-3">
+                              {currentImage.counts.map((count, index) => (
+                                <motion.div
+                                  key={index}
+                                  className=""
+                                  initial={{ opacity: 0, y: 20 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ delay: index * 0.1 }}
+                                >
+                                  <div className={`flex flex-col items-center text-center justify-center  px-[20px] border-r border-[#ddd] ${((index + 1) % 3 === 0) ? 'border-r-0' : ''}`}>
+                                    <span className="text-black text-center font-helvetica text-[50px] not-italic font-bold leading-[120%] tracking-[-1px]">
+                                      {count.value}
+                                    </span>
+                                    <span className="text-black text-center font-helvetica text-[20px] not-italic font-normal leading-[120%] tracking-[-0.4px]">
+                                      {count.name}
+                                    </span>
+                                  </div>
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </motion.div>
                     )}
-                  </motion.div>
+                  </AnimatePresence>
                 </div>
               </div>
             </div>

@@ -176,6 +176,30 @@ text-transform: capitalize;
     font-size: 1rem;
   }
 
+  .event-spots {
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  .spots-available {
+    background: #d1fae5;
+    color: #065f46;
+  }
+
+  .spots-low {
+    background: #fed7aa;
+    color: #92400e;
+  }
+
+  .spots-soldout {
+    background: #fee2e2;
+    color: #dc2626;
+  }
+
   .featured-badge {
   display:none;
     position: absolute;
@@ -236,6 +260,7 @@ export default function EventsPage() {
   const [events, setEvents] = useState<any[]>([])
   const [filteredEvents, setFilteredEvents] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
+  const [registrationCounts, setRegistrationCounts] = useState<Record<string, number>>({})
 
   // Filter states
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
@@ -252,6 +277,22 @@ export default function EventsPage() {
         setEventsPageData(pageData)
         setEvents(eventsData)
         setFilteredEvents(eventsData)
+
+        // Fetch registration counts for all events
+        const counts: Record<string, number> = {}
+        await Promise.all(
+          eventsData.map(async (event: any) => {
+            try {
+              const response = await fetch(`/api/events/registrations/count?eventId=${event._id}`)
+              const data = await response.json()
+              counts[event._id] = data.count || 0
+            } catch (error) {
+              console.error(`Error fetching count for event ${event._id}:`, error)
+              counts[event._id] = 0
+            }
+          })
+        )
+        setRegistrationCounts(counts)
       } catch (error) {
         console.error('Error fetching events data:', error)
       } finally {
@@ -433,6 +474,31 @@ export default function EventsPage() {
                           })}
                         </span>
                       </div>
+
+                      {/* Show registration spots only after 10 people registered */}
+                      {event.maxAttendees && event.registrationEnabled && (
+                        <>
+                          {(() => {
+                            const registered = registrationCounts[event._id] || 0
+                            const remaining = event.maxAttendees - registered
+                            const isSoldOut = remaining <= 0
+                            const isLowSpots = remaining > 0 && remaining <= event.maxAttendees * 0.2
+
+                            // Show spots indicator only if 10 or more people have registered
+                            if (registered >= 10) {
+                              return (
+                                <div className={`event-spots ${isSoldOut ? 'spots-soldout' : isLowSpots ? 'spots-low' : 'spots-available'}`}>
+                                  {isSoldOut
+                                    ? 'SOLD OUT'
+                                    : `${remaining} spot${remaining !== 1 ? 's' : ''} left`
+                                  }
+                                </div>
+                              )
+                            }
+                            return null
+                          })()}
+                        </>
+                      )}
 
                     </div>
 

@@ -260,6 +260,7 @@ export default function EventPage() {
 
   const [event, setEvent] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [registrationCount, setRegistrationCount] = useState<number>(0)
   const [formData, setFormData] = useState<RegistrationFormData>({
     firstName: '',
     lastName: '',
@@ -278,6 +279,17 @@ export default function EventPage() {
       try {
         const eventData = await getEventBySlug(slug)
         setEvent(eventData)
+
+        // Fetch registration count if event has maxAttendees
+        if (eventData?.maxAttendees && eventData?._id) {
+          try {
+            const response = await fetch(`/api/events/registrations/count?eventId=${eventData._id}`)
+            const data = await response.json()
+            setRegistrationCount(data.count || 0)
+          } catch (error) {
+            console.error('Error fetching registration count:', error)
+          }
+        }
       } catch (error) {
         console.error('Error fetching event:', error)
       } finally {
@@ -400,12 +412,37 @@ export default function EventPage() {
           <section className="registration-section">
             <h2 className="registration-title">Sign Up</h2>
 
+            {/* Show remaining spots only after 10 people registered */}
+            {event.maxAttendees && registrationCount >= 10 && (
+              <>
+                {(() => {
+                  const remaining = event.maxAttendees - registrationCount
+                  const isSoldOut = remaining <= 0
+                  const isLowSpots = remaining > 0 && remaining <= event.maxAttendees * 0.2
+
+                  return (
+                    <div className={`mb-4 p-3 rounded ${isSoldOut ? 'bg-red-100 text-red-800' : isLowSpots ? 'bg-orange-100 text-orange-800' : 'bg-green-100 text-green-800'}`}>
+                      {isSoldOut ? (
+                        <p className="font-bold">⚠️ This event is SOLD OUT</p>
+                      ) : (
+                        <p className="font-semibold">
+                          {remaining} spot{remaining !== 1 ? 's' : ''} remaining out of {event.maxAttendees}
+                        </p>
+                      )}
+                    </div>
+                  )
+                })()}
+              </>
+            )}
+
             {submitMessage && (
               <div className={`message ${submitMessage.type}`}>
                 {submitMessage.text}
               </div>
             )}
 
+            {/* Show form only if not sold out */}
+            {(!event.maxAttendees || registrationCount < event.maxAttendees) ? (
             <form onSubmit={handleSubmit}>
              {/* Row 1 */}
               <div className="form-row grid grid-cols-3 gap-[36px]">
@@ -539,6 +576,12 @@ export default function EventPage() {
                 {isSubmitting ? 'Submitting...' : 'Submit'}
               </button>
             </form>
+            ) : (
+              <div className="p-6 bg-gray-100 rounded-lg text-center">
+                <p className="text-lg font-bold text-gray-700">This event is now fully booked.</p>
+                <p className="text-gray-600 mt-2">Please check back for future events or contact us for more information.</p>
+              </div>
+            )}
           </section>
         )}   
         <div className="event-details">

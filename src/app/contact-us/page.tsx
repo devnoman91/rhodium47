@@ -300,10 +300,10 @@ export default function ContactUsPage() {
       <section className="contact-content bg-[#F4F1F2] font-helvetica pb-[56px]">
         <div className="contact-grid">
           {/* Contact Information */}
-          <div className="contact-info">
+          <div className="contact-info relative overflow-hidden">
             <h3>{contactData?.contactInfo?.sectionTitle || 'Get in Touch'}</h3>
 
-            <div className='contact-info-inner grid grid-cols-2'>
+            <div className='relative z-[4] contact-info-inner grid grid-cols-2'>
               {contactData?.contactInfo?.emails?.map((email: any, index: number) => (
               <div key={index} className="contact-item">
                 <div className='mb-[31px] inline-flex items-center gap-[10px] p-[12px] rounded-[10px] border-[1.2px] border-[#EEE] bg-white'>
@@ -330,6 +330,7 @@ export default function ContactUsPage() {
 
                 </div>
                 <div className="contact-label">Contact Us</div>
+
                 <div className="contact-desc">{phone.label}</div>
                 <div className='contact-desc'>{phone.phone}</div>
               </div>
@@ -371,10 +372,21 @@ export default function ContactUsPage() {
               </div>
             )}
             </div>
+
+            <div className="circle-small absolute bottom-[144px] right-[40px] h-[138px] w-[138px] z-[3]">
+              <svg className='w-full h-full' xmlns="http://www.w3.org/2000/svg" width="139" height="138" viewBox="0 0 139 138" fill="none">
+                <circle cx="69.1367" cy="69" r="69" fill="#FFF9F9" fill-opacity="0.13"/>
+              </svg>
+            </div>
+            <div className="circle-large absolute bottom-0 right-[-150px] h-[269px] z-[1]">
+              <svg className='w-full h-full' xmlns="http://www.w3.org/2000/svg" width="139" height="138" viewBox="0 0 139 138" fill="none">
+                <circle cx="69.1367" cy="69" r="69" fill="#FFF9F9" fill-opacity="0.13"/>
+              </svg>
+            </div>
           </div>
 
           {/* Contact Form */}
-          <div className="contact-form">
+          <div className="contact-form relative">
             {/* <h3>Send us a Message</h3> */}
 
             {submitMessage && (
@@ -470,7 +482,7 @@ export default function ContactUsPage() {
                 {isSubmitting ? 'Sending...' : 'Submit'}
               </button>
             </form>
-           <div className="svg-col w-full  max-w-[240px] min-h-[112px] ml-auto md:mr-[201px]">
+           <div className="svg-col w-full  max-w-[240px] min-h-[112px] ml-auto right-[201px] absolute bottom-[-55px]">
               <Image
               className='w-full h-full'
                 src={letter}

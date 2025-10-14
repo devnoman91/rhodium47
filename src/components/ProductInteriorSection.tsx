@@ -264,7 +264,7 @@ const InteriorCard: React.FC<{
         </div>
 
         {/* Content */}
-        <div className="pt-6 max-w-[420px]">
+        <div className="pt-6 max-w-[656px]">
           <div className="mb-0">
             <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[4px]">
               {section.name || 'Interior Feature'}
@@ -320,7 +320,7 @@ const InteriorCard: React.FC<{
       </div>
 
       {/* Content */}
-      <div className="pt-6 max-w-[420px]">
+      <div className="pt-6 max-w-[656px]">
         <div className="mb-[48px]">
           <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[4px]">
             {section.name || 'Interior Feature'}

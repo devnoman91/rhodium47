@@ -13,22 +13,22 @@ import type { CustomerStory } from '@/content/types'
 const portableTextComponents = {
   block: {
     h1: ({ children }: any) => (
-      <h1 className="text-[36px] lg:text-[48px] font-bold text-black mb-[24px] mt-[48px] leading-tight">
+      <h1 className="text-[36px] lg:text-[50px] font-[500] text-black mb-[34px]  leading-tight">
         {children}
       </h1>
     ),
     h2: ({ children }: any) => (
-      <h2 className="text-[28px] lg:text-[40px] font-bold text-black mb-[20px] mt-[40px] leading-tight">
+      <h2 className="text-[28px] lg:text-[40px] font-[500] text-black mb-[34px]  leading-tight">
         {children}
       </h2>
     ),
     h3: ({ children }: any) => (
-      <h3 className="text-[24px] lg:text-[32px] font-bold text-black mb-[16px] mt-[32px] leading-tight">
+      <h3 className="text-[24px] lg:text-[32px] font-[500] text-black mb-[34px]  leading-tight">
         {children}
       </h3>
     ),
     normal: ({ children }: any) => (
-      <p className="text-[16px] lg:text-[18px] text-gray-800 mb-[20px] leading-relaxed">
+      <p className="text-[16px] text-[#111] mb-[34px] font-[400] leading-relaxed">
         {children}
       </p>
     ),
@@ -104,10 +104,10 @@ const StoryHeroSection: React.FC<{
   }
 }> = ({ title, image }) => {
   return (
-    <section  className=' pt-[138px] max-w-[1332px] mx-auto px-[20px]'>
+    <section  className=' pt-[138px] max-w-[1332px] mx-auto px-[20px] mb-[42px]'>
     
       {/* Content */}
-      <div className="max-w-[900px]">
+      <div className="max-w-[1010px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -116,9 +116,9 @@ const StoryHeroSection: React.FC<{
           {/* Back Button */}
           <Link
             href="/customer-stories"
-            className="inline-flex items-center  text-black text-[14px] font-medium mb-[32px] transition-colors group"
+            className="text-black font-helvetica text-[12px] not-italic font-normal leading-[110%] tracking-[-0.24px] underline decoration-solid"
           >
-            <svg
+            {/* <svg
               className="w-5 h-5 mr-2 transition-transform group-hover:-translate-x-1"
               fill="none"
               stroke="currentColor"
@@ -130,8 +130,8 @@ const StoryHeroSection: React.FC<{
                 strokeWidth={2}
                 d="M15 19l-7-7 7-7"
               />
-            </svg>
-            Back to Customer Stories
+            </svg> */}
+            Back 
           </Link>
 
           {/* Story Title
@@ -150,7 +150,7 @@ const StoryContentSection: React.FC<{
 }> = ({ content }) => {
   return (
     <section className=" bg-white max-w-[1332px] m-auto">
-      <div className="max-w-[900px] px-[20px]">
+      <div className="max-w-[1010px] px-[20px]">
         <motion.article
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -168,7 +168,7 @@ const StoryContentSection: React.FC<{
 const CTASection: React.FC = () => {
   return (
     <section className="py-[60px] lg:py-[80px] bg-gray-50">
-      <div className="max-w-[1200px] mx-auto px-[20px] lg:px-[80px] text-center">
+      <div className="max-w-[1010px] mx-auto px-[20px] lg:px-[80px] text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

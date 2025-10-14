@@ -104,11 +104,10 @@ const StoryHeroSection: React.FC<{
   }
 }> = ({ title, image }) => {
   return (
-    <section  className=' pt-[138px] max-w-[900px] mx-auto px-[20px] lg:px-[60px]'>
-     
-
+    <section  className=' pt-[138px] max-w-[1332px] mx-auto px-[20px]'>
+    
       {/* Content */}
-      <div className="">
+      <div className="max-w-[900px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -150,8 +149,8 @@ const StoryContentSection: React.FC<{
   content: any[]
 }> = ({ content }) => {
   return (
-    <section className=" bg-white">
-      <div className="max-w-[900px] mx-auto px-[20px] lg:px-[60px]">
+    <section className=" bg-white max-w-[1332px] m-auto">
+      <div className="max-w-[900px] px-[20px]">
         <motion.article
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

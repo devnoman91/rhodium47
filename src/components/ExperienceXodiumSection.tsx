@@ -105,7 +105,7 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
                 {data.description.split('\n\n').map((paragraph, index) => (
                   <p
                     key={index}
-                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[550px]"
+                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-[400] font-helvetica text-black pb-[20px] max-w-[550px]"
                   >
                     {paragraph.trim()}
                   </p>

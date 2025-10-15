@@ -21,6 +21,10 @@ interface Vehicle {
 
 interface InventoryClientProps {
   vehicles: Vehicle[];
+  priceRange: {
+    min: number;
+    max: number;
+  };
 }
 
 const criticalInlineStyles = `
@@ -35,14 +39,14 @@ const criticalInlineStyles = `
 }
 `;
 
-export default function InventoryClient({ vehicles }: InventoryClientProps) {
+export default function InventoryClient({ vehicles, priceRange }: InventoryClientProps) {
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>(vehicles);
   const [filters, setFilters] = useState({
     zipCode: '',
     status: '',
     models: [] as string[],
     paymentType: '',
-    priceRange: [filterOptions.priceRange.min, filterOptions.priceRange.max] as [number, number],
+    priceRange: [priceRange.min, priceRange.max] as [number, number],
     trim: '',
     mileageYear: '',
     paint: '',
@@ -82,7 +86,10 @@ export default function InventoryClient({ vehicles }: InventoryClientProps) {
           <FilterSidebar
             filters={filters}
             onFilterChange={handleFilterChange}
-            filterOptions={filterOptions}
+            filterOptions={{
+              ...filterOptions,
+              priceRange: priceRange
+            }}
           />
         </div>
 
@@ -148,7 +155,7 @@ export default function InventoryClient({ vehicles }: InventoryClientProps) {
                     status: '',
                     models: [],
                     paymentType: '',
-                    priceRange: [filterOptions.priceRange.min, filterOptions.priceRange.max] as [number, number],
+                    priceRange: [priceRange.min, priceRange.max] as [number, number],
                     trim: '',
                     mileageYear: '',
                     paint: '',

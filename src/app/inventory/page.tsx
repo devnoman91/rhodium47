@@ -15,6 +15,7 @@ interface Vehicle {
 
 export default async function InventoryPage() {
   let vehicles: Vehicle[] = [];
+  let dynamicPriceRange = { min: 750, max: 1050 }; // Default fallback values
 
   try {
     // Fetch products from Shopify
@@ -33,11 +34,20 @@ export default async function InventoryPage() {
       variants: product.variants,
       options: product.options,
     }));
+
+    // Calculate dynamic price range from actual products
+    if (vehicles.length > 0) {
+      const prices = vehicles.map(v => v.price);
+      dynamicPriceRange = {
+        min: Math.floor(Math.min(...prices)),
+        max: Math.ceil(Math.max(...prices))
+      };
+    }
   } catch (error: any) {
     console.error('Error fetching products from Shopify:', error);
     // Return empty array if there's an error
     vehicles = [];
   }
 
-  return <InventoryClient vehicles={vehicles} />;
+  return <InventoryClient vehicles={vehicles} priceRange={dynamicPriceRange} />;
 }

@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, Variants, PanInfo } from 'framer-motion'
 
 interface Vehicle {
-  id: number
+  id: string
   name: string
   model: string
   description: string
@@ -13,54 +13,12 @@ interface Vehicle {
   range: string
   image: string
   category: 'standard' | 'armored'
+  handle: string
 }
 
-const vehicleData: Vehicle[] = [
-  {
-    id: 1,
-    name: 'AVANTGARDE',
-    model: 'G-Class Elite',
-    description: 'All-electric, 8-seat SUV built for safety, luxury, and performance.',
-    price: '$75,900',
-    monthlyPayment: '$609/mo*',
-    range: '410 mi*',
-    image: '/car.png',
-    category: 'standard'
-  },
-  {
-    id: 2,
-    name: 'SENTINEL',
-    model: 'Armored Guardian',
-    description: 'Military-grade protection with luxury amenities for ultimate security.',
-    price: '$125,900',
-    monthlyPayment: '$1,089/mo*',
-    range: '380 mi*',
-    image: '/car.png',
-    category: 'armored'
-  },
-  {
-    id: 3,
-    name: 'FORTRESS',
-    model: 'Urban Shield',
-    description: 'Compact armored vehicle designed for city protection and mobility.',
-    price: '$95,900',
-    monthlyPayment: '$829/mo*',
-    range: '420 mi*',
-    image: '/car.png',
-    category: 'armored'
-  },
-  {
-    id: 4,
-    name: 'PHANTOM',
-    model: 'Stealth Series',
-    description: 'Advanced stealth technology combined with luxury transportation.',
-    price: '$155,900',
-    monthlyPayment: '$1,349/mo*',
-    range: '350 mi*',
-    image: '/car.png',
-    category: 'standard'
-  }
-]
+interface VehicleShowcaseProps {
+  vehicles: Vehicle[]
+}
 
 // Animation variants
 const containerVariants: Variants = {
@@ -98,7 +56,7 @@ const imageVariants: Variants = {
   }
 }
 
-const VehicleShowcase: React.FC = () => {
+const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'standard' | 'armored'>('standard')
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isScrolling, setIsScrolling] = useState(false)
@@ -110,8 +68,8 @@ const VehicleShowcase: React.FC = () => {
   const isSliderComplete = useRef(false)
 
   const filteredVehicles = selectedCategory === 'all'
-    ? vehicleData
-    : vehicleData.filter(vehicle => vehicle.category === selectedCategory)
+    ? vehicles
+    : vehicles.filter(vehicle => vehicle.category === selectedCategory)
 
   useEffect(() => {
     setCurrentIndex(0)

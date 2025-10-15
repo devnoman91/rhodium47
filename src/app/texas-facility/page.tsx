@@ -12,7 +12,7 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
   mainHeading,
 }) => {
   return (
-    <section className="relative pb-[106px]">
+    <section className="relative  bg-[#F4F1F2]">
       <div className="max-w-[1200px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -20,10 +20,10 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h1 className="text-[64px] pt-30 font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto mb-6 font-helvetica">
+          <h1 className="text-[64px] pt-[138px] font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto mb-6 font-helvetica">
              {sectionLabel}
           </h1>
-          <p className="text-[24px] font-medium text-[#111] leading-[150%] capitalize max-w-[855px] mx-auto mb-[14px] font-helvetica">
+          <p className="text-[24px] font-medium text-[#111] leading-[150%] capitalize max-w-[855px] mx-auto font-helvetica">
            {mainHeading}
           </p>
 
@@ -132,7 +132,7 @@ const InfoSections: React.FC<{
   }>
 }> = ({ sections }) => {
   return (
-    <section className="bg-[#F4F1F2] pb-[49px]">
+    <section className="bg-[#F4F1F2] pb-[69px]">
       <div className="max-w-[1304px] mx-auto px-4 md:px-6">
         <div className="flex flex-col lg:flex-row gap-[30px]">
           {sections.map((section, index) => (
@@ -276,7 +276,7 @@ const SliderSection: React.FC<{
   }, [currentIndex, totalSlides])
 
   return (
-    <section className="pt-[50px] lg:pt-[90px] bg-[#111111] overflow-hidden" style={{ contain: 'layout style' }}>
+    <section className="pt-[50px] lg:pt-[90px] pb-[102px] bg-[#111111] overflow-hidden" style={{ contain: 'layout style' }}>
       {/* Header Section */}
       <div className="max-w-[1304px] mx-auto px-6 mb-[64px]" style={{ contain: 'layout style' }}>
         <motion.div
@@ -384,7 +384,7 @@ const SliderSection: React.FC<{
                       <h3 className="font-medium text-[24px] leading-[150%] text-white capitalize font-helvetica mb-[9px]">
                         {slide.name}
                       </h3>
-                      <p className="text-[16px] leading-[20px] pb-10 tracking-[0] m-0 font-normal font-helvetica text-white opacity-60">
+                      <p className="text-[16px] leading-[20px]  tracking-[0] m-0 font-normal font-helvetica text-white opacity-60">
                         {slide.description}
                       </p>
                     </div>

@@ -13,7 +13,7 @@ const criticalInlineStyles = `
     padding-top: 138px;
     background: #F4F1F2;
     padding-inline: calc(var(--spacing) * 12);
-    padding-bottom: 89px;
+    padding-bottom: 69px;
   }
 
   /* Hero Section */
@@ -494,7 +494,7 @@ export default function BR6ProtectionPage() {
         />
         {/* Testing & Certification Slider Section */}
         {protectionData.testingCertificationSlider.slides.length > 0 && (
-          <section className="pt-[50px] lg:pt-[89px]  bg-[#F4F1F2] pb-24 text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
+          <section className="pt-[50px] lg:pt-[89px]  bg-[#F4F1F2]  text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
             <div className="max-w-[1304px] mx-auto mb-[64px]" style={{ contain: 'layout style' }}>
               <motion.div
                 initial={{ opacity: 0 }}

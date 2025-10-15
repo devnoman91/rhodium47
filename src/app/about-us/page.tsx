@@ -14,7 +14,7 @@ const criticalInlineStyles = `
     padding-top: 138px;
     background: #F4F1F2;
     padding-inline: calc(var(--spacing) * 12);
-    padding-bottom: 69px;
+    padding-bottom: 103px;
   }
 
   /* Hero Section */
@@ -344,7 +344,7 @@ const ForeverSection: React.FC<{
   }, [currentIndex, totalSlides])
 
   return (
-    <section className="pt-[50px] lg:pt-[90px] bg-black text-white overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
+    <section className="pt-[50px] lg:pt-[89px] lg:pb-[82px] bg-black text-white overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
       {/* Header Section - Constrained max-w-7xl */}
       <div className="max-w-[1304px] mx-auto  mb-[64px]" style={{ contain: 'layout style' }}>
         <motion.div
@@ -452,7 +452,7 @@ const ForeverSection: React.FC<{
                       <h3 className="text-white font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                         {card.title}
                       </h3>
-                      <p className="text-[16px] leading-[20px] pb-10 tracking-[0] m-0 font-normal font-helvetica text-white opacity-60">
+                      <p className="text-[16px] leading-[20px]  tracking-[0] m-0 font-normal font-helvetica text-white opacity-60">
                         {card.description}
                       </p>
                     </div>
@@ -478,7 +478,7 @@ const CoreValuesSection: React.FC<{
   }>
 }> = ({ title, description, cards }) => {
   return (
-    <section className="pt-[50px] pb-[50px] lg:pb-[90px] ">
+    <section className="pt-[77px] ">
       <div className="max-w-[1304px] m-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -599,7 +599,7 @@ const ByTheNumbersSection: React.FC<{
   const words = description.split(' ')
 
   return (
-    <section ref={containerRef} className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2]">
+    <section ref={containerRef} className="pt-[77px] pb-[50px] lg:pb-[77px] bg-[#F4F1F2]">
       <div className="max-w-[1304px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

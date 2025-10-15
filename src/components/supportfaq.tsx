@@ -64,7 +64,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#111',
   }
 
   return (
-    <section className="py-16 lg:py-24" style={{ backgroundColor, color: textColor }}>
+    <section className="py-16 lg:pb-[94px] lg:pt-[68px]" style={{ backgroundColor, color: textColor }}>
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           variants={containerVariants}

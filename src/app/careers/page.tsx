@@ -13,7 +13,7 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
   mainHeading,
 }) => {
   return (
-    <section className="relative pt-24 pb-[106px]">
+    <section className="relative pt-[138px] pb-[106px]">
       <div className="max-w-[1200px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -47,14 +47,14 @@ const ManufacturingExcellenceSection: React.FC<{
   const words = description.split(' ')
 
   return (
-    <section className="pb-[54px]">
+    <section className="pb-[60px]">
       <div className="max-w-[1304px] mx-auto px-6">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6, staggerChildren: 0.2 }}
-          className="mb-20 lg:mb-[79px]"
+          className=""
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 xl:gap-20">
             {/* Left Logo */}
@@ -143,7 +143,7 @@ const InfoSectionsComponent: React.FC<{
   }>
 }> = ({ sections }) => {
   return (
-    <section className="pb-[80px] bg-[#F4F1F2]">
+    <section className="pb-[52px] bg-[#F4F1F2]">
       <div className="max-w-[1304px] mx-auto">
         <div className="flex gap-[30px]">
           {sections.map((section, index) => (
@@ -388,7 +388,7 @@ const BenefitsPerksSection: React.FC<{
   }>
 }> = ({ title, description, benefits }) => {
   return (
-    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2]">
+    <section className="pt-[101px] pb-[50px] lg:pb-[104px] bg-[#F4F1F2]">
       <div className="max-w-[1304px] m-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -447,14 +447,14 @@ const ByTheNumbersSection: React.FC<{
   const words = description.split(' ')
 
   return (
-    <section ref={containerRef} className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2]">
+    <section ref={containerRef} className="pb-[50px] lg:pb-[64px] bg-[#F4F1F2]">
       <div className="max-w-[1304px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-[96px] max-w-[810px] m-auto"
+          className="text-center mb-[72px] max-w-[810px] m-auto"
         >
           <div className="pt-3 border-t border-black flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-[30px] font-helvetica items-center uppercase">
             <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
@@ -497,9 +497,9 @@ const ByTheNumbersSection: React.FC<{
               className="text-center"
             >
               <p className="border-b  border-[#777777] text-[20px] tracking-[-0.8px] font-[400] text-[#16161880] font-helvetica mb-[24px] pb-[31px]">
-                {item.value}
+             {item.name}  
               </p>
-              <p className="text-[20px] tracking-[-0.8px]  font-[500] text-[#7F7F7F] font-helvetica uppercase ">{item.name}</p>
+              <p className="text-[20px] tracking-[-0.8px]  font-[500] text-[#7F7F7F] font-helvetica uppercase "> {item.value}</p>
             </motion.div>
           ))}
         </div>

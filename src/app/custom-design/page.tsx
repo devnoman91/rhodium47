@@ -10,7 +10,7 @@ const criticalInlineStyles = `
   .custom-design-container {
     max-width: 100%;
     margin: 0 auto;
-    padding-top: 120px;
+    padding-top: 138px;
     background: #F4F1F2;
     padding-inline: calc(var(--spacing) * 12);
     padding-bottom: 42px;
@@ -378,7 +378,7 @@ export default function CustomDesignPage() {
       <div className="custom-design-container" style={{ paddingTop: 0 }}>
         {/* Slider Section */}
         {customDesignData.sliderSection.slides.length > 0 && (
-          <section className="pt-[79px] pb-[82px] bg-[#000] text-white overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
+          <section className="pt-[79px] pb-[102px] bg-[#000] text-white overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
             {/* Header Section - Constrained max-w-7xl */}
             <div className="max-w-[1304px] mx-auto mb-[64px]" style={{ contain: 'layout style' }}>
               <motion.div

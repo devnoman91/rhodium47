@@ -2,7 +2,47 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+// style
+const performanceStyles  = `
+   .performance-section h2{
+  color: #111;
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+line-height: 22px;
+text-transform: capitalize;
+ margin-bottom:17px;
+  }
+ .performance-section h3{
+margin-bottom:17px;
+ }
+  h3{
+color: #111;
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+line-height: 22px;
+text-transform: capitalize;
 
+ }
+
+ p{
+font-size: 10px;
+font-style: normal;
+font-weight: 400;
+line-height: 22px;
+text-transform: capitalize;
+
+  }
+ .performance-section p{
+ font-size: 16px;
+ margin-bottom:10px;
+ }
+.performance-section ul{
+list-style-type: disc;
+    padding-left: 20px;
+}
+    `
 interface VehicleConfigClientProps {
   product: any;
   topHeadingHtml: string;
@@ -70,23 +110,24 @@ export default function VehicleConfigClient({
               </div>
 
               {/* Top Heading Section (Specs) */}
+              <style dangerouslySetInnerHTML={{ __html: performanceStyles }} />
               {topHeadingHtml && (
-                <div className="text-black text-center mb-8 grid grid-cols-3 gap-4 " dangerouslySetInnerHTML={{ __html: topHeadingHtml }} />
+                <div className="text-black text-center flex justify-between mb-[21px] gap-4 " dangerouslySetInnerHTML={{ __html: topHeadingHtml }} />
               )}
 
               {/* Variant Tabs */}
               {product.variants && product.variants.length > 0 && (
                 <div className="mb-8">
                   {/* Tabs */}
-                  <div className="flex gap-2 mb-6 flex-wrap">
+                  <div className="flex gap-2 flex-wrap justify-between border-[#D5D7D7] border-b mb-[28px]">
                     {product.variants.map((variant: any, index: number) => (
                       <button
                         key={variant.id}
                         onClick={() => setSelectedVariantIndex(index)}
-                        className={`cursor-pointer px-6 py-3 rounded-full font-helvetica text-[14px] not-italic font-medium leading-[140%] transition-colors ${
+                        className={`cursor-pointer px-6 pb-[17px]  font-helvetica !text-[16px] not-italic font-[500] leading-[180%] transition-colors ${
                           selectedVariantIndex === index
-                            ? 'bg-black text-white'
-                            : 'bg-white text-black border border-gray-300 hover:bg-gray-100'
+                            ? ' text-[#000]'
+                            : ' text-[#858585] hover:text-[#000]'
                         }`}
                       >
                         {variant.title}
@@ -96,21 +137,21 @@ export default function VehicleConfigClient({
 
                   {/* Selected Variant Info */}
                   {selectedVariant && (
-                    <div className="flex justify-between items-center bg-white rounded-lg p-6 shadow-sm">
+                    <div className="flex justify-between border border-[#000] items-center bg-[#F4F4F4] rounded-[4px] px-[21px] py-[13px]">
                       <div className="text-left">
                         <p className="text-[#747474] font-helvetica text-[12px] not-italic font-normal leading-[140%] mb-1">
                           Standard
                         </p>
-                        <p className="text-black font-helvetica text-[18px] not-italic font-bold leading-[140%]">
+                        <p className="text-black font-helvetica !text-[14px] not-italic font-bold leading-[150%] capitalize">
                           {selectedVariant.title}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-[#111] font-helvetica text-[32px] not-italic font-bold leading-[110%]">
+                        <p className="text-black font-helvetica !text-[14px] not-italic font-bold leading-[150%] capitalize">
                           ${selectedVariantPrice.toLocaleString()}
                         </p>
                         {!selectedVariant.availableForSale && (
-                          <p className="text-red-500 font-helvetica text-[12px] not-italic font-normal leading-[140%] mt-1">
+                          <p className="text-red-500 font-helvetica !text-[14px] not-italic font-normal leading-[140%] mt-1">
                             Out of Stock
                           </p>
                         )}
@@ -120,15 +161,21 @@ export default function VehicleConfigClient({
                 </div>
               )}
 
+              
+
+              {/* Performance Data Section */}
+               <style dangerouslySetInnerHTML={{ __html: performanceStyles }} />
+                  {performanceHtml && (
+                    <div
+                      className="performance-section"
+                      dangerouslySetInnerHTML={{ __html: performanceHtml }}
+                    />
+                  )}
+
               {/* Order Button */}
               <button className="w-full cursor-pointer text-white text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] rounded-full py-[14px] px-4 bg-black hover:bg-gray-800 transition-colors mb-6">
                 Order Now
               </button>
-
-              {/* Performance Data Section */}
-              {performanceHtml && (
-                <div className="text-black mt-8" dangerouslySetInnerHTML={{ __html: performanceHtml }} />
-              )}
             </div>
           </div>
         </div>

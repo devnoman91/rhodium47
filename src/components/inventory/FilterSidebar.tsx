@@ -90,7 +90,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
       {/* Model Filter */}
       <ExpandableFilterSection title="Model" isExpanded={true}>
         <div className="space-y-3">
-          {filterOptions.models.map((model: string) => (
+          {filterOptions.models?.map((model: string) => (
             <label key={model} className="flex items-cente">
               <input
                 type="checkbox"
@@ -109,10 +109,150 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         </div>
       </ExpandableFilterSection>
 
+      {/* Vehicle Type Filter */}
+      {filterOptions.vehicleTypes?.length > 0 && (
+        <ExpandableFilterSection title="Vehicle Type">
+          <div className="space-y-3">
+            {filterOptions.vehicleTypes.map((type: string) => (
+              <label key={type} className="flex items-center">
+                <input
+                  type="radio"
+                  name="vehicleType"
+                  checked={filters.vehicleType === type}
+                  onChange={() => updateFilter('vehicleType', type)}
+                  className="border-gray-300 text-black focus:ring-black"
+                />
+                <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{type}</span>
+              </label>
+            ))}
+          </div>
+        </ExpandableFilterSection>
+      )}
+
+      {/* Armor Level Filter */}
+      {filterOptions.armorLevels?.length > 0 && (
+        <ExpandableFilterSection title="Armor Level">
+          <div className="space-y-3">
+            {filterOptions.armorLevels.map((level: string) => (
+              <label key={level} className="flex items-center">
+                <input
+                  type="radio"
+                  name="armorLevel"
+                  checked={filters.armorLevel === level}
+                  onChange={() => updateFilter('armorLevel', level)}
+                  className="border-gray-300 text-black focus:ring-black"
+                />
+                <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{level}</span>
+              </label>
+            ))}
+          </div>
+        </ExpandableFilterSection>
+      )}
+
+      {/* Drivetrain Filter */}
+      {filterOptions.drivetrains?.length > 0 && (
+        <ExpandableFilterSection title="Drivetrain">
+          <div className="space-y-3">
+            {filterOptions.drivetrains.map((drivetrain: string) => (
+              <label key={drivetrain} className="flex items-center">
+                <input
+                  type="radio"
+                  name="drivetrain"
+                  checked={filters.drivetrain === drivetrain}
+                  onChange={() => updateFilter('drivetrain', drivetrain)}
+                  className="border-gray-300 text-black focus:ring-black"
+                />
+                <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{drivetrain}</span>
+              </label>
+            ))}
+          </div>
+        </ExpandableFilterSection>
+      )}
+
+      {/* Fuel Type Filter */}
+      {filterOptions.fuelTypes?.length > 0 && (
+        <ExpandableFilterSection title="Fuel Type">
+          <div className="space-y-3">
+            {filterOptions.fuelTypes.map((fuel: string) => (
+              <label key={fuel} className="flex items-center">
+                <input
+                  type="radio"
+                  name="fuelType"
+                  checked={filters.fuelType === fuel}
+                  onChange={() => updateFilter('fuelType', fuel)}
+                  className="border-gray-300 text-black focus:ring-black"
+                />
+                <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{fuel}</span>
+              </label>
+            ))}
+          </div>
+        </ExpandableFilterSection>
+      )}
+
+      {/* Transmission Filter */}
+      {filterOptions.transmissions?.length > 0 && (
+        <ExpandableFilterSection title="Transmission">
+          <div className="space-y-3">
+            {filterOptions.transmissions.map((transmission: string) => (
+              <label key={transmission} className="flex items-center">
+                <input
+                  type="radio"
+                  name="transmission"
+                  checked={filters.transmission === transmission}
+                  onChange={() => updateFilter('transmission', transmission)}
+                  className="border-gray-300 text-black focus:ring-black"
+                />
+                <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{transmission}</span>
+              </label>
+            ))}
+          </div>
+        </ExpandableFilterSection>
+      )}
+
+      {/* Seating Capacity Filter */}
+      {filterOptions.seatingCapacities?.length > 0 && (
+        <ExpandableFilterSection title="Seating Capacity">
+          <div className="space-y-3">
+            {filterOptions.seatingCapacities.map((capacity: string) => (
+              <label key={capacity} className="flex items-center">
+                <input
+                  type="radio"
+                  name="seatingCapacity"
+                  checked={filters.seatingCapacity === capacity}
+                  onChange={() => updateFilter('seatingCapacity', capacity)}
+                  className="border-gray-300 text-black focus:ring-black"
+                />
+                <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{capacity}</span>
+              </label>
+            ))}
+          </div>
+        </ExpandableFilterSection>
+      )}
+
+      {/* Model Year Filter */}
+      {filterOptions.modelYears?.length > 0 && (
+        <ExpandableFilterSection title="Model Year">
+          <div className="space-y-3">
+            {filterOptions.modelYears.map((year: string) => (
+              <label key={year} className="flex items-center">
+                <input
+                  type="radio"
+                  name="modelYear"
+                  checked={filters.modelYear === year}
+                  onChange={() => updateFilter('modelYear', year)}
+                  className="border-gray-300 text-black focus:ring-black"
+                />
+                <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{year}</span>
+              </label>
+            ))}
+          </div>
+        </ExpandableFilterSection>
+      )}
+
       {/* Payment Filter */}
       <ExpandableFilterSection title="Payment" isExpanded={true}>
         <div className="space-y-3">
-          {filterOptions.paymentTypes.map((type: string) => (
+          {filterOptions.paymentTypes?.map((type: string) => (
             <label key={type} className="flex items-cente">
               <input
                 type="radio"
@@ -148,161 +288,132 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         </div>
       </ExpandableFilterSection>
 
-      {/* Trim Filter */}
-      <ExpandableFilterSection title="Trim">
-        <div className="space-y-3">
-          {filterOptions.trims.map((trim: string) => (
-            <label key={trim} className="flex items-center">
-              <input
-                type="radio"
-                name="trim"
-                checked={filters.trim === trim}
-                onChange={() => updateFilter('trim', trim)}
-                className="border-gray-300 text-black focus:ring-black"
-              />
-              <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{trim}</span>
-            </label>
-          ))}
-        </div>
-      </ExpandableFilterSection>
+  
 
       {/* Mileage/Year Filter */}
-      <ExpandableFilterSection title="Mileage / Year">
-        <div className="space-y-3">
-          {filterOptions.mileageYears.map((year: string) => (
-            <label key={year} className="flex items-cente">
-              <input
-                type="radio"
-                name="mileageYear"
-                checked={filters.mileageYear === year}
-                onChange={() => updateFilter('mileageYear', year)}
-                className="border-gray-300 text-black focus:ring-black"
-              />
-              <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{year}</span>
-            </label>
-          ))}
-        </div>
-      </ExpandableFilterSection>
+      {filterOptions.mileageYears?.length > 0 && (
+        <ExpandableFilterSection title="Mileage / Year">
+          <div className="space-y-3">
+            {filterOptions.mileageYears.map((year: string) => (
+              <label key={year} className="flex items-cente">
+                <input
+                  type="radio"
+                  name="mileageYear"
+                  checked={filters.mileageYear === year}
+                  onChange={() => updateFilter('mileageYear', year)}
+                  className="border-gray-300 text-black focus:ring-black"
+                />
+                <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{year}</span>
+              </label>
+            ))}
+          </div>
+        </ExpandableFilterSection>
+      )}
 
       {/* Paint Filter */}
-      <ExpandableFilterSection title="Paint">
-        <div className="space-y-3">
-          {filterOptions.paintOptions.map((paint: string) => (
-            <label key={paint} className="flex items-cente">
-              <input
-                type="radio"
-                name="paint"
-                checked={filters.paint === paint}
-                onChange={() => updateFilter('paint', paint)}
-                className="border-gray-300 text-black focus:ring-black"
-              />
-              <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{paint}</span>
-            </label>
-          ))}
-        </div>
-      </ExpandableFilterSection>
+      {filterOptions.paintOptions?.length > 0 && (
+        <ExpandableFilterSection title="Paint">
+          <div className="space-y-3">
+            {filterOptions.paintOptions.map((paint: string) => (
+              <label key={paint} className="flex items-cente">
+                <input
+                  type="radio"
+                  name="paint"
+                  checked={filters.paint === paint}
+                  onChange={() => updateFilter('paint', paint)}
+                  className="border-gray-300 text-black focus:ring-black"
+                />
+                <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{paint}</span>
+              </label>
+            ))}
+          </div>
+        </ExpandableFilterSection>
+      )}
 
       {/* Wheels Filter */}
-      <ExpandableFilterSection title="Wheels">
-        <div className="space-y-3">
-          {filterOptions.wheelOptions.map((wheel: string) => (
-            <label key={wheel} className="flex items-center">
-              <input
-                type="radio"
-                name="wheels"
-                checked={filters.wheels === wheel}
-                onChange={() => updateFilter('wheels', wheel)}
-                className="border-gray-300 text-black focus:ring-black"
-              />
-              <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{wheel}</span>
-            </label>
-          ))}
-        </div>
-      </ExpandableFilterSection>
+      {filterOptions.wheelOptions?.length > 0 && (
+        <ExpandableFilterSection title="Wheels">
+          <div className="space-y-3">
+            {filterOptions.wheelOptions.map((wheel: string) => (
+              <label key={wheel} className="flex items-center">
+                <input
+                  type="radio"
+                  name="wheels"
+                  checked={filters.wheels === wheel}
+                  onChange={() => updateFilter('wheels', wheel)}
+                  className="border-gray-300 text-black focus:ring-black"
+                />
+                <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{wheel}</span>
+              </label>
+            ))}
+          </div>
+        </ExpandableFilterSection>
+      )}
 
       {/* Interior Filter */}
-      <ExpandableFilterSection title="Interior">
-        <div className="space-y-3">
-          {filterOptions.interiorOptions.map((interior: string) => (
-            <label key={interior} className="flex items-center">
-              <input
-                type="radio"
-                name="interior"
-                checked={filters.interior === interior}
-                onChange={() => updateFilter('interior', interior)}
-                className="border-gray-300 text-black focus:ring-black"
-              />
-              <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{interior}</span>
-            </label>
-          ))}
-        </div>
-      </ExpandableFilterSection>
+      {filterOptions.interiorOptions?.length > 0 && (
+        <ExpandableFilterSection title="Interior">
+          <div className="space-y-3">
+            {filterOptions.interiorOptions.map((interior: string) => (
+              <label key={interior} className="flex items-center">
+                <input
+                  type="radio"
+                  name="interior"
+                  checked={filters.interior === interior}
+                  onChange={() => updateFilter('interior', interior)}
+                  className="border-gray-300 text-black focus:ring-black"
+                />
+                <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{interior}</span>
+              </label>
+            ))}
+          </div>
+        </ExpandableFilterSection>
+      )}
 
       {/* Seat Layout Filter */}
-      <ExpandableFilterSection title="Seat Layout">
-        <div className="space-y-3">
-          {filterOptions.seatLayouts.map((layout: string) => (
-            <label key={layout} className="flex items-center">
-              <input
-                type="radio"
-                name="seatLayout"
-                checked={filters.seatLayout === layout}
-                onChange={() => updateFilter('seatLayout', layout)}
-                className="border-gray-300 text-black focus:ring-black"
-              />
-              <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{layout}</span>
-            </label>
-          ))}
-        </div>
-      </ExpandableFilterSection>
+      {filterOptions.seatLayouts?.length > 0 && (
+        <ExpandableFilterSection title="Seat Layout">
+          <div className="space-y-3">
+            {filterOptions.seatLayouts.map((layout: string) => (
+              <label key={layout} className="flex items-center">
+                <input
+                  type="radio"
+                  name="seatLayout"
+                  checked={filters.seatLayout === layout}
+                  onChange={() => updateFilter('seatLayout', layout)}
+                  className="border-gray-300 text-black focus:ring-black"
+                />
+                <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{layout}</span>
+              </label>
+            ))}
+          </div>
+        </ExpandableFilterSection>
+      )}
 
       {/* Additional Options Filter */}
-      <ExpandableFilterSection title="Additional Options">
-        <div className="space-y-3">
-          {filterOptions.additionalOptions.map((option: string) => (
-            <label key={option} className="flex items-center">
-              <input
-                type="checkbox"
-                checked={filters.additionalOptions.includes(option)}
-                onChange={(e) => {
-                  const newOptions = e.target.checked
-                    ? [...filters.additionalOptions, option]
-                    : filters.additionalOptions.filter((o: string) => o !== option);
-                  updateFilter('additionalOptions', newOptions);
-                }}
-                className="rounded border-gray-300 text-black focus:ring-black"
-              />
-              <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{option}</span>
-            </label>
-          ))}
-        </div>
-      </ExpandableFilterSection>
+      {filterOptions.additionalOptions?.length > 0 && (
+        <ExpandableFilterSection title="Additional Options">
+          <div className="space-y-3">
+            {filterOptions.additionalOptions.map((option: string) => (
+              <label key={option} className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={filters.additionalOptions.includes(option)}
+                  onChange={(e) => {
+                    const newOptions = e.target.checked
+                      ? [...filters.additionalOptions, option]
+                      : filters.additionalOptions.filter((o: string) => o !== option);
+                    updateFilter('additionalOptions', newOptions);
+                  }}
+                  className="rounded border-gray-300 text-black focus:ring-black"
+                />
+                <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{option}</span>
+              </label>
+            ))}
+          </div>
+        </ExpandableFilterSection>
+      )}
 
-      {/* Vehicle History Filter */}
-      <ExpandableFilterSection title="Vehicle History">
-        <div className="space-y-3">
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="vehicleHistory"
-              checked={filters.vehicleHistory === 'clean'}
-              onChange={() => updateFilter('vehicleHistory', 'clean')}
-              className="border-gray-300 text-black focus:ring-black"
-            />
-            <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">Clean History</span>
-          </label>
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="vehicleHistory"
-              checked={filters.vehicleHistory === 'accident'}
-              onChange={() => updateFilter('vehicleHistory', 'accident')}
-              className="border-gray-300 text-black focus:ring-black"
-            />
-            <span className="ml-2 text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">Previous Accident</span>
-          </label>
-        </div>
-      </ExpandableFilterSection>
     </div>
   );
 }

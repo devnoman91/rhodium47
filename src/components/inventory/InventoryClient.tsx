@@ -1,8 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { filterOptions } from '@/data/inventory';
-import VehicleCard from '@/components/inventory/VehicleCard';
 import FilterSidebar from '@/components/inventory/FilterSidebar';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -28,6 +26,7 @@ interface InventoryClientProps {
   };
   collections: { handle: string; title: string }[];
   productsByCollection: Record<string, string[]>; // Map collection handle to product IDs
+  filterOptions: any; // Dynamic filter options from tags
 }
 
 const criticalInlineStyles = `
@@ -42,12 +41,19 @@ const criticalInlineStyles = `
 }
 `;
 
-export default function InventoryClient({ vehicles, priceRange, collections, productsByCollection }: InventoryClientProps) {
+export default function InventoryClient({ vehicles, priceRange, collections, productsByCollection, filterOptions }: InventoryClientProps) {
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>(vehicles);
   const [filters, setFilters] = useState({
     zipCode: '',
     status: '',
     models: [] as string[],
+    vehicleType: '',
+    armorLevel: '',
+    drivetrain: '',
+    fuelType: '',
+    transmission: '',
+    seatingCapacity: '',
+    modelYear: '',
     paymentType: '',
     priceRange: [priceRange.min, priceRange.max] as [number, number],
     trim: '',
@@ -56,14 +62,20 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
     wheels: '',
     interior: '',
     seatLayout: '',
-    additionalOptions: [] as string[],
-    vehicleHistory: ''
+    additionalOptions: [] as string[]
   });
 
   // Create a map from collection title to handle for filtering
   const collectionTitleToHandle = new Map(
     collections.map(c => [c.title, c.handle])
   );
+
+  // Helper function to check if vehicle has a specific tag
+  const hasTag = (vehicle: Vehicle, prefix: string, value: string): boolean => {
+    if (!vehicle.tags || !value) return true;
+    const tagToFind = `${prefix}:${value}`.toLowerCase();
+    return vehicle.tags.some(tag => tag.toLowerCase() === tagToFind);
+  };
 
   const handleFilterChange = (newFilters: typeof filters) => {
     setFilters(newFilters);
@@ -72,22 +84,91 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
     let filtered = vehicles;
 
     // Filter by collections (models)
-    // Convert selected titles to handles and get product IDs from those collections
     if (newFilters.models.length > 0) {
       const selectedHandles = newFilters.models
         .map(title => collectionTitleToHandle.get(title))
         .filter(Boolean) as string[];
 
-      // Get all product IDs from the selected collections
       const selectedProductIds = new Set<string>();
       selectedHandles.forEach(handle => {
         const productIds = productsByCollection[handle] || [];
         productIds.forEach(id => selectedProductIds.add(id));
       });
 
-      // Filter vehicles to only include those in the selected collections
       filtered = filtered.filter(vehicle =>
         selectedProductIds.has(vehicle.id)
+      );
+    }
+
+    // Filter by vehicle type (tag-based)
+    if (newFilters.vehicleType) {
+      filtered = filtered.filter(vehicle => hasTag(vehicle, 'vehicle-type', newFilters.vehicleType));
+    }
+
+    // Filter by armor level (tag-based)
+    if (newFilters.armorLevel) {
+      filtered = filtered.filter(vehicle => hasTag(vehicle, 'armor-level', newFilters.armorLevel));
+    }
+
+    // Filter by drivetrain (tag-based)
+    if (newFilters.drivetrain) {
+      filtered = filtered.filter(vehicle => hasTag(vehicle, 'drivetrain', newFilters.drivetrain));
+    }
+
+    // Filter by fuel type (tag-based)
+    if (newFilters.fuelType) {
+      filtered = filtered.filter(vehicle => hasTag(vehicle, 'fuel-type', newFilters.fuelType));
+    }
+
+    // Filter by transmission (tag-based)
+    if (newFilters.transmission) {
+      filtered = filtered.filter(vehicle => hasTag(vehicle, 'transmission', newFilters.transmission));
+    }
+
+    // Filter by seating capacity (tag-based)
+    if (newFilters.seatingCapacity) {
+      filtered = filtered.filter(vehicle => hasTag(vehicle, 'seating-capacity', newFilters.seatingCapacity));
+    }
+
+    // Filter by model year (tag-based)
+    if (newFilters.modelYear) {
+      filtered = filtered.filter(vehicle => hasTag(vehicle, 'model-year', newFilters.modelYear));
+    }
+
+    // Filter by payment type (tag-based)
+    if (newFilters.paymentType) {
+      filtered = filtered.filter(vehicle => hasTag(vehicle, 'payment', newFilters.paymentType));
+    }
+
+    // Filter by mileage/year (tag-based)
+    if (newFilters.mileageYear) {
+      filtered = filtered.filter(vehicle => hasTag(vehicle, 'year', newFilters.mileageYear));
+    }
+
+    // Filter by paint (tag-based)
+    if (newFilters.paint) {
+      filtered = filtered.filter(vehicle => hasTag(vehicle, 'paint', newFilters.paint));
+    }
+
+    // Filter by wheels (tag-based)
+    if (newFilters.wheels) {
+      filtered = filtered.filter(vehicle => hasTag(vehicle, 'wheels', newFilters.wheels));
+    }
+
+    // Filter by interior (tag-based)
+    if (newFilters.interior) {
+      filtered = filtered.filter(vehicle => hasTag(vehicle, 'interior', newFilters.interior));
+    }
+
+    // Filter by seat layout (tag-based)
+    if (newFilters.seatLayout) {
+      filtered = filtered.filter(vehicle => hasTag(vehicle, 'seats', newFilters.seatLayout));
+    }
+
+    // Filter by additional options (tag-based, multiple selection)
+    if (newFilters.additionalOptions.length > 0) {
+      filtered = filtered.filter(vehicle =>
+        newFilters.additionalOptions.every(option => hasTag(vehicle, 'option', option))
       );
     }
 
@@ -178,6 +259,13 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
                     zipCode: '',
                     status: '',
                     models: [],
+                    vehicleType: '',
+                    armorLevel: '',
+                    drivetrain: '',
+                    fuelType: '',
+                    transmission: '',
+                    seatingCapacity: '',
+                    modelYear: '',
                     paymentType: '',
                     priceRange: [priceRange.min, priceRange.max] as [number, number],
                     trim: '',
@@ -186,8 +274,7 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
                     wheels: '',
                     interior: '',
                     seatLayout: '',
-                    additionalOptions: [],
-                    vehicleHistory: ''
+                    additionalOptions: []
                   });
                   setFilteredVehicles(vehicles);
                 }}

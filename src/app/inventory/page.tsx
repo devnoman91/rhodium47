@@ -14,15 +14,100 @@ interface Vehicle {
   tags?: string[]; // Product tags
 }
 
+// Helper function to build filter options from all product tags
+function buildFilterOptionsFromTags(products: any[]) {
+  const filterSets = {
+    vehicleTypes: new Set<string>(),
+    armorLevels: new Set<string>(),
+    drivetrains: new Set<string>(),
+    fuelTypes: new Set<string>(),
+    transmissions: new Set<string>(),
+    seatingCapacities: new Set<string>(),
+    modelYears: new Set<string>(),
+    paymentTypes: new Set<string>(),
+    mileageYears: new Set<string>(),
+    paintOptions: new Set<string>(),
+    wheelOptions: new Set<string>(),
+    interiorOptions: new Set<string>(),
+    seatLayouts: new Set<string>(),
+    additionalOptions: new Set<string>()
+  };
+
+  products.forEach(product => {
+    if (!product.tags) return;
+
+    product.tags.forEach((tag: string) => {
+      const lowerTag = tag.toLowerCase();
+
+      if (lowerTag.startsWith('vehicle-type:')) {
+        filterSets.vehicleTypes.add(tag.split(':')[1]?.trim() || '');
+      } else if (lowerTag.startsWith('armor-level:')) {
+        filterSets.armorLevels.add(tag.split(':')[1]?.trim() || '');
+      } else if (lowerTag.startsWith('drivetrain:')) {
+        filterSets.drivetrains.add(tag.split(':')[1]?.trim() || '');
+      } else if (lowerTag.startsWith('fuel-type:')) {
+        filterSets.fuelTypes.add(tag.split(':')[1]?.trim() || '');
+      } else if (lowerTag.startsWith('transmission:')) {
+        filterSets.transmissions.add(tag.split(':')[1]?.trim() || '');
+      } else if (lowerTag.startsWith('seating-capacity:')) {
+        filterSets.seatingCapacities.add(tag.split(':')[1]?.trim() || '');
+      } else if (lowerTag.startsWith('model-year:')) {
+        filterSets.modelYears.add(tag.split(':')[1]?.trim() || '');
+      } else if (lowerTag.startsWith('payment:')) {
+        filterSets.paymentTypes.add(tag.split(':')[1]?.trim() || '');
+      } else if (lowerTag.startsWith('year:')) {
+        filterSets.mileageYears.add(tag.split(':')[1]?.trim() || '');
+      } else if (lowerTag.startsWith('paint:')) {
+        filterSets.paintOptions.add(tag.split(':')[1]?.trim() || '');
+      } else if (lowerTag.startsWith('wheels:')) {
+        filterSets.wheelOptions.add(tag.split(':')[1]?.trim() || '');
+      } else if (lowerTag.startsWith('interior:')) {
+        filterSets.interiorOptions.add(tag.split(':')[1]?.trim() || '');
+      } else if (lowerTag.startsWith('seats:')) {
+        filterSets.seatLayouts.add(tag.split(':')[1]?.trim() || '');
+      } else if (lowerTag.startsWith('option:')) {
+        filterSets.additionalOptions.add(tag.split(':')[1]?.trim() || '');
+      }
+    });
+  });
+
+  // Convert sets to sorted arrays and filter out empty values
+  return {
+    vehicleTypes: Array.from(filterSets.vehicleTypes).filter(Boolean).sort(),
+    armorLevels: Array.from(filterSets.armorLevels).filter(Boolean).sort(),
+    drivetrains: Array.from(filterSets.drivetrains).filter(Boolean).sort(),
+    fuelTypes: Array.from(filterSets.fuelTypes).filter(Boolean).sort(),
+    transmissions: Array.from(filterSets.transmissions).filter(Boolean).sort(),
+    seatingCapacities: Array.from(filterSets.seatingCapacities).filter(Boolean).sort(),
+    modelYears: Array.from(filterSets.modelYears).filter(Boolean).sort().reverse(),
+    paymentTypes: Array.from(filterSets.paymentTypes).filter(Boolean).sort(),
+    mileageYears: Array.from(filterSets.mileageYears).filter(Boolean).sort().reverse(),
+    paintOptions: Array.from(filterSets.paintOptions).filter(Boolean).sort(),
+    wheelOptions: Array.from(filterSets.wheelOptions).filter(Boolean).sort(),
+    interiorOptions: Array.from(filterSets.interiorOptions).filter(Boolean).sort(),
+    seatLayouts: Array.from(filterSets.seatLayouts).filter(Boolean).sort(),
+    additionalOptions: Array.from(filterSets.additionalOptions).filter(Boolean).sort()
+  };
+}
+
 export default async function InventoryPage() {
   let vehicles: Vehicle[] = [];
   let collections: { handle: string; title: string }[] = [];
   let productsByCollection: Record<string, string[]> = {}; // Map collection handle to product IDs
   let dynamicPriceRange = { min: 750, max: 1050 }; // Default fallback values
+  let filterOptions: any = {};
 
   try {
     // Fetch all products from Shopify
     const products = await getProducts({});
+
+    // Log the first product's tags to see the structure
+    if (products.length > 0) {
+      console.log('Sample Product Tags:', JSON.stringify({
+        productTitle: products[0].title,
+        tags: products[0].tags
+      }, null, 2));
+    }
 
     // Fetch collections from Shopify
     const shopifyCollections = await getCollections();
@@ -48,6 +133,12 @@ export default async function InventoryPage() {
       }
     }
 
+    // Build filter options from product tags
+    filterOptions = buildFilterOptionsFromTags(products);
+
+    // Log the generated filter options
+    console.log('Generated Filter Options:', JSON.stringify(filterOptions, null, 2));
+
     // Transform Shopify products to match your design needs
     vehicles = products.map((product) => ({
       id: product.id,
@@ -59,7 +150,7 @@ export default async function InventoryPage() {
       handle: product.handle,
       variants: product.variants,
       options: product.options,
-      tags: product.tags, // Store tags to identify collections
+      tags: product.tags, // Store tags for filtering
     }));
 
     // Calculate dynamic price range from actual products
@@ -82,6 +173,7 @@ export default async function InventoryPage() {
       priceRange={dynamicPriceRange}
       collections={collections}
       productsByCollection={productsByCollection}
+      filterOptions={filterOptions}
     />
   );
 }

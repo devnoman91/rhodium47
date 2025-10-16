@@ -61,6 +61,14 @@ export default defineType({
           hidden: ({ parent }) => parent?.contentType !== 'video',
         }),
         defineField({
+          name: 'enableSound',
+          title: 'Enable Sound for Video',
+          type: 'boolean',
+          description: 'Allow users to toggle sound on/off for the video',
+          initialValue: true,
+          hidden: ({ parent }) => parent?.contentType !== 'video',
+        }),
+        defineField({
           name: 'image',
           title: 'Image',
           type: 'image',
@@ -68,6 +76,44 @@ export default defineType({
             hotspot: true,
           },
           hidden: ({ parent }) => parent?.contentType !== 'image',
+        }),
+        defineField({
+          name: 'primaryButton',
+          title: 'Primary Button',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'text',
+              title: 'Button Text',
+              type: 'string',
+              initialValue: 'Order Now',
+            }),
+            defineField({
+              name: 'link',
+              title: 'Button Link',
+              type: 'string',
+              description: 'URL or path (e.g., /order, https://example.com)',
+            }),
+          ],
+        }),
+        defineField({
+          name: 'secondaryButton',
+          title: 'Secondary Button',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'text',
+              title: 'Button Text',
+              type: 'string',
+              initialValue: 'Demo Drive',
+            }),
+            defineField({
+              name: 'link',
+              title: 'Button Link',
+              type: 'string',
+              description: 'URL or path (e.g., /demo, https://example.com)',
+            }),
+          ],
         }),
       ],
     }),

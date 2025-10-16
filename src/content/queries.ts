@@ -228,11 +228,20 @@ export const productQuery = `
           url
         }
       },
+      enableSound,
       image {
         asset-> {
           url
         },
         alt
+      },
+      primaryButton {
+        text,
+        link
+      },
+      secondaryButton {
+        text,
+        link
       }
     },
     aboutSection {
@@ -344,11 +353,20 @@ export const productByIdQuery = (id: string) => `
           url
         }
       },
+      enableSound,
       image {
         asset-> {
           url
         },
         alt
+      },
+      primaryButton {
+        text,
+        link
+      },
+      secondaryButton {
+        text,
+        link
       }
     },
     aboutSection {
@@ -460,11 +478,20 @@ export const productBySlugQuery = (slug: string) => `
           url
         }
       },
+      enableSound,
       image {
         asset-> {
           url
         },
         alt
+      },
+      primaryButton {
+        text,
+        link
+      },
+      secondaryButton {
+        text,
+        link
       }
     },
     aboutSection {
@@ -591,11 +618,20 @@ export const surveyFormQuery = `
           url
         }
       },
+      enableSound,
       image {
         asset-> {
           url
         },
         alt
+      },
+      primaryButton {
+        text,
+        link
+      },
+      secondaryButton {
+        text,
+        link
       }
     },
     formSection {
@@ -669,11 +705,20 @@ export const surveyFormBySlugQuery = (slug: string) => `
           url
         }
       },
+      enableSound,
       image {
         asset-> {
           url
         },
         alt
+      },
+      primaryButton {
+        text,
+        link
+      },
+      secondaryButton {
+        text,
+        link
       }
     },
     formSection {
@@ -755,11 +800,20 @@ export const inquiryFormQuery = `
           url
         }
       },
+      enableSound,
       image {
         asset-> {
           url
         },
         alt
+      },
+      primaryButton {
+        text,
+        link
+      },
+      secondaryButton {
+        text,
+        link
       }
     },
     formSection {

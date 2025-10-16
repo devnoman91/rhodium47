@@ -12,11 +12,20 @@ interface ProductHeroSectionProps {
         url: string
       }
     }
+    enableSound?: boolean
     image?: {
       asset: {
         url: string
       }
       alt?: string
+    }
+    primaryButton?: {
+      text?: string
+      link?: string
+    }
+    secondaryButton?: {
+      text?: string
+      link?: string
     }
   }
 }
@@ -136,6 +145,32 @@ const criticalInlineStyles = `
     border: 1px solid #fff;
     cursor: pointer;
   }
+  .sound-toggle-button {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.3s ease;
+  }
+  .sound-toggle-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+  }
+  .sound-icon {
+    width: 24px;
+    height: 24px;
+    color: white;
+  }
 `
 
 export default function ProductHeroSection({ heroSection }: ProductHeroSectionProps) {
@@ -143,11 +178,14 @@ export default function ProductHeroSection({ heroSection }: ProductHeroSectionPr
   const [imageLoaded, setImageLoaded] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [isVideoReady, setIsVideoReady] = useState(false)
+  const [isMuted, setIsMuted] = useState(true)
   const videoRef = useRef<HTMLVideoElement>(null)
   const imageRef = useRef<HTMLImageElement>(null)
   const intersectionRef = useRef<HTMLDivElement>(null)
 
   console.log('ProductHeroSection props:', heroSection)
+  console.log('Video URL:', heroSection?.videoFile?.asset?.url)
+  console.log('Content Type:', heroSection?.contentType)
 
   useEffect(() => {
     setMounted(true)
@@ -220,6 +258,14 @@ export default function ProductHeroSection({ heroSection }: ProductHeroSectionPr
     console.error('Image failed to load')
     setImageLoaded(false)
   }, [])
+
+  const toggleSound = useCallback(() => {
+    if (videoRef.current) {
+      const newMutedState = !isMuted
+      videoRef.current.muted = newMutedState
+      setIsMuted(newMutedState)
+    }
+  }, [isMuted])
 
   // Intersection Observer for content loading
   useEffect(() => {
@@ -303,26 +349,51 @@ export default function ProductHeroSection({ heroSection }: ProductHeroSectionPr
 
           {/* Render video if content type is video */}
           {heroSection.contentType === 'video' && heroSection.videoFile?.asset?.url && (
-            <video
-              ref={videoRef}
-              key={`product-video-${heroSection.videoFile.asset.url}`}
-              src={heroSection.videoFile.asset.url}
-              className="product-hero-video"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="none"
-              controls={false}
-              disablePictureInPicture
-              onLoadedData={handleVideoLoad}
-              onError={handleVideoError}
-              style={{
-                opacity: videoLoaded ? 1 : 0,
-                transition: 'opacity 0.5s ease-in-out'
-              }}
-              poster=""
-            />
+            <>
+              <video
+                ref={videoRef}
+                key={`product-video-${heroSection.videoFile.asset.url}`}
+                src={heroSection.videoFile.asset.url}
+                className="product-hero-video"
+                autoPlay
+                muted={isMuted}
+                loop
+                playsInline
+                preload="auto"
+                controls={false}
+                disablePictureInPicture
+                onLoadedData={handleVideoLoad}
+                onError={handleVideoError}
+                onCanPlay={() => console.log('Video can play')}
+                onPlay={() => console.log('Video playing')}
+                onPause={() => console.log('Video paused')}
+                style={{
+                  opacity: videoLoaded ? 1 : 0,
+                  transition: 'opacity 0.5s ease-in-out'
+                }}
+                poster=""
+              />
+
+              {/* Sound Toggle Button - only show if sound is enabled in schema */}
+              {heroSection.enableSound && videoLoaded && (
+                <button
+                  className="sound-toggle-button"
+                  onClick={toggleSound}
+                  aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                >
+                  {isMuted ? (
+                    <svg className="sound-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                    </svg>
+                  ) : (
+                    <svg className="sound-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    </svg>
+                  )}
+                </button>
+              )}
+            </>
           )}
 
           {/* Render image if content type is image */}
@@ -357,16 +428,26 @@ export default function ProductHeroSection({ heroSection }: ProductHeroSectionPr
           )}
 
           <div className="btn_wrapper">
-            <button className="product-hero-button" style={{
-              transition: 'background-color 0.2s ease'
-            }}>
-              Order Now
-            </button>
-            <button className="product-hero-secondary-button" style={{
-              transition: 'background-color 0.2s ease'
-            }}>
-              Demo Drive
-            </button>
+            <a
+              href={heroSection.primaryButton?.link || '#'}
+              className="product-hero-button"
+              style={{
+                transition: 'background-color 0.2s ease',
+                textDecoration: 'none'
+              }}
+            >
+              {heroSection.primaryButton?.text || 'Order Now'}
+            </a>
+            <a
+              href={heroSection.secondaryButton?.link || '#'}
+              className="product-hero-secondary-button"
+              style={{
+                transition: 'background-color 0.2s ease',
+                textDecoration: 'none'
+              }}
+            >
+              {heroSection.secondaryButton?.text || 'Demo Drive'}
+            </a>
           </div>
         </div>
       </div>

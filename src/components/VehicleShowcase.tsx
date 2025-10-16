@@ -285,40 +285,60 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
         className="relative mb-1 lg:mb-2"
       >
         <div className="relative overflow-hidden pb-1 lg:pb-2">
-          {/* Vehicle Slider */}
-          <div className="relative overflow-hidden py-2 lg:py-3">
-            <div className="w-full flex justify-center">
-              <motion.div
-                className="flex cursor-grab active:cursor-grabbing"
-                drag="x"
-                dragConstraints={{ left: -30, right: 30 }}
-                dragElastic={0.1}
-                onDragEnd={handleDragEnd}
-                animate={{
-                  x: -currentIndex * 100 + '%',
-                  scale: isScrolling ? 0.98 : 1
-                }}
-                transition={{
-                  duration: isScrolling ? 0.8 : 0.4,
-                  ease: isScrolling ? [0.25, 0.46, 0.45, 0.94] : [0.4, 0, 0.2, 1],
-                  scale: {
-                    duration: 0.3,
-                    ease: "easeInOut"
-                  }
-                }}
-                style={{ width: `${filteredVehicles.length * 100}%` }}
-              >
-                {filteredVehicles.map((vehicle) => (
-                  <VehicleSlide
-                    key={vehicle.id}
-                    vehicle={vehicle}
-                    isActive={filteredVehicles[currentIndex]?.id === vehicle.id}
-                    isScrolling={isScrolling}
-                  />
-                ))}
-              </motion.div>
+          {/* Vehicle Slider or Not Available Message */}
+          {filteredVehicles.length > 0 ? (
+            <div className="relative overflow-hidden py-2 lg:py-3">
+              <div className="w-full flex justify-center">
+                <motion.div
+                  className="flex cursor-grab active:cursor-grabbing"
+                  drag="x"
+                  dragConstraints={{ left: -30, right: 30 }}
+                  dragElastic={0.1}
+                  onDragEnd={handleDragEnd}
+                  animate={{
+                    x: -currentIndex * 100 + '%',
+                    scale: isScrolling ? 0.98 : 1
+                  }}
+                  transition={{
+                    duration: isScrolling ? 0.8 : 0.4,
+                    ease: isScrolling ? [0.25, 0.46, 0.45, 0.94] : [0.4, 0, 0.2, 1],
+                    scale: {
+                      duration: 0.3,
+                      ease: "easeInOut"
+                    }
+                  }}
+                  style={{ width: `${filteredVehicles.length * 100}%` }}
+                >
+                  {filteredVehicles.map((vehicle) => (
+                    <VehicleSlide
+                      key={vehicle.id}
+                      vehicle={vehicle}
+                      isActive={filteredVehicles[currentIndex]?.id === vehicle.id}
+                      isScrolling={isScrolling}
+                    />
+                  ))}
+                </motion.div>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="relative py-16 lg:py-24">
+              <div className="w-full flex justify-center items-center">
+                <motion.div
+                  className="text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <h3 className="text-gray-600 font-helvetica text-[48px] not-italic font-medium leading-[110%] tracking-[-0.96px] mb-4">
+                    Not Available
+                  </h3>
+                  <p className="text-gray-500 font-helvetica text-[18px] not-italic font-normal leading-[160%]">
+                    No products found in this category at the moment.
+                  </p>
+                </motion.div>
+              </div>
+            </div>
+          )}
 
         </div>
       </motion.div>
@@ -370,9 +390,7 @@ const VehicleSlide: React.FC<{
         <h2 className="text-black font-helvetica text-[100px] not-italic font-bold leading-[150%] tracking-[-8px] uppercase mb-4">
           {vehicle.name}
         </h2>
-        <p className="text-[#111] font-helvetica text-[24px] not-italic font-bold leading-[110%] tracking-[-0.24px] mb-[15px]">
-          {vehicle.description}
-        </p>
+       
         <p className="text-[color:var(--Sub-Heading,#6B7280)] text-center font-helvetica text-[18px] not-italic font-medium leading-[120%] mb-[30px]">
           From {vehicle.price} • Est. {vehicle.monthlyPayment} | EPA est. range {vehicle.range}
         </p>

@@ -12,14 +12,14 @@ import ExperienceXodiumSection from "@/components/ExperienceXodiumSection";
 import VehicleShowcase from "@/components/VehicleShowcase";
 import VehicleDiagram from "@/components/VehicleDiagram";
 import { getExperienceXodiumData, getFAQData, getHomeAboutData, getKeepExploringData, getNewsUpdatesData, getProductBlogData, getProductDetails, getProductShowcaseData, getProtectionData, getShowcaseInnovationData, getUtilityData } from "@/sanity/lib/sanity";
-import { getProducts } from "@/lib/shopify";
+import { getCollections, getCollectionProducts } from "@/lib/shopify";
 
 // Revalidate every 60 seconds
 export const revalidate = 60
 
 export default async function Home() {
   // Fetch data from Sanity CMS and Shopify
-  const [aboutData, products, blogData, showcaseData, innovationData, protectionData, faqData, utilityData, keepExploringData, newsUpdatesData, experienceXodiumData, shopifyProducts] = await Promise.all([
+  const [aboutData, products, blogData, showcaseData, innovationData, protectionData, faqData, utilityData, keepExploringData, newsUpdatesData, experienceXodiumData, collections] = await Promise.all([
     getHomeAboutData(),
     getProductDetails(),
     getProductBlogData(),
@@ -31,33 +31,72 @@ export default async function Home() {
     getKeepExploringData(),
     getNewsUpdatesData(),
     getExperienceXodiumData(),
-    getProducts({})
+    getCollections()
   ]);
 
-  // Map Shopify products to vehicle format
-  const vehicles = shopifyProducts.map((product) => {
-    const price = parseFloat(product.priceRange.minVariantPrice.amount);
-    const monthlyPayment = Math.round(price * 0.008); // Rough estimate: ~0.8% of price per month
+  // Find the two specific collections we want to display
+  const ourModelsCollection = collections.find(col =>
+    col.title.toLowerCase().includes('our models') ||
+    col.handle === 'our-models'
+  );
 
-    // Determine category based on product title or tags
-    const isArmored = product.title.toLowerCase().includes('armored') ||
-                      product.title.toLowerCase().includes('sentinel') ||
-                      product.title.toLowerCase().includes('fortress') ||
-                      product.tags.some(tag => tag.toLowerCase().includes('armored'));
+  const armoredCollection = collections.find(col =>
+    col.title.toLowerCase().includes('armored') ||
+    col.handle === 'armored-collection'
+  );
 
-    return {
-      id: product.id,
-      name: product.title.toUpperCase(),
-      model: product.title,
-      description: product.description || 'Luxury vehicle with advanced features',
-      price: `$${price.toLocaleString()}`,
-      monthlyPayment: `$${monthlyPayment.toLocaleString()}/mo*`,
-      range: '400 mi*', // Default range, can be made dynamic with product metafields
-      image: product.images[0]?.url || '/car.png',
-      category: (isArmored ? 'armored' : 'standard') as 'standard' | 'armored',
-      handle: product.handle
-    };
-  });
+  let vehicles: any[] = [];
+
+  try {
+    // Fetch products from both collections
+    const [standardProducts, armoredProducts] = await Promise.all([
+      ourModelsCollection ? getCollectionProducts({ collection: ourModelsCollection.handle }) : Promise.resolve([]),
+      armoredCollection ? getCollectionProducts({ collection: armoredCollection.handle }) : Promise.resolve([])
+    ]);
+
+    // Map standard products
+    const standardVehicles = standardProducts.map((product) => {
+      const price = parseFloat(product.priceRange.minVariantPrice.amount);
+      const monthlyPayment = Math.round(price * 0.008);
+
+      return {
+        id: product.id,
+        name: product.title.toUpperCase(),
+        model: product.title,
+        description: product.description || 'Luxury vehicle with advanced features',
+        price: `$${price.toLocaleString()}`,
+        monthlyPayment: `$${monthlyPayment.toLocaleString()}/mo*`,
+        range: '400 mi*',
+        image: product.images[0]?.url || '/car.png',
+        category: 'standard' as 'standard' | 'armored',
+        handle: product.handle
+      };
+    });
+
+    // Map armored products
+    const armoredVehicles = armoredProducts.map((product) => {
+      const price = parseFloat(product.priceRange.minVariantPrice.amount);
+      const monthlyPayment = Math.round(price * 0.008);
+
+      return {
+        id: product.id,
+        name: product.title.toUpperCase(),
+        model: product.title,
+        description: product.description || 'Luxury armored vehicle with advanced protection',
+        price: `$${price.toLocaleString()}`,
+        monthlyPayment: `$${monthlyPayment.toLocaleString()}/mo*`,
+        range: '400 mi*',
+        image: product.images[0]?.url || '/car.png',
+        category: 'armored' as 'standard' | 'armored',
+        handle: product.handle
+      };
+    });
+
+    vehicles = [...standardVehicles, ...armoredVehicles];
+  } catch (error) {
+    console.error('Error fetching collection products:', error);
+    vehicles = [];
+  }
 
   return (
     <div className="relative">

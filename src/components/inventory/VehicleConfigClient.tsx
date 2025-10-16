@@ -72,7 +72,8 @@ interface VehicleConfigClientProps {
   performanceHtml: string;
 }
 
-export default function VehicleConfigClient({
+export default function 
+VehicleConfigClient({
   product,
   topHeadingHtml,
   performanceHtml

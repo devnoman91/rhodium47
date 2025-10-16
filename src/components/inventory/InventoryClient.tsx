@@ -17,6 +17,7 @@ interface Vehicle {
   handle: string;
   variants?: any[];
   options?: any[];
+  tags?: string[]; // Product tags
 }
 
 interface InventoryClientProps {
@@ -25,6 +26,8 @@ interface InventoryClientProps {
     min: number;
     max: number;
   };
+  collections: { handle: string; title: string }[];
+  productsByCollection: Record<string, string[]>; // Map collection handle to product IDs
 }
 
 const criticalInlineStyles = `
@@ -39,7 +42,7 @@ const criticalInlineStyles = `
 }
 `;
 
-export default function InventoryClient({ vehicles, priceRange }: InventoryClientProps) {
+export default function InventoryClient({ vehicles, priceRange, collections, productsByCollection }: InventoryClientProps) {
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>(vehicles);
   const [filters, setFilters] = useState({
     zipCode: '',
@@ -57,15 +60,35 @@ export default function InventoryClient({ vehicles, priceRange }: InventoryClien
     vehicleHistory: ''
   });
 
+  // Create a map from collection title to handle for filtering
+  const collectionTitleToHandle = new Map(
+    collections.map(c => [c.title, c.handle])
+  );
+
   const handleFilterChange = (newFilters: typeof filters) => {
     setFilters(newFilters);
 
     // Apply filters to vehicles data
     let filtered = vehicles;
 
-    // Filter by models
+    // Filter by collections (models)
+    // Convert selected titles to handles and get product IDs from those collections
     if (newFilters.models.length > 0) {
-      filtered = filtered.filter(vehicle => newFilters.models.includes(vehicle.model));
+      const selectedHandles = newFilters.models
+        .map(title => collectionTitleToHandle.get(title))
+        .filter(Boolean) as string[];
+
+      // Get all product IDs from the selected collections
+      const selectedProductIds = new Set<string>();
+      selectedHandles.forEach(handle => {
+        const productIds = productsByCollection[handle] || [];
+        productIds.forEach(id => selectedProductIds.add(id));
+      });
+
+      // Filter vehicles to only include those in the selected collections
+      filtered = filtered.filter(vehicle =>
+        selectedProductIds.has(vehicle.id)
+      );
     }
 
     // Filter by price range
@@ -88,6 +111,7 @@ export default function InventoryClient({ vehicles, priceRange }: InventoryClien
             onFilterChange={handleFilterChange}
             filterOptions={{
               ...filterOptions,
+              models: collections.map(c => c.title), // Use collection titles as model options
               priceRange: priceRange
             }}
           />

@@ -42,6 +42,10 @@ text-transform: capitalize;
 list-style-type: disc;
     padding-left: 20px;
 }
+    .performance-section ul li{
+        display: flex;
+        justify-content: space-between;
+    }
     `
 interface VehicleConfigClientProps {
   product: any;

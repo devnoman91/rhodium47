@@ -34,6 +34,14 @@ line-height: 22px;
 text-transform: capitalize;
 color:#323232;
   }
+h6{
+font-size: 10px;
+font-style: normal;
+font-weight: 400;
+line-height: 22px;
+text-transform: capitalize;
+color:#323232;
+}
  .performance-section p{
  font-size: 16px;
  margin-bottom:10px;

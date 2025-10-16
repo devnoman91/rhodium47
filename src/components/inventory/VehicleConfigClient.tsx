@@ -32,20 +32,31 @@ font-style: normal;
 font-weight: 400;
 line-height: 22px;
 text-transform: capitalize;
-
+color:#323232;
   }
  .performance-section p{
  font-size: 16px;
  margin-bottom:10px;
  }
-.performance-section ul{
-list-style-type: disc;
-    padding-left: 20px;
+.performance-section ul {
+  list-style: none; 
+  
 }
-    .performance-section ul li{
-        display: flex;
-        justify-content: space-between;
-    }
+
+.performance-section li {
+  display: flex;
+  justify-content:space-between;
+  position: relative;
+  padding-left: 1.5rem; 
+}
+
+.performance-section li::before {
+  content: "•";
+  color: #000;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  position:absolute;    left: 0;
+}
     `
 interface VehicleConfigClientProps {
   product: any;

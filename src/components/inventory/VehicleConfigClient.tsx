@@ -174,7 +174,7 @@ export default function VehicleConfigClient({
 
               {/* Order Button */}
               <button className="w-full cursor-pointer text-white text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] rounded-full py-[14px] px-4 bg-black hover:bg-gray-800 transition-colors mb-6">
-                Order Now
+                  Order with Card
               </button>
             </div>
           </div>

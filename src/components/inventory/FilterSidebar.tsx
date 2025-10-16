@@ -55,6 +55,13 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
     onFilterChange(newFilters);
   };
 
+  // Helper function to toggle checkbox filters (unselect if already selected)
+  const toggleCheckboxFilter = (key: string, value: string) => {
+    const currentValue = filters[key];
+    const newValue = currentValue === value ? '' : value;
+    updateFilter(key, newValue);
+  };
+
   return (
     <div className=" bg-white  overflow-y-auto no-scrollbar h-full">
       {/* Header */}
@@ -105,7 +112,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
           {filterOptions.models?.map((model: string) => (
             <label key={model} className="flex items-center">
               <input
-                type="radio"
+                type="checkbox"
                 checked={filters.models.includes(model)}
                 onChange={(e) => {
                   const newModels = e.target.checked
@@ -113,7 +120,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                     : filters.models.filter((m: string) => m !== model);
                   updateFilter('models', newModels);
                 }}
-                className="border-gray-300 accent-black  text-black focus:ring-black rounded-full accent-black "
+                className="rounded border-gray-300 accent-black text-black focus:ring-black"
               />
               <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{model}</span>
             </label>
@@ -124,13 +131,12 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
       <ExpandableFilterSection title="Payment" isExpanded={true}>
         <div className="space-y-3">
           {filterOptions.paymentTypes?.map((type: string) => (
-            <label key={type} className="flex items-cente">
+            <label key={type} className="flex items-center">
               <input
-                type="radio"
-                name="paymentType"
+                type="checkbox"
                 checked={filters.paymentType === type}
-                onChange={() => updateFilter('paymentType', type)}
-                className="border-gray-300 accent-black  text-black focus:ring-black"
+                onChange={() => toggleCheckboxFilter('paymentType', type)}
+                className="rounded border-gray-300 accent-black text-black focus:ring-black"
               />
               <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{type}</span>
             </label>
@@ -166,11 +172,10 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             {filterOptions.vehicleTypes.map((type: string) => (
               <label key={type} className="flex items-center">
                 <input
-                  type="radio"
-                  name="vehicleType"
+                  type="checkbox"
                   checked={filters.vehicleType === type}
-                  onChange={() => updateFilter('vehicleType', type)}
-                  className="border-gray-300 accent-black  text-black focus:ring-black"
+                  onChange={() => toggleCheckboxFilter('vehicleType', type)}
+                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
                 <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{type}</span>
               </label>
@@ -186,11 +191,10 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             {filterOptions.armorLevels.map((level: string) => (
               <label key={level} className="flex items-center">
                 <input
-                  type="radio"
-                  name="armorLevel"
+                  type="checkbox"
                   checked={filters.armorLevel === level}
-                  onChange={() => updateFilter('armorLevel', level)}
-                  className="border-gray-300 accent-black  text-black focus:ring-black"
+                  onChange={() => toggleCheckboxFilter('armorLevel', level)}
+                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
                 <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{level}</span>
               </label>
@@ -206,11 +210,10 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             {filterOptions.drivetrains.map((drivetrain: string) => (
               <label key={drivetrain} className="flex items-center">
                 <input
-                  type="radio"
-                  name="drivetrain"
+                  type="checkbox"
                   checked={filters.drivetrain === drivetrain}
-                  onChange={() => updateFilter('drivetrain', drivetrain)}
-                  className="border-gray-300 accent-black  text-black focus:ring-black"
+                  onChange={() => toggleCheckboxFilter('drivetrain', drivetrain)}
+                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
                 <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{drivetrain}</span>
               </label>
@@ -226,11 +229,10 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             {filterOptions.fuelTypes.map((fuel: string) => (
               <label key={fuel} className="flex items-center">
                 <input
-                  type="radio"
-                  name="fuelType"
+                  type="checkbox"
                   checked={filters.fuelType === fuel}
-                  onChange={() => updateFilter('fuelType', fuel)}
-                  className="border-gray-300 accent-black  text-black focus:ring-black"
+                  onChange={() => toggleCheckboxFilter('fuelType', fuel)}
+                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
                 <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{fuel}</span>
               </label>
@@ -246,11 +248,10 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             {filterOptions.transmissions.map((transmission: string) => (
               <label key={transmission} className="flex items-center">
                 <input
-                  type="radio"
-                  name="transmission"
+                  type="checkbox"
                   checked={filters.transmission === transmission}
-                  onChange={() => updateFilter('transmission', transmission)}
-                  className="border-gray-300 accent-black  text-black focus:ring-black"
+                  onChange={() => toggleCheckboxFilter('transmission', transmission)}
+                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
                 <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{transmission}</span>
               </label>
@@ -266,11 +267,10 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             {filterOptions.seatingCapacities.map((capacity: string) => (
               <label key={capacity} className="flex items-center">
                 <input
-                  type="radio"
-                  name="seatingCapacity"
+                  type="checkbox"
                   checked={filters.seatingCapacity === capacity}
-                  onChange={() => updateFilter('seatingCapacity', capacity)}
-                  className="border-gray-300 accent-black  text-black focus:ring-black"
+                  onChange={() => toggleCheckboxFilter('seatingCapacity', capacity)}
+                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
                 <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{capacity}</span>
               </label>
@@ -286,11 +286,10 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             {filterOptions.modelYears.map((year: string) => (
               <label key={year} className="flex items-center">
                 <input
-                  type="radio"
-                  name="modelYear"
+                  type="checkbox"
                   checked={filters.modelYear === year}
-                  onChange={() => updateFilter('modelYear', year)}
-                  className="border-gray-300 accent-black  text-black focus:ring-black"
+                  onChange={() => toggleCheckboxFilter('modelYear', year)}
+                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
                 <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{year}</span>
               </label>
@@ -305,13 +304,12 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Mileage / Year">
           <div className="space-y-3">
             {filterOptions.mileageYears.map((year: string) => (
-              <label key={year} className="flex items-cente">
+              <label key={year} className="flex items-center">
                 <input
-                  type="radio"
-                  name="mileageYear"
+                  type="checkbox"
                   checked={filters.mileageYear === year}
-                  onChange={() => updateFilter('mileageYear', year)}
-                  className="border-gray-300 accent-black  text-black focus:ring-black"
+                  onChange={() => toggleCheckboxFilter('mileageYear', year)}
+                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
                 <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{year}</span>
               </label>
@@ -325,13 +323,12 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Paint">
           <div className="space-y-3">
             {filterOptions.paintOptions.map((paint: string) => (
-              <label key={paint} className="flex items-cente">
+              <label key={paint} className="flex items-center">
                 <input
-                  type="radio"
-                  name="paint"
+                  type="checkbox"
                   checked={filters.paint === paint}
-                  onChange={() => updateFilter('paint', paint)}
-                  className="border-gray-300 accent-black  text-black focus:ring-black"
+                  onChange={() => toggleCheckboxFilter('paint', paint)}
+                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
                 <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{paint}</span>
               </label>
@@ -347,11 +344,10 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             {filterOptions.wheelOptions.map((wheel: string) => (
               <label key={wheel} className="flex items-center">
                 <input
-                  type="radio"
-                  name="wheels"
+                  type="checkbox"
                   checked={filters.wheels === wheel}
-                  onChange={() => updateFilter('wheels', wheel)}
-                  className="border-gray-300 accent-black  text-black focus:ring-black"
+                  onChange={() => toggleCheckboxFilter('wheels', wheel)}
+                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
                 <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{wheel}</span>
               </label>
@@ -367,11 +363,10 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             {filterOptions.interiorOptions.map((interior: string) => (
               <label key={interior} className="flex items-center">
                 <input
-                  type="radio"
-                  name="interior"
+                  type="checkbox"
                   checked={filters.interior === interior}
-                  onChange={() => updateFilter('interior', interior)}
-                  className="border-gray-300 accent-black  text-black focus:ring-black"
+                  onChange={() => toggleCheckboxFilter('interior', interior)}
+                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
                 <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{interior}</span>
               </label>
@@ -387,11 +382,10 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             {filterOptions.seatLayouts.map((layout: string) => (
               <label key={layout} className="flex items-center">
                 <input
-                  type="radio"
-                  name="seatLayout"
+                  type="checkbox"
                   checked={filters.seatLayout === layout}
-                  onChange={() => updateFilter('seatLayout', layout)}
-                  className="border-gray-300 accent-black  text-black focus:ring-black"
+                  onChange={() => toggleCheckboxFilter('seatLayout', layout)}
+                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
                 <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{layout}</span>
               </label>

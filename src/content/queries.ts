@@ -1994,3 +1994,36 @@ export const supportPageQuery = `
 export const getSupportPage = async () => {
   return await client.fetch(supportPageQuery)
 }
+
+export const vehicleDiagramQuery = `
+  *[_type == "vehicle-diagram"][0] {
+    _id,
+    name,
+    vehicleImage {
+      asset-> {
+        _id,
+        url
+      },
+      alt
+    },
+    featurePoints[] {
+      id,
+      label,
+      title,
+      details[],
+      position {
+        top,
+        left
+      },
+      popupPosition {
+        top,
+        left,
+        transform
+      }
+    }
+  }
+`
+
+export const getVehicleDiagram = async () => {
+  return await client.fetch(vehicleDiagramQuery)
+}

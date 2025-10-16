@@ -12,6 +12,7 @@ import ExperienceXodiumSection from "@/components/ExperienceXodiumSection";
 import VehicleShowcase from "@/components/VehicleShowcase";
 import VehicleDiagram from "@/components/VehicleDiagram";
 import { getExperienceXodiumData, getFAQData, getHomeAboutData, getKeepExploringData, getNewsUpdatesData, getProductBlogData, getProductDetails, getProductShowcaseData, getProtectionData, getShowcaseInnovationData, getUtilityData } from "@/sanity/lib/sanity";
+import { getVehicleDiagram } from "@/content/queries";
 import { getCollections, getCollectionProducts } from "@/lib/shopify";
 
 // Revalidate every 60 seconds
@@ -19,7 +20,7 @@ export const revalidate = 60
 
 export default async function Home() {
   // Fetch data from Sanity CMS and Shopify
-  const [aboutData, products, blogData, showcaseData, innovationData, protectionData, faqData, utilityData, keepExploringData, newsUpdatesData, experienceXodiumData, collections] = await Promise.all([
+  const [aboutData, products, blogData, showcaseData, innovationData, protectionData, faqData, utilityData, keepExploringData, newsUpdatesData, experienceXodiumData, vehicleDiagramData, collections] = await Promise.all([
     getHomeAboutData(),
     getProductDetails(),
     getProductBlogData(),
@@ -31,6 +32,7 @@ export default async function Home() {
     getKeepExploringData(),
     getNewsUpdatesData(),
     getExperienceXodiumData(),
+    getVehicleDiagram(),
     getCollections()
   ]);
 
@@ -124,7 +126,7 @@ export default async function Home() {
           data={utilityData}
         />
       )}
-      <VehicleDiagram />
+      <VehicleDiagram data={vehicleDiagramData} />
       {protectionData && (
         <ProtectionSection
           data={protectionData}

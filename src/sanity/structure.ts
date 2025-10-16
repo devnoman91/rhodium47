@@ -32,6 +32,7 @@ export const structure: StructureResolver = (S) =>
               S.documentTypeListItem('product-showcase').title('Product Showcase'),
               S.documentTypeListItem('showcase-innovation').title('Showcase Innovation'),
               S.documentTypeListItem('utility').title('Utility Section'),
+              S.documentTypeListItem('vehicle-diagram').title('Vehicle Diagram'),
               S.documentTypeListItem('protection').title('Protection Section'),
               S.documentTypeListItem('frequently-asked-questions').title('FAQ Section'),
               S.documentTypeListItem('keep-exploring').title('Keep Exploring'),

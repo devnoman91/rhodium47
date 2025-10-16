@@ -5,12 +5,24 @@ import Image from 'next/image';
 
 interface VehicleConfigClientProps {
   product: any;
+  topHeadingHtml: string;
+  performanceHtml: string;
 }
 
 export default function VehicleConfigClient({
-  product
+  product,
+  topHeadingHtml,
+  performanceHtml
 }: VehicleConfigClientProps) {
-  const productPrice = parseFloat(product.priceRange?.minVariantPrice?.amount || '0');
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
+
+  const selectedVariant = product.variants && product.variants.length > 0
+    ? product.variants[selectedVariantIndex]
+    : null;
+
+  const selectedVariantPrice = selectedVariant
+    ? parseFloat(selectedVariant.price.amount)
+    : parseFloat(product.priceRange?.minVariantPrice?.amount || '0');
 
   return (
     <div className="min-h-screen pt-[100px]" style={{ backgroundColor: '#F4F1F2' }}>
@@ -51,32 +63,71 @@ export default function VehicleConfigClient({
         {/* Right Sidebar - Configuration */}
         <div className=" w-full ">
           <div className="px-4 py-14 space-y-6">
-            {/* Vehicle Title and Description */}
+            {/* Vehicle Title */}
             <div className="text-center mb-6">
               <h1 className="text-black mb-[28px] text-center font-helvetica text-[40px] not-italic font-bold leading-[110%] tracking-[-0.8px]">{product.title}</h1>
-
-              {/* Show description HTML directly */}
-              {product.descriptionHtml ? (
-                <div className="product-description text-black" dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
-              ) : product.description ? (
-                <p className="text-black font-helvetica text-[16px] not-italic font-normal leading-[160%]">{product.description}</p>
-              ) : null}
             </div>
 
-            {/* Product Price */}
-            <div className="text-center mb-8">
-              <div className="text-[#111] font-helvetica text-[32px] not-italic font-bold leading-[110%] mb-2">
-                ${productPrice.toLocaleString()}
+            {/* Top Heading Section (Specs) */}
+            {topHeadingHtml && (
+              <div className="text-black mb-8" dangerouslySetInnerHTML={{ __html: topHeadingHtml }} />
+            )}
+
+            {/* Variant Tabs */}
+            {product.variants && product.variants.length > 0 && (
+              <div className="mb-8">
+                {/* Tabs */}
+                <div className="flex gap-2 mb-6 flex-wrap">
+                  {product.variants.map((variant: any, index: number) => (
+                    <button
+                      key={variant.id}
+                      onClick={() => setSelectedVariantIndex(index)}
+                      className={`cursor-pointer px-6 py-3 rounded-full font-helvetica text-[14px] not-italic font-medium leading-[140%] transition-colors ${
+                        selectedVariantIndex === index
+                          ? 'bg-black text-white'
+                          : 'bg-white text-black border border-gray-300 hover:bg-gray-100'
+                      }`}
+                    >
+                      {variant.title}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Selected Variant Info */}
+                {selectedVariant && (
+                  <div className="flex justify-between items-center bg-white rounded-lg p-6 shadow-sm">
+                    <div className="text-left">
+                      <p className="text-[#747474] font-helvetica text-[12px] not-italic font-normal leading-[140%] mb-1">
+                        Standard
+                      </p>
+                      <p className="text-black font-helvetica text-[18px] not-italic font-bold leading-[140%]">
+                        {selectedVariant.title}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[#111] font-helvetica text-[32px] not-italic font-bold leading-[110%]">
+                        ${selectedVariantPrice.toLocaleString()}
+                      </p>
+                      {!selectedVariant.availableForSale && (
+                        <p className="text-red-500 font-helvetica text-[12px] not-italic font-normal leading-[140%] mt-1">
+                          Out of Stock
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
-              <p className="text-[#747474] font-helvetica text-[14px] not-italic font-normal leading-[140%]">
-                Starting price
-              </p>
-            </div>
+            )}
 
             {/* Order Button */}
             <button className="w-full cursor-pointer text-white text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] rounded-full py-[14px] px-4 bg-black hover:bg-gray-800 transition-colors mb-6">
               Order Now
             </button>
+
+            {/* Performance Data Section */}
+            {performanceHtml && (
+              <div className="text-black mt-8" dangerouslySetInnerHTML={{ __html: performanceHtml }} />
+            )}
           </div>
         </div>
       </div>

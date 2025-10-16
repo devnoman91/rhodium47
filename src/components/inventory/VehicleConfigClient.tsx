@@ -65,7 +65,7 @@ export default function VehicleConfigClient({
     : parseFloat(product.priceRange?.minVariantPrice?.amount || '0');
 
   return (
-    <div className="min-h-screen pt-[100px]" style={{ backgroundColor: '#F4F1F2' }}>
+    <div className="min-h-screen pt-[100px] pb-[73px]" style={{ backgroundColor: '#F4F1F2' }}>
       <div className='max-w-[1332px] m-auto '>
            {/* Back to Inventory link */}
       <div className="px-12 pb-[10px]">
@@ -173,7 +173,7 @@ export default function VehicleConfigClient({
                   )}
 
               {/* Order Button */}
-              <button className="w-full cursor-pointer text-white text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] rounded-full py-[14px] px-4 bg-black hover:bg-gray-800 transition-colors mb-6">
+              <button className="w-full cursor-pointer text-white text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] rounded-full py-[14px] px-4 bg-black hover:bg-gray-800 transition-colors ">
                   Order with Card
               </button>
             </div>

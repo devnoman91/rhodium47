@@ -16,7 +16,7 @@ export default function VehicleConfigClient({
     <div className="min-h-screen pt-[100px]" style={{ backgroundColor: '#F4F1F2' }}>
       {/* Back to Inventory link */}
       <div className="px-12 py-4">
-        <a href="/inventory" className="text-sm text-black hover:text-black font-helvetica text-[12px] not-italic font-normal leading-[110%] tracking-[-0.24px] underline underline-offset-auto decoration-solid">
+        <a href="/inventory" className="text-[#747474] font-[400] text-[12px] leading-[110%] tracking-[-0.24px] underline decoration-solid font-helvetica">
           Back to Inventory Page
         </a>
       </div>

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getProduct } from '@/lib/shopify';
-import VehicleConfigClient from '@/components/inventory/VehicleConfigClient';
+import  VehicleConfigClient from '@/components/inventory/VehicleConfigClient';
 
 interface VehicleConfigPageProps {
   params: Promise<{

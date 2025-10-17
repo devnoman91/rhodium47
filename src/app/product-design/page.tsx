@@ -8,6 +8,7 @@ interface Vehicle {
   price: number;
   image: string;
   description: string;
+  descriptionHtml?: string; // Add descriptionHtml field
   handle: string;
   variants?: any[];
   options?: any[];
@@ -147,6 +148,7 @@ export default async function InventoryPage() {
       price: parseFloat(product.priceRange.minVariantPrice.amount),
       image: product.images[0]?.url || '/images/vehicle.png',
       description: product.description,
+      descriptionHtml: product.descriptionHtml || '', // Include descriptionHtml
       handle: product.handle,
       variants: product.variants,
       options: product.options,

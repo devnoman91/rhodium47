@@ -12,6 +12,7 @@ interface Vehicle {
   price: number;
   image: string;
   description: string;
+  descriptionHtml?: string; // Add descriptionHtml field
   handle: string;
   variants?: any[];
   options?: any[];
@@ -40,6 +41,38 @@ const criticalInlineStyles = `
   -ms-overflow-style: none; /* IE/Edge */
 }
 `;
+
+// Helper function to extract specs from top-heading HTML
+function extractTopHeadingSpecs(html: string): string {
+  if (!html) return '';
+
+  const topHeadingStart = html.indexOf('<div id="top-heading">');
+  if (topHeadingStart === -1) return '';
+
+  const searchStart = topHeadingStart + '<div id="top-heading">'.length;
+  let depth = 1;
+  let pos = searchStart;
+
+  while (pos < html.length && depth > 0) {
+    const nextOpen = html.indexOf('<div', pos);
+    const nextClose = html.indexOf('</div>', pos);
+
+    if (nextClose === -1) break;
+
+    if (nextOpen !== -1 && nextOpen < nextClose) {
+      depth++;
+      pos = nextOpen + 4;
+    } else {
+      depth--;
+      if (depth === 0) {
+        return html.substring(searchStart, nextClose);
+      }
+      pos = nextClose + 6;
+    }
+  }
+
+  return '';
+}
 
 export default function InventoryClient({ vehicles, priceRange, collections, productsByCollection, filterOptions }: InventoryClientProps) {
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>(vehicles);
@@ -208,49 +241,62 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
 
           {/* Vehicle Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[15px] gap-y-[35px]">
-            {filteredVehicles.map((vehicle) => (
-              <Link key={vehicle.id} href={`/product-design/${vehicle.handle}`}>
-                <div className="h-full bg-[#F4F1F2] rounded-[10px] border border-[#E0E0E0] cursor-pointer ">
-                  {/* Vehicle Image */}
-                  <div className="relative h-[200px] w-full">
-                    <Image
-                      src={vehicle.image}
-                      alt={vehicle.model}
-                      fill
-                      className=" w-full h-full object-cover"
-                    />
-                  </div>
+            {filteredVehicles.map((vehicle) => {
+              // Extract specs from top-heading HTML
+              const specsHtml = extractTopHeadingSpecs(vehicle.descriptionHtml || '');
 
-                  {/* Vehicle Info */}
-                  <div className='p-[24px] pt-[10px]'>
-                     <div className="max-w-[250px]">
-                    <h3 className="text-[16px] font-[500] font-helvetica text-[#111] mb-1">
-                      {vehicle.model}  ${vehicle.price.toLocaleString()}
-                    </h3>
-                    <p className="text-[12px] text-[#636363] mb-[10px] line-clamp-3 font-[400] font-helvetica leading-[150%] capitalize ">
-                      {vehicle.description}
-                    </p>
+              return (
+                <Link key={vehicle.id} href={`/product-design/${vehicle.handle}`}>
+                  <div className="h-full bg-[#F4F1F2] rounded-[10px] border border-[#E0E0E0] cursor-pointer ">
+                    {/* Vehicle Image */}
+                    <div className="relative h-[200px] w-full">
+                      <Image
+                        src={vehicle.image}
+                        alt={vehicle.model}
+                        fill
+                        className=" w-full h-full object-cover"
+                      />
+                    </div>
 
-                    {/* Price */}
-                   <div className='flex items-center gap-2'>
-                      <div className="flex items-center gap-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <circle cx="6" cy="6" r="6" fill="black"/>
-                        </svg>
-                      <p className="text-[12px] font-[400] font-helvetica leading-[150%] capitalize text-[#111]">Paint 19"Wheels </p>
+                    {/* Vehicle Info */}
+                    <div className='p-[24px] pt-[10px]'>
+                       <div className="max-w-[250px]">
+                      <h3 className="text-[16px] font-[500] font-helvetica text-[#111] mb-1">
+                        {vehicle.model}  ${vehicle.price.toLocaleString()}
+                      </h3>
+                      <p className="text-[12px] text-[#636363] mb-[10px] line-clamp-3 font-[400] font-helvetica leading-[150%] capitalize ">
+                        {vehicle.description}
+                      </p>
+
+                      {/* Dynamic Specs from top-heading */}
+                      {specsHtml ? (
+                        <div
+                          className="text-[10px] text-[#111] font-[400] font-helvetica leading-[150%]"
+                          dangerouslySetInnerHTML={{ __html: specsHtml }}
+                        />
+                      ) : (
+                        // Fallback to hardcoded if no specs available
+                        <div className='flex items-center gap-2'>
+                          <div className="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                              <circle cx="6" cy="6" r="6" fill="black"/>
+                            </svg>
+                            <p className="text-[12px] font-[400] font-helvetica leading-[150%] capitalize text-[#111]">Paint 19"Wheels </p>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                              <circle cx="6" cy="6" r="6" fill="#C5C5C5"/>
+                            </svg>
+                            <p className="text-[12px] font-[400] font-helvetica leading-[150%] capitalize text-[#111]">Interior 5 Seats</p>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                     <div className="flex items-center gap-1">
-                       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <circle cx="6" cy="6" r="6" fill="#C5C5C5"/>
-                        </svg>
-                      <p className="text-[12px] font-[400] font-helvetica leading-[150%] capitalize text-[#111]">Interior 5 Seats</p>
                     </div>
-                   </div>
                   </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
 
           {/* No Results */}

@@ -147,8 +147,8 @@ VehicleConfigClient({
       <div className='max-w-[1332px] m-auto '>
            {/* Back to Inventory link */}
       <div className="px-12 pb-[10px]">
-        <a href="/product-design" className="text-[#747474] font-[400] text-[12px] leading-[110%] tracking-[-0.24px] underline decoration-solid font-helvetica">
-          Back to Product Design Page
+        <a href={`/product-detail/${product.handle}`} className="text-[#747474] font-[400] text-[12px] leading-[110%] tracking-[-0.24px] underline decoration-solid font-helvetica">
+          Learn more
         </a>
       </div>
 

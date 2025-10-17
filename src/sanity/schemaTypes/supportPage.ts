@@ -33,9 +33,9 @@ export default defineType({
           fields: [
             defineField({
               name: 'name',
-              title: 'Category Name',
+              title: 'Sidebar Category Name',
               type: 'string',
-          
+              description: 'Category name shown in sidebar (e.g., "Purchasing")',
             }),
             defineField({
               name: 'icon',
@@ -44,61 +44,123 @@ export default defineType({
               description: 'Icon name or identifier',
             }),
             defineField({
-              name: 'content',
-              title: 'Content',
+              name: 'mainTitle',
+              title: 'Main Category Title',
+              type: 'string',
+              description: 'Main heading displayed at top of content (e.g., "Reserving and configuring")',
+            }),
+            defineField({
+              name: 'sections',
+              title: 'Sections',
               type: 'array',
-              description: 'Add headings, paragraphs, questions, and any other content here',
+              description: 'Add multiple sections with Q&A pairs',
               of: [
                 {
-                  type: 'block',
-                  styles: [
-                    { title: 'Normal', value: 'normal' },
-                    { title: 'Heading 1', value: 'h1' },
-                    { title: 'Heading 2', value: 'h2' },
-                    { title: 'Heading 3', value: 'h3' },
-                    { title: 'Heading 4', value: 'h4' },
-                    { title: 'Question', value: 'h5' },
-                  ],
-                  lists: [
-                    { title: 'Bullet', value: 'bullet' },
-                    { title: 'Numbered', value: 'number' },
-                  ],
-                  marks: {
-                    decorators: [
-                      { title: 'Strong', value: 'strong' },
-                      { title: 'Emphasis', value: 'em' },
-                      { title: 'Code', value: 'code' },
-                      { title: 'Underline', value: 'underline' },
-                    ],
-                    annotations: [
-                      {
-                        name: 'link',
-                        type: 'object',
-                        title: 'Link',
-                        fields: [
-                          {
-                            name: 'href',
-                            type: 'url',
-                            title: 'URL',
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'sectionTitle',
+                      title: 'Section Title',
+                      type: 'string',
+                      description: 'Section heading (e.g., "About reserving", "Packages and options")',
+                    }),
+                    defineField({
+                      name: 'questions',
+                      title: 'Questions & Answers',
+                      type: 'array',
+                      description: 'Add Q&A pairs for this section',
+                      of: [
+                        {
+                          type: 'object',
+                          fields: [
+                            defineField({
+                              name: 'question',
+                              title: 'Question',
+                              type: 'string',
+                              description: 'The question text',
+                            }),
+                            defineField({
+                              name: 'answer',
+                              title: 'Answer',
+                              type: 'array',
+                              description: 'Answer content (can include rich text, lists, etc.)',
+                              of: [
+                                {
+                                  type: 'block',
+                                  styles: [
+                                    { title: 'Normal', value: 'normal' },
+                                  ],
+                                  lists: [
+                                    { title: 'Bullet', value: 'bullet' },
+                                    { title: 'Numbered', value: 'number' },
+                                  ],
+                                  marks: {
+                                    decorators: [
+                                      { title: 'Strong', value: 'strong' },
+                                      { title: 'Emphasis', value: 'em' },
+                                      { title: 'Underline', value: 'underline' },
+                                    ],
+                                    annotations: [
+                                      {
+                                        name: 'link',
+                                        type: 'object',
+                                        title: 'Link',
+                                        fields: [
+                                          {
+                                            name: 'href',
+                                            type: 'url',
+                                            title: 'URL',
+                                          },
+                                        ],
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            }),
+                          ],
+                          preview: {
+                            select: {
+                              title: 'question',
+                            },
+                            prepare({ title }) {
+                              return {
+                                title: title || 'Question',
+                              }
+                            },
                           },
-                        ],
-                      },
-                    ],
+                        },
+                      ],
+                    }),
+                  ],
+                  preview: {
+                    select: {
+                      title: 'sectionTitle',
+                      questionsCount: 'questions',
+                    },
+                    prepare({ title, questionsCount }) {
+                      const count = questionsCount?.length || 0
+                      return {
+                        title: title || 'Section',
+                        subtitle: `${count} question${count !== 1 ? 's' : ''}`,
+                      }
+                    },
                   },
                 },
               ],
-          
             }),
           ],
           preview: {
             select: {
               title: 'name',
               icon: 'icon',
+              sectionsCount: 'sections',
             },
-            prepare({ title, icon }) {
+            prepare({ title, icon, sectionsCount }) {
+              const count = sectionsCount?.length || 0
               return {
                 title: title || 'Category',
-                subtitle: icon || 'No icon',
+                subtitle: `${icon || 'No icon'} • ${count} section${count !== 1 ? 's' : ''}`,
               }
             },
           },

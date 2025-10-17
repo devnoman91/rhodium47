@@ -1420,10 +1420,21 @@ export interface ContactFormSubmission {
   notes?: string
 }
 
+export interface SupportQuestionAnswer {
+  question: string
+  answer: any[] // Portable Text content
+}
+
+export interface SupportSection {
+  sectionTitle: string
+  questions: SupportQuestionAnswer[]
+}
+
 export interface SupportCategory {
   name: string
   icon?: string
-  content: any[] // Portable Text content
+  mainTitle?: string
+  sections: SupportSection[]
 }
 
 export interface SupportContactOption {

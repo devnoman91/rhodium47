@@ -1977,7 +1977,14 @@ export const supportPageQuery = `
     categories[] {
       name,
       icon,
-      content
+      mainTitle,
+      sections[] {
+        sectionTitle,
+        questions[] {
+          question,
+          answer
+        }
+      }
     },
     contactSection {
       title,

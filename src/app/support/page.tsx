@@ -175,8 +175,37 @@ line-height: 32px; /* 133.333% */
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
     cursor: pointer;
-    padding-bottom: 0.75rem;
+    padding: 0.75rem 0;
     border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.2s;
+  }
+
+  .content-body h5:hover {
+    color: #494949;
+  }
+
+  .question-toggle {
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .question-toggle.open {
+    transform: rotate(180deg);
+  }
+
+  .answer-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+
+  .answer-content.open {
+    max-height: 1000px;
+    transition: max-height 0.5s ease-in;
   }
 
   .content-body p {
@@ -333,14 +362,9 @@ text-underline-position: from-font;
   }
 `
 
-// Portable Text components
-const portableTextComponents = {
+// Portable Text components for answer content
+const answerPortableTextComponents = {
   block: {
-    h1: ({ children }: any) => <h1>{children}</h1>,
-    h2: ({ children }: any) => <h2>{children}</h2>,
-    h3: ({ children }: any) => <h3>{children}</h3>,
-    h4: ({ children }: any) => <h4>{children}</h4>,
-    h5: ({ children }: any) => <h5>{children}</h5>,
     normal: ({ children }: any) => <p>{children}</p>,
   },
   list: {
@@ -354,7 +378,6 @@ const portableTextComponents = {
   marks: {
     strong: ({ children }: any) => <strong>{children}</strong>,
     em: ({ children }: any) => <em>{children}</em>,
-    code: ({ children }: any) => <code>{children}</code>,
     underline: ({ children }: any) => <span style={{ textDecoration: 'underline' }}>{children}</span>,
     link: ({ value, children }: any) => {
       const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
@@ -373,6 +396,7 @@ export default function SupportPage() {
   const [loading, setLoading] = useState(true)
   const [activeCategory, setActiveCategory] = useState<number>(0)
   const [searchQuery, setSearchQuery] = useState('')
+  const [openQuestions, setOpenQuestions] = useState<Set<number>>(new Set())
 
   useEffect(() => {
     const fetchSupportData = async () => {
@@ -392,6 +416,24 @@ export default function SupportPage() {
 
     fetchSupportData()
   }, [])
+
+  // Toggle question accordion
+  const toggleQuestion = (index: number) => {
+    setOpenQuestions(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(index)) {
+        newSet.delete(index)
+      } else {
+        newSet.add(index)
+      }
+      return newSet
+    })
+  }
+
+  // Reset open questions when category changes
+  useEffect(() => {
+    setOpenQuestions(new Set())
+  }, [activeCategory])
 
   const getCategoryIcon = (name: string) => {
     const icons: { [key: string]: string } = {
@@ -510,15 +552,51 @@ export default function SupportPage() {
             </svg>
             </span>
           </div>
-            {currentCategory && currentCategory.content && (
+            {currentCategory && currentCategory.sections && currentCategory.sections.length > 0 ? (
               <div className="content-body">
-                <PortableText
-                  value={currentCategory.content}
-                  components={portableTextComponents}
-                />
+                {/* Main Category Title */}
+                {currentCategory.mainTitle && (
+                  <h1>{currentCategory.mainTitle}</h1>
+                )}
+
+                {currentCategory.sections.map((section, sectionIndex) => (
+                  <div key={sectionIndex}>
+                    {/* Section Title */}
+                    {section.sectionTitle && (
+                      <h4>{section.sectionTitle}</h4>
+                    )}
+
+                    {/* Questions & Answers */}
+                    {section.questions?.map((qa, qaIndex) => {
+                      const questionKey = `${sectionIndex}-${qaIndex}`;
+                      const isOpen = openQuestions.has(parseInt(questionKey.replace('-', '')));
+
+                      return (
+                        <div key={qaIndex}>
+                          {/* Question */}
+                          <h5 onClick={() => toggleQuestion(parseInt(questionKey.replace('-', '')))}>
+                            <span>{qa.question}</span>
+                            <span className={`question-toggle ${isOpen ? 'open' : ''}`}>
+                              {isOpen ? '−' : '+'}
+                            </span>
+                          </h5>
+
+                          {/* Answer */}
+                          <div className={`answer-content ${isOpen ? 'open' : ''}`}>
+                            {qa.answer && (
+                              <PortableText
+                                value={qa.answer}
+                                components={answerPortableTextComponents}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
               </div>
-            )}
-            {(!currentCategory || !currentCategory.content) && (
+            ) : (
               <div className="no-data">No content available for this category</div>
             )}
           </main>
@@ -537,11 +615,14 @@ export default function SupportPage() {
     // Default link
     let link = "#";
 
-    // Set correct link based on type
-    if (option.type === "email") {
-      link = `mailto:${option.value || "support@yourstore.com"}`; 
-    } else if (option.type === "phone") {
-      link = `tel:${option.value || "+1234567890"}`; 
+    // Set correct link based on type and value
+    if (option.type === "call" && option.value) {
+      // Handle phone numbers - remove formatting for tel: link
+      const phoneNumber = option.value.replace(/\s+/g, '').replace(/[()]/g, '');
+      link = `tel:${phoneNumber}`;
+    } else if (option.type === "chat" && option.value && option.value.includes('@')) {
+      // If chat has an email, make it mailto
+      link = `mailto:${option.value}`;
     } else if (option.type === "contact") {
       link = "/contact-us";
     }

@@ -101,10 +101,10 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isScrolling, setIsScrolling] = useState(false)
   const [isInView, setIsInView] = useState(false)
-  const [scrollDirection, setScrollDirection] = useState<'up' | 'down' | null>(null)
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const lastScrollTime = useRef(0)
   const containerRef = useRef<HTMLDivElement>(null)
+  const sliderRef = useRef<HTMLDivElement>(null)
   const isSliderComplete = useRef(false)
 
   const filteredVehicles = selectedCategory === 'all'
@@ -144,8 +144,8 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
     setSelectedCategory(category)
   }
 
-  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    const threshold = 20 // Very small threshold for immediate response
+  const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const threshold = 20
 
     if (info.offset.x > threshold && currentIndex > 0) {
       setCurrentIndex(currentIndex - 1)
@@ -176,7 +176,6 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
 
     // Determine scroll direction
     const direction = event.deltaY > 0 ? 'down' : 'up'
-    setScrollDirection(direction)
 
     // Check if slider is at boundaries
     const isAtFirstSlide = currentIndex === 0
@@ -208,7 +207,6 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
       } else {
         // At last slide, mark slider as complete and allow smooth scroll down
         isSliderComplete.current = true
-        // Allow natural scroll to continue to next section
       }
     } else if (direction === 'up') {
       if (!isAtFirstSlide) {
@@ -235,13 +233,12 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
       } else {
         // At first slide, mark slider as complete and allow smooth scroll up
         isSliderComplete.current = true
-        // Allow natural scroll to continue to previous section
       }
     }
   }, [currentIndex, filteredVehicles.length])
 
   useEffect(() => {
-    // Add event listener to window instead of container for better scroll detection
+    // Add event listener to window for better scroll detection
     window.addEventListener('wheel', handleScroll, { passive: false })
 
     return () => {
@@ -257,19 +254,12 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
       ref={containerRef}
       className="py-10 lg:py-10 bg-[#F4F1F2] relative overflow-hidden"
       style={{
+        scrollSnapType: 'y proximity',
         scrollBehavior: isSliderComplete.current ? 'smooth' : 'auto'
       }}
     >
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r "
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: isInView ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
-        style={{ transformOrigin: 'left' }}
-      />
       {/* Header Section */}
-      <div className="max-w-7xl mx-auto  px-4 md:px-6">
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -301,7 +291,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
             </motion.div>
 
             {/* Right - Description and Buttons */}
-            <motion.div variants={itemVariants} className="flex flex-col items-start  max-w-md">
+            <motion.div variants={itemVariants} className="flex flex-col items-start max-w-md">
               <motion.p
                 className="text-black font-helvetica text-[16px] not-italic font-medium leading-[160%] mb-[16px]"
                 initial={{ opacity: 0, x: 20 }}
@@ -349,7 +339,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
         </motion.div>
       </div>
 
-      {/* Vehicle Image Section - Full Width */}
+      {/* Vehicle Image Section - Full Width with Scroll-Snap */}
       <motion.div
         variants={imageVariants}
         initial="hidden"
@@ -360,7 +350,13 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
         <div className="relative overflow-hidden pb-1 lg:pb-2">
           {/* Vehicle Slider or Not Available Message */}
           {filteredVehicles.length > 0 ? (
-            <div className="relative overflow-hidden py-2 lg:py-3">
+            <div
+              ref={sliderRef}
+              className="relative overflow-hidden py-2 lg:py-3"
+              style={{
+                scrollSnapAlign: 'center',
+              }}
+            >
               <div className="w-full flex justify-center">
                 <motion.div
                   className="flex cursor-grab active:cursor-grabbing"

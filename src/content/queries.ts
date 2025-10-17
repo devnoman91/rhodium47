@@ -135,7 +135,8 @@ export const showcaseInnovationQuery = `
       title,
       description,
       buttonText,
-      buttonLink
+      buttonLink,
+      slug
     }
   }
 `
@@ -335,7 +336,8 @@ export const productQuery = `
         title,
         description,
         buttonText,
-        buttonLink
+        buttonLink,
+        slug
       }
     }
   }
@@ -461,7 +463,8 @@ export const productByIdQuery = (id: string) => `
         title,
         description,
         buttonText,
-        buttonLink
+        buttonLink,
+        slug
       }
     }
   }
@@ -587,7 +590,8 @@ export const productBySlugQuery = (slug: string) => `
         title,
         description,
         buttonText,
-        buttonLink
+        buttonLink,
+        slug
       }
     }
   }

@@ -104,6 +104,9 @@ export interface BlogItem {
   description: string
   buttonText: string
   buttonLink?: string
+  slug: {
+    current: string
+  }
 }
 
 export interface ShowcaseInnovation {
@@ -300,6 +303,9 @@ export interface Product {
       description: string
       buttonText: string
       buttonLink?: string
+      slug: {
+        current: string
+      }
     }>
   }
 }

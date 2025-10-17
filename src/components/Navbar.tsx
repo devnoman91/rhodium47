@@ -90,7 +90,7 @@ export default function Navbar() {
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 15 }}
             className="relative overflow-hidden hidden md:inline-flex
-                       pt-[12.5px] pr-[15.5px] pb-[12.5px] pl-[23.5px]
+                       pt-[12.5px] pr-[15.5px] pb-[12.5px] pl-[15.5px]
                        rounded-[50px] items-center gap-4
                        bg-white text-black font-helvetica text-[16px] leading-[110%] font-medium
                        w-fit cursor-pointer border border-transparent group"

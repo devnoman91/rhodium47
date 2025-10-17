@@ -182,11 +182,11 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
   };
 
   return (
-    <div className="min-h-screen pt-20 bg-[#FFFFFF] relative">
-      <div className="flex">
+    <div className="min-h-screen pt-[126px] pb-[95px] bg-[#FFFFFF] relative">
+      <div className="flex max-w-[1332px] m-auto gap-[48px]">
         {/* Filter Sidebar - Sticky positioning */}
         <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
-        <div className="sticky top-20 h-screen w-80 bg-white z-[2] overflow-y-auto flex-shrink-0 no-scrollbar pb-[50px]">
+        <div className="sticky top-20 h-screen w-full max-w-[199px] bg-white z-[2] overflow-y-auto flex-shrink-0 no-scrollbar">
           <FilterSidebar
             filters={filters}
             onFilterChange={handleFilterChange}
@@ -199,50 +199,52 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
         </div>
 
         {/* Main Content - Scrollable */}
-        <div className="flex-1 min-h-screen p-6">
+        <div className="flex-1 min-h-screen pt-[50px]">
           {/* Header */}
-          <div className="mb-6">
+          {/* <div className="mb-6">
             <h1 className="text-2xl font-semibold text-gray-900">Inventory</h1>
             <p className="text-sm text-gray-600 mt-2">Showing {filteredVehicles.length} vehicles</p>
-          </div>
+          </div> */}
 
           {/* Vehicle Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[15px] gap-y-[35px]">
             {filteredVehicles.map((vehicle) => (
               <Link key={vehicle.id} href={`/inventory/${vehicle.handle}`}>
-                <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+                <div className="h-full bg-[#F4F1F2] rounded-[10px] border border-[#E0E0E0] cursor-pointer p-[24px] !pt-[0]">
                   {/* Vehicle Image */}
-                  <div className="relative h-48 w-full bg-gray-100">
+                  <div className="relative h-[200px] w-full">
                     <Image
                       src={vehicle.image}
                       alt={vehicle.model}
                       fill
-                      className="object-contain"
+                      className="object-contain w-full h-full"
                     />
                   </div>
 
                   {/* Vehicle Info */}
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                      {vehicle.model}
+                  <div className="max-w-[250px]">
+                    <h3 className="text-[16px] font-[500] font-helvetica text-[#111] mb-1">
+                      {vehicle.model}  ${vehicle.price.toLocaleString()}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                    <p className="text-[12px] text-[#636363] mb-[10px] line-clamp-3 font-[400] font-helvetica leading-[150%] capitalize ">
                       {vehicle.description}
                     </p>
 
                     {/* Price */}
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-xl font-bold text-gray-900">
-                          ${vehicle.price.toLocaleString()}
-                        </p>
-                        <p className="text-xs text-gray-500">Starting price</p>
-                      </div>
-
-                      <button className="px-4 py-2 bg-black text-white rounded-md text-sm hover:bg-gray-800 transition-colors">
-                        View Details
-                      </button>
+                   <div className='flex items-center gap-2'>
+                      <div className="flex items-center gap-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                          <circle cx="6" cy="6" r="6" fill="black"/>
+                        </svg>
+                      <p className="text-[12px] font-[400] font-helvetica leading-[150%] capitalize text-[#111]">Paint 19"Wheels </p>
                     </div>
+                     <div className="flex items-center gap-1">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                          <circle cx="6" cy="6" r="6" fill="#C5C5C5"/>
+                        </svg>
+                      <p className="text-[12px] font-[400] font-helvetica leading-[150%] capitalize text-[#111]">Interior 5 Seats</p>
+                    </div>
+                   </div>
                   </div>
                 </div>
               </Link>

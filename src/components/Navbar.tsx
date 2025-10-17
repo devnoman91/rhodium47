@@ -51,10 +51,11 @@ export default function Navbar() {
   return (
     <nav className={`fixed left-0 right-0 z-50 px-12 py-4 font-helvetica transition-all duration-600 ${
       shouldBeTransparent
-        ? isScrolled
-          ? 'top-0 bg-black/95'
+        ? isScrolled   
+        // bg-black/95
+          ? 'top-0 bg-[#000]'
           : '[background:linear-gradient(180deg,_#000_0%,_rgba(0,0,0,0)_100%)]'
-        : 'top-0 bg-black/95 backdrop-blur-md shadow-sm'
+        : 'top-0 bg-[#000] backdrop-blur-md shadow-sm'
     }`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center">

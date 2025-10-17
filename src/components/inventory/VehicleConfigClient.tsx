@@ -150,7 +150,7 @@ VehicleConfigClient({
                         onClick={() => setSelectedVariantIndex(index)}
                         className={`cursor-pointer px-6 pb-[17px]  font-helvetica !text-[16px] not-italic font-[500] leading-[180%] transition-colors ${
                           selectedVariantIndex === index
-                            ? ' text-[#000]'
+                            ? ' text-[#000] border-b border-[#000]'
                             : ' text-[#858585] hover:text-[#000]'
                         }`}
                       >

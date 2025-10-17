@@ -64,7 +64,9 @@ export const productDetailsQuery = `
       },
       alt
     },
-    description
+    description,
+    buttonText,
+    buttonLink
   }
 `
 
@@ -80,7 +82,9 @@ export const productDetailBySlugQuery = `
       },
       alt
     },
-    description
+    description,
+    buttonText,
+    buttonLink
   }
 `
 

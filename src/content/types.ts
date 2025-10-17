@@ -48,6 +48,8 @@ export interface ProductDetail {
     alt?: string
   }
   description: string
+  buttonText: string
+  buttonLink: string
 }
 
 export interface ProductCarousel {

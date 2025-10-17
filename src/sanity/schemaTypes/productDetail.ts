@@ -36,6 +36,18 @@ export default defineType({
       type: 'text',
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: 'buttonText',
+      title: 'Button Text',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'buttonLink',
+      title: 'Button Link',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
   ],
   preview: {
     select: {

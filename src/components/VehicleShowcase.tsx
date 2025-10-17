@@ -272,22 +272,31 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
               variants={titleVariants}
               className="mb-1 lg:mb-0"
             >
-              <h1 className="text-black font-helvetica text-[64px] not-italic font-medium leading-[110%] tracking-[-1.28px]">
-                <motion.span
-                  variants={titleLineVariants}
-                  className="block"
-                  style={{ perspective: '1000px' }}
-                >
-                  Our Advanced
-                </motion.span>
-                <motion.span
-                  variants={titleLineVariants}
-                  className="block"
-                  style={{ perspective: '1000px' }}
-                >
-                  Car Models
-                </motion.span>
-              </h1>
+              <motion.button
+                className="relative overflow-hidden cursor-pointer text-left group bg-transparent border-none p-0"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {/* sliding overlay */}
+                <span className="absolute inset-0 bg-black translate-x-full transition-transform duration-500 ease-in-out group-hover:translate-x-0" />
+
+                <h1 className="relative z-10 text-black font-helvetica text-[64px] not-italic font-medium leading-[110%] tracking-[-1.28px] transition-colors duration-500 ease-in-out group-hover:text-white">
+                  <motion.span
+                    variants={titleLineVariants}
+                    className="block"
+                    style={{ perspective: '1000px' }}
+                  >
+                    Our Advanced
+                  </motion.span>
+                  <motion.span
+                    variants={titleLineVariants}
+                    className="block"
+                    style={{ perspective: '1000px' }}
+                  >
+                    Car Models
+                  </motion.span>
+                </h1>
+              </motion.button>
             </motion.div>
 
             {/* Right - Description and Buttons */}

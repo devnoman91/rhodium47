@@ -387,7 +387,7 @@ const VehicleSlide: React.FC<{
 
       {/* Vehicle Info */}
       <div className="text-center">
-        <h2 className="text-black font-helvetica text-[100px] not-italic font-bold leading-[150%] tracking-[-8px] uppercase mb-4">
+        <h2 className= " max-w-[660px] m-auto  text-black font-helvetica text-[45px] not-italic font-bold leading-[120%] tracking-[-3px] uppercase mb-4">
           {vehicle.name}
         </h2>
        
@@ -395,37 +395,37 @@ const VehicleSlide: React.FC<{
           From {vehicle.price} • Est. {vehicle.monthlyPayment} | EPA est. range {vehicle.range}
         </p>
 
-        {/* Action Buttons */}
+   {/* Action Buttons */}
   <div className="flex flex-col sm:flex-row gap-[16px] justify-center items-center">
-  {/* Black → White */}
-  <motion.button
-    className="relative overflow-hidden cursor-pointer w-[132px] h-[48px] flex justify-center items-center 
-               rounded-[50px] font-helvetica text-[16px] font-medium bg-black text-white border border-black group"
-    whileHover={{ scale: 1.02 }}
-    whileTap={{ scale: 0.98 }}
-  >
-    {/* sliding overlay (white) */}
-    <span className="absolute inset-0 bg-white translate-x-full transition-transform duration-500 ease-in-out rounded-[50px] group-hover:translate-x-0" />
-    {/* text */}
-    <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
-      Explore
-    </span>
-  </motion.button>
+    {/* Black → White */}
+    <motion.button
+      className="relative overflow-hidden cursor-pointer w-[132px] h-[48px] flex justify-center items-center 
+                rounded-[50px] font-helvetica text-[16px] font-medium bg-black text-white border border-black group"
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+    >
+      {/* sliding overlay (white) */}
+      <span className="absolute inset-0 bg-white translate-x-full transition-transform duration-500 ease-in-out rounded-[50px] group-hover:translate-x-0" />
+      {/* text */}
+      <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
+        Explore
+      </span>
+    </motion.button>
 
-  {/* White → Black */}
-  <motion.button
-    className="relative overflow-hidden cursor-pointer w-[132px] h-[48px] flex justify-center items-center 
-               rounded-[50px] font-helvetica text-[16px] font-medium bg-white text-black border border-black group"
-    whileHover={{ scale: 1.02 }}
-    whileTap={{ scale: 0.98 }}
-  >
-    {/* sliding overlay (black) */}
-    <span className="absolute inset-0 bg-black translate-x-full transition-transform duration-500 ease-in-out rounded-[50px] group-hover:translate-x-0" />
-    {/* text */}
-    <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
-      Buy Now
-    </span>
-  </motion.button>
+    {/* White → Black */}
+    <motion.button
+      className="relative overflow-hidden cursor-pointer w-[132px] h-[48px] flex justify-center items-center 
+                rounded-[50px] font-helvetica text-[16px] font-medium bg-white text-black border border-black group"
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+    >
+      {/* sliding overlay (black) */}
+      <span className="absolute inset-0 bg-black translate-x-full transition-transform duration-500 ease-in-out rounded-[50px] group-hover:translate-x-0" />
+      {/* text */}
+      <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+        Buy Now
+      </span>
+    </motion.button>
 </div>
 
 

@@ -209,7 +209,7 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
           {/* Vehicle Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[15px] gap-y-[35px]">
             {filteredVehicles.map((vehicle) => (
-              <Link key={vehicle.id} href={`/inventory/${vehicle.handle}`}>
+              <Link key={vehicle.id} href={`/product-design/${vehicle.handle}`}>
                 <div className="h-full bg-[#F4F1F2] rounded-[10px] border border-[#E0E0E0] cursor-pointer ">
                   {/* Vehicle Image */}
                   <div className="relative h-[200px] w-full">

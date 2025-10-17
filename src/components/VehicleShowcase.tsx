@@ -415,8 +415,8 @@ const VehicleSlide: React.FC<{
       </motion.button>
     </Link>
 
-    {/* Buy Now Button - Links to inventory */}
-    <Link href={`/inventory/${vehicle.handle}`}>
+    {/* Buy Now Button - Links to product-design */}
+    <Link href={`/product-design/${vehicle.handle}`}>
       <motion.button
         className="relative overflow-hidden cursor-pointer w-[132px] h-[48px] flex justify-center items-center
                   rounded-[50px] font-helvetica text-[16px] font-medium bg-white text-black border border-black group"

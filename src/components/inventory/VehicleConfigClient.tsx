@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { directCheckout } from '@/app/inventory/[slug]/actions';
+import { directCheckout } from '@/app/product-design/[slug]/actions';
 // style
 const performanceStyles  = `
    /* Hide scrollbar for Chrome, Safari and Opera */
@@ -147,8 +147,8 @@ VehicleConfigClient({
       <div className='max-w-[1332px] m-auto '>
            {/* Back to Inventory link */}
       <div className="px-12 pb-[10px]">
-        <a href="/inventory" className="text-[#747474] font-[400] text-[12px] leading-[110%] tracking-[-0.24px] underline decoration-solid font-helvetica">
-          Back to Inventory Page
+        <a href="/product-design" className="text-[#747474] font-[400] text-[12px] leading-[110%] tracking-[-0.24px] underline decoration-solid font-helvetica">
+          Back to Product Design Page
         </a>
       </div>
 

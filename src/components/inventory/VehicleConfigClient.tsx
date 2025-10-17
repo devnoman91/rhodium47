@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { directCheckout } from '@/app/inventory/[slug]/actions';
 // style
 const performanceStyles  = `
    .performance-section h2{
@@ -72,13 +73,15 @@ interface VehicleConfigClientProps {
   performanceHtml: string;
 }
 
-export default function 
+export default function
 VehicleConfigClient({
   product,
   topHeadingHtml,
   performanceHtml
 }: VehicleConfigClientProps) {
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const selectedVariant = product.variants && product.variants.length > 0
     ? product.variants[selectedVariantIndex]
@@ -87,6 +90,32 @@ VehicleConfigClient({
   const selectedVariantPrice = selectedVariant
     ? parseFloat(selectedVariant.price.amount)
     : parseFloat(product.priceRange?.minVariantPrice?.amount || '0');
+
+  const handleDirectCheckout = async () => {
+    if (!selectedVariant || !selectedVariant.availableForSale) {
+      setError('This variant is not available for sale');
+      return;
+    }
+
+    setIsCheckingOut(true);
+    setError(null);
+
+    try {
+      // Pass the selected variant's merchandiseId and title to checkout
+      const result = await directCheckout(selectedVariant.id, selectedVariant.title);
+
+      if (result.success && result.checkoutUrl) {
+        // Redirect to Shopify checkout with the selected variant
+        window.location.href = result.checkoutUrl;
+      } else {
+        setError(result.error || 'Failed to start checkout');
+        setIsCheckingOut(false);
+      }
+    } catch (err) {
+      setError('An unexpected error occurred');
+      setIsCheckingOut(false);
+    }
+  };
 
   return (
     <div className="min-h-screen pt-[100px] pb-[73px]" style={{ backgroundColor: '#F4F1F2' }}>
@@ -196,9 +225,25 @@ VehicleConfigClient({
                     />
                   )}
 
+              {/* Error Message */}
+              {error && (
+                <div className="text-red-500 text-center font-helvetica text-[14px] p-3 bg-red-50 rounded-md">
+                  {error}
+                </div>
+              )}
+
               {/* Order Button */}
-              <button className="w-full cursor-pointer text-white text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] rounded-full py-[14px] px-4 bg-black hover:bg-gray-800 transition-colors ">
-                  Order with Card
+              <button
+                onClick={handleDirectCheckout}
+                disabled={isCheckingOut || !selectedVariant?.availableForSale}
+                className="w-full cursor-pointer text-white text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] rounded-full py-[14px] px-4 bg-black hover:bg-gray-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+              >
+                {isCheckingOut
+                  ? 'Processing...'
+                  : selectedVariant
+                    ? `Order Now - ${selectedVariant.title}`
+                    : 'Order with Card'
+                }
               </button>
             </div>
           </div>

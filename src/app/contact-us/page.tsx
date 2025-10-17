@@ -54,10 +54,10 @@ letter-spacing: -1.28px;
     max-width: 491px;
     width: 100%;
     padding: 33px 44px 33px 31px;
-    background: #000;border-radius:10px;
+    background: #e2e2e2;border-radius:10px;
 }
   .contact-info h3 {
-      color: #FFF;
+      color: #000;
     font-size: 28px;
     font-style: normal;
     font-weight: 500;
@@ -68,7 +68,7 @@ letter-spacing: -1.28px;
     margin-bottom: 2rem;
   }
   .contact-label {
-    color: #FFF;
+    color: #000;
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
@@ -77,10 +77,10 @@ letter-spacing: -1.28px;
   }
   .contact-desc{
     color: var(--Secondinary-500, #A5A5A5);
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
-    line-height: 150%; 
+    line-height: 150%; word-wrap: break-word;
   }
     .contact-form{
     max-width:728px;
@@ -303,7 +303,7 @@ export default function ContactUsPage() {
           <div className="contact-info relative overflow-hidden">
             <h3>{contactData?.contactInfo?.sectionTitle || 'Get in Touch'}</h3>
 
-            <div className='relative z-[4] contact-info-inner grid grid-cols-2'>
+            <div className='relative z-[4] contact-info-inner grid grid-cols-2 gap-x-[20px]'>
               {/* Email Section */}
               {(contactData?.contactInfo?.email1 || contactData?.contactInfo?.email2) && (
               <div className="contact-item">
@@ -382,12 +382,12 @@ export default function ContactUsPage() {
 
             <div className="circle-small absolute bottom-[144px] right-[40px] h-[138px] w-[138px] z-[3]">
               <svg className='w-full h-full' xmlns="http://www.w3.org/2000/svg" width="139" height="138" viewBox="0 0 139 138" fill="none">
-                <circle cx="69.1367" cy="69" r="69" fill="#FFF9F9" fill-opacity="0.13"/>
+                <circle cx="69.1367" cy="69" r="69" fill="#000" fill-opacity="0.13"/>
               </svg>
             </div>
             <div className="circle-large absolute bottom-0 right-[-150px] h-[269px] z-[1]">
               <svg className='w-full h-full' xmlns="http://www.w3.org/2000/svg" width="139" height="138" viewBox="0 0 139 138" fill="none">
-                <circle cx="69.1367" cy="69" r="69" fill="#FFF9F9" fill-opacity="0.13"/>
+                <circle cx="69.1367" cy="69" r="69" fill="#000" fill-opacity="0.13"/>
               </svg>
             </div>
           </div>

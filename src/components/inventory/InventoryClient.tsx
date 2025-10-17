@@ -210,19 +210,20 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[15px] gap-y-[35px]">
             {filteredVehicles.map((vehicle) => (
               <Link key={vehicle.id} href={`/inventory/${vehicle.handle}`}>
-                <div className="h-full bg-[#F4F1F2] rounded-[10px] border border-[#E0E0E0] cursor-pointer p-[24px] !pt-[0]">
+                <div className="h-full bg-[#F4F1F2] rounded-[10px] border border-[#E0E0E0] cursor-pointer ">
                   {/* Vehicle Image */}
                   <div className="relative h-[200px] w-full">
                     <Image
                       src={vehicle.image}
                       alt={vehicle.model}
                       fill
-                      className="object-contain w-full h-full"
+                      className=" w-full h-full object-cover"
                     />
                   </div>
 
                   {/* Vehicle Info */}
-                  <div className="max-w-[250px]">
+                  <div className='p-[24px] pt-[10px]'>
+                     <div className="max-w-[250px]">
                     <h3 className="text-[16px] font-[500] font-helvetica text-[#111] mb-1">
                       {vehicle.model}  ${vehicle.price.toLocaleString()}
                     </h3>
@@ -245,6 +246,7 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
                       <p className="text-[12px] font-[400] font-helvetica leading-[150%] capitalize text-[#111]">Interior 5 Seats</p>
                     </div>
                    </div>
+                  </div>
                   </div>
                 </div>
               </Link>

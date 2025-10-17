@@ -529,25 +529,51 @@ export default function SupportPage() {
           <section className="contact-section">
           <div className='max-w-[1332px] m-auto'>
               <h2 className="contact-title">
-              {supportData.contactSection.title || 'Get in touch'}
-            </h2>
+                {supportData.contactSection.title || 'Get in touch'}
+             </h2>
 
-            <div className="contact-options">
-              {supportData.contactSection.contactOptions?.map((option, index) => (
-                <div key={index} className="contact-option">
-                  <div className="contact-info">
-                    <span className="contact-icon">{getContactIcon(option.type)}</span>
-                    <span className="contact-label">{option.label}</span>
-                  </div>
-                  {option.value && (
-                    <span className="contact-value">{option.value}</span>
-                  )}
-                  {option.buttonText && !option.value && (
-                    <span className="contact-value">{option.buttonText}</span>
-                  )}
-                </div>
-              ))}
-            </div>
+          <div className="contact-options space-y-3">
+  {supportData.contactSection.contactOptions?.map((option, index) => {
+    // Default link
+    let link = "#";
+
+    // Set correct link based on type
+    if (option.type === "email") {
+      link = `mailto:${option.value || "support@yourstore.com"}`; 
+    } else if (option.type === "phone") {
+      link = `tel:${option.value || "+1234567890"}`; 
+    } else if (option.type === "contact") {
+      link = "/contact-us";
+    }
+
+    return (
+      <a
+        key={index}
+        href={link}
+        className="contact-option flex items-center justify-between p-3 rounded-lg border border-gray-200 hover:bg-gray-100 transition cursor-pointer"
+      >
+        {/* Left side — icon + label */}
+        <div className="contact-info flex items-center gap-2">
+          <span className="contact-icon text-xl">{getContactIcon(option.type)}</span>
+          <span className="contact-label font-medium text-gray-800">
+            {option.label}
+          </span>
+        </div>
+
+        {/* Right side — value or button text */}
+        {option.value && (
+          <span className="contact-value text-gray-600">{option.value}</span>
+        )}
+        {option.buttonText && !option.value && (
+          <span className="contact-value text-gray-600">{option.buttonText}</span>
+        )}
+      </a>
+    );
+  })}
+</div>
+
+
+
           </div>
           </section>
         )}

@@ -121,7 +121,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
             >
               {data.blogSection.map((blog, index) => (
                 <motion.div
-                  key={`${blog.slug.current}-${index}`}
+                  key={`blog-${index}`}
                   className="w-[455px] flex-shrink-0 "
                   initial={{ opacity: 0, x: 50 }}
                   animate={{
@@ -190,31 +190,35 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
         </p>
       </div>
 
-      {/* Learn More Button */}
+      {/* Button */}
    <motion.button
-  className="relative overflow-hidden px-[24px] py-[5px] rounded-[50px] 
-             border border-white text-white font-helvetica text-[14px] leading-[24px] 
-             font-medium transition-colors duration-500 ease-in-out 
+  className="relative overflow-hidden px-[24px] py-[5px] rounded-[50px]
+             border border-white text-white font-helvetica text-[14px] leading-[24px]
+             font-medium transition-colors duration-500 ease-in-out
              w-fit block cursor-pointer mt-auto group"
   whileHover={{ scale: 1.02 }}
   whileTap={{ scale: 0.98 }}
   transition={{ duration: 0.2 }}
   onClick={() => {
-    if (blog.slug.current) {
-      window.location.href = `/blog/${blog.slug.current}`
+    if (blog.buttonLink) {
+      if (blog.buttonLink.startsWith('http')) {
+        window.open(blog.buttonLink, '_blank')
+      } else {
+        window.location.href = blog.buttonLink
+      }
     }
   }}
 >
   {/* sliding overlay */}
   <span
-    className="absolute inset-0 bg-white translate-x-full 
+    className="absolute inset-0 bg-white translate-x-full
                transition-transform duration-500 ease-in-out rounded-[50px]
                group-hover:translate-x-0"
   />
 
   {/* text */}
   <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
-    Learn More
+    {blog.buttonText || 'Learn More'}
   </span>
 </motion.button>
 

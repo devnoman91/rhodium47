@@ -76,20 +76,16 @@ export default defineType({
               validation: (Rule) => Rule.required(),
             }),
             defineField({
-              name: 'slug',
-              title: 'Slug',
-              type: 'slug',
-              options: {
-                source: 'title',
-                maxLength: 96,
-                slugify: (input: string) => {
-                  return input
-                    .toLowerCase()
-                    .replace(/\s+/g, '-')
-                    .replace(/[^\w-]+/g, '')
-                },
-              },
+              name: 'buttonText',
+              title: 'Button Text',
+              type: 'string',
               validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'buttonLink',
+              title: 'Button Link',
+              type: 'string',
+              description: 'URL or path (e.g., /about or https://example.com)',
             }),
           ],
           preview: {

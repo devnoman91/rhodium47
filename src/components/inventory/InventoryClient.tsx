@@ -183,7 +183,7 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
 
   return (
     <div className="min-h-screen pt-[126px] pb-[95px] bg-[#FFFFFF] relative">
-      <div className="flex max-w-[1332px] m-auto gap-[48px]">
+      <div className="flex max-w-[1332px] m-auto gap-[45px]">
         {/* Filter Sidebar - Sticky positioning */}
         <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
         <div className="sticky top-20 h-screen w-full max-w-[199px] bg-white z-[2] overflow-y-auto flex-shrink-0 no-scrollbar">

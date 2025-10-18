@@ -268,29 +268,7 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
                         {vehicle.description}
                       </p>
 
-                      {/* Dynamic Specs from top-heading */}
-                      {specsHtml ? (
-                        <div
-                          className="text-[10px] text-[#111] font-[400] font-helvetica leading-[150%]"
-                          dangerouslySetInnerHTML={{ __html: specsHtml }}
-                        />
-                      ) : (
-                        // Fallback to hardcoded if no specs available
-                        <div className='flex items-center gap-2'>
-                          <div className="flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                              <circle cx="6" cy="6" r="6" fill="black"/>
-                            </svg>
-                            <p className="text-[12px] font-[400] font-helvetica leading-[150%] capitalize text-[#111]">Paint 19"Wheels </p>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                              <circle cx="6" cy="6" r="6" fill="#C5C5C5"/>
-                            </svg>
-                            <p className="text-[12px] font-[400] font-helvetica leading-[150%] capitalize text-[#111]">Interior 5 Seats</p>
-                          </div>
-                        </div>
-                      )}
+                 
                     </div>
                     </div>
                   </div>

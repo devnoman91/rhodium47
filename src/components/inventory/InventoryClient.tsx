@@ -247,7 +247,7 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
 
               return (
                 <Link key={vehicle.id} href={`/product-design/${vehicle.handle}`}>
-                  <div className="h-full bg-[#F4F1F2] rounded-[10px] border border-[#E0E0E0] cursor-pointer ">
+                  <div className="h-full bg-[#F4F1F2] overflow-hidden rounded-[10px] border border-[#E0E0E0] cursor-pointer ">
                     {/* Vehicle Image */}
                     <div className="relative h-[200px] w-full">
                       <Image

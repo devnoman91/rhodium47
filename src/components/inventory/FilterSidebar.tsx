@@ -110,7 +110,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
       <ExpandableFilterSection title="Model" isExpanded={true}>
         <div className="space-y-3">
           {filterOptions.models?.map((model: string) => (
-            <label key={model} className="flex items-center">
+            <label key={model} className="flex items-center cursor-pointer">
               <input
                 type="checkbox"
                 checked={filters.models.includes(model)}
@@ -131,7 +131,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
       <ExpandableFilterSection title="Payment" isExpanded={true}>
         <div className="space-y-3">
           {filterOptions.paymentTypes?.map((type: string) => (
-            <label key={type} className="flex items-center">
+            <label key={type} className="flex  cursor-pointer items-center">
               <input
                 type="checkbox"
                 checked={filters.paymentType === type}
@@ -145,7 +145,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
 
         {/* Price Range Slider */}
         <div className="mt-4">
-          <div className="flex items-center  gap-4 mb-2">
+          <div className="flex items-center cursor-pointer gap-4 mb-2">
             <span className="text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">${filters.priceRange[0]}</span>
             <span className="text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">-</span>
             <span className="text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">${filters.priceRange[1]}</span>
@@ -170,7 +170,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Vehicle Type">
           <div className="space-y-3">
             {filterOptions.vehicleTypes.map((type: string) => (
-              <label key={type} className="flex items-center">
+              <label key={type} className="flex  cursor-pointer items-center">
                 <input
                   type="checkbox"
                   checked={filters.vehicleType === type}
@@ -189,7 +189,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Armor Level">
           <div className="space-y-3">
             {filterOptions.armorLevels.map((level: string) => (
-              <label key={level} className="flex items-center">
+              <label key={level} className="flex cursor-pointer items-center">
                 <input
                   type="checkbox"
                   checked={filters.armorLevel === level}
@@ -208,7 +208,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Drivetrain">
           <div className="space-y-3">
             {filterOptions.drivetrains.map((drivetrain: string) => (
-              <label key={drivetrain} className="flex items-center">
+              <label key={drivetrain} className="flex cursor-pointer items-center">
                 <input
                   type="checkbox"
                   checked={filters.drivetrain === drivetrain}
@@ -227,7 +227,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Fuel Type">
           <div className="space-y-3">
             {filterOptions.fuelTypes.map((fuel: string) => (
-              <label key={fuel} className="flex items-center">
+              <label key={fuel} className="flex cursor-pointer items-center">
                 <input
                   type="checkbox"
                   checked={filters.fuelType === fuel}
@@ -246,7 +246,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Transmission">
           <div className="space-y-3">
             {filterOptions.transmissions.map((transmission: string) => (
-              <label key={transmission} className="flex items-center">
+              <label key={transmission} className="flex cursor-pointer items-center">
                 <input
                   type="checkbox"
                   checked={filters.transmission === transmission}
@@ -265,7 +265,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Seating Capacity">
           <div className="space-y-3">
             {filterOptions.seatingCapacities.map((capacity: string) => (
-              <label key={capacity} className="flex items-center">
+              <label key={capacity} className="flex cursor-pointer items-center">
                 <input
                   type="checkbox"
                   checked={filters.seatingCapacity === capacity}
@@ -284,7 +284,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Model Year">
           <div className="space-y-3">
             {filterOptions.modelYears.map((year: string) => (
-              <label key={year} className="flex items-center">
+              <label key={year} className="flex cursor-pointer items-center">
                 <input
                   type="checkbox"
                   checked={filters.modelYear === year}
@@ -304,7 +304,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Mileage / Year">
           <div className="space-y-3">
             {filterOptions.mileageYears.map((year: string) => (
-              <label key={year} className="flex items-center">
+              <label key={year} className="flex cursor-pointer items-center">
                 <input
                   type="checkbox"
                   checked={filters.mileageYear === year}
@@ -323,7 +323,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Paint">
           <div className="space-y-3">
             {filterOptions.paintOptions.map((paint: string) => (
-              <label key={paint} className="flex items-center">
+              <label key={paint} className="flex cursor-pointer items-center">
                 <input
                   type="checkbox"
                   checked={filters.paint === paint}
@@ -342,7 +342,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Wheels">
           <div className="space-y-3">
             {filterOptions.wheelOptions.map((wheel: string) => (
-              <label key={wheel} className="flex items-center">
+              <label key={wheel} className="flex cursor-pointer items-center">
                 <input
                   type="checkbox"
                   checked={filters.wheels === wheel}
@@ -361,7 +361,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Interior">
           <div className="space-y-3">
             {filterOptions.interiorOptions.map((interior: string) => (
-              <label key={interior} className="flex items-center">
+              <label key={interior} className="flex cursor-pointer items-center">
                 <input
                   type="checkbox"
                   checked={filters.interior === interior}
@@ -380,7 +380,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Seat Layout">
           <div className="space-y-3">
             {filterOptions.seatLayouts.map((layout: string) => (
-              <label key={layout} className="flex items-center">
+              <label key={layout} className="flex cursor-pointer items-center">
                 <input
                   type="checkbox"
                   checked={filters.seatLayout === layout}
@@ -399,7 +399,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <ExpandableFilterSection title="Additional Options">
           <div className="space-y-3">
             {filterOptions.additionalOptions.map((option: string) => (
-              <label key={option} className="flex items-center">
+              <label key={option} className="flex cursor-pointer items-center">
                 <input
                   type="checkbox"
                   checked={filters.additionalOptions.includes(option)}

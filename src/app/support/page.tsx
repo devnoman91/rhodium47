@@ -171,21 +171,20 @@ line-height: 32px; /* 133.333% */
   .content-body h5 {
     font-size: 1.125rem;
     font-weight: 600;
-    color: #000;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
+    // color: #000;
+    margin-top: 18px;
     cursor: pointer;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #e5e7eb;
+    // border-bottom: 1px solid #e5e7eb;
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     align-items: center;
     transition: color 0.2s;
+    gap:15px;
   }
 
-  .content-body h5:hover {
-    color: #494949;
-  }
+  // .content-body h5:hover {
+  //   color: #494949;
+  // }
 
   .question-toggle {
     font-size: 1.5rem;
@@ -214,7 +213,7 @@ font-size: 16px;
 font-style: normal;
 font-weight: 400;
 line-height: 28px;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
   }
 
   .content-body ul, .content-body ol {
@@ -568,31 +567,49 @@ export default function SupportPage() {
 
                     {/* Questions & Answers */}
                     {section.questions?.map((qa, qaIndex) => {
-                      const questionKey = `${sectionIndex}-${qaIndex}`;
-                      const isOpen = openQuestions.has(parseInt(questionKey.replace('-', '')));
+                        const questionKey = `${sectionIndex}-${qaIndex}`;
+                        const isOpen = openQuestions.has(parseInt(questionKey.replace('-', '')));
 
-                      return (
-                        <div key={qaIndex}>
-                          {/* Question */}
-                          <h5 onClick={() => toggleQuestion(parseInt(questionKey.replace('-', '')))}>
-                            <span>{qa.question}</span>
-                            <span className={`question-toggle ${isOpen ? 'open' : ''}`}>
-                              {isOpen ? '−' : '+'}
-                            </span>
-                          </h5>
+                        return (
+                          <div key={qaIndex}>
+                            {/* Question */}
+                            <h5
+                              onClick={() => toggleQuestion(parseInt(questionKey.replace('-', '')))}
+                              className="flex gap-[15px] items-center cursor-pointer text"
+                            >
+                              <span className=" font-[400] text-[16px] text-[#151515]">{qa.question}</span>
 
-                          {/* Answer */}
-                          <div className={`answer-content ${isOpen ? 'open' : ''}`}>
-                            {qa.answer && (
-                              <PortableText
-                                value={qa.answer}
-                                components={answerPortableTextComponents}
-                              />
-                            )}
+                              {/* Toggle Icon */}
+                              <span className="question-toggle text-[#151515]">
+                                {isOpen ? (
+                                  // Minus SVG
+                                  <svg className="w-6 h-6 text-[#000] dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
+                                    </svg>
+
+                                ) : (
+                                  // Plus SVG
+                                  <svg className="w-6 h-6 text-[#000] dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+                                  </svg>
+
+                                )}
+                              </span>
+                            </h5>
+
+                            {/* Answer */}
+                            <div className={`answer-content mt-[18px] transition-all duration-300 ${isOpen ? 'open' : 'hidden'}`}>
+                              {qa.answer && (
+                                <PortableText
+                                  value={qa.answer}
+                                  components={answerPortableTextComponents}
+                                />
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+
                   </div>
                 ))}
               </div>

@@ -102,9 +102,8 @@ export interface CountItem {
 export interface BlogItem {
   title: string
   description: string
-  slug: {
-    current: string
-  }
+  buttonText: string
+  buttonLink?: string
 }
 
 export interface ShowcaseInnovation {
@@ -299,9 +298,8 @@ export interface Product {
     blogSection: Array<{
       title: string
       description: string
-      slug: {
-        current: string
-      }
+      buttonText: string
+      buttonLink?: string
     }>
   }
 }

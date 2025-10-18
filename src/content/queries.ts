@@ -134,7 +134,8 @@ export const showcaseInnovationQuery = `
     blogSection[] {
       title,
       description,
-      slug
+      buttonText,
+      buttonLink
     }
   }
 `
@@ -333,7 +334,8 @@ export const productQuery = `
       blogSection[] {
         title,
         description,
-        slug
+        buttonText,
+        buttonLink
       }
     }
   }
@@ -458,7 +460,8 @@ export const productByIdQuery = (id: string) => `
       blogSection[] {
         title,
         description,
-        slug
+        buttonText,
+        buttonLink
       }
     }
   }
@@ -583,7 +586,8 @@ export const productBySlugQuery = (slug: string) => `
       blogSection[] {
         title,
         description,
-        slug
+        buttonText,
+        buttonLink
       }
     }
   }

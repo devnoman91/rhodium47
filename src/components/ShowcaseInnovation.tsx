@@ -157,7 +157,7 @@ const CountCard: React.FC<{ item: CountItem; index: number }> = React.memo(({ it
       }}
       className="text-left"
     >
-      <div className="mb-[20px] text-[29px] md:text-[36px] lg:text-[48px] not-italic tracking-normal leading-[30px] font-medium font-helvetica  max-w-[100px] md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0">
+      <div className="mb-[20px] text-[29px] md:text-[36px] lg:text-[48px] not-italic tracking-normal leading-[50px] font-medium font-helvetica  max-w-[100px] md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0">
         {item.name}
       </div>
       <div className="text-[12px] md:text-[14px] lg:text-[16px] leading-[20px] md:leading-[20px] tracking-[0] m-0 font-normal font-helvetica max-w-[100px] md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0 opacity-70">

@@ -35,7 +35,7 @@ function ExpandableFilterSection({ title, isExpanded = false, children }: Expand
        <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
       <button
         onClick={() => setExpanded(!expanded)}
-        className="flex w-full items-center justify-between text-left"
+        className="flex w-full items-center justify-between cursor-pointer text-left"
       >
         <span className="font-helvetica text-[#111] text-center font-medium text-[16px] leading-[150%] capitalize no-ligatures">{title}</span>
         {expanded ? (
@@ -85,7 +85,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <div className="flex gap-2 px-[17px] py-[8px] rounded-[4px]" style={{ backgroundColor: '#F4F1F2' }}>
           <button
             onClick={() => updateFilter('status', filters.status === 'new' ? '' : 'new')}
-            className={`flex-1 rounded-[4px]  font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-black text-center text-[12px] leading-[150%] capitalize no-ligatures ${
+            className={`flex-1 rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-black text-center text-[12px] leading-[150%] capitalize no-ligatures ${
               filters.status === 'new'
                 ? 'bg-white text-gray-900 shadow-sm'
                 : 'text-gray-700 hover:bg-black hover:text-white'
@@ -95,7 +95,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
           </button>
           <button
             onClick={() => updateFilter('status', filters.status === 'pre-order' ? '' : 'pre-order')}
-            className={`flex-1 px-[14px] py-[7px]  rounded-[4px] transition-all duration-200 flex items-center justify-center font-helvetica  text-center font-medium text-[12px] leading-[150%] capitalize no-ligatures ${
+            className={`flex-1 px-[14px] py-[7px] cursor-pointer  rounded-[4px] transition-all duration-200 flex items-center justify-center font-helvetica  text-center font-medium text-[12px] leading-[150%] capitalize no-ligatures ${
               filters.status === 'pre-order'
                 ? 'bg-black text-white shadow-sm'
                 : 'text-[#fff] hover:bg-black hover:text-white bg-[#000]'

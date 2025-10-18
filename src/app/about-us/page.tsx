@@ -447,7 +447,7 @@ const ForeverSection: React.FC<{
                   </div>
 
                   {/* Content */}
-                  <div className="pt-[42px] max-w-[656px]">
+                  <div className="pt-[42px] max-w-[800px]">
                     <div className="">
                       <h3 className="text-white font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                         {card.title}

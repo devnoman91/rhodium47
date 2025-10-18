@@ -216,7 +216,7 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
 
   return (
     <div className="min-h-screen pt-[126px] pb-[95px] bg-[#FFFFFF] relative">
-      <div className="flex max-w-[1332px] m-auto gap-[45px]">
+      <div className="flex max-w-[1600px] m-auto gap-[45px]">
         {/* Filter Sidebar - Sticky positioning */}
         <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
         <div className="sticky top-20 h-screen w-full max-w-[199px] bg-white z-[2] overflow-y-auto flex-shrink-0 no-scrollbar">
@@ -247,20 +247,20 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
 
               return (
                 <Link key={vehicle.id} href={`/product-design/${vehicle.handle}`}>
-                  <div className="h-full bg-[#F4F1F2] overflow-hidden rounded-[10px] border border-[#E0E0E0] cursor-pointer ">
+                  <div className="h-full  overflow-hidden rounded-[10px] border border-[#E0E0E0] group cursor-pointer ">
                     {/* Vehicle Image */}
-                    <div className="relative h-[200px] w-full">
+                    <div className="relative h-[230px] w-full overflow-hidden">
                       <Image
                         src={vehicle.image}
                         alt={vehicle.model}
                         fill
-                        className=" w-full h-full object-cover"
+                        className=" w-full h-full object-cover group-hover:scale-110 transition-all ease-in-out duration-400"
                       />
                     </div>
 
                     {/* Vehicle Info */}
-                    <div className='p-[24px] pt-[10px]'>
-                       <div className="max-w-[250px]">
+                    <div className='p-[24px]'>
+                       <div className="max-w-[320px]">
                       <h3 className="text-[16px] font-[500] font-helvetica text-[#111] mb-1">
                         {vehicle.model}  ${vehicle.price.toLocaleString()}
                       </h3>

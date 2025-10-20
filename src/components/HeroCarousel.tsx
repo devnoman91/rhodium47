@@ -202,6 +202,7 @@ export default function HeroCarousel() {
   const [imageLoaded, setImageLoaded] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [isVideoReady, setIsVideoReady] = useState(false)
+  const [isTransitioning, setIsTransitioning] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const imageRef = useRef<HTMLImageElement>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -291,9 +292,13 @@ export default function HeroCarousel() {
   useEffect(() => {
     if (videos.length > 0) {
       const interval = setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % videos.length)
-        setVideoLoaded(false) // Reset video loaded state for new content
-        setImageLoaded(false) // Reset image loaded state for new content
+        setIsTransitioning(true)
+        setTimeout(() => {
+          setCurrentIndex((prevIndex) => (prevIndex + 1) % videos.length)
+          setVideoLoaded(false) // Reset video loaded state for new content
+          setImageLoaded(false) // Reset image loaded state for new content
+          setIsTransitioning(false)
+        }, 300) // Small delay to allow fade out
       }, 5000)
       return () => clearInterval(interval)
     }
@@ -311,6 +316,7 @@ export default function HeroCarousel() {
         video.pause()
       }
       video.currentTime = 0
+      video.style.opacity = '0' // Immediately hide during transition
     }
   }, [currentIndex])
 
@@ -346,13 +352,24 @@ export default function HeroCarousel() {
   }, [currentIndex, mounted, videoLoaded])
 
   const goToSlide = useCallback((index: number) => {
-    setCurrentIndex(index)
-  }, [])
+    if (index !== currentIndex) {
+      setIsTransitioning(true)
+      setTimeout(() => {
+        setCurrentIndex(index)
+        setVideoLoaded(false)
+        setImageLoaded(false)
+        setIsTransitioning(false)
+      }, 300)
+    }
+  }, [currentIndex])
 
   const handleVideoLoad = useCallback(() => {
     setVideoLoaded(true)
     setIsVideoReady(true)
-  }, [])
+    if (videoRef.current && !isTransitioning) {
+      videoRef.current.style.opacity = '1'
+    }
+  }, [isTransitioning])
 
   const handleVideoError = useCallback(() => {
     setVideoLoaded(false)
@@ -488,7 +505,7 @@ export default function HeroCarousel() {
               onLoadedData={handleVideoLoad}
               onError={handleVideoError}
               style={{
-                opacity: videoLoaded ? 1 : 0,
+                opacity: (videoLoaded && !isTransitioning) ? 1 : 0,
                 transition: 'opacity 0.5s ease-in-out'
               }}
               poster=""
@@ -506,7 +523,7 @@ export default function HeroCarousel() {
               onLoad={handleImageLoad}
               onError={handleImageError}
               style={{
-                opacity: imageLoaded ? 1 : 0,
+                opacity: (imageLoaded && !isTransitioning) ? 1 : 0,
                 transition: 'opacity 0.5s ease-in-out'
               }}
             />

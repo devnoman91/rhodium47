@@ -67,6 +67,45 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
       {/* Header */}
       <div className="mb-0">
         <h2 className="font-helvetica text-black mb-[5px] font-medium text-[26px] leading-[110%] tracking-[-0.52px]">Inventory</h2>
+        {/* Active Filters Display */}
+        <div className="mt-4 space-y-2">
+          {Object.entries(filters).map(([key, value]) => {
+            if (!value || (Array.isArray(value) && value.length === 0)) return null;
+            if (key === 'priceRange' && Array.isArray(value) &&
+                value[0] === filterOptions.priceRange?.min && value[1] === filterOptions.priceRange?.max) return null;
+
+            let displayValue = '';
+            if (Array.isArray(value)) {
+              displayValue = value.join(', ');
+            } else if (typeof value === 'string' && value) {
+              displayValue = value;
+            }
+
+            if (!displayValue) return null;
+
+            return (
+              <div key={key} className="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-md">
+                <span className="text-sm font-helvetica text-gray-700 capitalize">
+                  {key.replace(/([A-Z])/g, ' $1').toLowerCase()}: {displayValue}
+                </span>
+                <button
+                  onClick={() => {
+                    if (Array.isArray(value)) {
+                      const newFilters = { ...filters, [key]: [] };
+                      onFilterChange(newFilters);
+                    } else {
+                      const newFilters = { ...filters, [key]: '' };
+                      onFilterChange(newFilters);
+                    }
+                  }}
+                  className="text-gray-400 hover:text-gray-600 ml-2"
+                >
+                  ×
+                </button>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Zip Code Input */}

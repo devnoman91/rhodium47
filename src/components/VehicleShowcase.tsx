@@ -13,7 +13,6 @@ interface Vehicle {
   monthlyPayment: string
   range: string
   image: string
-  category: 'standard' | 'armored'
   handle: string
 }
 
@@ -97,7 +96,6 @@ const imageVariants: Variants = {
 }
 
 const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'standard' | 'armored'>('standard')
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isScrolling, setIsScrolling] = useState(false)
   const [isInView, setIsInView] = useState(false)
@@ -107,14 +105,12 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
   const sliderRef = useRef<HTMLDivElement>(null)
   const isSliderComplete = useRef(false)
 
-  const filteredVehicles = selectedCategory === 'all'
-    ? vehicles
-    : vehicles.filter(vehicle => vehicle.category === selectedCategory)
+  const filteredVehicles = vehicles
 
   useEffect(() => {
     setCurrentIndex(0)
     isSliderComplete.current = false
-  }, [selectedCategory])
+  }, [])
 
   // Reset slider completion when entering the section
   useEffect(() => {
@@ -140,9 +136,6 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
     }
   }, [isInView, isScrolling, filteredVehicles.length])
 
-  const handleCategoryChange = (category: 'all' | 'standard' | 'armored') => {
-    setSelectedCategory(category)
-  }
 
   const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const threshold = 20
@@ -272,31 +265,22 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
               variants={titleVariants}
               className="mb-1 lg:mb-0"
             >
-              <motion.button
-                className="relative overflow-hidden cursor-pointer text-left group bg-transparent border-none p-0"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                {/* sliding overlay */}
-                <span className="absolute inset-0 bg-black translate-x-full transition-transform duration-500 ease-in-out group-hover:translate-x-0" />
-
-                <h1 className="relative z-10 text-black font-helvetica text-[64px] not-italic font-medium leading-[110%] tracking-[-1.28px] transition-colors duration-500 ease-in-out group-hover:text-white">
-                  <motion.span
-                    variants={titleLineVariants}
-                    className="block"
-                    style={{ perspective: '1000px' }}
-                  >
-                    Our Advanced
-                  </motion.span>
-                  <motion.span
-                    variants={titleLineVariants}
-                    className="block"
-                    style={{ perspective: '1000px' }}
-                  >
-                    Car Models
-                  </motion.span>
-                </h1>
-              </motion.button>
+              <h1 className="text-black font-helvetica text-[64px] not-italic font-medium leading-[110%] tracking-[-1.28px]">
+                <motion.span
+                  variants={titleLineVariants}
+                  className="block"
+                  style={{ perspective: '1000px' }}
+                >
+                  Our Advanced
+                </motion.span>
+                <motion.span
+                  variants={titleLineVariants}
+                  className="block"
+                  style={{ perspective: '1000px' }}
+                >
+                  Car Models
+                </motion.span>
+              </h1>
             </motion.div>
 
             {/* Right - Description and Buttons */}
@@ -312,37 +296,6 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
                 unparalleled protection and sophistication.
               </motion.p>
 
-              {/* Category Filter Buttons with Enhanced Animations */}
-              <motion.div
-                className="flex gap-4"
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                <motion.button
-                  variants={buttonVariants}
-                  onClick={() => handleCategoryChange('standard')}
-                  className={`cursor-pointer flex w-[136px] h-[48px] flex-shrink-0 rounded-[50px] px-[16px] py-[14px] text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] transition-all duration-300 justify-center items-center ${
-                    selectedCategory === 'standard' ? 'bg-black text-white' : 'bg-gray-300 text-black hover:bg-gray-400'
-                  }`}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Our Models
-                </motion.button>
-                <motion.button
-                  variants={buttonVariants}
-                  onClick={() => handleCategoryChange('armored')}
-                  className={`cursor-pointer flex w-[215px] h-[48px] flex-shrink-0 rounded-[50px] px-[16px] py-[14px] text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] transition-all duration-300 justify-center items-center ${
-                    selectedCategory === 'armored' ? 'bg-black text-white' : 'bg-[#CDCDCD] text-white '
-                  }`}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Armored Collection
-                </motion.button>
-              </motion.div>
             </motion.div>
           </div>
         </motion.div>

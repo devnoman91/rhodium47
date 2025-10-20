@@ -11,6 +11,7 @@ interface ComparisonProduct {
   price: number
   leasePrice?: number
   tagline?: string
+  descriptionHtml?: string
   specs: {
     motorConfig?: string
     range?: string
@@ -50,6 +51,7 @@ export default async function ComparePage() {
       image: product.images[0]?.url || '/images/vehicle.png',
       price: parseFloat(product.priceRange.minVariantPrice.amount),
       tagline: extractTagline(product.description),
+      descriptionHtml: product.descriptionHtml, // Include the full HTML description
       specs,
       design: parseDesignOptions(product.descriptionHtml || ''),
       dimensions: parseDimensions(product.descriptionHtml || ''),

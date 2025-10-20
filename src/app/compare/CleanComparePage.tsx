@@ -265,7 +265,7 @@ export default function CompareClient({ products }: CompareClientProps) {
               </p>
               <p className="text-black font-normal text-[16px] leading-[18px] tracking-[-0.48px] font-helvetica mb-[20px]">
                 From ${product.price.toLocaleString()}<sup>1</sup>
-                {product.leasePrice && ` • Est. lease ${product.leasePrice.toLocaleString()}/mo`}
+                {product.leasePrice && ` • Est. lease $${product.leasePrice.toLocaleString()}/mo`}
               </p>
 
               {/* Action Buttons */}
@@ -273,11 +273,6 @@ export default function CompareClient({ products }: CompareClientProps) {
                 <Link href={`/product-design/${product.handle}`}>
                   <button className="text-white cursor-pointer max-w-[112px] w-full rounded-full text-center font-normal text-[14px] py-[12px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica bg-[black] hover:bg-gray-800 transition-colors">
                     Build
-                  </button>
-                </Link>
-                <Link href={`/inventory/${product.handle}`}>
-                  <button className="cursor-pointer border border-[#000] text-black max-w-[150px] w-full rounded-full text-center font-normal text-[14px] py-[12px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica hover:text-[#fff] hover:bg-black transition-colors">
-                    Inventory
                   </button>
                 </Link>
                 <Link href={`/product-detail/${product.handle}`}>
@@ -445,9 +440,9 @@ export default function CompareClient({ products }: CompareClientProps) {
         </ComparisonSection>
       )}
 
-      {/* Top Specifications Section - Render parsed top heading content */}
+      {/* At a Glance Section - Render parsed top heading content */}
       {selectedProducts.length > 0 && selectedProducts.some(p => p.parsedDescription?.topHeading) && (
-        <ComparisonSection title="Top Specifications">
+        <ComparisonSection title="Top Specifications" hasSuper>
           <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[30px]`}>
             {selectedProducts.map((product, index) => (
               <div 

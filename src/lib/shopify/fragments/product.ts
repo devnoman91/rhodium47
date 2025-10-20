@@ -9,6 +9,7 @@ const productFragment = /* GraphQL */ `
     title
     description
     descriptionHtml
+    publishedAt
     options {
       id
       name

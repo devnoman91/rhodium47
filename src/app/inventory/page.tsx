@@ -13,6 +13,7 @@ interface Vehicle {
   variants?: any[];
   options?: any[];
   tags?: string[]; // Product tags
+  publishedAt: string; // Add publishedAt field
 }
 
 // Helper function to build filter options from all product tags
@@ -152,6 +153,7 @@ export default async function InventoryPage() {
       variants: product.variants,
       options: product.options,
       tags: product.tags, // Store tags for filtering
+      publishedAt: product.publishedAt, // Include publishedAt
     }));
 
     // Calculate dynamic price range from actual products

@@ -124,10 +124,10 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <div className="flex gap-2 px-[17px] py-[8px] rounded-[4px]" style={{ backgroundColor: '#F4F1F2' }}>
           <button
             onClick={() => updateFilter('status', filters.status === 'new' ? '' : 'new')}
-            className={`flex-1 rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-black text-center text-[12px] leading-[150%] capitalize no-ligatures ${
+            className={`flex-1 rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures ${
               filters.status === 'new'
                 ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-700 hover:bg-black hover:text-white'
+                : 'bg-black text-white hover:bg-gray-800'
             }`}
           >
             New
@@ -137,12 +137,15 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             className={`flex-1 px-[14px] py-[7px] cursor-pointer  rounded-[4px] transition-all duration-200 flex items-center justify-center font-helvetica  text-center font-medium text-[12px] leading-[150%] capitalize no-ligatures ${
               filters.status === 'pre-order'
                 ? 'bg-black text-white shadow-sm'
-                : 'text-[#fff] hover:bg-black hover:text-white bg-[#000]'
+                : 'bg-white text-black hover:bg-black hover:text-white'
             }`}
           >
             Pre-Order
           </button>
         </div>
+        <p className="text-[10px] text-gray-500 mt-1 font-helvetica">
+          New: Published within 30 days • Pre-Order: Published more than 30 days ago
+        </p>
       </div>
 
       {/* Model Filter */}

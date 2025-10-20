@@ -18,6 +18,7 @@ interface Vehicle {
   options?: any[];
   tags?: string[];
   metafields?: { key: string; value: string }[];
+  publishedAt: string;
 }
 
 interface InventoryClientProps {
@@ -92,6 +93,14 @@ export default function InventoryClient({
     additionalOptions: [] as string[]
   });
 
+  // Helper function to determine if a vehicle is new or pre-order based on publishedAt
+  const getVehicleStatus = (publishedAt: string): string => {
+    const publishedDate = new Date(publishedAt);
+    const now = new Date();
+    const daysSincePublished = (now.getTime() - publishedDate.getTime()) / (1000 * 3600 * 24);
+    return daysSincePublished <= 30 ? 'new' : 'pre-order';
+  };
+
   // Create a map from collection title to handle for filtering (if needed)
   const collectionTitleToHandle = new Map(
     collections.map(c => [c.title, c.handle])
@@ -109,6 +118,14 @@ export default function InventoryClient({
 
     // Start filtering from the original vehicles array
     let filtered = vehicles;
+
+    // Filter by status (new or pre-order)
+    if (newFilters.status) {
+      filtered = filtered.filter(vehicle => {
+        const status = getVehicleStatus(vehicle.publishedAt);
+        return status === newFilters.status;
+      });
+    }
 
     // Filter by product names (models)
     if (newFilters.models.length > 0) {

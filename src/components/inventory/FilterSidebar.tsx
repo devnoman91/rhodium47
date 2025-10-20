@@ -32,7 +32,7 @@ function ExpandableFilterSection({ title, isExpanded = false, children }: Expand
 
   return (
     <div className="mb-[30px]">
-       <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
+      <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
       <button
         onClick={() => setExpanded(!expanded)}
         className="flex w-full items-center justify-between cursor-pointer text-left"
@@ -48,14 +48,13 @@ function ExpandableFilterSection({ title, isExpanded = false, children }: Expand
     </div>
   );
 }
-    
+
 export default function FilterSidebar({ filters, onFilterChange, filterOptions }: FilterSidebarProps) {
   const updateFilter = (key: string, value: any) => {
     const newFilters = { ...filters, [key]: value };
     onFilterChange(newFilters);
   };
 
-  // Helper function to toggle checkbox filters (unselect if already selected)
   const toggleCheckboxFilter = (key: string, value: string) => {
     const currentValue = filters[key];
     const newValue = currentValue === value ? '' : value;
@@ -63,10 +62,11 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
   };
 
   return (
-    <div className=" bg-white  overflow-y-auto no-scrollbar h-full">
+    <div className="bg-white overflow-y-auto no-scrollbar h-full">
       {/* Header */}
       <div className="mb-0">
         <h2 className="font-helvetica text-black mb-[5px] font-medium text-[26px] leading-[110%] tracking-[-0.52px]">Inventory</h2>
+
         {/* Active Filters Display */}
         <div className="mt-4 space-y-2">
           {Object.entries(filters).map(([key, value]) => {
@@ -86,7 +86,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             return (
               <div key={key} className="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-md">
                 <span className="text-sm font-helvetica text-gray-700 capitalize">
-                  {key.replace(/([A-Z])/g, ' $1').toLowerCase()}: {displayValue}
+                  {displayValue}
                 </span>
                 <button
                   onClick={() => {
@@ -169,7 +169,8 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
           ))}
         </div>
       </ExpandableFilterSection>
-       {/* Payment Filter */}
+
+      {/* Payment Filter */}
       <ExpandableFilterSection title="Payment" isExpanded={true}>
         <div className="space-y-3">
           {filterOptions.paymentTypes?.map((type: string) => (
@@ -207,233 +208,38 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         </div>
       </ExpandableFilterSection>
 
-      {/* Vehicle Type Filter */}
-      {filterOptions.vehicleTypes?.length > 0 && (
-        <ExpandableFilterSection title="Vehicle Type">
-          <div className="space-y-3">
-            {filterOptions.vehicleTypes.map((type: string) => (
-              <label key={type} className="flex  cursor-pointer items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.vehicleType === type}
-                  onChange={() => toggleCheckboxFilter('vehicleType', type)}
-                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
-                />
-                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{type}</span>
-              </label>
-            ))}
-          </div>
-        </ExpandableFilterSection>
-      )}
-
-      {/* Armor Level Filter */}
-      {filterOptions.armorLevels?.length > 0 && (
-        <ExpandableFilterSection title="Armor Level">
-          <div className="space-y-3">
-            {filterOptions.armorLevels.map((level: string) => (
-              <label key={level} className="flex cursor-pointer items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.armorLevel === level}
-                  onChange={() => toggleCheckboxFilter('armorLevel', level)}
-                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
-                />
-                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{level}</span>
-              </label>
-            ))}
-          </div>
-        </ExpandableFilterSection>
-      )}
-
-      {/* Drivetrain Filter */}
-      {filterOptions.drivetrains?.length > 0 && (
-        <ExpandableFilterSection title="Drivetrain">
-          <div className="space-y-3">
-            {filterOptions.drivetrains.map((drivetrain: string) => (
-              <label key={drivetrain} className="flex cursor-pointer items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.drivetrain === drivetrain}
-                  onChange={() => toggleCheckboxFilter('drivetrain', drivetrain)}
-                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
-                />
-                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{drivetrain}</span>
-              </label>
-            ))}
-          </div>
-        </ExpandableFilterSection>
-      )}
-
-      {/* Fuel Type Filter */}
-      {filterOptions.fuelTypes?.length > 0 && (
-        <ExpandableFilterSection title="Fuel Type">
-          <div className="space-y-3">
-            {filterOptions.fuelTypes.map((fuel: string) => (
-              <label key={fuel} className="flex cursor-pointer items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.fuelType === fuel}
-                  onChange={() => toggleCheckboxFilter('fuelType', fuel)}
-                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
-                />
-                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{fuel}</span>
-              </label>
-            ))}
-          </div>
-        </ExpandableFilterSection>
-      )}
-
-      {/* Transmission Filter */}
-      {filterOptions.transmissions?.length > 0 && (
-        <ExpandableFilterSection title="Transmission">
-          <div className="space-y-3">
-            {filterOptions.transmissions.map((transmission: string) => (
-              <label key={transmission} className="flex cursor-pointer items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.transmission === transmission}
-                  onChange={() => toggleCheckboxFilter('transmission', transmission)}
-                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
-                />
-                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{transmission}</span>
-              </label>
-            ))}
-          </div>
-        </ExpandableFilterSection>
-      )}
-
-      {/* Seating Capacity Filter */}
-      {filterOptions.seatingCapacities?.length > 0 && (
-        <ExpandableFilterSection title="Seating Capacity">
-          <div className="space-y-3">
-            {filterOptions.seatingCapacities.map((capacity: string) => (
-              <label key={capacity} className="flex cursor-pointer items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.seatingCapacity === capacity}
-                  onChange={() => toggleCheckboxFilter('seatingCapacity', capacity)}
-                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
-                />
-                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{capacity}</span>
-              </label>
-            ))}
-          </div>
-        </ExpandableFilterSection>
-      )}
-
-      {/* Model Year Filter */}
-      {filterOptions.modelYears?.length > 0 && (
-        <ExpandableFilterSection title="Model Year">
-          <div className="space-y-3">
-            {filterOptions.modelYears.map((year: string) => (
-              <label key={year} className="flex cursor-pointer items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.modelYear === year}
-                  onChange={() => toggleCheckboxFilter('modelYear', year)}
-                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
-                />
-                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{year}</span>
-              </label>
-            ))}
-          </div>
-        </ExpandableFilterSection>
-      )}
-
-    
-      {/* Mileage/Year Filter */}
-      {filterOptions.mileageYears?.length > 0 && (
-        <ExpandableFilterSection title="Mileage / Year">
-          <div className="space-y-3">
-            {filterOptions.mileageYears.map((year: string) => (
-              <label key={year} className="flex cursor-pointer items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.mileageYear === year}
-                  onChange={() => toggleCheckboxFilter('mileageYear', year)}
-                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
-                />
-                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{year}</span>
-              </label>
-            ))}
-          </div>
-        </ExpandableFilterSection>
-      )}
-
-      {/* Paint Filter */}
-      {filterOptions.paintOptions?.length > 0 && (
-        <ExpandableFilterSection title="Paint">
-          <div className="space-y-3">
-            {filterOptions.paintOptions.map((paint: string) => (
-              <label key={paint} className="flex cursor-pointer items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.paint === paint}
-                  onChange={() => toggleCheckboxFilter('paint', paint)}
-                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
-                />
-                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{paint}</span>
-              </label>
-            ))}
-          </div>
-        </ExpandableFilterSection>
-      )}
-
-      {/* Wheels Filter */}
-      {filterOptions.wheelOptions?.length > 0 && (
-        <ExpandableFilterSection title="Wheels">
-          <div className="space-y-3">
-            {filterOptions.wheelOptions.map((wheel: string) => (
-              <label key={wheel} className="flex cursor-pointer items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.wheels === wheel}
-                  onChange={() => toggleCheckboxFilter('wheels', wheel)}
-                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
-                />
-                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{wheel}</span>
-              </label>
-            ))}
-          </div>
-        </ExpandableFilterSection>
-      )}
-
-      {/* Interior Filter */}
-      {filterOptions.interiorOptions?.length > 0 && (
-        <ExpandableFilterSection title="Interior">
-          <div className="space-y-3">
-            {filterOptions.interiorOptions.map((interior: string) => (
-              <label key={interior} className="flex cursor-pointer items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.interior === interior}
-                  onChange={() => toggleCheckboxFilter('interior', interior)}
-                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
-                />
-                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{interior}</span>
-              </label>
-            ))}
-          </div>
-        </ExpandableFilterSection>
-      )}
-
-      {/* Seat Layout Filter */}
-      {filterOptions.seatLayouts?.length > 0 && (
-        <ExpandableFilterSection title="Seat Layout">
-          <div className="space-y-3">
-            {filterOptions.seatLayouts.map((layout: string) => (
-              <label key={layout} className="flex cursor-pointer items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.seatLayout === layout}
-                  onChange={() => toggleCheckboxFilter('seatLayout', layout)}
-                  className="rounded border-gray-300 accent-black text-black focus:ring-black"
-                />
-                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{layout}</span>
-              </label>
-            ))}
-          </div>
-        </ExpandableFilterSection>
+      {/* Other Filters */}
+      {[
+        ['Vehicle Type', 'vehicleTypes', 'vehicleType'],
+        ['Armor Level', 'armorLevels', 'armorLevel'],
+        ['Drivetrain', 'drivetrains', 'drivetrain'],
+        ['Fuel Type', 'fuelTypes', 'fuelType'],
+        ['Transmission', 'transmissions', 'transmission'],
+        ['Seating Capacity', 'seatingCapacities', 'seatingCapacity'],
+        ['Model Year', 'modelYears', 'modelYear'],
+        ['Mileage / Year', 'mileageYears', 'mileageYear'],
+        ['Paint', 'paintOptions', 'paint'],
+        ['Wheels', 'wheelOptions', 'wheels'],
+        ['Interior', 'interiorOptions', 'interior'],
+        ['Seat Layout', 'seatLayouts', 'seatLayout']
+      ].map(([title, optionKey, filterKey]) =>
+        (filterOptions[optionKey as string]?.length > 0 ? (
+          <ExpandableFilterSection key={title} title={title}>
+            <div className="space-y-3">
+              {filterOptions[optionKey as string].map((option: string) => (
+                <label key={option} className="flex cursor-pointer items-center">
+                  <input
+                    type="checkbox"
+                    checked={filters[filterKey as string] === option}
+                    onChange={() => toggleCheckboxFilter(filterKey as string, option)}
+                    className="rounded border-gray-300 accent-black text-black focus:ring-black"
+                  />
+                  <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{option}</span>
+                </label>
+              ))}
+            </div>
+          </ExpandableFilterSection>
+        ) : null)
       )}
 
       {/* Additional Options Filter */}
@@ -459,7 +265,6 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
           </div>
         </ExpandableFilterSection>
       )}
-
     </div>
   );
 }

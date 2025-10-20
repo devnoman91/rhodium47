@@ -39,12 +39,11 @@ const criticalInlineStyles = `
 
 /* Hide scrollbar for Firefox */
 .no-scrollbar {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 `;
 
-// Helper function to extract specs from top-heading HTML
 function extractTopHeadingSpecs(html: string): string {
   if (!html) return '';
 
@@ -55,8 +54,6 @@ function extractTopHeadingSpecs(html: string): string {
   if (topHeadingEnd === -1) return '';
 
   const topHeadingHtml = html.substring(topHeadingStart, topHeadingEnd + 6);
-
-  // Running in browser (client component) — create element to strip tags
   const tempDiv = typeof document !== 'undefined' ? document.createElement('div') : null;
   if (!tempDiv) return topHeadingHtml.replace(/<[^>]+>/g, '');
   tempDiv.innerHTML = topHeadingHtml;
@@ -93,7 +90,6 @@ export default function InventoryClient({
     additionalOptions: [] as string[]
   });
 
-  // Helper function to determine if a vehicle is new or pre-order based on publishedAt
   const getVehicleStatus = (publishedAt: string): string => {
     const publishedDate = new Date(publishedAt);
     const now = new Date();
@@ -101,12 +97,10 @@ export default function InventoryClient({
     return daysSincePublished <= 30 ? 'new' : 'pre-order';
   };
 
-  // Create a map from collection title to handle for filtering (if needed)
   const collectionTitleToHandle = new Map(
     collections.map(c => [c.title, c.handle])
   );
 
-  // Helper: determine if vehicle has a tag like "prefix:value"
   const hasTag = (vehicle: Vehicle, prefix: string, value: string): boolean => {
     if (!vehicle.tags || !value) return true;
     const tagToFind = `${prefix}:${value}`.toLowerCase();
@@ -116,10 +110,8 @@ export default function InventoryClient({
   const handleFilterChange = (newFilters: typeof filters) => {
     setFilters(newFilters);
 
-    // Start filtering from the original vehicles array
     let filtered = vehicles;
 
-    // Filter by status (new or pre-order)
     if (newFilters.status) {
       filtered = filtered.filter(vehicle => {
         const status = getVehicleStatus(vehicle.publishedAt);
@@ -127,7 +119,6 @@ export default function InventoryClient({
       });
     }
 
-    // Filter by product names (models)
     if (newFilters.models.length > 0) {
       filtered = filtered.filter(vehicle =>
         newFilters.models.some(modelName =>
@@ -137,7 +128,6 @@ export default function InventoryClient({
       );
     }
 
-    // Tag-based filters (vehicle-type, armor-level, drivetrain, fuel-type, transmission, seating-capacity, model-year, payment, year/mileage, paint, wheels, interior, seats)
     if (newFilters.vehicleType) {
       filtered = filtered.filter(vehicle => hasTag(vehicle, 'vehicle-type', newFilters.vehicleType));
     }
@@ -178,14 +168,12 @@ export default function InventoryClient({
       filtered = filtered.filter(vehicle => hasTag(vehicle, 'seats', newFilters.seatLayout));
     }
 
-    // Additional options (must include every selected option)
     if (newFilters.additionalOptions.length > 0) {
       filtered = filtered.filter(vehicle =>
         newFilters.additionalOptions.every(option => hasTag(vehicle, 'option', option))
       );
     }
 
-    // Price range filter
     filtered = filtered.filter(vehicle =>
       vehicle.price >= newFilters.priceRange[0] &&
       vehicle.price <= newFilters.priceRange[1]
@@ -197,7 +185,6 @@ export default function InventoryClient({
   return (
     <div className="min-h-screen pt-[126px] pb-[95px] bg-[#FFFFFF] relative">
       <div className="flex max-w-[1600px] px-[20px] m-auto gap-[45px]">
-        {/* Inject small critical styles */}
         <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
 
         {/* Sidebar */}
@@ -221,10 +208,9 @@ export default function InventoryClient({
 
               return (
                 <Link key={vehicle.id} href={`/inventory/${vehicle.handle}`}>
-                  <div className="h-full overflow-hidden rounded-[10px] border border-[#E0E0E0] group cursor-pointer ">
+                  <div className="h-full overflow-hidden rounded-[10px] border border-[#E0E0E0] group cursor-pointer">
                     {/* Image */}
                     <div className="relative h-[230px] w-full overflow-hidden">
-                      {/* next/image requires domain config if using remote; fallback to <img> if needed */}
                       <Image
                         src={vehicle.image}
                         alt={vehicle.model}
@@ -234,16 +220,16 @@ export default function InventoryClient({
                     </div>
 
                     {/* Info */}
-                    <div className='p-[24px]'>
+                    <div className="p-[24px]">
                       <div className="max-w-[320px]">
                         <h3 className="text-[16px] font-[500] font-helvetica text-[#111] mb-1">
-                          {vehicle.model}  
+                          {vehicle.model}
                         </h3>
                         <p className="text-[14px] font-[600] font-helvetica text-[#111] mb-[8px]">
-                         ${vehicle.price.toLocaleString()}
+                          ${vehicle.price.toLocaleString()}
                         </p>
 
-                        {/* Active filters summary */}
+                        {/* ✅ Active filters summary (fixed) */}
                         <div className="mt-2">
                           {(() => {
                             const activeFilters = Object.entries(filters).filter(([key, value]) => {
@@ -262,7 +248,9 @@ export default function InventoryClient({
                               } else if (typeof value === 'string' && value) {
                                 displayValue = value;
                               }
-                              return displayValue ? `${key.replace(/([A-Z])/g, ' $1').toLowerCase()}: ${displayValue}` : null;
+
+                              // ✅ Hide key label for all filter types — only show the value
+                              return displayValue ? `${displayValue}` : null;
                             }).filter(Boolean);
 
                             return filterTexts.length > 0 ? (
@@ -279,44 +267,19 @@ export default function InventoryClient({
                           </p>
                         )}
 
-                        {/* Display vehicle tags (all tags) */}
+                        {/* Vehicle tags */}
                         {vehicle.tags && vehicle.tags.length > 0 && (
                           <div className="flex flex-wrap gap-x-[16px] gap-y-[10px] mt-[6px]">
                             {vehicle.tags.map((tag, idx) => {
                               const cleanTag = tag.includes(':') ? tag.split(':')[1] : tag;
-
-                              // Array of different SVGs
                               const icons = [
-                                (
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
-                                    <circle cx="6" cy="6" r="6" fill="black" />
-                                  </svg>
-                                ),
-                                (
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                    <circle cx="6" cy="6" r="6" fill="#C5C5C5"/>
-                                  </svg>
-                                ),
-                                (
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
-                                    <circle cx="6" cy="6" r="6" fill="black" />
-                                  </svg>
-                                ),
-                                (
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                    <circle cx="6" cy="6" r="6" fill="#C5C5C5"/>
-                                  </svg>
-                                ),
+                                <svg key="b1" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none"><circle cx="6" cy="6" r="6" fill="black" /></svg>,
+                                <svg key="g1" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="#C5C5C5"><circle cx="6" cy="6" r="6" /></svg>
                               ];
-
-                              // Pick SVG by index (loop if more tags than icons)
                               const icon = icons[idx % icons.length];
 
                               return (
-                                <span
-                                  key={idx}
-                                  className="flex gap-[5px] items-center text-[#111] text-[14px] font-helvetica font-[400] capitalize"
-                                >
+                                <span key={idx} className="flex gap-[5px] items-center text-[#111] text-[14px] font-helvetica font-[400] capitalize">
                                   {icon}
                                   {cleanTag}
                                 </span>
@@ -324,10 +287,6 @@ export default function InventoryClient({
                             })}
                           </div>
                         )}
-
-
-                     
-
                       </div>
                     </div>
                   </div>
@@ -336,7 +295,6 @@ export default function InventoryClient({
             })}
           </div>
 
-          {/* No results */}
           {filteredVehicles.length === 0 && (
             <div className="text-center py-12">
               <p className="text-gray-500 text-lg">No vehicles match your current filters.</p>

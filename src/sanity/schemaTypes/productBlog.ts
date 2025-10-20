@@ -9,7 +9,7 @@ export default defineType({
       name: 'mainSectionTitle',
       title: 'Main Section Title',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'products',
@@ -23,13 +23,13 @@ export default defineType({
               name: 'title',
               title: 'Product Title',
               type: 'string',
-              validation: (Rule) => Rule.required(),
+              
             }),
             defineField({
               name: 'category',
               title: 'Category',
               type: 'string',
-              validation: (Rule) => Rule.required(),
+             
             }),
             defineField({
               name: 'slug',
@@ -45,13 +45,13 @@ export default defineType({
                     .replace(/[^\w-]+/g, '')
                 },
               },
-              validation: (Rule) => Rule.required(),
+              
             }),
             defineField({
               name: 'description',
               title: 'Description',
               type: 'text',
-              validation: (Rule) => Rule.required(),
+              
             }),
             defineField({
               name: 'image',
@@ -60,7 +60,7 @@ export default defineType({
               options: {
                 hotspot: true,
               },
-              validation: (Rule) => Rule.required(),
+              
             }),
           ],
           preview: {

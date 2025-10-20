@@ -34,10 +34,8 @@ export default defineType({
             defineField({
               name: 'link',
               title: 'Link of Page',
-              type: 'url',
-              validation: (Rule) => Rule.required().uri({
-                scheme: ['http', 'https', 'mailto', 'tel'],
-              }),
+            type: 'string',
+             
             }),
           ],
           preview: {

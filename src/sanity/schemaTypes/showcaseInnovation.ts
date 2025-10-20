@@ -14,13 +14,13 @@ export default defineType({
           name: 'title',
           title: 'Title',
           type: 'string',
-          validation: (Rule) => Rule.required(),
+          
         }),
         defineField({
           name: 'description',
           title: 'Description',
           type: 'text',
-          validation: (Rule) => Rule.required(),
+          
         }),
         defineField({
           name: 'countSection',
@@ -34,13 +34,13 @@ export default defineType({
                   name: 'name',
                   title: 'Name',
                   type: 'string',
-                  validation: (Rule) => Rule.required(),
+                  
                 }),
                 defineField({
                   name: 'title',
                   title: 'Title',
                   type: 'string',
-                  validation: (Rule) => Rule.required(),
+                  
                 }),
               ],
               preview: {
@@ -53,7 +53,7 @@ export default defineType({
           ],
         }),
       ],
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'blogSection',
@@ -67,19 +67,19 @@ export default defineType({
               name: 'title',
               title: 'Title',
               type: 'string',
-              validation: (Rule) => Rule.required(),
+              
             }),
             defineField({
               name: 'description',
               title: 'Description',
               type: 'text',
-              validation: (Rule) => Rule.required(),
+              
             }),
             defineField({
               name: 'buttonText',
               title: 'Button Text',
               type: 'string',
-              validation: (Rule) => Rule.required(),
+              
             }),
             defineField({
               name: 'buttonLink',

@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { directCheckout } from '@/app/product-design/[slug]/actions';
+import { directCheckout } from '@/app/inventory/[slug]/actions';
+
 // style
 const performanceStyles  = `
    /* Hide scrollbar for Chrome, Safari and Opera */

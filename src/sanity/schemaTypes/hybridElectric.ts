@@ -15,13 +15,13 @@ export default defineType({
           name: 'title',
           title: 'Title',
           type: 'string',
-          validation: (Rule) => Rule.required(),
+       
         }),
         defineField({
           name: 'description',
           title: 'Description',
           type: 'text',
-          validation: (Rule) => Rule.required(),
+       
         }),
       ],
     }),
@@ -39,13 +39,13 @@ export default defineType({
               name: 'name',
               title: 'Name',
               type: 'string',
-              validation: (Rule) => Rule.required(),
+           
             }),
             defineField({
               name: 'description',
               title: 'Description',
               type: 'text',
-              validation: (Rule) => Rule.required(),
+           
             }),
             defineField({
               name: 'image',
@@ -83,13 +83,13 @@ export default defineType({
           name: 'title',
           title: 'Title',
           type: 'string',
-          validation: (Rule) => Rule.required(),
+       
         }),
         defineField({
           name: 'description',
           title: 'Description',
           type: 'text',
-          validation: (Rule) => Rule.required(),
+       
         }),
         defineField({
           name: 'countSection',
@@ -103,13 +103,13 @@ export default defineType({
                   name: 'name',
                   title: 'Name',
                   type: 'string',
-                  validation: (Rule) => Rule.required(),
+               
                 }),
                 defineField({
                   name: 'value',
                   title: 'Value',
                   type: 'string',
-                  validation: (Rule) => Rule.required(),
+               
                 }),
               ],
               preview: {
@@ -134,20 +134,20 @@ export default defineType({
           name: 'title',
           title: 'Title',
           type: 'string',
-          validation: (Rule) => Rule.required(),
+       
         }),
         defineField({
           name: 'description',
           title: 'Description',
           type: 'text',
-          validation: (Rule) => Rule.required(),
+       
         }),
         defineField({
           name: 'bulletPoints',
           title: 'Bullet Points',
           type: 'array',
           of: [{ type: 'string' }],
-          validation: (Rule) => Rule.required(),
+       
         }),
         defineField({
           name: 'cards',
@@ -161,13 +161,13 @@ export default defineType({
                   name: 'title',
                   title: 'Title',
                   type: 'string',
-                  validation: (Rule) => Rule.required(),
+               
                 }),
                 defineField({
                   name: 'description',
                   title: 'Description',
                   type: 'text',
-                  validation: (Rule) => Rule.required(),
+               
                 }),
               ],
               preview: {
@@ -192,13 +192,13 @@ export default defineType({
           name: 'mainName',
           title: 'Main Name',
           type: 'string',
-          validation: (Rule) => Rule.required(),
+       
         }),
         defineField({
           name: 'mainTitle',
           title: 'Main Title',
           type: 'string',
-          validation: (Rule) => Rule.required(),
+       
         }),
         defineField({
           name: 'slides',
@@ -212,13 +212,13 @@ export default defineType({
                   name: 'name',
                   title: 'Name',
                   type: 'string',
-                  validation: (Rule) => Rule.required(),
+               
                 }),
                 defineField({
                   name: 'description',
                   title: 'Description',
                   type: 'text',
-                  validation: (Rule) => Rule.required(),
+               
                 }),
                 defineField({
                   name: 'image',
@@ -258,25 +258,25 @@ export default defineType({
           name: 'title',
           title: 'Title',
           type: 'string',
-          validation: (Rule) => Rule.required(),
+       
         }),
         defineField({
           name: 'description',
           title: 'Description',
           type: 'text',
-          validation: (Rule) => Rule.required(),
+       
         }),
         defineField({
           name: 'buttonText',
           title: 'Button Text',
           type: 'string',
-          validation: (Rule) => Rule.required(),
+       
         }),
         defineField({
           name: 'buttonLink',
           title: 'Button Link',
           type: 'string',
-          validation: (Rule) => Rule.required(),
+       
         }),
       ],
     }),

@@ -9,13 +9,13 @@ export default defineType({
       name: 'productName',
       title: 'Product Name',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'slug',
@@ -31,27 +31,25 @@ export default defineType({
             .replace(/[^\w-]+/g, '')
         },
       },
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'buttonText',
       title: 'Button Text',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      
     }),
     defineField({
       name: 'buttonLink',
       title: 'Button Link',
-      type: 'url',
-      validation: (Rule) => Rule.uri({
-        scheme: ['http', 'https', '/'],
-      }),
+     type: 'string',
+     
     }),
     defineField({
       name: 'image',
@@ -60,7 +58,7 @@ export default defineType({
       options: {
         hotspot: true,
       },
-      validation: (Rule) => Rule.required(),
+      
     }),
   ],
   preview: {

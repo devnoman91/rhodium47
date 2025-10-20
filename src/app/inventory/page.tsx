@@ -138,7 +138,6 @@ export default async function InventoryPage() {
     filterOptions = buildFilterOptionsFromTags(products);
 
     // Log the generated filter options
-    console.log('Generated Filter Options:', JSON.stringify(filterOptions, null, 2));
 
     // Transform Shopify products to match your design needs
     vehicles = products.map((product) => ({

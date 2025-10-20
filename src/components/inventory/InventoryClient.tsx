@@ -246,7 +246,7 @@ export default function InventoryClient({ vehicles, priceRange, collections, pro
               const specsHtml = extractTopHeadingSpecs(vehicle.descriptionHtml || '');
 
               return (
-                <Link key={vehicle.id} href={`/product-design/${vehicle.handle}`}>
+                <Link key={vehicle.id} href={`/inventory/${vehicle.handle}`}>
                   <div className="h-full  overflow-hidden rounded-[10px] border border-[#E0E0E0] group cursor-pointer ">
                     {/* Vehicle Image */}
                     <div className="relative h-[230px] w-full overflow-hidden">

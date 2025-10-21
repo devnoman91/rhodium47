@@ -199,12 +199,15 @@ line-height: 32px; /* 133.333% */
   .answer-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-out;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
   }
 
   .answer-content.open {
-    max-height: 1000px;
-    transition: max-height 0.5s ease-in;
+    opacity: 1;
+    transform: translateY(0);
+    transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
   }
 
   .content-body p {
@@ -437,7 +440,14 @@ export default function SupportPage() {
   const getCategoryIcon = (name: string) => {
     const icons: { [key: string]: string } = {
       'Purchasing': '🛒',
-     
+      'Products': '📦',
+      'Ownership': '📋',
+      'Company': '🏢',
+      'Account': '👤',
+      'Billing': '💳',
+      'Technical': '⚙️',
+      'General': 'ℹ️',
+      'FAQ': '❓',
     }
     return icons[name] || '📋'
   }
@@ -598,7 +608,10 @@ export default function SupportPage() {
                             </h5>
 
                             {/* Answer */}
-                            <div className={`answer-content mt-[18px] transition-all duration-300 ${isOpen ? 'open' : 'hidden'}`}>
+                            <div 
+                              className={`answer-content mt-[18px] transition-all duration-500 ease-in-out ${isOpen ? 'open' : ''}`}
+                              style={{ maxHeight: isOpen ? '500px' : '0px' }}
+                            >
                               {qa.answer && (
                                 <PortableText
                                   value={qa.answer}

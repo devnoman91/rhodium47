@@ -135,7 +135,7 @@ const Footer = () => {
               <div>
               <div className="md:col-span-2 lg:col-span-1">
                 <div>
-                  <p className="text-white font-helvetica text-[18px] md:text-[20px] lg:text-[24px] not-italic font-normal leading-[28px] md:leading-[30px] lg:leading-[34px] tracking-[-0.36px] md:tracking-[-0.40px] lg:tracking-[-0.48px]">
+                  <p className="!text-white font-helvetica text-[18px] md:text-[20px] lg:text-[24px] not-italic font-normal leading-[28px] md:leading-[30px] lg:leading-[34px] tracking-[-0.36px] md:tracking-[-0.40px] lg:tracking-[-0.48px]">
                     {footerData.description}
                   </p>
                   <button
@@ -153,7 +153,7 @@ const Footer = () => {
 
                 {/* Bottom Row - Newsletter Subscription */}
                 <div className="max-w-xl lg:max-w-2xl pt-6 md:pt-8">
-                  <p className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px]">{footerData.newsletterTitle}</p>
+                  <p className="opacity-80 !text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px]">{footerData.newsletterTitle}</p>
                   <form onSubmit={handleMainSubscription} className="max-w-[320px] md:max-w-[370px] mt-3 md:mt-[14px] flex items-center px-4 md:px-[20px] py-3 md:py-[16px] gap-3 md:gap-[16px] self-stretch rounded-[70px] border border-white">
                     <input
                       type="email"
@@ -211,7 +211,7 @@ const Footer = () => {
 
         {/* Footer Bottom */}
           <div className="border-t border-white pt-6 md:pt-8 lg:pt-[40px] pb-[40px] max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
-            <p className="text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.32px] text-center md:text-left">
+            <p className="!text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.32px] text-center md:text-left">
               {footerData.copyrightText}
             </p>
 

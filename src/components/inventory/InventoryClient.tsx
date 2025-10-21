@@ -196,12 +196,12 @@ export default function InventoryClient({
 
   return (
     <div className="min-h-screen pt-[126px] pb-[95px] bg-[#FFFFFF] relative">
-      <div className="flex max-w-[1600px] m-auto gap-[45px]">
+      <div className="flex max-w-[1600px] px-[20px] m-auto gap-[45px]">
         {/* Inject small critical styles */}
         <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
 
         {/* Sidebar */}
-        <div className="sticky top-20 h-screen w-full max-w-[199px] bg-white z-[2] overflow-y-auto flex-shrink-0 no-scrollbar">
+        <div className="sticky top-20 h-screen w-full max-w-[200px] bg-white z-[2] overflow-y-auto flex-shrink-0 no-scrollbar">
           <FilterSidebar
             filters={filters}
             onFilterChange={handleFilterChange}
@@ -242,6 +242,36 @@ export default function InventoryClient({
                         <p className="text-[14px] font-[600] font-helvetica text-[#111] mb-[8px]">
                          ${vehicle.price.toLocaleString()}
                         </p>
+
+                        {/* Active filters summary */}
+                        <div className="mt-2">
+                          {(() => {
+                            const activeFilters = Object.entries(filters).filter(([key, value]) => {
+                              if (!value || (Array.isArray(value) && value.length === 0)) return false;
+                              if (key === 'priceRange' && Array.isArray(value) &&
+                                  value[0] === priceRange.min && value[1] === priceRange.max) return false;
+                              return true;
+                            });
+
+                            if (activeFilters.length === 0) return null;
+
+                            const filterTexts = activeFilters.map(([key, value]) => {
+                              let displayValue = '';
+                              if (Array.isArray(value)) {
+                                displayValue = value.join(', ');
+                              } else if (typeof value === 'string' && value) {
+                                displayValue = value;
+                              }
+                              return displayValue ? `${key.replace(/([A-Z])/g, ' $1').toLowerCase()}: ${displayValue}` : null;
+                            }).filter(Boolean);
+
+                            return filterTexts.length > 0 ? (
+                              <p className="text-[14px] text-[#636363] font-helvetica capitalize leading-[140%] mb-2">
+                                {filterTexts.join(' • ')}
+                              </p>
+                            ) : null;
+                          })()}
+                        </div>
 
                         {specsText && (
                           <p className="text-[12px] text-[#636363] mb-[10px] line-clamp-3 font-[400] font-helvetica leading-[150%] capitalize">
@@ -296,35 +326,7 @@ export default function InventoryClient({
                         )}
 
 
-                        {/* Active filters summary */}
-                        <div className="mt-2">
-                          {(() => {
-                            const activeFilters = Object.entries(filters).filter(([key, value]) => {
-                              if (!value || (Array.isArray(value) && value.length === 0)) return false;
-                              if (key === 'priceRange' && Array.isArray(value) &&
-                                  value[0] === priceRange.min && value[1] === priceRange.max) return false;
-                              return true;
-                            });
-
-                            if (activeFilters.length === 0) return null;
-
-                            const filterTexts = activeFilters.map(([key, value]) => {
-                              let displayValue = '';
-                              if (Array.isArray(value)) {
-                                displayValue = value.join(', ');
-                              } else if (typeof value === 'string' && value) {
-                                displayValue = value;
-                              }
-                              return displayValue ? `${key.replace(/([A-Z])/g, ' $1').toLowerCase()}: ${displayValue}` : null;
-                            }).filter(Boolean);
-
-                            return filterTexts.length > 0 ? (
-                              <p className="text-[10px] text-gray-500 font-helvetica leading-[140%]">
-                                {filterTexts.join(' • ')}
-                              </p>
-                            ) : null;
-                          })()}
-                        </div>
+                     
 
                       </div>
                     </div>

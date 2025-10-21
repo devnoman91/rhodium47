@@ -145,7 +145,7 @@ VehicleConfigClient({
 
   return (
     <div className="min-h-screen pt-[100px] pb-[73px]" style={{ backgroundColor: '#F4F1F2' }}>
-      <div className='max-w-[1332px] m-auto '>
+      <div className='max-w-[1500px] m-auto '>
            {/* Back to Inventory link */}
       <div className="px-12 pb-[10px]">
         <a href={`/product-detail/${product.handle}`} className="text-[#747474] font-[400] text-[12px] leading-[110%] tracking-[-0.24px] underline decoration-solid font-helvetica">
@@ -153,9 +153,9 @@ VehicleConfigClient({
         </a>
       </div>
 
-        <div className="flex justify-between gap-[35px]">
+        <div className="flex justify-between gap-[35px] relative">
           {/* Left Sidebar - Vehicle Image & Slider */}
-          <div className="max-w-[922px] w-full">
+          <div className="max-w-[1100px] w-full sticky top-[138px] h-fit">
             {/* Main Image Container */}
             <div className="relative mb-4">
               {/* Navigation arrows for main image */}
@@ -188,7 +188,7 @@ VehicleConfigClient({
                   alt={product.title}
                   width={800}
                   height={400}
-                  className="w-full h-auto object-contain"
+                  className="w-full h-auto object-contain rounded-[6px]"
                 />
               </div>
             </div>
@@ -223,7 +223,7 @@ VehicleConfigClient({
           </div>
 
           {/* Right Sidebar - Configuration */}
-          <div className=" w-full max-w-[366px]">
+          <div className=" w-full max-w-[386px] pr-[20px]">
             <div className="pt-[68px] space-y-6">
               {/* Vehicle Title */}
               <div className="text-center mb-6">

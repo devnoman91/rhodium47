@@ -164,7 +164,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                 }}
                 className="rounded border-gray-300 accent-black text-black focus:ring-black"
               />
-              <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[160%] capitalize font-helvetica no-ligatures">{model}</span>
+              <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[160%] capitalize font-helvetica no-ligatures">{model}</span>
             </label>
           ))}
         </div>
@@ -180,7 +180,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                 onChange={() => toggleCheckboxFilter('paymentType', type)}
                 className="rounded border-gray-300 accent-black text-black focus:ring-black"
               />
-              <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{type}</span>
+              <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{type}</span>
             </label>
           ))}
         </div>
@@ -219,7 +219,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                   onChange={() => toggleCheckboxFilter('vehicleType', type)}
                   className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
-                <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{type}</span>
+                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{type}</span>
               </label>
             ))}
           </div>
@@ -238,7 +238,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                   onChange={() => toggleCheckboxFilter('armorLevel', level)}
                   className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
-                <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{level}</span>
+                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{level}</span>
               </label>
             ))}
           </div>
@@ -257,7 +257,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                   onChange={() => toggleCheckboxFilter('drivetrain', drivetrain)}
                   className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
-                <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{drivetrain}</span>
+                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{drivetrain}</span>
               </label>
             ))}
           </div>
@@ -276,7 +276,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                   onChange={() => toggleCheckboxFilter('fuelType', fuel)}
                   className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
-                <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{fuel}</span>
+                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{fuel}</span>
               </label>
             ))}
           </div>
@@ -295,7 +295,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                   onChange={() => toggleCheckboxFilter('transmission', transmission)}
                   className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
-                <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{transmission}</span>
+                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{transmission}</span>
               </label>
             ))}
           </div>
@@ -314,7 +314,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                   onChange={() => toggleCheckboxFilter('seatingCapacity', capacity)}
                   className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
-                <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{capacity}</span>
+                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{capacity}</span>
               </label>
             ))}
           </div>
@@ -333,7 +333,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                   onChange={() => toggleCheckboxFilter('modelYear', year)}
                   className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
-                <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{year}</span>
+                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{year}</span>
               </label>
             ))}
           </div>
@@ -353,7 +353,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                   onChange={() => toggleCheckboxFilter('mileageYear', year)}
                   className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
-                <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{year}</span>
+                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{year}</span>
               </label>
             ))}
           </div>
@@ -372,7 +372,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                   onChange={() => toggleCheckboxFilter('paint', paint)}
                   className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
-                <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{paint}</span>
+                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{paint}</span>
               </label>
             ))}
           </div>
@@ -391,7 +391,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                   onChange={() => toggleCheckboxFilter('wheels', wheel)}
                   className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
-                <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{wheel}</span>
+                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{wheel}</span>
               </label>
             ))}
           </div>
@@ -410,7 +410,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                   onChange={() => toggleCheckboxFilter('interior', interior)}
                   className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
-                <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{interior}</span>
+                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{interior}</span>
               </label>
             ))}
           </div>
@@ -429,7 +429,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                   onChange={() => toggleCheckboxFilter('seatLayout', layout)}
                   className="rounded border-gray-300 accent-black text-black focus:ring-black"
                 />
-                <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{layout}</span>
+                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{layout}</span>
               </label>
             ))}
           </div>
@@ -453,7 +453,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                   }}
                   className="rounded border-gray-300 accent-black  text-black focus:ring-black"
                 />
-                <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{option}</span>
+                <span className="ml-[11px] text-[#111] font-normal text-[12px] leading-[180%] capitalize font-helvetica no-ligatures">{option}</span>
               </label>
             ))}
           </div>

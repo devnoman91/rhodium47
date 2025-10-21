@@ -68,7 +68,7 @@ export default async function ComparePage() {
           <h1 className="text-black text-center font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[26px]">
             Compare Models
           </h1>
-          <p className="text-[#111] max-w-[855px] m-auto text-center font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[32px]">
+          <p className="!text-[#111] max-w-[855px] m-auto text-center !font-medium !text-[24px] !leading-[150%] capitalize font-helvetica !mb-[32px]">
             Discover which Tesla models meet your needs by answering questions about your budget, driving habits and lifestyle.
           </p>
           <Link href="/product-design">

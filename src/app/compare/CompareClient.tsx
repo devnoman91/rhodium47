@@ -4,7 +4,30 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+const criticalInlineStyles = `
 
+    h2{
+    font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+    margin-bottom: 15px;
+  }
+  h3{
+    font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+    margin-bottom: 15px;
+  }
+  p {
+   color: #000;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 25px;
+ margin-bottom: 6px;
+  }
+
+`
 interface ProductDescriptionSections {
   topHeading: string;
   performanceData: string;
@@ -195,7 +218,9 @@ export default function CompareClient({ products }: CompareClientProps) {
   }
 
   return (
+   
     <div className="max-w-[1336px] mx-auto px-[20px]">
+       <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
       {/* Model Cards Section */}
       <div className={`grid grid-cols-1 ${selectedProducts.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-3'} gap-[32px] mb-[154px]`}>
         {selectedProducts.map((product, index) => (
@@ -576,7 +601,7 @@ interface ComparisonSectionProps {
 
 function ComparisonSection({ title, hasSuper, children }: ComparisonSectionProps) {
   return (
-    <div className="mt-[60px] rounded-lg">
+    <div className="mt-[60px] rounded-lg max-w-[877px]">
       <h2 className="pl-5 text-black font-normal text-[35.156px] leading-[36px] tracking-[-0.72px] font-helvetica pb-[25px] border-b border-[#D1D1D1] max-w-[877px]">
         {title} {hasSuper && <sup className="text-lg">2</sup>}
       </h2>

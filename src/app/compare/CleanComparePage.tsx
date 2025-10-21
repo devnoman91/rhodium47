@@ -571,7 +571,7 @@ interface ComparisonSectionProps {
 
 function ComparisonSection({ title, hasSuper, children }: ComparisonSectionProps) {
   return (
-    <div className="mt-[60px] rounded-lg">
+    <div className="mt-[60px] rounded-lg max-w-[877px]">
       <h2 className="pl-5 text-black font-normal text-[35.156px] leading-[36px] tracking-[-0.72px] font-helvetica pb-5 border-b border-[#D1D1D1]">
         {title} {hasSuper && <sup className="text-lg">2</sup>}
       </h2>

@@ -195,7 +195,7 @@ export default function CompareClient({ products }: CompareClientProps) {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12">
+    <div className="max-w-[1336px] mx-auto px-[20px]">
       {/* Model Cards Section */}
       <div className={`grid grid-cols-1 ${selectedProducts.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-3'} gap-[32px] mb-[120px]`}>
         {selectedProducts.map((product, index) => (
@@ -248,7 +248,7 @@ export default function CompareClient({ products }: CompareClientProps) {
               <img
                 src={product.image}
                 alt={product.title}
-                className="w-full h-full object-contain"
+                className="w-full h-[257px] object-contain"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = '/images/vehicle.png'
                 }}

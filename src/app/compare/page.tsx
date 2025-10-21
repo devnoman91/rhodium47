@@ -63,17 +63,17 @@ export default async function ComparePage() {
   return (
     <div className="min-h-screen bg-[#F4F1F2] font-helvetica">
       {/* Header Section */}
-      <div className="bg-[#F4F1F2] py-16 text-center pt-[120px]">
+      <div className="bg-[#F4F1F2] text-center pt-[138px] pb-[163px]">
         <div className="max-w-5xl mx-auto px-6">
-          <h1 className="text-black text-center font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[25px]">
+          <h1 className="text-black text-center font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[26px]">
             Compare Models
           </h1>
-          <p className="text-[#111] text-center font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[30px]">
-            Compare up to 3 vehicles side by side to find your perfect match
+          <p className="text-[#111] max-w-[855px] m-auto text-center font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[32px]">
+            Discover which Tesla models meet your needs by answering questions about your budget, driving habits and lifestyle.
           </p>
           <Link href="/product-design">
-            <button className="bg-black cursor-pointer rounded-full hover:bg-gray-800 transition-colors p-3 max-w-[372px] w-full text-white text-center font-bold text-[16px] leading-[150%] font-helvetica">
-              Browse All Models
+            <button className="bg-black cursor-pointer rounded-full hover:bg-gray-800 transition-colors p-[14px] max-w-[372px] w-full text-white text-center font-bold text-[16px] leading-[150%] font-helvetica">
+              Help Me Choose
             </button>
           </Link>
         </div>

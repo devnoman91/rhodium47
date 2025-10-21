@@ -195,7 +195,7 @@ export default function CompareClient({ products }: CompareClientProps) {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12">
+    <div className="max-w-[1336px] mx-auto px-[20px]">
       {/* Model Cards Section */}
       <div className={`grid grid-cols-1 ${selectedProducts.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-3'} gap-[32px] mb-[120px]`}>
         {selectedProducts.map((product, index) => (
@@ -219,12 +219,12 @@ export default function CompareClient({ products }: CompareClientProps) {
             )}
 
             {/* Model Dropdown */}
-            <div className="bg-white px-5 py-2 rounded-[4px]">
+            <div className="bg-white py-2 rounded-[4px] max-w-[370px]">
               <div className="relative">
                 <select
                   value={product.handle}
                   onChange={(e) => handleProductChange(index, e.target.value)}
-                  className="w-full appearance-none bg-transparent border-none text-black font-medium text-[20px] leading-[160%] capitalize font-helvetica focus:outline-none cursor-pointer pr-8"
+                  className="w-full appearance-none bg-transparent border-none text-black font-medium text-[20px] leading-[160%] px-[21px]  capitalize font-helvetica focus:outline-none cursor-pointer pr-8"
                 >
                   {allProducts.map((p) => (
                     <option key={p.id} value={p.handle}>
@@ -232,23 +232,23 @@ export default function CompareClient({ products }: CompareClientProps) {
                     </option>
                   ))}
                 </select>
-                <div className="absolute right-0 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                <div className="absolute right-[21px] top-[30px] transform -translate-y-1/2 pointer-events-none">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
               </div>
-              <p className="text-black font-normal text-[14px] leading-[160%] capitalize font-helvetica">
+              <p className="text-black pl-[21px] font-normal text-[14px] leading-[160%] capitalize font-helvetica">
                 {product.tagline || 'Premium Armored Vehicle'}
               </p>
             </div>
 
             {/* Vehicle Image */}
-            <div className="mt-[14px] mb-[30px]">
+            <div className="mt-[14px] mb-[45px]">
               <img
                 src={product.image}
                 alt={product.title}
-                className="w-full h-full object-contain"
+                className="w-full h-[257px] object-cover"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = '/images/vehicle.png'
                 }}
@@ -260,7 +260,7 @@ export default function CompareClient({ products }: CompareClientProps) {
               <h3 className="text-black font-normal text-[23.063px] leading-[24px] tracking-[-0.48px] font-helvetica mb-[12px]">
                 {product.title}
               </h3>
-              <p className="text-black font-normal text-[16px] leading-[18px] tracking-[-0.48px] font-helvetica mb-[12px]">
+              <p className="text-black font-normal text-[16px] leading-[18px] tracking-[-0.48px] font-helvetica mb-[5px]">
                 {product.tagline}
               </p>
               <p className="text-black font-normal text-[16px] leading-[18px] tracking-[-0.48px] font-helvetica mb-[20px]">
@@ -271,17 +271,17 @@ export default function CompareClient({ products }: CompareClientProps) {
               {/* Action Buttons */}
               <div className="flex gap-2">
                 <Link href={`/product-design/${product.handle}`}>
-                  <button className="text-white cursor-pointer max-w-[112px] w-full rounded-full text-center font-normal text-[14px] py-[12px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica bg-[black] hover:bg-gray-800 transition-colors">
+                  <button className="text-white cursor-pointer min-w-[112px] w-full rounded-full text-center font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica bg-[black] hover:bg-gray-800 transition-colors">
                     Build
                   </button>
                 </Link>
                 <Link href={`/inventory/${product.handle}`}>
-                  <button className="cursor-pointer border border-[#000] text-black max-w-[150px] w-full rounded-full text-center font-normal text-[14px] py-[12px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica hover:text-[#fff] hover:bg-black transition-colors">
+                  <button className="cursor-pointer border border-[#000] text-black min-w-[150px] w-full rounded-full text-center font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica hover:text-[#fff] hover:bg-black transition-colors">
                     Inventory
                   </button>
                 </Link>
                 <Link href={`/product-detail/${product.handle}`}>
-                  <button className="cursor-pointer border border-[#000] text-black max-w-[150px] w-full rounded-full text-center font-normal text-[14px] py-[12px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica hover:text-[#fff] hover:bg-black transition-colors">
+                  <button className="cursor-pointer border border-[#000] text-black min-w-[150px] w-full rounded-full text-center font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica hover:text-[#fff] hover:bg-black transition-colors">
                     Learn More
                   </button>
                 </Link>

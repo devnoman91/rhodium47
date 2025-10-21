@@ -201,7 +201,7 @@ export default function InventoryClient({
         <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
 
         {/* Sidebar */}
-        <div className="sticky top-20 h-screen w-full max-w-[200px] bg-white z-[2] overflow-y-auto flex-shrink-0 no-scrollbar">
+        <div className=" w-full max-w-[200px] bg-white z-[2]  flex-shrink-0 ">
           <FilterSidebar
             filters={filters}
             onFilterChange={handleFilterChange}

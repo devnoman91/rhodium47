@@ -926,16 +926,31 @@ export default function SurveyPage() {
                             </div>
                           </div>
                         )}
-                        {/* Simple Button */}
+                        {/* Dynamic Product Buttons */}
                         <div className="product-buttons">
-                          <button className="product-btn-primary">
-                            {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.name || 'View Details'}
-                          </button>
-                           <button className="product-btn-secondary">
-                            Design yours
-                          </button>
+                          {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton && (
+                            <a 
+                              href={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.link || '#'} 
+                              className="product-btn-primary"
+                              target={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.link?.startsWith('http') ? '_blank' : undefined}
+                              rel={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                            >
+                              {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.text || 'View Details'}
+                            </a>
+                          )}
+                          
+                          {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton && (
+                            <a 
+                              href={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.link || '#'} 
+                              className="product-btn-secondary"
+                              target={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.link?.startsWith('http') ? '_blank' : undefined}
+                              rel={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                            >
+                              {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.text || 'Design Yours'}
+                            </a>
+                          )}
                         </div>
-                        <a href="#" className="save_option">Save Options</a>
+                        
                       </div>
 
                     </div>

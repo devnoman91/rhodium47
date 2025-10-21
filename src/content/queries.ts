@@ -697,6 +697,14 @@ export const surveyFormQuery = `
         options[] {
           optionName,
           optionPrice
+        },
+        primaryButton {
+          text,
+          link
+        },
+        secondaryButton {
+          text,
+          link
         }
       }
     }
@@ -784,6 +792,14 @@ export const surveyFormBySlugQuery = (slug: string) => `
         options[] {
           optionName,
           optionPrice
+        },
+        primaryButton {
+          text,
+          link
+        },
+        secondaryButton {
+          text,
+          link
         }
       }
     }
@@ -855,12 +871,20 @@ export const inquiryFormQuery = `
           fieldType,
           options[]
         }
+      },
+      reviewSection {
+        title,
+        privacyText,
+        stayConnectedTitle,
+        stayConnectedText,
+        communicationReasons[]
       }
     }
   }
 `
+import { InquiryForm } from './types'
 
-export const getAllInquiryForms = async () => {
+export const getAllInquiryForms = async (): Promise<InquiryForm[]> => {
   return await client.fetch(inquiryFormQuery)
 }
 

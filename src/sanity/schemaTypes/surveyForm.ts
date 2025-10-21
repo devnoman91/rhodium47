@@ -100,14 +100,38 @@ export default defineType({
                   options: {
                     list: [
                       { title: 'Text Input', value: 'text' },
-                     
+                      { title: 'Email Input', value: 'email' },
+                      { title: 'Number Input', value: 'number' },
+                      { title: 'Text Area', value: 'textarea' },
+                      { title: 'Select Dropdown', value: 'select' },
+                      { title: 'Radio Buttons', value: 'radio' },
+                      { title: 'Checkbox', value: 'checkbox' }
                     ],
                     layout: 'dropdown'
                   },
                   initialValue: 'text',
                 }),
-               
-              
+                defineField({
+                  name: 'placeholder',
+                  title: 'Placeholder Text',
+                  type: 'string',
+                  description: 'Placeholder text for input fields (only appears if field type is text, email, number, or textarea)',
+                  hidden: ({ parent }) => !['text', 'email', 'number', 'textarea'].includes(parent?.fieldType),
+                }),
+                defineField({
+                  name: 'required',
+                  title: 'Required Field',
+                  type: 'boolean',
+                  initialValue: false,
+                }),
+                defineField({
+                  name: 'options',
+                  title: 'Field Options',
+                  type: 'array',
+                  of: [{ type: 'string' }],
+                  description: 'Add options for select, radio, or checkbox fields',
+                  hidden: ({ parent }) => !['select', 'radio', 'checkbox'].includes(parent?.fieldType),
+                }),
               ],
               preview: {
                 select: {
@@ -311,6 +335,44 @@ export default defineType({
                     },
                   ],
                   description: 'Add multiple options/upgrades for this product',
+                }),
+                defineField({
+                  name: 'primaryButton',
+                  title: 'Primary Button',
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'text',
+                      title: 'Button Text',
+                      type: 'string',
+                      description: 'Text for the primary button (e.g., "View Details", "Learn More")',
+                    }),
+                    defineField({
+                      name: 'link',
+                      title: 'Button Link',
+                      type: 'string',
+                      description: 'URL that the primary button should link to',
+                    }),
+                  ],
+                }),
+                defineField({
+                  name: 'secondaryButton',
+                  title: 'Secondary Button',
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'text',
+                      title: 'Button Text',
+                      type: 'string',
+                      description: 'Text for the secondary button (e.g., "Design Yours", "Customize")',
+                    }),
+                    defineField({
+                      name: 'link',
+                      title: 'Button Link',
+                      type: 'string',
+                      description: 'URL that the secondary button should link to',
+                    }),
+                  ],
                 }),
               ],
               preview: {

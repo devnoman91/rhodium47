@@ -346,7 +346,7 @@ export default function InquiryPage() {
         if (inquiry.formSection) {
           // Step 1: Body Style Selection from additionalSections[0]
           const bodyStyleSection = inquiry.formSection.additionalSections?.[0]
-          if (bodyStyleSection?.fields?.length > 0) {
+          if (bodyStyleSection && bodyStyleSection.fields && bodyStyleSection.fields.length > 0) {
             const bodyStyleOptions = bodyStyleSection.fields.map((field: any) => field.fieldName)
             inquirySteps.push({
               id: 'bodyStyle',
@@ -362,7 +362,7 @@ export default function InquiryPage() {
           }
 
           // Step 2: Model Selection from formSection.fields
-          if (inquiry.formSection.fields?.length > 0) {
+          if (inquiry.formSection.fields && inquiry.formSection.fields.length > 0) {
             const modelOptions = inquiry.formSection.fields.map((field: any) => field.fieldName)
             inquirySteps.push({
               id: 'model',
@@ -377,10 +377,10 @@ export default function InquiryPage() {
             })
           }
 
-          // Step 3: Personal Information (hardcoded)
+          // Step 3: Personal Information
           inquirySteps.push({
             id: 'personalInfo',
-            question: 'Your preferred dealer will be in touch soon.',
+            question: inquiry.formSection?.reviewSection?.title || 'Your preferred dealer will be in touch soon.',
             field: {
               fieldName: 'personalInfo',
               fieldType: 'form',
@@ -570,16 +570,22 @@ export default function InquiryPage() {
           {/* Review Section */}
           <div className="inquiry-review-section">
             <div className='inquiry-review-section_text'>
-              <p>We will never sell your data, will keep your details secure and will never share your data with third parties for marketing purposes.
-                For further details on how your data is used and stored please refer to our Privacy Policy</p>
-                <p>Stay Connected</p>
-                <p>We would like to stay in touch with you to:</p>
+              {currentInquiry.formSection?.reviewSection?.privacyText && (
+                <p>{currentInquiry.formSection.reviewSection.privacyText}</p>
+              )}
+              {currentInquiry.formSection?.reviewSection?.stayConnectedTitle && (
+                <p>{currentInquiry.formSection.reviewSection.stayConnectedTitle}</p>
+              )}
+              {currentInquiry.formSection?.reviewSection?.stayConnectedText && (
+                <p>{currentInquiry.formSection.reviewSection.stayConnectedText}</p>
+              )}
+              {currentInquiry.formSection?.reviewSection?.communicationReasons?.length > 0 && (
                 <ul className='list-disc pl-5'>
-                  <li>Share news.</li>
-                  <li>Inform you about new products and services.</li>
-                  <li>Offer you first sight of any promotions including cars, merchandise and accessories.</li>
-                  <li>Invite you to join Aston Martin at events.</li>
+                  {currentInquiry.formSection.reviewSection.communicationReasons.map((reason: string, index: number) => (
+                    <li key={index}>{reason}</li>
+                  ))}
                 </ul>
+              )}
             </div>
           </div>
         </div>

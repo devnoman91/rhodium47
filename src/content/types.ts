@@ -412,6 +412,14 @@ export interface SurveyForm {
         optionName: string;
         optionPrice?: string;
       }>;
+      primaryButton?: {
+        text?: string;
+        link?: string;
+      };
+      secondaryButton?: {
+        text?: string;
+        link?: string;
+      };
     }>;
   };
 }
@@ -1462,4 +1470,78 @@ export interface SupportPage {
   searchPlaceholder?: string
   categories: SupportCategory[]
   contactSection: SupportContactSection
+}
+
+export interface InquiryFormReviewSection {
+  title?: string
+  privacyText?: string
+  stayConnectedTitle?: string
+  stayConnectedText?: string
+  communicationReasons?: string[]
+}
+
+export interface InquiryFormField {
+  fieldName: string
+  fieldType: string
+  options?: string[]
+}
+
+export interface InquiryFormAdditionalSection {
+  title: string
+  image?: {
+    asset: {
+      url: string
+    }
+    alt?: string
+  }
+  fields: InquiryFormField[]
+}
+
+export interface InquiryFormSection {
+  name?: string
+  title?: string
+  image?: {
+    asset: {
+      url: string
+    }
+    alt?: string
+  }
+  fields: InquiryFormField[]
+  additionalSections?: InquiryFormAdditionalSection[]
+  reviewSection?: InquiryFormReviewSection
+}
+
+export interface InquiryFormHeroSection {
+  name?: string
+  title?: string
+  contentType?: 'video' | 'image'
+  videoFile?: {
+    asset: {
+      url: string
+    }
+  }
+  image?: {
+    asset: {
+      url: string
+    }
+    alt?: string
+  }
+  primaryButton?: {
+    text: string
+    link: string
+  }
+  secondaryButton?: {
+    text: string
+    link: string
+  }
+}
+
+export interface InquiryForm {
+  _id: string
+  name: string
+  slug: {
+    current: string
+  }
+  heroSection?: InquiryFormHeroSection
+  formSection?: InquiryFormSection
 }

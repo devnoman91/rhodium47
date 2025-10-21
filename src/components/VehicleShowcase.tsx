@@ -217,7 +217,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
         const now = Date.now()
         const timeSinceLastScroll = now - lastScrollTime.current
 
-        if (timeSinceLastScroll < 400) return
+        if (timeSinceLastScroll < 1500) return
 
         lastScrollTime.current = now
         setIsScrolling(true)
@@ -230,7 +230,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
 
         scrollTimeoutRef.current = setTimeout(() => {
           setIsScrolling(false)
-        }, 600)
+        }, 1500)
       } else {
         // At last slide, mark slider as complete and allow smooth scroll down
         isSliderComplete.current = true
@@ -244,7 +244,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
         const now = Date.now()
         const timeSinceLastScroll = now - lastScrollTime.current
 
-        if (timeSinceLastScroll < 400) return
+        if (timeSinceLastScroll < 1500) return
 
         lastScrollTime.current = now
         setIsScrolling(true)
@@ -257,7 +257,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
 
         scrollTimeoutRef.current = setTimeout(() => {
           setIsScrolling(false)
-        }, 600)
+        }, 1500)
       } else {
         // At first slide, don't reset the section when scrolling up
         // Allow normal scroll if we're at the first slide and trying to go up
@@ -329,7 +329,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
               >
                 Discover our range of luxury armored vehicles, each offering
                 unparalleled protection and sophistication.

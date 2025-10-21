@@ -400,7 +400,7 @@ const VehicleSlide: React.FC<{
     >
       {/* Vehicle Image with Enhanced Animation */}
       <motion.div
-        className="relative mb-8"
+        className="relative mb-8 h-[533px] "
         initial={{ opacity: 0, scale: 0.8, y: 50 }}
         animate={{
           opacity: isActive ? 1 : 0.6,

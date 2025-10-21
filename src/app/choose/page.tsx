@@ -935,7 +935,7 @@ export default function SurveyPage() {
                               target={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.link?.startsWith('http') ? '_blank' : undefined}
                               rel={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
                             >
-                              {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.text || 'View Details'}
+                              {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.text}
                             </a>
                           )}
                           
@@ -946,7 +946,7 @@ export default function SurveyPage() {
                               target={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.link?.startsWith('http') ? '_blank' : undefined}
                               rel={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
                             >
-                              {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.text || 'Design Yours'}
+                              {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.text}
                             </a>
                           )}
                         </div>

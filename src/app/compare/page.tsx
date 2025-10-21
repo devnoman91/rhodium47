@@ -61,7 +61,7 @@ export default async function ComparePage() {
   })
 
   return (
-    <div className="min-h-screen bg-[#F4F1F2] font-helvetica">
+    <div className="min-h-screen bg-[#F4F1F2] font-helvetica text-[#000]">
       {/* Header Section */}
       <div className="bg-[#F4F1F2] text-center pt-[138px] pb-[163px]">
         <div className="max-w-5xl mx-auto px-6">

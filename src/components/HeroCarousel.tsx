@@ -295,8 +295,7 @@ export default function HeroCarousel() {
         setIsTransitioning(true)
         setTimeout(() => {
           setCurrentIndex((prevIndex) => (prevIndex + 1) % videos.length)
-          setVideoLoaded(false) // Reset video loaded state for new content
-          setImageLoaded(false) // Reset image loaded state for new content
+          // Don't reset video loaded state here to prevent staking
           setIsTransitioning(false)
         }, 300) // Small delay to allow fade out
       }, 5000)
@@ -305,32 +304,44 @@ export default function HeroCarousel() {
   }, [videos.length])
 
   useEffect(() => {
-    // Reset loaded states and pause previous video when current content changes
-    setVideoLoaded(false)
-    setImageLoaded(false)
-
-    // Pause and cleanup previous video to prevent interrupted play promises
+    // Only pause video during transition if currently playing
     if (videoRef.current) {
       const video = videoRef.current
-      if (!video.paused) {
-        video.pause()
+      if (!isTransitioning && video.paused) {
+        // Reset loaded state only when not in transition
+        setVideoLoaded(false)
+        setImageLoaded(false)  
       }
-      video.currentTime = 0
-      video.style.opacity = '0' // Immediately hide during transition
+      
+      if (isTransitioning) {
+        video.style.opacity = '0' // Hide during transition
+      } else {
+        video.style.opacity = '1' // Show when not in transition
+      }
+    } else {
+      // Reset loaded states for initial load
+      setVideoLoaded(false)
+      setImageLoaded(false)
     }
-  }, [currentIndex])
+  }, [currentIndex, isTransitioning])
 
   useEffect(() => {
-    // Try to play video when it's loaded
-    if (videoRef.current && mounted && videoLoaded) {
+    // Try to play video when it's loaded and not transitioning
+    if (videoRef.current && mounted && videoLoaded && !isTransitioning) {
       const video = videoRef.current
       let playPromise: Promise<void> | undefined
 
       const playVideo = async () => {
+        // Check if video is already playing before attempting to play
+        if (!video.paused && video.currentTime > 0) return
+        
         try {
-          if (video && !video.paused && !video.ended) return
-          playPromise = video?.play()
+          playPromise = video.play()
           await playPromise
+          // Set currentTime to 0 only when starting a new video to prevent staking
+          if (video.currentTime === 0) {
+            video.currentTime = 0
+          }
         } catch (error) {
           if (error instanceof Error && error.name !== 'AbortError') {
             console.error('Error playing video:', error)
@@ -349,15 +360,14 @@ export default function HeroCarousel() {
         }
       }
     }
-  }, [currentIndex, mounted, videoLoaded])
+  }, [currentIndex, mounted, videoLoaded, isTransitioning])
 
   const goToSlide = useCallback((index: number) => {
     if (index !== currentIndex) {
       setIsTransitioning(true)
       setTimeout(() => {
         setCurrentIndex(index)
-        setVideoLoaded(false)
-        setImageLoaded(false)
+        // Don't reset video loaded state here to prevent staking
         setIsTransitioning(false)
       }, 300)
     }
@@ -395,7 +405,7 @@ export default function HeroCarousel() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            if (currentVideo?.contentType === 'video' && videoRef.current && !isVideoReady) {
+            if (currentVideo?.contentType === 'video' && videoRef.current && !videoLoaded) {
               videoRef.current.load()
             }
             // Images load automatically when src is set, no need for manual loading
@@ -407,7 +417,7 @@ export default function HeroCarousel() {
 
     observer.observe(intersectionRef.current)
     return () => observer.disconnect()
-  }, [isVideoReady, currentVideo?.contentType])
+  }, [videoLoaded, currentVideo?.contentType])
 
   // Cleanup video on component unmount to prevent AbortError
   useEffect(() => {
@@ -419,8 +429,8 @@ export default function HeroCarousel() {
         if (!currentVideoRef.paused) {
           currentVideoRef.pause()
         }
-        currentVideoRef.src = ''
-        currentVideoRef.load()
+        currentVideoRef.currentTime = 0 // Reset to beginning
+        currentVideoRef.src = '' // Clear the source
       }
       if (currentTimeout) {
         clearTimeout(currentTimeout)
@@ -499,14 +509,14 @@ export default function HeroCarousel() {
               muted
               loop
               playsInline
-              preload="none"
+              preload="metadata"
               controls={false}
               disablePictureInPicture
               onLoadedData={handleVideoLoad}
               onError={handleVideoError}
               style={{
                 opacity: (videoLoaded && !isTransitioning) ? 1 : 0,
-                transition: 'opacity 0.5s ease-in-out'
+                transition: 'opacity 0.3s ease-in-out'
               }}
               poster=""
             />
@@ -524,7 +534,7 @@ export default function HeroCarousel() {
               onError={handleImageError}
               style={{
                 opacity: (imageLoaded && !isTransitioning) ? 1 : 0,
-                transition: 'opacity 0.5s ease-in-out'
+                transition: 'opacity 0.3s ease-in-out'
               }}
             />
           )}

@@ -2000,6 +2000,19 @@ export const contactFormSubmissionsByStatusQuery = (status: string) => `
   }
 `
 
+export const comparePageQuery = `
+  *[_type == "comparePage"][0] {
+    heroSection {
+      title,
+      description,
+      ctaButton {
+        text,
+        link
+      }
+    }
+  }
+`
+
 export const getContactFormSubmissionsByStatus = async (status: string) => {
   return await client.fetch(contactFormSubmissionsByStatusQuery(status))
 }

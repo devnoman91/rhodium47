@@ -109,6 +109,7 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .title('Pages')
             .items([
+              S.documentTypeListItem('comparePage').title('Compare Page'),
               S.documentTypeListItem('consultation').title('Consultation Page'),
               S.documentTypeListItem('customDesign').title('Custom Design Page'),
               S.documentTypeListItem('maintenance').title('Maintenance Page'),

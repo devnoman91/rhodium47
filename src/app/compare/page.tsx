@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import Link from 'next/link'
 import { getProducts } from '@/lib/shopify'
 import CompareClient from './CompareClient'
+import { getComparePageContent } from '@/content/compare'
 
 interface ComparisonProduct {
   id: string
@@ -37,6 +38,9 @@ interface ComparisonProduct {
 }
 
 export default async function ComparePage() {
+  // Fetch content from Sanity
+  const comparePageContent = await getComparePageContent();
+  
   // Fetch products from Shopify server-side
   const shopifyProducts = await getProducts({})
 
@@ -66,14 +70,14 @@ export default async function ComparePage() {
       <div className="bg-[#F4F1F2] text-center pt-[138px] pb-[163px]">
         <div className="max-w-5xl mx-auto px-6">
           <h1 className="text-black text-center font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[26px]">
-            Compare Models
+            {comparePageContent.heroSection.title}
           </h1>
           <p className="!text-[#111] max-w-[855px] m-auto text-center !font-medium !text-[24px] !leading-[150%] capitalize font-helvetica !mb-[32px]">
-            Discover which Tesla models meet your needs by answering questions about your budget, driving habits and lifestyle.
+            {comparePageContent.heroSection.description}
           </p>
-          <Link href="/choose">
+          <Link href={comparePageContent.heroSection.ctaButton.link}>
             <button className="bg-black cursor-pointer rounded-full hover:bg-gray-800 transition-colors p-[14px] max-w-[372px] w-full text-white text-center font-bold text-[16px] leading-[150%] font-helvetica">
-              Help Me Choose
+              {comparePageContent.heroSection.ctaButton.text}
             </button>
           </Link>
         </div>

@@ -49,6 +49,7 @@ import eventRegistration from './eventRegistration'
 import contactPage from './contactPage'
 import contactFormSubmission from './contactFormSubmission'
 import supportPage from './supportPage'
+import comparePage from './comparePage'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -101,5 +102,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     contactPage,
     contactFormSubmission,
     supportPage,
+    comparePage,
   ],
 }

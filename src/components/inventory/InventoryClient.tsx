@@ -237,10 +237,10 @@ export default function InventoryClient({
                     <div className='p-[24px]'>
                       <div className="max-w-[320px]">
                         <h3 className="text-[16px] font-[500] font-helvetica text-[#111] mb-1">
-                          {vehicle.model}
+                          {vehicle.model}  
                         </h3>
                         <p className="text-[14px] font-[600] font-helvetica text-[#111] mb-[8px]">
-                          ${vehicle.price.toLocaleString()}
+                         ${vehicle.price.toLocaleString()}
                         </p>
 
                         {specsText && (
@@ -251,20 +251,50 @@ export default function InventoryClient({
 
                         {/* Display vehicle tags (all tags) */}
                         {vehicle.tags && vehicle.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-[6px] mt-[6px]">
+                          <div className="flex flex-wrap gap-x-[16px] gap-y-[10px] mt-[6px]">
                             {vehicle.tags.map((tag, idx) => {
                               const cleanTag = tag.includes(':') ? tag.split(':')[1] : tag;
+
+                              // Array of different SVGs
+                              const icons = [
+                                (
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
+                                    <circle cx="6" cy="6" r="6" fill="black" />
+                                  </svg>
+                                ),
+                                (
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                    <circle cx="6" cy="6" r="6" fill="#C5C5C5"/>
+                                  </svg>
+                                ),
+                                (
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
+                                    <circle cx="6" cy="6" r="6" fill="black" />
+                                  </svg>
+                                ),
+                                (
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                    <circle cx="6" cy="6" r="6" fill="#C5C5C5"/>
+                                  </svg>
+                                ),
+                              ];
+
+                              // Pick SVG by index (loop if more tags than icons)
+                              const icon = icons[idx % icons.length];
+
                               return (
                                 <span
                                   key={idx}
-                                  className="bg-[#F4F4F4] text-[#111] text-[10px] font-helvetica font-medium px-[8px] py-[3px] rounded-full capitalize"
+                                  className="flex gap-[5px] items-center text-[#111] text-[14px] font-helvetica font-[400] capitalize"
                                 >
+                                  {icon}
                                   {cleanTag}
                                 </span>
                               );
                             })}
                           </div>
                         )}
+
 
                         {/* Active filters summary */}
                         <div className="mt-2">

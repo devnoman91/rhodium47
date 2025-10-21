@@ -164,7 +164,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
                 }}
                 className="rounded border-gray-300 accent-black text-black focus:ring-black"
               />
-              <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">{model}</span>
+              <span className="ml-[11px] text-[#111] font-normal text-[16px] leading-[160%] capitalize font-helvetica no-ligatures">{model}</span>
             </label>
           ))}
         </div>

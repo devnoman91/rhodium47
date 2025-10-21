@@ -392,7 +392,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       {/* At a glance Section */}
       {selectedProducts.length > 0 && (
         <ComparisonSection title="At a glance" hasSuper>
-          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[30px]`}>
+          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[30px] max-w-[855px]`}>
             {selectedProducts.map((product, index) => (
               <div key={index} className="space-y-6">
                 {product.specs.motorConfig && (

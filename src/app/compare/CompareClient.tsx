@@ -197,7 +197,7 @@ export default function CompareClient({ products }: CompareClientProps) {
   return (
     <div className="max-w-[1336px] mx-auto px-[20px]">
       {/* Model Cards Section */}
-      <div className={`grid grid-cols-1 ${selectedProducts.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-3'} gap-[32px] mb-[120px]`}>
+      <div className={`grid grid-cols-1 ${selectedProducts.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-3'} gap-[32px] mb-[154px]`}>
         {selectedProducts.map((product, index) => (
           <motion.div
             key={`${product.id}-${index}`}
@@ -276,12 +276,12 @@ export default function CompareClient({ products }: CompareClientProps) {
                   </button>
                 </Link>
                 <Link href={`/inventory/${product.handle}`}>
-                  <button className="cursor-pointer border border-[#000] text-black min-w-[150px] w-full rounded-full text-center font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica hover:text-[#fff] hover:bg-black transition-colors">
+                  <button className="cursor-pointer border border-[#000] text-black max-w-[136px] w-full rounded-full text-center font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica hover:text-[#fff] hover:bg-black transition-colors">
                     Inventory
                   </button>
                 </Link>
                 <Link href={`/product-detail/${product.handle}`}>
-                  <button className="cursor-pointer border border-[#000] text-black min-w-[150px] w-full rounded-full text-center font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica hover:text-[#fff] hover:bg-black transition-colors">
+                  <button className="cursor-pointer border border-[#000] text-black max-w-[136px] w-full rounded-full text-center font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica hover:text-[#fff] hover:bg-black transition-colors">
                     Learn More
                   </button>
                 </Link>
@@ -397,7 +397,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       {/* At a glance Section */}
       {selectedProducts.length > 0 && (
         <ComparisonSection title="At a glance" hasSuper>
-          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[30px]`}>
+          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
             {selectedProducts.map((product, index) => (
               <div key={index} className="space-y-6">
                 {product.specs.motorConfig && (
@@ -433,7 +433,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       {/* Performance Section - Render parsed description content */}
       {selectedProducts.length > 0 && selectedProducts.some(p => p.parsedDescription?.performanceData) && (
         <ComparisonSection title="Performance" hasSuper>
-          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[30px]`}>
+          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
             {selectedProducts.map((product, index) => (
               <div 
                 key={index} 
@@ -448,7 +448,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       {/* Top Specifications Section - Render parsed top heading content */}
       {selectedProducts.length > 0 && selectedProducts.some(p => p.parsedDescription?.topHeading) && (
         <ComparisonSection title="Top Specifications">
-          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[30px]`}>
+          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
             {selectedProducts.map((product, index) => (
               <div 
                 key={index} 
@@ -463,7 +463,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       {/* Design Section */}
       {selectedProducts.length > 0 && selectedProducts.some(p => p.design) && (
         <ComparisonSection title="Design">
-          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[30px]`}>
+          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
             {selectedProducts.map((product, index) => (
               <div key={index} className="space-y-8">
                 {product.design?.paint && product.design.paint.length > 0 && (
@@ -519,7 +519,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       {/* Dimensions Section */}
       {selectedProducts.length > 0 && selectedProducts.some(p => p.dimensions && Object.keys(p.dimensions).length > 0) && (
         <ComparisonSection title="Dimensions">
-          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[30px]`}>
+          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
             {selectedProducts.map((product, index) => (
               <div key={index} className="space-y-6">
                 {product.dimensions && Object.entries(product.dimensions).map(([key, value]) => (
@@ -538,7 +538,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       {/* Cargo and Capacity Section */}
       {selectedProducts.length > 0 && selectedProducts.some(p => p.cargoCapacity && Object.keys(p.cargoCapacity).length > 0) && (
         <ComparisonSection title="Cargo and Capacity">
-          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[30px]`}>
+          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px] max-w-[855px]`}>
             {selectedProducts.map((product, index) => (
               <div key={index} className="space-y-6">
                 {product.cargoCapacity && Object.entries(product.cargoCapacity).map(([key, value]) => (
@@ -555,7 +555,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       )}
 
       {/* Disclaimers */}
-      <ul className="list-decimal pl-5 rounded-lg mt-[60px]">
+      <ul className="list-decimal pl-5 rounded-lg mt-[70px] pb-[41px]">
         <li className="text-[#606060] font-normal text-[11.813px] leading-[16px] tracking-[-0.12px] font-helvetica mb-[5px]">
           Prices shown do not include all applicable taxes and fees.
         </li>
@@ -577,7 +577,7 @@ interface ComparisonSectionProps {
 function ComparisonSection({ title, hasSuper, children }: ComparisonSectionProps) {
   return (
     <div className="mt-[60px] rounded-lg">
-      <h2 className="pl-5 text-black font-normal text-[35.156px] leading-[36px] tracking-[-0.72px] font-helvetica pb-5 border-b border-[#D1D1D1]">
+      <h2 className="pl-5 text-black font-normal text-[35.156px] leading-[36px] tracking-[-0.72px] font-helvetica pb-[25px] border-b border-[#D1D1D1] max-w-[877px]">
         {title} {hasSuper && <sup className="text-lg">2</sup>}
       </h2>
       {children}

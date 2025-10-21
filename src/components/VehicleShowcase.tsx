@@ -400,7 +400,7 @@ const VehicleSlide: React.FC<{
     >
       {/* Vehicle Image with Enhanced Animation */}
       <motion.div
-        className="relative mb-8 h-[533px] "
+        className="relative mb-2 h-[390px] "
         initial={{ opacity: 0, scale: 0.8, y: 50 }}
         animate={{
           opacity: isActive ? 1 : 0.6,
@@ -436,7 +436,7 @@ const VehicleSlide: React.FC<{
       {/* Vehicle Info with Animations */}
       <div className="text-center">
         <motion.h2
-          className="max-w-[660px] m-auto text-black font-helvetica text-[45px] not-italic font-bold leading-[120%] tracking-[-3px] uppercase mb-4"
+          className="max-w-[660px] m-auto text-black font-helvetica text-[30px] not-italic font-bold leading-[120%] tracking-[-2px] uppercase mb-4"
           initial={{ opacity: 0, y: 30 }}
           animate={{
             opacity: isActive ? 1 : 0.5,

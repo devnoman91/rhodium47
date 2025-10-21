@@ -880,12 +880,12 @@ export default function SurveyPage() {
                     <div className="product-info-section">
                       <div className="info_inner_content">
                           <div className="survey-step-header">
-                              <button 
-                                type="button"
+                              <a 
+                                href="/inventory"
                                 className="survey-back-button"
                               >
                                 Back
-                              </button>
+                              </a>
                           </div>
                         {/* Product Name */}
                         <h3 className="product-name">

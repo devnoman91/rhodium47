@@ -560,34 +560,9 @@ export default function CompareClient({ products }: CompareClientProps) {
         </ComparisonSection>
       )}
 
-      {/* Cargo and Capacity Section */}
-      {selectedProducts.length > 0 && selectedProducts.some(p => p.cargoCapacity && Object.keys(p.cargoCapacity).length > 0) && (
-        <ComparisonSection title="Cargo and Capacity">
-          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px] max-w-[855px]`}>
-            {selectedProducts.map((product, index) => (
-              <div key={index} className="space-y-6">
-                {product.cargoCapacity && Object.entries(product.cargoCapacity).map(([key, value]) => (
-                  <ComparisonRow
-                    key={key}
-                    label={formatLabel(key)}
-                    value={value}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
-        </ComparisonSection>
-      )}
+   
 
-      {/* Disclaimers */}
-      <ul className="list-decimal pl-5 rounded-lg mt-[70px] pb-[41px]">
-        <li className="text-[#606060] font-normal text-[11.813px] leading-[16px] tracking-[-0.12px] font-helvetica mb-[5px]">
-          Prices shown do not include all applicable taxes and fees.
-        </li>
-        <li className="text-[#606060] font-normal text-[11.813px] leading-[16px] tracking-[-0.12px] font-helvetica">
-          Actual vehicle capability will depend on selected options and trim. Specifications may vary based on configuration.
-        </li>
-      </ul>
+    
     </div>
   )
 }

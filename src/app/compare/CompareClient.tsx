@@ -300,7 +300,7 @@ export default function CompareClient({ products }: CompareClientProps) {
                     Build
                   </button>
                 </Link>
-                <Link href={`/inventory/${product.handle}`}>
+                <Link href={'/inventory'}>
                   <button className="cursor-pointer border border-[#000] text-black max-w-[136px] w-full rounded-full text-center font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica hover:text-[#fff] hover:bg-black transition-colors">
                     Inventory
                   </button>

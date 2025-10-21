@@ -104,38 +104,65 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
   const isSliderComplete = useRef(false)
+  // Track if user has started scrolling in the section
+  const hasStartedScrolling = useRef(false)
 
   const filteredVehicles = vehicles
 
   useEffect(() => {
     setCurrentIndex(0)
     isSliderComplete.current = false
+    hasStartedScrolling.current = false
   }, [])
 
-  // Reset slider completion when entering the section
+  // Section visibility detection - only start slider when section is fully visible
   useEffect(() => {
-    if (isInView && !isScrolling) {
-      const container = containerRef.current
-      if (!container) return
+    const container = containerRef.current
+    if (!container) return
 
-      const containerRect = container.getBoundingClientRect()
-      const containerTop = containerRect.top
-      const containerBottom = containerRect.bottom
-      const windowHeight = window.innerHeight
+    let ticking = false
 
-      // Reset slider state when section comes into view from outside
-      if (containerTop > windowHeight * 0.8) {
-        // Coming from top - reset to first slide
-        setCurrentIndex(0)
-        isSliderComplete.current = false
-      } else if (containerBottom < windowHeight * 0.2) {
-        // Coming from bottom - reset to last slide
-        setCurrentIndex(filteredVehicles.length - 1)
-        isSliderComplete.current = false
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const containerRect = container.getBoundingClientRect()
+          const containerTop = containerRect.top
+          const containerBottom = containerRect.bottom
+          const windowHeight = window.innerHeight
+
+          // Only set isInView to true when the section is fully visible in viewport
+          const isFullyVisible = containerTop >= 0 && containerBottom <= windowHeight
+          
+          if (isFullyVisible) {
+            setIsInView(true)
+            // Reset slider if user just entered the section fully
+            if (!hasStartedScrolling.current) {
+              hasStartedScrolling.current = true
+              setCurrentIndex(0)
+            }
+          } else {
+            setIsInView(false)
+            // Reset tracking when leaving the section
+            if (isFullyVisible !== (containerTop >= 0 && containerBottom <= windowHeight)) {
+              hasStartedScrolling.current = false
+            }
+          }
+          
+          ticking = false
+        })
+        
+        ticking = true
       }
     }
-  }, [isInView, isScrolling, filteredVehicles.length])
 
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll() // Initial check
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      ticking = false
+    }
+  }, [])
 
   const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const threshold = 20
@@ -157,15 +184,21 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
     const containerBottom = containerRect.bottom
     const windowHeight = window.innerHeight
 
-    // Check if section is in view
-    const inView = containerTop <= windowHeight * 0.5 && containerBottom >= windowHeight * 0.5
-    setIsInView(inView)
+    // Only handle scroll when section is fully visible in viewport
+    const isFullyVisible = containerTop >= 0 && containerBottom <= windowHeight
+    const wasFullyVisible = isInView
+    
+    // Update visibility status
+    setIsInView(isFullyVisible)
 
-    // If not in view, allow normal scrolling
-    if (!inView) {
+    // If section is not fully in view, allow normal scrolling
+    if (!isFullyVisible) {
       isSliderComplete.current = false
       return
     }
+
+    // Mark that scrolling has started in the section
+    hasStartedScrolling.current = true
 
     // Determine scroll direction
     const direction = event.deltaY > 0 ? 'down' : 'up'
@@ -179,6 +212,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
       if (!isAtLastSlide) {
         // Prevent page scroll, advance slider
         event.preventDefault()
+        event.stopPropagation()
 
         const now = Date.now()
         const timeSinceLastScroll = now - lastScrollTime.current
@@ -187,7 +221,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
 
         lastScrollTime.current = now
         setIsScrolling(true)
-        setCurrentIndex(prev => prev + 1)
+        setCurrentIndex(prev => Math.min(prev + 1, filteredVehicles.length - 1))
 
         // Clear existing timeout
         if (scrollTimeoutRef.current) {
@@ -205,6 +239,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
       if (!isAtFirstSlide) {
         // Prevent page scroll, go to previous slide
         event.preventDefault()
+        event.stopPropagation()
 
         const now = Date.now()
         const timeSinceLastScroll = now - lastScrollTime.current
@@ -213,7 +248,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
 
         lastScrollTime.current = now
         setIsScrolling(true)
-        setCurrentIndex(prev => prev - 1)
+        setCurrentIndex(prev => Math.max(prev - 1, 0))
 
         // Clear existing timeout
         if (scrollTimeoutRef.current) {
@@ -224,11 +259,15 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
           setIsScrolling(false)
         }, 600)
       } else {
-        // At first slide, mark slider as complete and allow smooth scroll up
-        isSliderComplete.current = true
+        // At first slide, don't reset the section when scrolling up
+        // Allow normal scroll if we're at the first slide and trying to go up
+        if (wasFullyVisible) {
+          // Keep the slider active but allow page scroll to continue
+          isSliderComplete.current = true
+        }
       }
     }
-  }, [currentIndex, filteredVehicles.length])
+  }, [currentIndex, filteredVehicles.length, isInView])
 
   useEffect(() => {
     // Add event listener to window for better scroll detection

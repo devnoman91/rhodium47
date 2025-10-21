@@ -94,3 +94,8 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* Footer specific styles to ensure consistency */
+.footer-description {
+  margin-bottom: 0 !important;
+}

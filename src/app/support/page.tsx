@@ -583,13 +583,13 @@ export default function SupportPage() {
                               <span className="question-toggle text-[#151515]">
                                 {isOpen ? (
                                   // Minus SVG
-                                  <svg className="w-6 h-6 text-[#000] dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                  <svg className="w-6 h-6 !text-[#000] " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
                                     </svg>
 
                                 ) : (
                                   // Plus SVG
-                                  <svg className="w-6 h-6 text-[#000] dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                  <svg className="w-6 h-6 !text-[#000] " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
                                   </svg>
 

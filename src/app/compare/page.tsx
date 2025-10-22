@@ -75,11 +75,26 @@ export default async function ComparePage() {
           <p className="!text-[#111] max-w-[855px] m-auto text-center !font-medium !text-[24px] !leading-[150%] capitalize font-helvetica !mb-[32px]">
             {comparePageContent.heroSection.description}
           </p>
-          <Link href={comparePageContent.heroSection.ctaButton.link}>
-            <button className="bg-black cursor-pointer rounded-full hover:bg-gray-800 transition-colors p-[14px] max-w-[372px] w-full text-white text-center font-bold text-[16px] leading-[150%] font-helvetica">
-              {comparePageContent.heroSection.ctaButton.text}
-            </button>
-          </Link>
+            <Link
+                  href={comparePageContent.heroSection.ctaButton.link}
+                  className="relative overflow-hidden flex justify-center items-center
+                            bg-black cursor-pointer rounded-full transition-colors
+                            p-[14px] max-w-[372px] m-auto w-full text-white text-center font-bold text-[16px] leading-[150%] font-helvetica
+                            border border-transparent group focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                >
+                  {/* sliding overlay */}
+                  <span
+                    className="absolute inset-0 bg-white translate-x-full
+                              transition-transform duration-500 ease-in-out rounded-full
+                              group-hover:translate-x-0"
+                  />
+
+                  {/* button text */}
+                  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
+                    {comparePageContent.heroSection.ctaButton.text}
+                  </span>
+</Link>
+
         </div>
       </div>
 

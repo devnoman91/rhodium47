@@ -362,12 +362,31 @@ const OpenPositionsSection: React.FC<{
                     </span>
                   </div>
                 </div>
-                <Link
-                  href={`/careers/${position.slug.current}`}
-                  className="inline-block bg-white text-[#000] font-helvetica uppercase px-[20px] py-[14px] rounded-[8px] leading-[1] text-[16px] font-[600] hover:bg-gray-800 transition-colors"
-                >
-                  Apply Now
-                </Link>
+               <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  >
+                    <Link
+                      href={`/careers/${position.slug.current}`}
+                      className="relative overflow-hidden flex items-center gap-[12px] px-6 py-3 rounded-full
+                                bg-white text-black font-helvetica font-medium text-[16px]
+                                border border-transparent cursor-pointer group
+                                focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                    >
+                      {/* sliding overlay */}
+                      <span
+                        className="absolute inset-0 bg-black translate-x-full
+                                  transition-transform duration-500 ease-in-out rounded-full
+                                  group-hover:translate-x-0"
+                      />
+
+                      {/* text */}
+                      <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+                        Apply Now
+                      </span>
+                    </Link>
+                  </motion.div>
               </div>
             </motion.div>
           ))}

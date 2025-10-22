@@ -56,7 +56,6 @@ const criticalInlineStyles = `
   }
   .inquiry-wizard-container {
     display: flex;
-    height: 100vh;
     background: #F4F1F2;
     padding: 40px;
     padding-top: 120px;
@@ -811,33 +810,97 @@ export default function InquiryPage() {
 
                       {renderStepField(currentStepData)}
 
-                      <div style={{ display: 'flex', gap: '12px', marginTop: '2rem' }}>
-                        {currentStep < steps.length - 1 ? (
-                          <button
-                            type="button"
-                            className="inquiry-next-button"
-                            onClick={handleNext}
-                            disabled={!isStepValid() || isSubmitting}
-                          >
-                            Next
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="10" viewBox="0 0 20 10" fill="none">
-                              <path d="M15 1L19 5M19 5L15 9M19 5L1 5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            className="inquiry-next-button"
-                            onClick={handleFinalSubmit}
-                            disabled={isSubmitting || !isStepValid()}
-                          >
-                            {isSubmitting ? 'Submitting...' : 'Submit Inquiry'}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="10" viewBox="0 0 20 10" fill="none">
-                              <path d="M15 1L19 5M19 5L15 9M19 5L1 5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                          </button>
-                        )}
-                      </div>
+                     <div style={{ display: 'flex', gap: '12px', marginTop: '2rem' }}>
+  {currentStep < steps.length - 1 ? (
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 300, damping: 15 }}
+      type="button"
+      onClick={handleNext}
+      disabled={!isStepValid() || isSubmitting}
+      className="relative overflow-hidden flex items-center gap-[8px] px-6 py-3 rounded-full
+                 bg-black text-white font-helvetica font-medium text-[16px]
+                 border border-transparent cursor-pointer group inquiry-next-button
+                 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black
+                 disabled:opacity-60 disabled:cursor-not-allowed"
+    >
+      {/* sliding overlay */}
+      <span
+        className="absolute inset-0 bg-white translate-x-full
+                   transition-transform duration-500 ease-in-out rounded-full
+                   group-hover:translate-x-0"
+      />
+
+      {/* text */}
+      <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
+        Next
+      </span>
+
+      {/* icon */}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="10"
+        viewBox="0 0 20 10"
+        fill="none"
+        className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black"
+      >
+        <path
+          d="M15 1L19 5M19 5L15 9M19 5L1 5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </motion.button>
+  ) : (
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 300, damping: 15 }}
+      type="button"
+      onClick={handleFinalSubmit}
+      disabled={isSubmitting || !isStepValid()}
+      className="relative overflow-hidden flex items-center gap-[8px] px-[16] py-[14px] rounded-full
+                 bg-black text-white font-helvetica font-medium text-[16px]
+                 border border-transparent cursor-pointer group inquiry-next-button
+                 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black
+                 disabled:opacity-60 disabled:cursor-not-allowed"
+    >
+      {/* sliding overlay */}
+      <span
+        className="absolute inset-0 bg-white translate-x-full
+                   transition-transform duration-500 ease-in-out rounded-full
+                   group-hover:translate-x-0"
+      />
+
+      {/* text */}
+      <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
+        {isSubmitting ? 'Submitting...' : 'Submit Inquiry'}
+      </span>
+
+      {/* icon */}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="10"
+        viewBox="0 0 20 10"
+        fill="none"
+        className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black"
+      >
+        <path
+          d="M15 1L19 5M19 5L15 9M19 5L1 5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </motion.button>
+  )}
+</div>
                     </motion.div>
                   )}
                 </AnimatePresence>

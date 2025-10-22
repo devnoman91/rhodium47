@@ -295,21 +295,66 @@ export default function CompareClient({ products }: CompareClientProps) {
 
               {/* Action Buttons */}
               <div className="flex gap-2">
-                <Link href={`/product-design/${product.handle}`}>
-                  <button className="text-white cursor-pointer min-w-[112px] w-full rounded-full text-center font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica bg-[black] hover:bg-gray-800 transition-colors">
-                    Build
-                  </button>
-                </Link>
-                <Link href={'/inventory'}>
-                  <button className="cursor-pointer border border-[#000] text-black max-w-[136px] w-full rounded-full text-center font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica hover:text-[#fff] hover:bg-black transition-colors">
-                    Inventory
-                  </button>
-                </Link>
-                <Link href={`/product-detail/${product.handle}`}>
-                  <button className="cursor-pointer border border-[#000] text-black max-w-[136px] w-full rounded-full text-center font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica hover:text-[#fff] hover:bg-black transition-colors">
-                    Learn More
-                  </button>
-                </Link>
+                {/* Build Button (black → white hover) */}
+<Link
+  href={`/product-design/${product.handle}`}
+  className="relative overflow-hidden flex justify-center items-center 
+             text-white cursor-pointer min-w-[112px] w-full rounded-full text-center font-normal text-[14px]
+             py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica bg-black 
+             border border-transparent group focus:outline-none transition-all"
+>
+  {/* sliding overlay */}
+  <span
+    className="absolute inset-0 bg-white translate-x-full
+               transition-transform duration-500 ease-in-out rounded-full
+               group-hover:translate-x-0"
+  />
+  {/* text */}
+  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
+    Build
+  </span>
+</Link>
+
+{/* Inventory Button (white → black hover) */}
+<Link
+  href={'/inventory'}
+  className="relative overflow-hidden flex justify-center items-center 
+             cursor-pointer border border-[#000] text-black max-w-[136px] w-full rounded-full text-center 
+             font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica 
+             group focus:outline-none transition-all"
+>
+  {/* sliding overlay */}
+  <span
+    className="absolute inset-0 bg-black translate-x-full
+               transition-transform duration-500 ease-in-out rounded-full
+               group-hover:translate-x-0"
+  />
+  {/* text */}
+  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+    Inventory
+  </span>
+</Link>
+
+{/* Learn More Button (white → black hover) */}
+<Link
+  href={`/product-detail/${product.handle}`}
+  className="relative overflow-hidden flex justify-center items-center 
+             cursor-pointer border border-[#000] text-black max-w-[136px] w-full rounded-full text-center 
+             font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica 
+             group focus:outline-none transition-all"
+>
+  {/* sliding overlay */}
+  <span
+    className="absolute inset-0 bg-black translate-x-full
+               transition-transform duration-500 ease-in-out rounded-full
+               group-hover:translate-x-0"
+  />
+  {/* text */}
+  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+    Learn More
+  </span>
+</Link>
+
               </div>
             </div>
           </motion.div>

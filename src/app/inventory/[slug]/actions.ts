@@ -17,7 +17,7 @@ export async function directCheckout(merchandiseId: string, variantTitle?: strin
     }
 
     // Fetch all products to find the "Due Today" product by name
-    const allProducts = await getProducts({ first: 100 });
+    const allProducts = await getProducts({ query: '' });
     const dueTodayProduct = allProducts.find((product: any) => 
       product.title.toLowerCase().includes('due today')
     );

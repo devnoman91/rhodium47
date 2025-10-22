@@ -473,7 +473,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       {/* Top Specifications Section - Render parsed top heading content */}
       {selectedProducts.length > 0 && selectedProducts.some(p => p.parsedDescription?.topHeading) && (
         <ComparisonSection title="Top Specifications">
-          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
+          <div className={`pl-5 pb-[50px] grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
             {selectedProducts.map((product, index) => (
               <div 
                 key={index} 
@@ -486,7 +486,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       )}
 
       {/* Design Section */}
-      {selectedProducts.length > 0 && selectedProducts.some(p => p.design) && (
+      {/* {selectedProducts.length > 0 && selectedProducts.some(p => p.design) && (
         <ComparisonSection title="Design">
           <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
             {selectedProducts.map((product, index) => (
@@ -539,7 +539,7 @@ export default function CompareClient({ products }: CompareClientProps) {
             ))}
           </div>
         </ComparisonSection>
-      )}
+      )} */}
 
       {/* Dimensions Section */}
       {selectedProducts.length > 0 && selectedProducts.some(p => p.dimensions && Object.keys(p.dimensions).length > 0) && (

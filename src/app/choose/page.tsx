@@ -112,7 +112,7 @@ const criticalInlineStyles = `
     line-height: 120%;
     letter-spacing: -0.4px;
     border-bottom: 1px solid #000;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     cursor: pointer;
     width: fit-content;
   }

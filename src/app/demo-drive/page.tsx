@@ -573,18 +573,20 @@ export default function InquiryPage() {
               {currentInquiry.formSection?.reviewSection?.privacyText && (
                 <p>{currentInquiry.formSection.reviewSection.privacyText}</p>
               )}
+           
+              {currentInquiry.formSection?.reviewSection?.communicationReasons?.length > 0 && (
+                <ul className='list-disc pl-5 mb-3'>
+                  {currentInquiry.formSection.reviewSection.communicationReasons.map((reason: string, index: number) => (
+                    <li key={index}>{reason}</li>
+                  ))}
+                </ul>
+              )}
+
               {currentInquiry.formSection?.reviewSection?.stayConnectedTitle && (
                 <p>{currentInquiry.formSection.reviewSection.stayConnectedTitle}</p>
               )}
               {currentInquiry.formSection?.reviewSection?.stayConnectedText && (
                 <p>{currentInquiry.formSection.reviewSection.stayConnectedText}</p>
-              )}
-              {currentInquiry.formSection?.reviewSection?.communicationReasons?.length > 0 && (
-                <ul className='list-disc pl-5'>
-                  {currentInquiry.formSection.reviewSection.communicationReasons.map((reason: string, index: number) => (
-                    <li key={index}>{reason}</li>
-                  ))}
-                </ul>
               )}
             </div>
           </div>

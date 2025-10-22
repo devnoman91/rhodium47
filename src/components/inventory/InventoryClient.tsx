@@ -67,7 +67,10 @@ export default function InventoryClient({
   productsByCollection,
   filterOptions
 }: InventoryClientProps) {
-  const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>(vehicles);
+  // Filter out vehicles with "Due Today" in the title before processing
+  const filteredVehiclesInitial = vehicles.filter(vehicle => !vehicle.title.toLowerCase().includes('due today'));
+  
+  const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>(filteredVehiclesInitial);
   const [filters, setFilters] = useState({
     zipCode: '',
     status: '',
@@ -194,7 +197,10 @@ export default function InventoryClient({
             onFilterChange={handleFilterChange}
             filterOptions={{
               ...filterOptions,
-              models: vehicles.map(v => v.title).filter((value, index, self) => self.indexOf(value) === index),
+              models: vehicles
+                .filter(v => !v.title.toLowerCase().includes('due today')) // Filter out models with "Due Today" in the title
+                .map(v => v.title)
+                .filter((value, index, self) => self.indexOf(value) === index), // Remove duplicates
               priceRange: priceRange
             }}
           />

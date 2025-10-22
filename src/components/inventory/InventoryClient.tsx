@@ -113,7 +113,8 @@ export default function InventoryClient({
   const handleFilterChange = (newFilters: typeof filters) => {
     setFilters(newFilters);
 
-    let filtered = vehicles;
+    // Start with the base filtered list (excluding "Due Today" products)
+    let filtered = vehicles.filter(vehicle => !vehicle.title.toLowerCase().includes('due today'));
 
     if (newFilters.status) {
       filtered = filtered.filter(vehicle => {
@@ -328,7 +329,8 @@ export default function InventoryClient({
                     additionalOptions: []
                   };
                   setFilters(reset);
-                  setFilteredVehicles(vehicles);
+                  // When clearing filters, still apply the "Due Today" filter
+                  setFilteredVehicles(vehicles.filter(vehicle => !vehicle.title.toLowerCase().includes('due today')));
                 }}
                 className="mt-4 px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
               >

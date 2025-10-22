@@ -571,7 +571,7 @@ export default function HeroCarousel() {
             </p>
           )}
 
-<Link href="/product-design">
+<Link href="/inventory">
   <motion.button
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}

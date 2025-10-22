@@ -107,7 +107,10 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
   // Track if user has started scrolling in the section
   const hasStartedScrolling = useRef(false)
 
-  const filteredVehicles = vehicles
+  const filteredVehicles = vehicles.filter(vehicle => 
+    !vehicle.name.toLowerCase().includes('due today') &&
+    !vehicle.model.toLowerCase().includes('due today')
+  )
 
   useEffect(() => {
     setCurrentIndex(0)

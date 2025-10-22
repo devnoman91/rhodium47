@@ -71,7 +71,7 @@ export default async function ComparePage() {
           <p className="!text-[#111] max-w-[855px] m-auto text-center !font-medium !text-[24px] !leading-[150%] capitalize font-helvetica !mb-[32px]">
             Discover which Tesla models meet your needs by answering questions about your budget, driving habits and lifestyle.
           </p>
-          <Link href="/product-design">
+          <Link href="/choose">
             <button className="bg-black cursor-pointer rounded-full hover:bg-gray-800 transition-colors p-[14px] max-w-[372px] w-full text-white text-center font-bold text-[16px] leading-[150%] font-helvetica">
               Help Me Choose
             </button>

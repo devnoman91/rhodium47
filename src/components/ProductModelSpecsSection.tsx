@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 
 interface Specification {
   label: string
@@ -155,9 +156,11 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
             )}
 
             {mainOthersSection?.title && (
-              <h3 className="text-white font-helvetica underline text-base font-normal  leading-tight mb-8">
+             <Link href="/compare">
+               <h3 className="text-white font-helvetica underline text-base font-normal  leading-tight mb-8">
                 {mainOthersSection.title}
               </h3>
+             </Link>
             )}
 
             {mainOthersSection?.bulletPoints && mainOthersSection.bulletPoints.length > 0 && (

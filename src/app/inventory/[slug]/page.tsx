@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getProduct } from '@/lib/shopify';
+import { getProduct, getProducts } from '@/lib/shopify';
 import  VehicleConfigClient from '@/components/inventory/VehicleConfigClient';
 
 interface VehicleConfigPageProps {
@@ -87,12 +87,19 @@ export default async function VehicleConfigPage({ params }: VehicleConfigPagePro
     notFound();
   }
 
+  // Fetch all products to find the "Due Today" product by name
+  const allProducts = await getProducts({ query: '' });
+  const dueTodayProduct = allProducts.find((p: any) => 
+    p.title.toLowerCase().includes('due today')
+  );
+
   // Parse the descriptionHtml to extract sections
   const sections = parseDescriptionHtml(product.descriptionHtml || '');
 
   return (
     <VehicleConfigClient
       product={product}
+      dueTodayProduct={dueTodayProduct}
       topHeadingHtml={sections.topHeading}
       performanceHtml={sections.performanceData}
     />

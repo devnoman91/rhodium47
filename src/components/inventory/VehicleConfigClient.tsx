@@ -81,6 +81,7 @@ color:#323232;
     `
 interface VehicleConfigClientProps {
   product: any;
+  dueTodayProduct?: any;
   topHeadingHtml: string;
   performanceHtml: string;
 }
@@ -88,6 +89,7 @@ interface VehicleConfigClientProps {
 export default function
 VehicleConfigClient({
   product,
+  dueTodayProduct,
   topHeadingHtml,
   performanceHtml
 }: VehicleConfigClientProps) {
@@ -300,7 +302,7 @@ VehicleConfigClient({
                 </div>
               )}
 
-              {/* Order Button */}
+              {/* Order Button - will add both products to cart */}
               <button
                 onClick={handleDirectCheckout}
                 disabled={isCheckingOut || !selectedVariant?.availableForSale}
@@ -313,6 +315,24 @@ VehicleConfigClient({
                     : 'Order with Card'
                 }
               </button>
+
+              {/* Due Today Product Section - displayed below the main order button */}
+              {dueTodayProduct && (
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                  <h3 className="text-black font-helvetica text-[18px] font-bold mb-4">Due Today</h3>
+                  <div className="bg-gray-100 p-4 rounded-md">
+                    <p className="text-gray-800 font-helvetica text-[14px] mb-2">Your purchase includes an additional "Due Today" payment requirement:</p>
+                    <p className="text-gray-700 font-helvetica text-[14px]">- Due Today Product: <span className="font-bold">{dueTodayProduct.title || 'Security Deposit Package'}</span></p>
+                    {dueTodayProduct.variants && dueTodayProduct.variants[0] && (
+                      <p className="text-gray-700 font-helvetica text-[14px]">- Variant: <span className="font-bold">{dueTodayProduct.variants[0].title}</span></p>
+                    )}
+                    {dueTodayProduct.priceRange && dueTodayProduct.priceRange.minVariantPrice && (
+                      <p className="text-gray-700 font-helvetica text-[14px]">- Price: <span className="font-bold">${parseFloat(dueTodayProduct.priceRange.minVariantPrice.amount).toLocaleString()}</span></p>
+                    )}
+                    <p className="text-gray-600 font-helvetica text-[12px] mt-2 italic">* This will be added to your order automatically at checkout.</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

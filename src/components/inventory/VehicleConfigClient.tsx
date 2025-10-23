@@ -301,9 +301,50 @@ VehicleConfigClient({
                   {error}
                 </div>
               )}
+               
+               {/* Due Today Product Section - displayed below the main order button */}
+               {dueTodayProduct && (
+                <div className="mt-1 pt-4 border-t border-gray-200">
+                  <div className=" p-4 rounded-md flex gap-3 justify-between">
+                   <div>
+                     <p className="!text-[#111] mb-1 !text-[18px] not-italic !font-medium !leading-[22px] capitalize font-helvetica"><span>{dueTodayProduct.title || 'Security Deposit Package'}</span></p>
+                    {dueTodayProduct.variants && dueTodayProduct.variants[0] && (
+                      <p className="!text-[#323232]  !text-[12px] not-italic !font-[400] !leading-[18px] capitalize font-helvetica"><span>{dueTodayProduct.variants[0].title}</span></p>
+                    )}
+                   </div>
+                    {dueTodayProduct.priceRange && dueTodayProduct.priceRange.minVariantPrice && (
+                      <p className="!text-[#111]  !text-[18px] not-italic !font-medium !leading-[22px] capitalize font-helvetica"><span className="font-bold">${parseFloat(dueTodayProduct.priceRange.minVariantPrice.amount).toLocaleString()}</span></p>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* Order Button - will add both products to cart */}
               <button
+                onClick={handleDirectCheckout}
+                disabled={isCheckingOut || !selectedVariant?.availableForSale}
+                className="relative overflow-hidden w-full cursor-pointer text-white text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] rounded-full py-[14px] px-4 bg-black border border-transparent group
+                          focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black
+                          transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+              >
+                {/* Sliding overlay */}
+                <span
+                  className="absolute inset-0 bg-white translate-x-full
+                            transition-transform duration-500 ease-in-out rounded-full
+                            group-hover:translate-x-0"
+                />
+
+                {/* Button text */}
+                <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
+                  {isCheckingOut
+                    ? 'Processing...'
+                    : selectedVariant
+                      ? `Order Now - ${selectedVariant.title}`
+                      : 'Order with Card'}
+                </span>
+              </button>
+
+              {/* <button
                 onClick={handleDirectCheckout}
                 disabled={isCheckingOut || !selectedVariant?.availableForSale}
                 className="w-full cursor-pointer text-white text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] rounded-full py-[14px] px-4 bg-black hover:bg-gray-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
@@ -314,25 +355,9 @@ VehicleConfigClient({
                     ? `Order Now - ${selectedVariant.title}`
                     : 'Order with Card'
                 }
-              </button>
+              </button> */}
 
-              {/* Due Today Product Section - displayed below the main order button */}
-              {dueTodayProduct && (
-                <div className="mt-8 pt-6 border-t border-gray-200">
-                  <h3 className="text-black font-helvetica text-[18px] font-bold mb-4">Due Today</h3>
-                  <div className="bg-gray-100 p-4 rounded-md">
-                    <p className="text-gray-800 font-helvetica text-[14px] mb-2">Your purchase includes an additional "Due Today" payment requirement:</p>
-                    <p className="text-gray-700 font-helvetica text-[14px]">- Due Today Product: <span className="font-bold">{dueTodayProduct.title || 'Security Deposit Package'}</span></p>
-                    {dueTodayProduct.variants && dueTodayProduct.variants[0] && (
-                      <p className="text-gray-700 font-helvetica text-[14px]">- Variant: <span className="font-bold">{dueTodayProduct.variants[0].title}</span></p>
-                    )}
-                    {dueTodayProduct.priceRange && dueTodayProduct.priceRange.minVariantPrice && (
-                      <p className="text-gray-700 font-helvetica text-[14px]">- Price: <span className="font-bold">${parseFloat(dueTodayProduct.priceRange.minVariantPrice.amount).toLocaleString()}</span></p>
-                    )}
-                    <p className="text-gray-600 font-helvetica text-[12px] mt-2 italic">* This will be added to your order automatically at checkout.</p>
-                  </div>
-                </div>
-              )}
+           
             </div>
           </div>
         </div>

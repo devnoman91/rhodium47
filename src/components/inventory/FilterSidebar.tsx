@@ -122,26 +122,54 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
       {/* Status Filter */}
       <div className="mb-[28px]">
         <div className="flex gap-2 px-[17px] py-[8px] rounded-[4px]" style={{ backgroundColor: '#F4F1F2' }}>
-          <button
-            onClick={() => updateFilter('status', filters.status === 'new' ? '' : 'new')}
-            className={`flex-1 rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures ${
-              filters.status === 'new'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'bg-black text-white hover:bg-gray-800'
-            }`}
-          >
-            New
-          </button>
-          <button
-            onClick={() => updateFilter('status', filters.status === 'pre-order' ? '' : 'pre-order')}
-            className={`flex-1 px-[14px] py-[7px] cursor-pointer  rounded-[4px] transition-all duration-200 flex items-center justify-center font-helvetica  text-center font-medium text-[12px] leading-[150%] capitalize no-ligatures ${
-              filters.status === 'pre-order'
-                ? 'bg-black text-white shadow-sm'
-                : 'bg-white text-black hover:bg-black hover:text-white'
-            }`}
-          >
-            Pre-Order
-          </button>
+      <button
+  onClick={() => updateFilter('status', filters.status === 'new' ? '' : 'new')}
+  className={`relative overflow-hidden flex-1 rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures group
+    ${filters.status === 'new'
+      ? 'bg-white text-gray-900 shadow-sm'
+      : 'bg-black text-white'}`
+  }
+>
+  {/* Sliding overlay */}
+  {! (filters.status === 'new') && (
+    <span
+      className="absolute inset-0 bg-white translate-x-full
+                 transition-transform duration-500 ease-in-out rounded-[4px]
+                 group-hover:translate-x-0"
+    />
+  )}
+
+  {/* Button text */}
+  <span className={`relative z-10 transition-colors duration-500 ease-in-out
+    ${filters.status === 'new' ? 'group-hover:text-black' : 'group-hover:text-black'}`}>
+    New
+  </span>
+</button>
+
+<button
+  onClick={() => updateFilter('status', filters.status === 'pre-order' ? '' : 'pre-order')}
+  className={`relative overflow-hidden flex-1 px-[14px] py-[7px] cursor-pointer rounded-[4px] transition-all duration-200 flex items-center justify-center font-helvetica text-center font-medium text-[12px] leading-[150%] capitalize no-ligatures group
+    ${filters.status === 'pre-order'
+      ? 'bg-black text-white shadow-sm'
+      : 'bg-white text-black'}`
+  }
+>
+  {/* Sliding overlay */}
+  {! (filters.status === 'pre-order') && (
+    <span
+      className="absolute inset-0 bg-black translate-x-full
+                 transition-transform duration-500 ease-in-out rounded-[4px]
+                 group-hover:translate-x-0"
+    />
+  )}
+
+  {/* Button text */}
+  <span className={`relative z-10 transition-colors duration-500 ease-in-out
+    ${filters.status === 'pre-order' ? 'group-hover:text-white' : 'group-hover:text-white'}`}>
+    Pre-Order
+  </span>
+</button>
+
         </div>
         <p className="text-[10px] text-gray-500 mt-1 font-helvetica">
           New: Published within 30 days • Pre-Order: Published more than 30 days ago

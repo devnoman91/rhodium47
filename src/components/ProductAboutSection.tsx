@@ -248,7 +248,7 @@ const ProductAboutSection: React.FC<ProductAboutSectionProps> = ({ aboutSection 
                         {/* Counts Section */}
                         {currentImage.counts && currentImage.counts.length > 0 && (
                           <div className="rounded-[22px] bg-white  p-[20px]">
-                            <div className="grid grid-cols-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                               {currentImage.counts.map((count, index) => (
                                 <motion.div
                                   key={index}
@@ -257,7 +257,7 @@ const ProductAboutSection: React.FC<ProductAboutSectionProps> = ({ aboutSection 
                                   animate={{ opacity: 1, y: 0 }}
                                   transition={{ delay: index * 0.1 }}
                                 >
-                                  <div className={`flex flex-col items-center text-center justify-center  px-[20px] border-r border-[#ddd] ${((index + 1) % 3 === 0) ? 'border-r-0' : ''}`}>
+                                  <div className={`flex flex-col items-center text-center justify-center  px-[20px] lg:md:border-r md:border-r border-[#ddd] ${((index + 1) % 3 === 0) ? 'border-r-0' : ''}`}>
                                     <span className="text-black text-center font-helvetica text-[50px] not-italic font-bold leading-[120%] tracking-[-1px]">
                                       {count.value}
                                     </span>

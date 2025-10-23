@@ -59,7 +59,10 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         {/* Full Spectrum Color Section */}
         {product.fullSpectrumColorSection && (
           <section className="mb-16 py-12 bg-white">
-            <h2 className="text-black text-center font-helvetica text-[64px] font-medium leading-[110%] tracking-[-1.28px] mb-[60px]">{product.fullSpectrumColorSection.name}</h2>
+    <h2 className="text-black text-center font-helvetica text-[30px] font-medium leading-[110%] tracking-[-0.6px] md:text-[64px] md:tracking-[-1.28px] mb-[60px]">
+  {product.fullSpectrumColorSection.name}
+</h2>
+
             {product.fullSpectrumColorSection.sections && product.fullSpectrumColorSection.sections.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-[40px]">
                 {product.fullSpectrumColorSection.sections.map((section, index) => (
@@ -74,8 +77,13 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                       </div>
                       
                     )}
-                    <h3 className="text-[#111] text-center font-helvetica text-[16px] font-medium leading-[150%] capitalize mb-[14px]">{section.name}</h3>
-                    <p className="text-center text-[#111] text-[16px] font-normal leading-[20px] font-helvetica">{section.description}</p>
+                <h3 className="text-[#111] text-center font-helvetica text-[16px] font-medium leading-[150%] capitalize mb-[14px]">
+  {section.name}
+</h3>
+<p className="text-[#3F3E4B] text-center font-helvetica text-[16px] font-normal leading-[125%]">
+  {section.description}
+</p>
+
                   </div>
                 ))}
               </div>

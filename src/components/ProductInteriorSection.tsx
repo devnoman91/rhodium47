@@ -106,34 +106,34 @@ const ProductInteriorSection: React.FC<ProductInteriorSectionProps> = ({ interio
   return (
     <section className="py-16 lg:py-24 bg-[#F4F1F2] text-black overflow-hidden" style={{ contain: 'layout style' }}>
       {/* Header Section - Constrained */}
-      <div className="max-w-7xl mx-auto px-6 mb-[63px]" style={{ contain: 'layout style' }}>
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Left - Title */}
-            <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h1 className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
-                {interiorSection.name || 'Interior'}
-              </h1>
-            </motion.div>
+    <div className="max-w-7xl mx-auto px-6 mb-[63px]" style={{ contain: 'layout style' }}>
+  <motion.div
+    variants={containerVariants}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: "-100px" }}
+  >
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap6 lg:gap-16">
+      {/* Left - Title */}
+      <motion.div variants={itemVariants} className="lg:col-span-1">
+        <h1 className="text-black text-[30px] font-medium leading-[110%] tracking-[-0.6px] font-helvetica text-center md:text-[64px] md:tracking-[-1.28px] m-0">
+          {interiorSection.name}
+        </h1>
+      </motion.div>
 
-            {/* Right - Description */}
-            <motion.div
-              variants={itemVariants}
-              className="lg:col-span-1 flex items-center justify-end"
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            >
-              <p className="text-black font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px] ">
-                {interiorSection.description || 'Experience the ultimate in luxury and technology.'}
-              </p>
-            </motion.div>
-          </div>
-        </motion.div>
-      </div>
+      {/* Right - Description */}
+      <motion.div
+        variants={itemVariants}
+        className="lg:col-span-1 flex items-center justify-center lg:justify-end"
+        transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+      >
+        <p className="text-black text-center lg:text-right font-helvetica font-medium text-[16px] leading-[120%] md:leading-[160%] max-w-[480px]">
+          {interiorSection.description}
+        </p>
+      </motion.div>
+    </div>
+  </motion.div>
+</div>
 
       {/* Interior Slider - Extending Full Width */}
       <motion.div

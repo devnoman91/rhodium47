@@ -92,6 +92,7 @@ export default function InventoryClient({
     seatLayout: '',
     additionalOptions: [] as string[]
   });
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const getVehicleStatus = (publishedAt: string): string => {
     const publishedDate = new Date(publishedAt);
@@ -186,30 +187,193 @@ export default function InventoryClient({
     setFilteredVehicles(filtered);
   };
 
+  // Function to check if any filter is active (excluding default price range)
+  const hasActiveFilters = () => {
+    return Object.entries(filters).some(([key, value]) => {
+      if (!value || (Array.isArray(value) && value.length === 0)) return false;
+      if (key === 'priceRange' && Array.isArray(value) &&
+          value[0] === priceRange.min && value[1] === priceRange.max) return false;
+      if (key === 'zipCode' && value === '') return false;
+      if (key === 'status' && value === '') return false;
+      return true;
+    });
+  };
+
+  const clearAllFilters = () => {
+    const reset = {
+      zipCode: '',
+      status: '',
+      models: [],
+      vehicleType: '',
+      armorLevel: '',
+      drivetrain: '',
+      fuelType: '',
+      transmission: '',
+      seatingCapacity: '',
+      modelYear: '',
+      paymentType: '',
+      priceRange: [priceRange.min, priceRange.max] as [number, number],
+      trim: '',
+      mileageYear: '',
+      paint: '',
+      wheels: '',
+      interior: '',
+      seatLayout: '',
+      additionalOptions: []
+    };
+    setFilters(reset);
+    // When clearing filters, still apply the "Due Today" filter
+    setFilteredVehicles(vehicles.filter(vehicle => !vehicle.title.toLowerCase().includes('due today')));
+  };
+
   return (
     <div className="min-h-screen pt-[126px] pb-[95px] bg-[#FFFFFF] relative">
+      {/* Mobile header with inventory title, zip code, new/pre-order buttons, and filter button */}
+      <div className="md:hidden px-[20px] py-4 border-b border-gray-200">
+       
+        <div className="mb-4 flex gap-4">
+          <input
+            type="text"
+            placeholder="Enter zip code"
+            value={filters.zipCode}
+            onChange={(e) => handleFilterChange({ ...filters, zipCode: e.target.value })}
+            className="flex-1 px-1 py-0 placeholder-gray-500 focus:outline-none focus:ring-0 focus:ring-black focus:border-transparent text-[#747474] font-normal text-[12px] leading-[110%] tracking-[-0.24px] underline font-helvetica not-italic decoration-solid"
+          />
+          
+          <button 
+            onClick={() => setIsFilterOpen(true)}
+            className="relative overflow-hidden px-4 py-2 rounded-[4px] bg-black text-white font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures whitespace-nowrap"
+          >
+            Filter
+          </button>
+        </div>
+        
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleFilterChange({ ...filters, status: filters.status === 'new' ? '' : 'new' })}
+            className={`relative overflow-hidden flex-1 rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures group
+              ${filters.status === 'new'
+                ? 'bg-black text-white shadow-sm'
+                : 'bg-[#F4F1F2] text-black'}`}
+          >
+            <span className="relative z-10 transition-colors duration-500 ease-in-out">
+              New
+            </span>
+          </button>
+
+          <button
+            onClick={() => handleFilterChange({ ...filters, status: filters.status === 'pre-order' ? '' : 'pre-order' })}
+            className={`relative overflow-hidden flex-1 rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures group
+              ${filters.status === 'pre-order'
+                ? 'bg-black text-white shadow-sm'
+                : 'bg-[#F4F1F2] text-black'}`}
+          >
+            <span className="relative z-10 transition-colors duration-500 ease-in-out">
+              Pre-Order
+            </span>
+          </button>
+        </div>
+      </div>
+      
       <div className="flex max-w-[1600px] px-[20px] m-auto gap-[45px]">
         <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
 
-        {/* Sidebar */}
-        <div className=" w-full max-w-[200px] bg-white z-[2]  flex-shrink-0 ">
-          <FilterSidebar
-            filters={filters}
-            onFilterChange={handleFilterChange}
-            filterOptions={{
-              ...filterOptions,
-              models: vehicles
-                .filter(v => !v.title.toLowerCase().includes('due today')) // Filter out models with "Due Today" in the title
-                .map(v => v.title)
-                .filter((value, index, self) => self.indexOf(value) === index), // Remove duplicates
-              priceRange: priceRange
-            }}
-          />
+        {/* Sidebar - Hidden on mobile when filter is closed */}
+        <div className={`${isFilterOpen ? 'absolute inset-0 z-50 w-full' : 'hidden'} md:block md:relative md:inset-auto md:z-auto md:w-full md:max-w-[200px] md:bg-white md:z-[2] md:flex-shrink-0`}>
+          <div className={`h-full ${isFilterOpen ? 'bg-white' : ''} md:bg-white`}>
+            {/* Mobile header for filter sidebar */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 md:hidden">
+              <h2 className="text-xl font-helvetica font-medium text-black">Filters</h2>
+              <button 
+                onClick={() => setIsFilterOpen(false)}
+                className="text-black text-xl"
+              >
+                ×
+              </button>
+            </div>
+            
+            {/* New and Pre-Order buttons in sidebar */}
+            <div className="hidden md:block mb-6 px-5 pt-5">
+              <div className="flex gap-2 px-[17px] py-[8px] rounded-[4px]" style={{ backgroundColor: '#F4F1F2' }}>
+                <button
+                  onClick={() => handleFilterChange({ ...filters, status: filters.status === 'new' ? '' : 'new' })}
+                  className={`relative overflow-hidden flex-1 rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures group
+                    ${filters.status === 'new'
+                      ? 'bg-white text-gray-900 shadow-sm'
+                      : 'bg-black text-white'}`}
+                >
+                  {/* Sliding overlay */}
+                  {! (filters.status === 'new') && (
+                    <span
+                      className="absolute inset-0 bg-white translate-x-full
+                                 transition-transform duration-500 ease-in-out rounded-[4px]
+                                 group-hover:translate-x-0"
+                    />
+                  )}
+
+                  {/* Button text */}
+                  <span className={`relative z-10 transition-colors duration-500 ease-in-out
+                    ${filters.status === 'new' ? 'group-hover:text-black' : 'group-hover:text-black'}`}>
+                    New
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => handleFilterChange({ ...filters, status: filters.status === 'pre-order' ? '' : 'pre-order' })}
+                  className={`relative overflow-hidden flex-1 px-[2px] py-[7px] cursor-pointer rounded-[4px] transition-all duration-200 flex items-center justify-center font-helvetica text-center font-medium text-[12px] leading-[150%] capitalize no-ligatures group
+                    ${filters.status === 'pre-order'
+                      ? 'bg-black text-white shadow-sm'
+                      : 'bg-white text-black'}`}
+                >
+                  {/* Sliding overlay */}
+                  {! (filters.status === 'pre-order') && (
+                    <span
+                      className="absolute inset-0 bg-black translate-x-full
+                                 transition-transform duration-500 ease-in-out rounded-[4px]
+                                 group-hover:translate-x-0"
+                    />
+                  )}
+
+                  {/* Button text */}
+                  <span className={`relative z-10 transition-colors duration-500 ease-in-out
+                    ${filters.status === 'pre-order' ? 'group-hover:text-white' : 'group-hover:text-white'}`}>
+                    Pre-Order
+                  </span>
+                </button>
+              </div>
+            </div>
+            
+            <FilterSidebar
+              filters={filters}
+              onFilterChange={handleFilterChange}
+              filterOptions={{
+                ...filterOptions,
+                models: vehicles
+                  .filter(v => !v.title.toLowerCase().includes('due today')) // Filter out models with "Due Today" in the title
+                  .map(v => v.title)
+                  .filter((value, index, self) => self.indexOf(value) === index), // Remove duplicates
+                priceRange: priceRange
+              }}
+            />
+          </div>
         </div>
 
         {/* Main content */}
         <div className="flex-1 min-h-screen pt-[50px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[15px] gap-y-[35px]">
+          
+          {/* Show Clear Filters button when filters are active */}
+          {hasActiveFilters() && (
+            <div className="mb-6">
+              <button
+                onClick={clearAllFilters}
+                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors text-sm font-helvetica"
+              >
+                Clear Filters
+              </button>
+            </div>
+          )}
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-[15px] gap-y-[35px]">
             {filteredVehicles.map((vehicle) => {
               const specsText = extractTopHeadingSpecs(vehicle.descriptionHtml || '');
 
@@ -306,32 +470,7 @@ export default function InventoryClient({
             <div className="text-center py-12">
               <p className="text-gray-500 text-lg">No vehicles match your current filters.</p>
               <button
-                onClick={() => {
-                  const reset = {
-                    zipCode: '',
-                    status: '',
-                    models: [],
-                    vehicleType: '',
-                    armorLevel: '',
-                    drivetrain: '',
-                    fuelType: '',
-                    transmission: '',
-                    seatingCapacity: '',
-                    modelYear: '',
-                    paymentType: '',
-                    priceRange: [priceRange.min, priceRange.max] as [number, number],
-                    trim: '',
-                    mileageYear: '',
-                    paint: '',
-                    wheels: '',
-                    interior: '',
-                    seatLayout: '',
-                    additionalOptions: []
-                  };
-                  setFilters(reset);
-                  // When clearing filters, still apply the "Due Today" filter
-                  setFilteredVehicles(vehicles.filter(vehicle => !vehicle.title.toLowerCase().includes('due today')));
-                }}
+                onClick={clearAllFilters}
                 className="mt-4 px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
               >
                 Clear All Filters

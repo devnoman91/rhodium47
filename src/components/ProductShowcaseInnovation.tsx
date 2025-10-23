@@ -62,35 +62,50 @@ const ProductShowcaseInnovation: React.FC<ProductShowcaseInnovationProps> = ({ s
   return (
     <section className="py-16 lg:py-24 bg-[#111111] text-white overflow-hidden">
       {/* Top Section - Constrained */}
-      <div className="max-w-7xl mx-auto px-6 mb-16 lg:mb-20">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+     <div className="max-w-7xl mx-auto px-6 mb-16 lg:mb-20">
+  <motion.div
+    variants={containerVariants}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: "-100px" }}
+  >
+    {/* Title and Description Section */}
+    <motion.div
+      variants={itemVariants}
+      className="flex flex-col md:flex-row items-center md:items-start  mb-[70px] text-center md:text-left"
+      transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+    >
+      {/* Title Section */}
+      <div className="flex-shrink-0 w-full md:w-auto">
+        <h1
+          className="
+            text-white font-helvetica font-medium
+            text-[30px] leading-[70px]
+            md:text-[64px] md:leading-[70px]
+            leading-trim-both text-edge-cap
+          "
         >
-          {/* Title and Description Section - Flex Layout */}
-          <motion.div
-            variants={itemVariants}
-            className="flex items-center gap-6 mb-[70px]"
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
-          >
-            {/* Title Section */}
-            <div className="flex-shrink-0">
-              <h1 className="text-white font-helvetica text-[64px] font-medium leading-[70px]">
-                {showcaseInnovation.main.title}
-              </h1>
-            </div>
-
-            {/* Description Section */}
-            <div className="flex flex-col gap-3 max-w-[450px] ml-auto">
-              <p className="text-[16px] leading-[30px] tracking-[0] m-0 font-normal font-helvetica opacity-70">
-                {showcaseInnovation.main.description}
-              </p>
-            </div>
-          </motion.div>
-        </motion.div>
+          {showcaseInnovation.main.title}
+        </h1>
       </div>
+
+      {/* Description Section */}
+      <div className="flex flex-col gap-3 max-w-[450px] md:ml-auto w-full">
+        <p
+          className="
+            text-[16px] leading-[20px] md:leading-[30px]
+            font-medium font-helvetica
+            text-white/63 m-0
+            text-center md:text-left
+            leading-trim-both text-edge-cap
+          "
+        >
+          {showcaseInnovation.main.description}
+        </p>
+      </div>
+    </motion.div>
+  </motion.div>
+</div>
 
       {/* Blog Section - Extending Full Width */}
       <motion.div

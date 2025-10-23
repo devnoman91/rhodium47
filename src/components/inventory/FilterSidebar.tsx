@@ -62,7 +62,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
   };
 
   return (
-    <div className="bg-white overflow-y-auto no-scrollbar h-full">
+    <div className="bg-white overflow-y-auto p-5 no-scrollbar h-full">
       {/* Header */}
       <div className="mb-0">
         <h2 className="font-helvetica text-black mb-[5px] font-medium text-[26px] leading-[110%] tracking-[-0.52px]">Inventory</h2>
@@ -106,79 +106,46 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             );
           })}
         </div>
-      </div>
-
-      {/* Zip Code Input */}
-      <div className="mb-[28px]">
-        <input
-          type="text"
-          placeholder="Enter zip code"
-          value={filters.zipCode}
-          onChange={(e) => updateFilter('zipCode', e.target.value)}
-          className="w-full px-1 py-0 placeholder-gray-500 focus:outline-none focus:ring-0 focus:ring-black focus:border-transparent text-[#747474] font-normal text-[12px] leading-[110%] tracking-[-0.24px] underline font-helvetica not-italic decoration-solid"
-        />
-      </div>
-
-      {/* Status Filter */}
-      <div className="mb-[28px]">
-        <div className="flex gap-2 px-[17px] py-[8px] rounded-[4px]" style={{ backgroundColor: '#F4F1F2' }}>
-      <button
-  onClick={() => updateFilter('status', filters.status === 'new' ? '' : 'new')}
-  className={`relative overflow-hidden flex-1 rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures group
-    ${filters.status === 'new'
-      ? 'bg-white text-gray-900 shadow-sm'
-      : 'bg-black text-white'}`
-  }
->
-  {/* Sliding overlay */}
-  {! (filters.status === 'new') && (
-    <span
-      className="absolute inset-0 bg-white translate-x-full
-                 transition-transform duration-500 ease-in-out rounded-[4px]
-                 group-hover:translate-x-0"
-    />
-  )}
-
-  {/* Button text */}
-  <span className={`relative z-10 transition-colors duration-500 ease-in-out
-    ${filters.status === 'new' ? 'group-hover:text-black' : 'group-hover:text-black'}`}>
-    New
-  </span>
-</button>
-
-<button
-  onClick={() => updateFilter('status', filters.status === 'pre-order' ? '' : 'pre-order')}
-  className={`relative overflow-hidden flex-1 px-[14px] py-[7px] cursor-pointer rounded-[4px] transition-all duration-200 flex items-center justify-center font-helvetica text-center font-medium text-[12px] leading-[150%] capitalize no-ligatures group
-    ${filters.status === 'pre-order'
-      ? 'bg-black text-white shadow-sm'
-      : 'bg-white text-black'}`
-  }
->
-  {/* Sliding overlay */}
-  {! (filters.status === 'pre-order') && (
-    <span
-      className="absolute inset-0 bg-black translate-x-full
-                 transition-transform duration-500 ease-in-out rounded-[4px]
-                 group-hover:translate-x-0"
-    />
-  )}
-
-  {/* Button text */}
-  <span className={`relative z-10 transition-colors duration-500 ease-in-out
-    ${filters.status === 'pre-order' ? 'group-hover:text-white' : 'group-hover:text-white'}`}>
-    Pre-Order
-  </span>
-</button>
-
+        
+        {/* Clear All Button */}
+        <div className="mt-4">
+          <button
+            onClick={() => {
+              const reset = {
+                zipCode: '',
+                status: '',
+                models: [],
+                vehicleType: '',
+                armorLevel: '',
+                drivetrain: '',
+                fuelType: '',
+                transmission: '',
+                seatingCapacity: '',
+                modelYear: '',
+                paymentType: '',
+                priceRange: [filterOptions.priceRange?.min || 0, filterOptions.priceRange?.max || 1000] as [number, number],
+                trim: '',
+                mileageYear: '',
+                paint: '',
+                wheels: '',
+                interior: '',
+                seatLayout: '',
+                additionalOptions: []
+              };
+              onFilterChange(reset);
+            }}
+            className="w-full text-center  mb-5 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors text-sm font-helvetica"
+          >
+            Clear All Filters
+          </button>
         </div>
-        <p className="text-[10px] text-gray-500 mt-1 font-helvetica">
-          New: Published within 30 days • Pre-Order: Published more than 30 days ago
-        </p>
       </div>
+
+   
 
       {/* Model Filter */}
       <ExpandableFilterSection title="Model" isExpanded={true}>
-        <div className="space-y-3">
+        <div className="space-y-3 ">
           {filterOptions.models?.map((model: string) => (
             <label key={model} className="flex items-center cursor-pointer">
               <input
@@ -296,3 +263,4 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
     </div>
   );
 }
+

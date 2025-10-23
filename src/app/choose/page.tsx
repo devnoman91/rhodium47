@@ -84,6 +84,7 @@ const criticalInlineStyles = `
     line-height: 110%; 
     letter-spacing: -0.24px;
     text-decoration-line: underline;
+    margin-bottom:40px;
   }
   .survey-step-line-segment {
     position: absolute;

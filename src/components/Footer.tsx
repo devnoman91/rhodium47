@@ -135,7 +135,7 @@ const Footer = () => {
               <div>
               <div className="md:col-span-2 lg:col-span-1">
                 <div>
-                  <p className="footer-description !text-[#FFF] !font-figtree !text-[24px] !not-italic !font-normal !leading-[34px] !tracking-[-0.48px] !mb-0 !mt-0 !p-0 !block !max-w-2xl !pr-0 !font-[Figtree]">
+                  <p className="footer-description !text-[#FFF] font-helvetica !font-figtree !text-[24px] !not-italic !font-normal !leading-[34px] !tracking-[-0.48px] !mb-0 !mt-0 !p-0 !block !max-w-2xl !pr-0 ">
                     {footerData.description}
                   </p>
                   <button

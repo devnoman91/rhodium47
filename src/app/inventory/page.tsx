@@ -146,7 +146,7 @@ export default async function InventoryPage() {
       model: product.title,
       title: product.title,
       price: parseFloat(product.priceRange.minVariantPrice.amount),
-      image: product.images[0]?.url || '/images/vehicle.png',
+      image: product.images[0]?.url ,
       description: product.description,
       descriptionHtml: product.descriptionHtml || '', // Include descriptionHtml
       handle: product.handle,

@@ -1,6 +1,6 @@
 'use server';
 
-import { createCart, addToCart } from '@/lib/shopify';
+import { createCart, addToCart, getProducts } from '@/lib/shopify';
 import { cookies } from 'next/headers';
 
 export async function directCheckout(merchandiseId: string, variantTitle?: string) {
@@ -16,13 +16,29 @@ export async function directCheckout(merchandiseId: string, variantTitle?: strin
       cookieStore.set('cartId', cart.id);
     }
 
-    // Add ONLY the selected variant to the fresh cart
-    const updatedCart = await addToCart([
+    // Fetch all products to find the "Due Today" product by name
+    const allProducts = await getProducts({ first: 100 });
+    const dueTodayProduct = allProducts.find((product: any) => 
+      product.title.toLowerCase().includes('due today')
+    );
+
+    // Prepare cart items - the selected product + the "Due Today" product if found
+    const cartItems = [
       {
         merchandiseId,
         quantity: 1
       }
-    ]);
+    ];
+
+    // Add the "Due Today" product as a second item if found
+    if (dueTodayProduct && dueTodayProduct.variants && dueTodayProduct.variants.length > 0) {
+      cartItems.push({
+        merchandiseId: dueTodayProduct.variants[0].id, // Use the first variant
+        quantity: 1
+      });
+    }
+
+    const updatedCart = await addToCart(cartItems);
 
     // Return the checkout URL with variant info
     return {

@@ -428,26 +428,54 @@ export default function ProductHeroSection({ heroSection }: ProductHeroSectionPr
           )}
 
           <div className="btn_wrapper">
-            <a
-              href={heroSection.primaryButton?.link || '#'}
-              className="product-hero-button"
-              style={{
-                transition: 'background-color 0.2s ease',
-                textDecoration: 'none'
-              }}
-            >
-              {heroSection.primaryButton?.text || 'Order Now'}
-            </a>
-            <a
-              href={heroSection.secondaryButton?.link || '#'}
-              className="product-hero-secondary-button"
-              style={{
-                transition: 'background-color 0.2s ease',
-                textDecoration: 'none'
-              }}
-            >
-              {heroSection.secondaryButton?.text || 'Demo Drive'}
-            </a>
+            {/* Primary Button (Order Now) */}
+<a
+  href={heroSection.primaryButton?.link || '#'}
+  className="relative overflow-hidden inline-flex justify-center items-center
+             product-hero-button rounded-full px-6 py-3 font-helvetica text-[16px] font-medium
+             cursor-pointer group focus:outline-none border border-transparent
+             transition-all"
+  style={{
+    transition: 'background-color 0.2s ease',
+    textDecoration: 'none',
+  }}
+>
+  {/* Sliding overlay */}
+  <span
+    className="absolute inset-0 bg-black translate-x-full
+               transition-transform duration-500 ease-in-out rounded-full
+               group-hover:translate-x-0"
+  />
+  {/* Text */}
+  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+    {heroSection.primaryButton?.text || 'Order Now'}
+  </span>
+</a>
+
+{/* Secondary Button (Demo Drive) */}
+<a
+  href={heroSection.secondaryButton?.link || '#'}
+  className="relative overflow-hidden inline-flex justify-center items-center
+             product-hero-secondary-button rounded-full px-6 py-3 font-helvetica text-[16px] font-medium
+             cursor-pointer group focus:outline-none border border-black
+             transition-all"
+  style={{
+    transition: 'background-color 0.2s ease',
+    textDecoration: 'none',
+  }}
+>
+  {/* Sliding overlay */}
+  <span
+    className="absolute inset-0 bg-white translate-x-full
+               transition-transform duration-500 ease-in-out rounded-full
+               group-hover:translate-x-0"
+  />
+  {/* Text */}
+  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black ">
+    {heroSection.secondaryButton?.text || 'Demo Drive'}
+  </span>
+</a>
+
           </div>
         </div>
       </div>

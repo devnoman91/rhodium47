@@ -49,7 +49,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className={`fixed left-0 right-0 z-50 px-12 py-4 font-helvetica transition-all duration-600 ${
+    <nav className={`fixed left-0 right-0 z-50 md:px-12 px-5 py-4 font-helvetica transition-all duration-600 ${
       shouldBeTransparent
         ? isScrolled   
         // bg-black/95

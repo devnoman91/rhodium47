@@ -99,6 +99,25 @@ const criticalInlineStyles = `
     background: #FFF;
     cursor: pointer;
   }
+@media (max-width: 767px) {
+.hero-content{
+    display: flex;
+    width: 100% !important;
+    height: 70%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100% !important;
+    right: 20px;
+    transform: unset;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    text-align: center;
+    padding:0 20px;
+}
+}
 `
 
 // Segmented circular indicator + numeric list with divider
@@ -542,7 +561,7 @@ export default function HeroCarousel() {
 
         {/* Content with stable positioning */}
         <div className="hero-content">
-          <div style={{
+          <div className='md:block hidden' style={{
             width: '30rem',
             height: '0.25rem',
             backgroundColor: 'rgba(255, 255, 255, 0.3)',
@@ -552,7 +571,7 @@ export default function HeroCarousel() {
             position: 'relative',
             overflow: 'hidden'
           }}>
-            <div style={{
+            <div  style={{
               width: `${((currentIndex + 1) / videos.length) * 100}%`,
               height: '100%',
               backgroundColor: 'white',
@@ -565,48 +584,50 @@ export default function HeroCarousel() {
               {currentVideo.name}
             </h1>
           )}
-          {currentVideo?.subtitle && (
+         <div>
+            {currentVideo?.subtitle && (
             <p className="hero-subtitle">
               {currentVideo.subtitle}
             </p>
           )}
 
-<Link href="/inventory">
-  <motion.button
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
-    transition={{ type: "spring", stiffness: 300, damping: 15 }}
-    className="relative overflow-hidden flex items-center gap-[12px] px-6 py-3 rounded-full
-               bg-white text-black font-helvetica font-medium text-[16px]
-               border border-transparent cursor-pointer group
-               focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-    aria-label="Explore models"
-  >
-    {/* sliding overlay */}
-    <span
-      className="absolute inset-0 bg-black translate-x-full
-                 transition-transform duration-500 ease-in-out rounded-full
-                 group-hover:translate-x-0"
-    />
+            <Link href="/inventory">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                className="md:m-0 m-auto relative overflow-hidden flex items-center gap-[12px] px-6 py-3 rounded-full
+                          bg-white text-black font-helvetica font-medium text-[16px]
+                          border border-transparent cursor-pointer group
+                          focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                aria-label="Explore models"
+              >
+                {/* sliding overlay */}
+                <span
+                  className="absolute inset-0 bg-black translate-x-full
+                            transition-transform duration-500 ease-in-out rounded-full
+                            group-hover:translate-x-0"
+                />
 
-    {/* icon */}
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="22"
-      height="18"
-      viewBox="0 0 22 18"
-      fill="currentColor"
-      className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white"
-    >
-      <path d="M21.2441 9.61955L13.3691 17.4946C13.2049 17.6587 12.9822 17.751 12.75 17.751C12.5178 17.751 12.2951 17.6587 12.1309 17.4946C11.9668 17.3304 11.8745 17.1077 11.8745 16.8755C11.8745 16.6433 11.9668 16.4206 12.1309 16.2564L18.513 9.87549H1.375C1.14294 9.87549 0.920376 9.7833 0.756282 9.61921C0.592187 9.45511 0.5 9.23255 0.5 9.00049C0.5 8.76842 0.592187 8.54586 0.756282 8.38177C0.920376 8.21767 1.14294 8.12549 1.375 8.12549H18.513L12.1309 1.74455C11.9668 1.58036 11.8745 1.35768 11.8745 1.12549C11.8745 0.893293 11.9668 0.67061 12.1309 0.506424C12.2951 0.342238 12.5178 0.25 12.75 0.25C12.9822 0.25 13.2049 0.342238 13.3691 0.506424L21.2441 8.38142C21.3254 8.46269 21.39 8.55919 21.434 8.66541C21.478 8.77164 21.5007 8.8855 21.5007 9.00049C21.5007 9.11548 21.478 9.22934 21.434 9.33556C21.39 9.44178 21.3254 9.53829 21.2441 9.61955Z" />
-    </svg>
+                {/* icon */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="18"
+                  viewBox="0 0 22 18"
+                  fill="currentColor"
+                  className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white"
+                >
+                  <path d="M21.2441 9.61955L13.3691 17.4946C13.2049 17.6587 12.9822 17.751 12.75 17.751C12.5178 17.751 12.2951 17.6587 12.1309 17.4946C11.9668 17.3304 11.8745 17.1077 11.8745 16.8755C11.8745 16.6433 11.9668 16.4206 12.1309 16.2564L18.513 9.87549H1.375C1.14294 9.87549 0.920376 9.7833 0.756282 9.61921C0.592187 9.45511 0.5 9.23255 0.5 9.00049C0.5 8.76842 0.592187 8.54586 0.756282 8.38177C0.920376 8.21767 1.14294 8.12549 1.375 8.12549H18.513L12.1309 1.74455C11.9668 1.58036 11.8745 1.35768 11.8745 1.12549C11.8745 0.893293 11.9668 0.67061 12.1309 0.506424C12.2951 0.342238 12.5178 0.25 12.75 0.25C12.9822 0.25 13.2049 0.342238 13.3691 0.506424L21.2441 8.38142C21.3254 8.46269 21.39 8.55919 21.434 8.66541C21.478 8.77164 21.5007 8.8855 21.5007 9.00049C21.5007 9.11548 21.478 9.22934 21.434 9.33556C21.39 9.44178 21.3254 9.53829 21.2441 9.61955Z" />
+                </svg>
 
-    {/* text */}
-    <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
-      Explore Models
-    </span>
-  </motion.button>
-</Link>
+                {/* text */}
+                <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+                  Explore Models
+                </span>
+              </motion.button>
+            </Link>
+         </div>
 
         </div>
 

@@ -287,14 +287,14 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
   return (
     <section
       ref={containerRef}
-      className="py-10 lg:py-10 bg-[#F4F1F2] relative overflow-hidden"
+      className="py-[35px] lg:py-10 bg-[#F4F1F2] relative overflow-hidden"
       style={{
         scrollSnapType: 'y proximity',
         scrollBehavior: isSliderComplete.current ? 'smooth' : 'auto'
       }}
     >
       {/* Header Section */}
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 md:block hidden">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -305,9 +305,9 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
             {/* Left - Title with Enhanced Animation */}
             <motion.div
               variants={titleVariants}
-              className="mb-1 lg:mb-0"
+              className="mb-[24px] lg:mb-0 m-auto"
             >
-              <h1 className="text-black font-helvetica text-[64px] not-italic font-medium leading-[110%] tracking-[-1.28px]">
+              <h1 className="md:text-left text-center font-helvetica md:text-[64px] text-[30px] not-italic font-medium md:leading-[110%] leading-[40px] tracking-[-1.28px]">
                 <motion.span
                   variants={titleLineVariants}
                   className="block"
@@ -328,7 +328,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
             {/* Right - Description and Buttons */}
             <motion.div variants={itemVariants} className="flex flex-col items-start max-w-md">
               <motion.p
-                className="text-black font-helvetica text-[16px] not-italic font-medium leading-[160%] mb-[16px]"
+                className="md:text-left text-center text-black font-helvetica text-[16px] not-italic font-medium leading-[160%] mb-[16px]"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -363,7 +363,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
             >
               <div className="w-full flex justify-center">
                 <motion.div
-                  className="flex cursor-grab active:cursor-grabbing"
+                  className="flex cursor-grab active:cursor-grabbing !w-full"
                   drag="x"
                   dragConstraints={{ left: -30, right: 30 }}
                   dragElastic={0.1}
@@ -442,7 +442,7 @@ const VehicleSlide: React.FC<{
     >
       {/* Vehicle Image with Enhanced Animation */}
       <motion.div
-        className="relative mb-2 h-[390px] "
+        className="relative mb-2 md:h-[390px] "
         initial={{ opacity: 0, scale: 0.8, y: 50 }}
         animate={{
           opacity: isActive ? 1 : 0.6,
@@ -511,7 +511,7 @@ const VehicleSlide: React.FC<{
 
    {/* Action Buttons with Enhanced Animations */}
   <motion.div
-    className="flex flex-col sm:flex-row gap-[16px] justify-center items-center"
+    className="flex flex-row gap-[16px] justify-center items-center"
     initial={{ opacity: 0, y: 30 }}
     animate={{
       opacity: isActive ? 1 : 0.3,

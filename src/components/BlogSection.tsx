@@ -120,19 +120,19 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
   }, [blogData.products, categories])
 
   return (
-    <section className=" bg-white pt-30">
-      <div className=" mx-auto px-6">
+    <section className=" bg-white md:pt-30 pt-[54px] md:pb-[76px]">
+      <div className=" mx-auto">
         {/* Title & Categories */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="text-center mb-8 md:mb-12 lg:mb-16"
+          className="text-center mb-[30px] md:mb-12 lg:mb-16 px-5"
         >
           <motion.h2
             variants={itemVariants}
-            className="text-[32px] md:text-[48px] lg:text-[56px] xl:text-[64px] not-italic tracking-[0] leading-[110%] text-black font-medium max-w-[730px] text-center mx-auto mb-[50px] md:mb-8 lg:mb-[50px] font-helvetica"
+            className="text-[30px] md:text-[48px] lg:text-[56px] xl:text-[64px] not-italic tracking-[0] md:leading-[110%] leading-[40px] text-black font-medium max-w-[730px] text-center mx-auto mb-[50px] md:mb-8 lg:mb-[50px] font-helvetica"
             transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
           >
             {blogData.mainSectionTitle}
@@ -141,7 +141,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
           {/* Category Tabs */}
           <motion.div
             variants={itemVariants}
-            className="mb-[80px] mx-auto overflow-hidden"
+            className="md:mb-[80px] mb-[48px] mx-auto overflow-hidden"
             transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             style={{ width: 'fit-content', maxWidth: '100%' }}
           >
@@ -161,12 +161,12 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
                   <motion.button
                     key={category}
                     onClick={() => handleCategoryChange(category)}
-                    className={`tab relative px-7 py-3 border-none bg-transparent rounded-[20px] text-base cursor-pointer font-medium h-fit transition-colors duration-300 font-helvetica whitespace-nowrap ${
+                    className={`tab md:min-w-[120px] relative md:px-7 px-4 py-3 border-none bg-transparent rounded-[20px] md:text-base text-[14px] cursor-pointer font-medium h-fit transition-colors duration-300 font-helvetica whitespace-nowrap ${
                       highlightedCategory === category
                         ? 'text-black z-10'
                         : 'text-white hover:text-[#ccc]'
                     }`}
-                    style={{ minWidth: '120px' }}
+                   
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -199,7 +199,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
           className="overflow-hidden"
         >
           <motion.div
-            className="flex space-x-[43px] cursor-grab active:cursor-grabbing"
+            className="flex md:space-x-[43px] space-x-[30px] cursor-grab active:cursor-grabbing"
             drag="x"
             dragConstraints={{
               left: -((blogData.products.length - 3) * 493),
@@ -235,10 +235,10 @@ const BlogCard: React.FC<{ product: BlogProduct; index: number }> = React.memo((
    <motion.div
   variants={cardVariants}
   transition={{ duration: 0.6, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
-  className="group bg-white font-helvetica  w-[32%] flex-shrink-0 h-[600px] flex flex-col"
+  className="group bg-white font-helvetica  md:w-[32%] w-full flex-shrink-0 flex flex-col"
 >
   {/* Image */}
-  <div className="relative rounded-2xl h-[400px] w-full">
+  <div className="relative rounded-2xl md:h-[400px] h-[250px] w-full">
     <img
       src={product.image.asset.url}
       alt={product.image.alt || product.title}
@@ -254,7 +254,7 @@ const BlogCard: React.FC<{ product: BlogProduct; index: number }> = React.memo((
   </div>
 
   {/* Content */}
-  <div className="p-[28px] flex flex-col flex-1">
+  <div className="md:p-[28px] pt-[15px] pb-[45px]  px-[15px] flex flex-col flex-1">
     <h3 className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal text-[#3F3E4B] text-center font-helvetica">
       {product.title}
     </h3>

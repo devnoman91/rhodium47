@@ -117,25 +117,25 @@ const Footer = () => {
   }
 
   return (
-    <footer className="relative text-white overflow-hidden">
+    <footer className="relative text-white overflow-hidden px-5 ">
       {/* Background Image */}
       <div className="absolute inset-0 bg-[#000000d9] bg-[url('/footer.png')] bg-cover bg-center bg-no-repeat "></div>
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(0deg,#111111_0%,rgba(17,17,17,0)_100%)]"></div>
 
-      <div className="relative z-10 pt-[70px]">
+      <div className="relative z-10 pt-[60px]">
 
      
 
         {/* Main Footer Content */}
-          <div className="max-w-7xl mx-auto border-t border-white pt-8 md:pt-12 lg:pt-[60px]">
+          <div className="max-w-7xl mx-auto sm:border-t sm:border-white  md:pt-12 lg:pt-[60px]">
             {/* Top Row - Responsive layout */}
             <div className="flex flex-col lg:grid lg:grid-cols-[35%_55%] gap-8 lg:gap-0 lg:justify-between">
               {/* Company Description */}
               <div>
               <div className="md:col-span-2 lg:col-span-1">
                 <div>
-                  <p className="footer-description !text-[#FFF] font-helvetica !font-figtree !text-[24px] !not-italic !font-normal !leading-[34px] !tracking-[-0.48px] !mb-0 !mt-0 !p-0 !block !max-w-2xl !pr-0 ">
+                  <p className="footer-description !text-[#FFF] font-helvetica !font-figtree !text-[24px] !not-italic !font-normal !leading-[34px] !tracking-[-0.48px] !mb-[34px] !mt-0 !p-0 !block !max-w-2xl !pr-0 ">
                     {footerData.description}
                   </p>
                   <button
@@ -152,7 +152,7 @@ const Footer = () => {
 
 
                 {/* Bottom Row - Newsletter Subscription */}
-                <div className="max-w-xl lg:max-w-2xl pt-6 md:pt-8">
+                <div className="max-w-xl lg:max-w-2xl pt-6 md:pt-8 md:block hidden" >
                   <p className="opacity-80 !text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px]">{footerData.newsletterTitle}</p>
                   <form onSubmit={handleMainSubscription} className="max-w-[320px] md:max-w-[370px] mt-3 md:mt-[14px] flex items-center px-4 md:px-[20px] py-3 md:py-[16px] gap-3 md:gap-[16px] self-stretch rounded-[70px] border border-white">
                     <input
@@ -185,10 +185,10 @@ const Footer = () => {
                 </div>
               </div>
               </div>
-            <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 lg:gap-12 mb-8 md:mb-12'>
+            <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-12 mb-8 md:mb-12'>
               {footerData.footerSections.map((section, index) => (
                 <div key={index}>
-                  <h4 className="text-white text-[16px] md:text-[18px] not-italic font-medium leading-[26px] md:leading-[34px] font-helvetica tracking-[-0.32px] md:tracking-[-0.36px] mb-4 md:mb-6">
+                  <h4 className="text-white text-[16px] md:text-[18px] not-italic font-medium leading-[26px] md:leading-[34px] font-helvetica tracking-[-0.32px] md:tracking-[-0.36px] mb-6">
                     {section.title}
                   </h4>
                   <ul className="space-y-4 text-gray-300">
@@ -196,7 +196,7 @@ const Footer = () => {
                       <li key={linkIndex} className="mb-0">
                         <a
                           href={link.href}
-                          className="opacity-80 text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity"
+                          className="opacity-80 text-[#FFFFFFCC] font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px] hover:opacity-100 transition-opacity"
                         >
                           {link.label}
                         </a>
@@ -206,6 +206,38 @@ const Footer = () => {
                 </div>
               ))}
               </div>
+             
+              <div className="max-w-xl lg:max-w-2xl pt-6 md:pt-8 md:hidden block mb-[49px] m-auto">
+                  <p className="opacity-80 !text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[24px] md:leading-[34px] tracking-[-0.28px] md:tracking-[-0.38px]">{footerData.newsletterTitle}</p>
+                  <form onSubmit={handleMainSubscription} className="max-w-[320px] md:max-w-[370px] mt-3 md:mt-[14px] flex items-center px-4 md:px-[20px] py-3 md:py-[16px] gap-3 md:gap-[16px] self-stretch rounded-[70px] border border-white">
+                    <input
+                      type="email"
+                      value={mainEmail}
+                      onChange={(e) => setMainEmail(e.target.value)}
+                      placeholder={footerData.newsletterPlaceholder}
+                      required
+                      className="w-full focus:outline-none text-white font-helvetica text-[14px] md:text-[16px] not-italic font-normal leading-[20px] md:leading-[28px] tracking-[-0.28px] md:tracking-[-0.38px] bg-transparent placeholder-gray-400"
+                    />
+                    <button
+                      type="submit"
+                      disabled={mainIsSubmitting}
+                      className="cursor-pointer w-4 md:w-[20px] h-5 md:h-[24px] flex-shrink-0 disabled:opacity-50"
+                    >
+                     <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                      <path d="M11.22 6.8L5.72 1.94L6.64 0.839999L12.68 6.06L11.22 6.8ZM0.36 6.78V5.32H11.36V6.78H0.36ZM6.62 11.24L5.7 10.14L11.22 5.3L12.68 6.06L6.62 11.24Z" fill="white"/>
+                      </svg>
+                    </button>
+                  </form>
+
+                  {/* Main Message Display */}
+                  {mainMessage && (
+                    <div className={`mt-3 text-[14px] md:text-[16px] font-helvetica not-italic font-medium leading-[150%] ${
+                      mainMessageType === 'success' ? 'text-green-400' : 'text-red-400'
+                    }`}>
+                      {mainMessage}
+                    </div>
+                  )}
+                </div>
             </div>
           </div>
 

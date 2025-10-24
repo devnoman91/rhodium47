@@ -30,8 +30,8 @@ const cardVariants = {
 
 const ProductShowcase: React.FC<ProductShowcaseProps> = ({ products }) => {
   return (
-    <section className="py-[80px] lg:py-24 bg-white">
-      <div className="mx-auto px-6 px-12">
+    <section className="md:py-[80px] pt-[78px] pb-[50px] lg:py-24 md:bg-white">
+      <div className="mx-auto px-5">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -69,16 +69,16 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
         delay: index * 0.2,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="group bg-[#F4F1F2] rounded-[16px] transition-colors duration-300"
+      className="group md:bg-[#F4F1F2] md:rounded-[16px] transition-colors duration-300"
     >
-      <div className="flex items-center gap-6 flex-row-reverse justify-between">
+      <div className="flex items-center gap-6 md:flex-row-reverse justify-between">
         {/* Image Section */}
         <div className="flex-shrink-0">
-          <div className="relative w-[280px] h-[240px]  rounded-tl-none rounded-tr-[20px] rounded-br-[20px] rounded-bl-none overflow-hidden bg-gray-200">
+          <div className="relative md:max-w-[280px] max-w-[168px] w-full md:h-[240px] h-[177px]  rounded-tl-none rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px] overflow-hidden bg-gray-200">
             <motion.img
               src={product.image.asset.url}
               alt={product.image.alt || product.title}
-              className="w-full rounded-tl-none rounded-tr-[20px] rounded-br-[20px] rounded-bl-none h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="w-full rounded-[16px] md:rounded-tl-none md:rounded-tr-[20px] md:rounded-br-[20px] md:rounded-bl-none h-full object-cover group-hover:scale-105 transition-transform duration-500"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
             />
@@ -86,7 +86,7 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
         </div>
 
         {/* Content Section */}
-        <div className="flex flex-col gap-2 px-[50px]">
+        <div className="flex flex-col gap-2 md:px-[50px]">
           {/* Title */}
           <h3 className="text-[22px]  leading-[32px] tracking-[0] m-0 font-medium  text-black font-helvetica">
             {product.title}

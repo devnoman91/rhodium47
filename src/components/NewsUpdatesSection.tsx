@@ -39,9 +39,9 @@ const cardVariants = {
 
 const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
   return (
-    <section className="py-16 lg:py-24 bg-[#111] text-white overflow-hidden" style={{ contain: 'layout style' }}>
+    <section className="py-16 lg:py-24 px-5 bg-[#111] text-white overflow-hidden" style={{ contain: 'layout style' }}>
       {/* Header Section - Constrained */}
-      <div className="max-w-7xl mx-auto px-6 mb-[63px]" style={{ contain: 'layout style' }}>
+      <div className="max-w-7xl mx-auto px-6 md:mb-[63px] mb-[85px]" style={{ contain: 'layout style' }}>
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -51,7 +51,7 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             {/* Left - Title */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h1 className="text-[64px] not-italic tracking-normal leading-[70px] font-bold  font-helvetica text-white mb-0">
+              <h1 className="md:text-[64px] text-[30px] md:text-left text-center  not-italic tracking-normal md:leading-[70px]  leading-[33px] font-bold  font-helvetica text-white mb-0">
                 {data.name}
               </h1>
             </motion.div>
@@ -59,7 +59,7 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
             {/* Right - Description */}
             <motion.div
               variants={itemVariants}
-              className="lg:col-span-1 flex items-center  justify-end"
+              className="lg:col-span-1 md:flex hidden items-center  justify-end"
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             >
               <p className="text-[16px] leading-[25px] tracking-[0] m-0 font-medium font-helvetica max-w-[480px]">
@@ -79,11 +79,11 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
         className="relative"
       >
         {/* Left Padding for Content Alignment */}
-        <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
+        <div className="md:pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
           {/* Slider Container */}
-          <div className="relative overflow-visible">
+          <div className="relative overflow-visible w-full">
             <motion.div
-              className="flex gap-5 cursor-grab active:cursor-grabbing"
+              className="flex gap-5 cursor-grab active:cursor-grabbing !w-full"
               drag="x"
               dragConstraints={{ left: -((data.newsSection?.length || 0 - 2.5) * 400), right: 0 }}
               whileHover={{ x: -20 }}
@@ -94,7 +94,7 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
               {data.newsSection && data.newsSection.map((newsItem, index) => (
                 <motion.div
                   key={`${newsItem.slug.current}-${index}`}
-                  className="w-[550px] flex-shrink-0"
+                  className="md:w-[550px] w-full flex-shrink-0"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{
                     opacity: 1,
@@ -116,7 +116,7 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
 
       {/* Bottom gradient overlay for classy fade effect */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        className="absolute w-full bottom-0 left-0 right-0 h-32 pointer-events-none"
         style={{
           background: 'linear-gradient(0deg, #111 0%, rgba(17, 17, 17, 0.00) 100%)'
         }}
@@ -138,7 +138,7 @@ const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(({ 
       className="group  transition-all duration-300"
     >
       {/* Image */}
-      <div className="relative aspect-[1/0.85] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
+      <div className="relative aspect-[1/0.85] overflow-hidden rounded-[20px] md:block hidden" style={{ contain: 'layout style paint' }}>
         <Image
           src={newsItem.image.asset.url}
           alt={newsItem.image.alt || newsItem.title}
@@ -154,9 +154,9 @@ const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(({ 
       </div>
 
       {/* Content */}
-      <div className="pt-6 pr-[5%]">
+      <div className="pt-6 pr-[5%] w-full">
         <div className="mb-[48px]">
-          <h3 className="text-white font-medium text-[24px] leading-[110%] tracking-[-0.24px] mb-2 font-helvetica">
+          <h3 className="text-white font-medium text-[24px] leading-[110%] tracking-[-0.24px] md:mb-2 mb-4 font-helvetica">
             {newsItem.title}
           </h3>
 

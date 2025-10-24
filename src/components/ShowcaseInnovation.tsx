@@ -55,7 +55,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
   }
 
   return (
-    <section className="py-16 lg:py-24 bg-[#111111] text-white overflow-hidden">
+    <section className="pt-[42px] pb-[98px] lg:py-24 bg-[#111111] text-white overflow-hidden">
       {/* Top Section - Constrained */}
       <div className="max-w-7xl mx-auto px-6 mb-16 lg:mb-20">
         <motion.div
@@ -65,18 +65,28 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
           viewport={{ once: true, margin: "-100px" }}
         >
           {/* Main Title */}
-          <motion.div variants={itemVariants} className="mb-[70px]">
-            <h1 className="text-[64px] not-italic tracking-normal leading-[70px] font-medium font-helvetica">
+          <motion.div variants={itemVariants} className="md:mb-[70px] mb-[27px] ">
+            <h1 className="md:text-[64px] text-[30px] not-italic tracking-normal md:leading-[70px] leading-[40px] md:text-left text-center font-medium font-helvetica">
               {data.main.title}
             </h1>
           </motion.div>
+           {/* Description */}
+            <motion.div
+              variants={itemVariants}
+              className="lg:flex-1 block md:hidden mb-[56px]"
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-medium text-center font-helvetica opacity-70">
+                {data.main.description}
+              </p>
+            </motion.div>
 
           {/* Count and Description Section Container */}
-          <div className="grid grid-cols-[57%_38%] justify-between">
+          <div className="md:grid md:grid-cols-[57%_38%] justify-between">
             {/* Count Section */}
             <motion.div
               variants={containerVariants}
-              className="lg:flex-1 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
+              className="lg:flex-1 grid grid-cols-2 lg:grid-cols-4 gap-[62px] md:gap-6 lg:gap-8"
             >
               {data.main.countSection.slice(0, 4).map((item, index) => (
                 <CountCard key={index} item={item} index={index} />
@@ -86,7 +96,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
             {/* Description */}
             <motion.div
               variants={itemVariants}
-              className="lg:flex-1"
+              className="lg:flex-1 md:block hidden"
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             >
               <p className="text-[16px] leading-[30px] tracking-[0] m-0 font-medium font-helvetica opacity-70">
@@ -103,7 +113,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        className="relative"
+        className="relative md:block hidden"
       >
         {/* Left Padding for Content Alignment */}
         <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
@@ -157,10 +167,10 @@ const CountCard: React.FC<{ item: CountItem; index: number }> = React.memo(({ it
       }}
       className="text-left"
     >
-      <div className="mb-[20px] text-[29px] md:text-[36px] lg:text-[48px] not-italic tracking-normal leading-[50px] font-medium font-helvetica  max-w-[100px] md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0">
+      <div className="mb-[20px] text-[48px] not-italic tracking-normal leading-[50px] font-medium font-helvetica   md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0">
         {item.name}
       </div>
-      <div className="text-[12px] md:text-[14px] lg:text-[16px] leading-[20px] md:leading-[20px] tracking-[0] m-0 font-normal font-helvetica max-w-[100px] md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0 opacity-70">
+      <div className="text-[12px] md:text-[14px] lg:text-[16px] leading-[20px] md:leading-[20px] tracking-[0] m-0 font-normal font-helvetica  md:max-w-[150px] lg:max-w-[150px] mx-auto lg:mx-0 opacity-70">
         {item.title}
       </div>
     </motion.div>

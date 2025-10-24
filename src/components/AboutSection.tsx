@@ -83,7 +83,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
   }, [products.length])
 
   return (
-    <section className="py-6 lg:py-[80px] bg-white">
+    <section className="pt-[37px] lg:py-[80px] bg-white">
       <div className="max-w-7xl mx-auto px-6">
         {/* Top Section */}
         <motion.div
@@ -91,7 +91,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="mb-20 lg:mb-[70px]"
+          className="mb-[25px] lg:mb-[70px]"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 xl:gap-20">
             {/* Left Logo + Progress */}
@@ -195,7 +195,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
               <div className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-12 xl:gap-16">
                 {/* Image */}
                 <div className="w-full lg:w-[60%]">
-                  <div className="relative aspect-[16/9] lg:aspect-auto h-full rounded-2xl overflow-hidden bg-gray-100">
+                  <div className="relative aspect-[16/9] lg:aspect-auto md:h-full h-[371px] w-full rounded-2xl overflow-hidden bg-gray-100">
                     {!imageLoaded && (
                       <div className="absolute inset-0 animate-pulse" />
                     )}
@@ -248,7 +248,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
                         initial="initial"
                         animate="animate"
                         exit="exit"
-                        className="w-full"
+                        className="w-full md:block hidden"
                       >
                         <h3 className="text-[#161618] font-medium text-[24px] leading-[120%] tracking-[-0.48px] font-helvetica mb-[24px]">
                           {currentProduct.title}

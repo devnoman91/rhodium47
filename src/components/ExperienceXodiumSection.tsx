@@ -39,7 +39,7 @@ const buttonVariants = {
 
 const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data }) => {
   return (
-    <section className="py-16 lg:py-[120px] bg-white">
+    <section className="pt-[74px] pb-[46px] md:py-[120px] bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           variants={containerVariants}
@@ -47,10 +47,10 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[71px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-[71px] gap-[18px]">
             {/* Left - Title and Button */}
             <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
-                <h1 className="text-[62px] not-italic tracking-[-1px] leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
+                <h1 className="md:text-[62px] text-[30px] not-italic tracking-[-1px] md:leading-[68px] leading-[33px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
                   style={{
                     background: "conic-gradient(from 180deg at 50% 116.28%, #000 0.91deg, rgba(0, 0, 0, 0.24) 360deg)",
                     WebkitBackgroundClip: "text",
@@ -59,38 +59,35 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
                 >
                   {data.name}
                 </h1>
-
-
-                {/* CTA Button */}
             {/* CTA Button */}
-<div className="lg:col-span-1 space-y-8">
-  <motion.a
-    href={data.button.link}
-    variants={buttonVariants}
-    transition={{
-      duration: 0.6,
-      delay: 0.3,
-      ease: [0.4, 0, 0.2, 1],
-    }}
-    className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px] 
-               border border-black bg-black text-white font-helvetica 
-               text-[14px] font-[700] leading-[20px]  w-fit block cursor-pointer group"
-    whileHover={{ scale: 1.02 }}
-    whileTap={{ scale: 0.98 }}
-  >
-    {/* sliding overlay */}
-    <span
-      className="absolute inset-0 bg-white translate-x-full 
-                 transition-transform duration-500 ease-in-out rounded-[32px]
-                 group-hover:translate-x-0"
-    />
+              <div className="lg:col-span-1 space-y-8">
+                <motion.a
+                  href={data.button.link}
+                  variants={buttonVariants}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.3,
+                    ease: [0.4, 0, 0.2, 1],
+                  }}
+                  className="hidden relative overflow-hidden px-[24px] py-[8px] rounded-[32px] 
+                            border border-black bg-black text-white font-helvetica 
+                            text-[14px] font-[700] leading-[20px]  w-fit md:block cursor-pointer group"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {/* sliding overlay */}
+                  <span
+                    className="absolute inset-0 bg-white translate-x-full 
+                              transition-transform duration-500 ease-in-out rounded-[32px]
+                              group-hover:translate-x-0"
+                  />
 
-    {/* text */}
-    <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
-      {data.button.text}
-    </span>
-  </motion.a>
-</div>
+                  {/* text */}
+                  <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
+                    {data.button.text}
+                  </span>
+                </motion.a>
+              </div>
 
             </motion.div>
 
@@ -105,7 +102,7 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
                 {data.description.split('\n\n').map((paragraph, index) => (
                   <p
                     key={index}
-                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-[400] font-helvetica text-black pb-[20px] max-w-[550px]"
+                    className=" text-[16px] leading-[24px] tracking-[0] m-auto font-[400] font-helvetica text-black md:pb-[20px] max-w-[550px]"
                   >
                     {paragraph.trim()}
                   </p>
@@ -113,6 +110,35 @@ const ExperienceXodiumSection: React.FC<ExperienceXodiumSectionProps> = ({ data 
               </div>
             </motion.div>
           </div>
+             {/* CTA Button */}
+              <div className="col-span-1 space-y-8 md-hidden block mt-[46px] md:hidden ">
+                <motion.a
+                  href={data.button.link}
+                  variants={buttonVariants}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.3,
+                    ease: [0.4, 0, 0.2, 1],
+                  }}
+                  className="block relative overflow-hidden px-[24px] py-[8px] rounded-[32px] 
+                            border border-black bg-black text-white font-helvetica 
+                            text-[14px] font-[700] leading-[20px]  w-fit  cursor-pointer group"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {/* sliding overlay */}
+                  <span
+                    className="absolute inset-0 bg-white translate-x-full 
+                              transition-transform duration-500 ease-in-out rounded-[32px]
+                              group-hover:translate-x-0"
+                  />
+
+                  {/* text */}
+                  <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
+                    {data.button.text}
+                  </span>
+                </motion.a>
+              </div>
         </motion.div>
       </div>
     </section>

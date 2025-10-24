@@ -60,7 +60,7 @@ const KeepExploringSection: React.FC<KeepExploringSectionProps> = ({ data }) => 
 
   return (
     <section className="py-12 md:py-16 lg:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+      <div className="max-w-7xl mx-auto px-5">
         <motion.div
           variants={containerVariants}
           initial="hidden"

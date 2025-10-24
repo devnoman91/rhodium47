@@ -171,6 +171,22 @@ const criticalInlineStyles = `
     height: 24px;
     color: white;
   }
+@media (max-width: 767px) {
+.product-hero-content {
+    left: 0 !important;
+    top: 20% !important;
+    transform: unset !important;
+    color: white;
+    max-width: 100% !important;
+    z-index: 10;
+    contain: layout style;
+    padding: 0 20px !important;
+    text-align: center !important;
+    font-display: swap;
+}
+
+}
+
 `
 
 export default function ProductHeroSection({ heroSection }: ProductHeroSectionProps) {

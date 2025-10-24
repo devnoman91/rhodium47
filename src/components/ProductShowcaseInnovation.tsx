@@ -120,7 +120,7 @@ const ProductShowcaseInnovation: React.FC<ProductShowcaseInnovationProps> = ({ s
           {/* Slider Container */}
           <div className="relative overflow-visible">
             <motion.div
-              className="flex gap-6 cursor-grab active:cursor-grabbing pr-12"
+              className="flex gap-6 cursor-grab active:cursor-grabbing pr-12 md:w-fit !w-full"
               drag="x"
               dragConstraints={{ left: -((showcaseInnovation.blogSection.length - 2.5) * 420), right: 0 }}
               onDragEnd={handleDragEnd}
@@ -132,7 +132,7 @@ const ProductShowcaseInnovation: React.FC<ProductShowcaseInnovationProps> = ({ s
               {showcaseInnovation.blogSection.map((blog, index) => (
                 <motion.div
                   key={`${blog.slug.current}-${index}`}
-                  className="w-[455px] flex-shrink-0"
+                  className="md:w-[455px] w-full flex-shrink-0"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{
                     opacity: 1,
@@ -165,11 +165,11 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
         delay: index * 0.1,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="pt-[60px] pr-[60px] pb-[30px] pl-[60px] rounded-[30px] bg-[rgba(255,255,255,0.05)] group flex flex-col justify-between h-[100%] w-[455px] p-6 duration-300"
+      className="md:pt-[60px] py-[50px] md:pr-[60px] px-[45px] md:pb-[30px] md:pl-[60px] rounded-[30px] bg-[rgba(255,255,255,0.05)] group flex flex-col justify-between h-[100%] w-full md:w-[455px] p-6 duration-300"
     >
       {/* Content */}
       <div className="flex flex-col flex-1 mb-[30px]">
-        <h3 className="text-white font-helvetica text-[26px] font-normal leading-[49px] mb-[12px]">
+        <h3 className="text-white font-helvetica text-[26px] font-normal md:leading-[49px] leading-[35px] mb-[12px]">
           {blog.title}
         </h3>
 

@@ -145,11 +145,11 @@ const ProductInteriorSection: React.FC<ProductInteriorSectionProps> = ({ interio
       >
 
         {/* Left Padding for Content Alignment */}
-        <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
+        <div className="md:pl-6 px-5 lg:pl-[calc((100vw-1280px)/2+1.5rem)] ">
           {/* Slider Container */}
           <div className="relative overflow-visible" ref={constraintsRef}>
             <motion.div
-              className="flex gap-5 cursor-grab active:cursor-grabbing"
+              className="flex gap-5 cursor-grab active:cursor-grabbing md:w-fit !w-full"
               drag="x"
               dragConstraints={{
                 left: maxScroll,
@@ -176,7 +176,7 @@ const ProductInteriorSection: React.FC<ProductInteriorSectionProps> = ({ interio
               {interiorSection.sections.map((section, index) => (
                 <motion.div
                   key={`${section.name}-${index}`}
-                  className="w-[1000px] flex-shrink-0"
+                  className="md:w-[1000px] w-full flex-shrink-0"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{
                     opacity: 1,
@@ -290,7 +290,7 @@ const InteriorCard: React.FC<{
       className="group transition-all duration-300"
     >
       {/* Media Content */}
-      <div className="relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
+      <div className=" md:h-fit h-[540px] md:w-fit !w-full relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
         {section.contentType === 'video' && section.videoFile?.asset?.url ? (
           <video
             src={section.videoFile.asset.url}
@@ -306,7 +306,7 @@ const InteriorCard: React.FC<{
             src={contentUrl}
             alt={section.image?.alt || section.name || 'Interior feature'}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px]"
+            className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px] "
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             loading="lazy"
             placeholder="blur"
@@ -321,7 +321,7 @@ const InteriorCard: React.FC<{
 
       {/* Content */}
       <div className="pt-6 max-w-[656px]">
-        <div className="mb-[48px]">
+        <div className="mb-[48px] md:text-left text-center">
           <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[4px]">
             {section.name || 'Interior Feature'}
           </h3>

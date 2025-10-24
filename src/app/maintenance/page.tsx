@@ -123,8 +123,8 @@ line-height: 20px;
       font-size: 16px;
     }
     .info-sections {
-      grid-template-columns: 1fr;
-      gap: 20px;
+      flex-direction: column;
+      gap: 41px;
     }
   }
 `
@@ -508,7 +508,7 @@ export default function MaintenancePage() {
               className="grid grid-cols-1 md:grid-cols-3  mb-[73px] max-w-[720px] m-auto"
             >
               {maintenanceData.emergencyService.stats.map((stat, index) => (
-                <div key={index} className=" border-r border-[#00000033] last:border-r-0">
+                <div key={index} className=" border-r border-[#00000033] text-black last:border-r-0">
                   <div className="text-[50px] font-medium leading-[110%] font-helvetica mb-[3px]">
                     {stat.value}
                   </div>

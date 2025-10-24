@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { NewsUpdates, NewsItem } from '@/content/types'
@@ -9,60 +9,62 @@ interface NewsUpdatesSectionProps {
   data: NewsUpdates
 }
 
-// Animation variants for performance
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.8,
-      staggerChildren: 0.15
-    }
-  }
+  visible: { opacity: 1, transition: { duration: 0.8, staggerChildren: 0.15 } }
 }
 
 const itemVariants = {
   hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0
-  }
+  visible: { opacity: 1, y: 0 }
 }
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0
-  }
+  visible: { opacity: 1, y: 0 }
 }
 
 const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const sliderRef = useRef<HTMLDivElement>(null)
+
+  // Handle swipe scroll for mobile
+  const handleScroll = () => {
+    if (!sliderRef.current) return
+    const scrollLeft = sliderRef.current.scrollLeft
+    const width = sliderRef.current.clientWidth
+    const index = Math.round(scrollLeft / width)
+    setActiveIndex(index)
+  }
+
+  useEffect(() => {
+    const el = sliderRef.current
+    if (!el) return
+    el.addEventListener('scroll', handleScroll)
+    return () => el.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <section className="py-16 lg:py-24 px-5 bg-[#111] text-white overflow-hidden" style={{ contain: 'layout style' }}>
-      {/* Header Section - Constrained */}
-      <div className="max-w-7xl mx-auto px-6 md:mb-[63px] mb-[85px]" style={{ contain: 'layout style' }}>
+    <section className="py-16 lg:py-24 px-5 bg-[#111] text-white overflow-hidden relative">
+      {/* Header */}
+      <div className="max-w-7xl mx-auto px-6 md:mb-[63px] mb-[85px]">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-100px' }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Left - Title */}
-            <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h1 className="md:text-[64px] text-[30px] md:text-left text-center  not-italic tracking-normal md:leading-[70px]  leading-[33px] font-bold  font-helvetica text-white mb-0">
+            <motion.div variants={itemVariants}>
+              <h1 className="md:text-[64px] text-[30px] md:text-left text-center font-bold font-helvetica text-white">
                 {data.name}
               </h1>
             </motion.div>
-
-            {/* Right - Description */}
             <motion.div
               variants={itemVariants}
-              className="lg:col-span-1 md:flex hidden items-center  justify-end"
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+              className="hidden md:flex items-center justify-end"
             >
-              <p className="text-[16px] leading-[25px] tracking-[0] m-0 font-medium font-helvetica max-w-[480px]">
+              <p className="text-[16px] leading-[25px] font-medium font-helvetica max-w-[480px]">
                 {data.description}
               </p>
             </motion.div>
@@ -70,135 +72,120 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
         </motion.div>
       </div>
 
-      {/* News Slider - Extending Full Width */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        className="relative"
-      >
-        {/* Left Padding for Content Alignment */}
+      {/* News Slider */}
+      <div className="relative w-full">
         <div className="md:pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
-          {/* Slider Container */}
-          <div className="relative overflow-visible w-full">
-            <motion.div
-              className="flex gap-5 cursor-grab active:cursor-grabbing !w-full"
-              drag="x"
-              dragConstraints={{ left: -((data.newsSection?.length || 0 - 2.5) * 400), right: 0 }}
-              whileHover={{ x: -20 }}
-              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-              whileDrag={{ cursor: "grabbing" }}
-              style={{ width: 'max-content' }}
-            >
-              {data.newsSection && data.newsSection.map((newsItem, index) => (
-                <motion.div
-                  key={`${newsItem.slug.current}-${index}`}
-                  className="md:w-[550px] w-full flex-shrink-0"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{
-                    opacity: 1,
-                    x: 0,
-                    transition: {
-                      delay: index * 0.1,
-                      duration: 0.6,
-                      ease: "easeOut"
-                    }
-                  }}
-                >
-                  <NewsCard newsItem={newsItem} index={index} />
-                </motion.div>
-              ))}
-            </motion.div>
+          <div
+            ref={sliderRef}
+            className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide md:overflow-visible md:snap-none"
+          >
+            {data.newsSection?.map((newsItem, index) => (
+              <motion.div
+                key={newsItem.slug.current}
+                className="snap-center flex-shrink-0 w-full md:w-[550px]"
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                <NewsCard newsItem={newsItem} index={index} />
+              </motion.div>
+            ))}
           </div>
         </div>
-      </motion.div>
 
-      {/* Bottom gradient overlay for classy fade effect */}
+        {/* Dots (Mobile only) */}
+        <div className="flex justify-center mt-8 gap-2 md:hidden">
+          {data.newsSection?.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                if (sliderRef.current) {
+                  sliderRef.current.scrollTo({
+                    left: i * sliderRef.current.clientWidth,
+                    behavior: 'smooth'
+                  })
+                }
+              }}
+              className={`w-2.5 h-2.5 rounded-full transition-all ${
+                i === activeIndex ? 'bg-white' : 'bg-white/30'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Bottom fade overlay */}
       <div
-        className="absolute w-full bottom-0 left-0 right-0 h-32 pointer-events-none"
+        className="absolute w-full bottom-0 left-0 h-32 pointer-events-none"
         style={{
-          background: 'linear-gradient(0deg, #111 0%, rgba(17, 17, 17, 0.00) 100%)'
+          background: 'linear-gradient(0deg, #111 0%, rgba(17, 17, 17, 0) 100%)'
         }}
       />
     </section>
   )
 }
 
-// Separate NewsCard component for better performance
-const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(({ newsItem, index }) => {
-  return (
+const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(
+  ({ newsItem, index }) => (
     <motion.div
-      variants={cardVariants}
       transition={{
         duration: 0.6,
-        delay: index * 0.1 + 0.3,
+        delay: index * 0.1,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="group  transition-all duration-300"
+      className="group transition-all duration-300"
     >
       {/* Image */}
-      <div className="relative aspect-[1/0.85] overflow-hidden rounded-[20px] md:block hidden" style={{ contain: 'layout style paint' }}>
+      <div className="relative aspect-[1/0.85] overflow-hidden rounded-[20px] md:block hidden">
         <Image
           src={newsItem.image.asset.url}
           alt={newsItem.image.alt || newsItem.title}
           fill
-          className="object-cover  rounded-[20px]"
+          className="object-cover rounded-[20px]"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           loading="lazy"
-          placeholder="blur"
-          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R+Rw="
-          style={{ contain: 'layout style paint' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />
       </div>
 
       {/* Content */}
       <div className="pt-6 pr-[5%] w-full">
         <div className="mb-[48px]">
-          <h3 className="text-white font-medium text-[24px] leading-[110%] tracking-[-0.24px] md:mb-2 mb-4 font-helvetica">
+          <h3 className="text-white font-medium text-[24px] leading-[110%] font-helvetica mb-2">
             {newsItem.title}
           </h3>
-
-          <p className="text-[16px] leading-[21px] tracking-[0] m-0 font-normal font-helvetica opacity-60">
+          <p className="text-[16px] leading-[21px] font-normal font-helvetica opacity-60">
             {newsItem.description}
           </p>
         </div>
 
         {/* Learn More Button */}
-<motion.button
-  className="relative overflow-hidden px-[24px] py-[5px] rounded-[50px] 
-             border border-white text-white font-helvetica text-[14px] leading-[24px] 
-             font-medium transition-colors duration-500 ease-in-out 
-             w-fit block cursor-pointer mt-auto group"
-  whileHover={{ scale: 1.02 }}
-  whileTap={{ scale: 0.98 }}
-  transition={{ duration: 0.2 }}
-  onClick={() => {
-    if (newsItem.slug.current) {
-      window.location.href = `/news/${newsItem.slug.current}`
-    }
-  }}
->
-  {/* sliding overlay */}
-  <span
-    className="absolute inset-0 bg-white translate-x-full 
-               transition-transform duration-500 ease-in-out rounded-[50px]
-               group-hover:translate-x-0"
-  />
-
-  {/* text */}
-  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
-    Learn More
-  </span>
-</motion.button>
-
-
+        <motion.button
+          className="relative overflow-hidden px-[24px] py-[5px] rounded-[50px] 
+                     border border-white text-white font-helvetica text-[14px] leading-[24px] 
+                     font-medium transition-colors duration-500 ease-in-out 
+                     w-fit block cursor-pointer mt-auto group"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => {
+            if (newsItem.slug.current)
+              window.location.href = `/news/${newsItem.slug.current}`
+          }}
+        >
+          <span
+            className="absolute inset-0 bg-white translate-x-full 
+                       transition-transform duration-500 ease-in-out rounded-[50px]
+                       group-hover:translate-x-0"
+          />
+          <span className="relative z-10 group-hover:text-black">
+            Learn More
+          </span>
+        </motion.button>
       </div>
     </motion.div>
   )
-})
+)
 
 NewsCard.displayName = 'NewsCard'
-
 export default NewsUpdatesSection

@@ -99,7 +99,11 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isScrolling, setIsScrolling] = useState(false)
   const [isInView, setIsInView] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const [isAutoSliding, setIsAutoSliding] = useState(false)
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const autoSlideTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const autoSlideIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const lastScrollTime = useRef(0)
   const containerRef = useRef<HTMLDivElement>(null)
   const sliderRef = useRef<HTMLDivElement>(null)
@@ -117,6 +121,117 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
     isSliderComplete.current = false
     hasStartedScrolling.current = false
   }, [])
+
+  // Determine if current device is mobile
+  useEffect(() => {
+    const checkIsMobile = () => {
+      const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+      setIsMobile(
+        mobileRegex.test(navigator.userAgent) || 
+        window.innerWidth <= 768 // Standard mobile breakpoint
+      )
+    }
+
+    checkIsMobile()
+    window.addEventListener('resize', checkIsMobile)
+
+    return () => {
+      window.removeEventListener('resize', checkIsMobile)
+    }
+  }, [])
+
+  // Auto slide functionality for mobile only
+  useEffect(() => {
+    if (!isMobile || filteredVehicles.length <= 1) return
+
+    // Function to start auto sliding
+    const startAutoSlide = () => {
+      if (autoSlideIntervalRef.current) {
+        clearInterval(autoSlideIntervalRef.current)
+      }
+
+      autoSlideIntervalRef.current = setInterval(() => {
+        setCurrentIndex(prevIndex => {
+          const nextIndex = (prevIndex + 1) % filteredVehicles.length
+          return nextIndex
+        })
+      }, 4000) // Auto slide every 4 seconds
+
+      setIsAutoSliding(true)
+    }
+
+    // Function to stop auto sliding
+    const stopAutoSlide = () => {
+      if (autoSlideIntervalRef.current) {
+        clearInterval(autoSlideIntervalRef.current)
+        autoSlideIntervalRef.current = null
+      }
+      setIsAutoSliding(false)
+    }
+
+    // Start auto slide when component mounts and is mobile
+    if (isInView && isMobile) {
+      startAutoSlide()
+    } else {
+      stopAutoSlide()
+    }
+
+    // Clean up on unmount
+    return () => {
+      if (autoSlideIntervalRef.current) {
+        clearInterval(autoSlideIntervalRef.current)
+      }
+    }
+  }, [isMobile, filteredVehicles.length, isInView])
+
+  // Pause auto sliding on user interaction (drag, scroll)
+  useEffect(() => {
+    if (!isMobile) return
+
+    const handleUserInteraction = () => {
+      if (autoSlideIntervalRef.current) {
+        clearInterval(autoSlideIntervalRef.current)
+        autoSlideIntervalRef.current = null
+      }
+      
+      // Restart auto sliding after 5 seconds of inactivity
+      if (autoSlideTimeoutRef.current) {
+        clearTimeout(autoSlideTimeoutRef.current)
+      }
+      
+      autoSlideTimeoutRef.current = setTimeout(() => {
+        if (isInView) {
+          if (autoSlideIntervalRef.current) {
+            clearInterval(autoSlideIntervalRef.current)
+          }
+          
+          autoSlideIntervalRef.current = setInterval(() => {
+            setCurrentIndex(prevIndex => {
+              const nextIndex = (prevIndex + 1) % filteredVehicles.length
+              return nextIndex
+            })
+          }, 4000)
+        }
+      }, 5000) // Restart auto slide after 5 seconds of inactivity
+    }
+
+    // Add listeners for drag and scroll events to pause auto sliding
+    if (sliderRef.current) {
+      sliderRef.current.addEventListener('mousedown', handleUserInteraction)
+      sliderRef.current.addEventListener('touchstart', handleUserInteraction)
+    }
+
+    return () => {
+      if (sliderRef.current) {
+        sliderRef.current.removeEventListener('mousedown', handleUserInteraction)
+        sliderRef.current.removeEventListener('touchstart', handleUserInteraction)
+      }
+      
+      if (autoSlideTimeoutRef.current) {
+        clearTimeout(autoSlideTimeoutRef.current)
+      }
+    }
+  }, [isMobile, filteredVehicles.length, isInView])
 
   // Section visibility detection - only start slider when section is fully visible
   useEffect(() => {

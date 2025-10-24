@@ -1,77 +1,115 @@
 'use client';
 
 import Image from 'next/image';
-import { VehicleInventory } from '@/data/inventory';
+import Link from 'next/link';
 
-interface VehicleCardProps {
-  vehicle: VehicleInventory;
+interface Vehicle {
+  id: string;
+  model: string;
+  title: string;
+  price: number;
+  image: string;
+  description: string;
+  descriptionHtml?: string;
+  handle: string;
+  variants?: any[];
+  options?: any[];
+  tags?: string[];
+  metafields?: { key: string; value: string }[];
+  publishedAt: string;
 }
 
-export default function VehicleCard({ vehicle }: VehicleCardProps) {
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
+interface VehicleCardProps {
+  vehicle: Vehicle;
+  activeFilters?: { key: string; value: any }[];
+}
+
+function extractTopHeadingSpecs(html: string): string {
+  if (!html) return '';
+
+  const topHeadingStart = html.indexOf('<div id="top-heading">');
+  if (topHeadingStart === -1) return '';
+
+  const topHeadingEnd = html.indexOf('</div>', topHeadingStart);
+  if (topHeadingEnd === -1) return '';
+
+  const topHeadingHtml = html.substring(topHeadingStart, topHeadingEnd + 6);
+  const tempDiv = typeof document !== 'undefined' ? document.createElement('div') : null;
+  if (!tempDiv) return topHeadingHtml.replace(/<[^>]+>/g, '');
+  tempDiv.innerHTML = topHeadingHtml;
+  return tempDiv.textContent || tempDiv.innerText || '';
+}
+
+export default function VehicleCard({ vehicle, activeFilters = [] }: VehicleCardProps) {
+  const specsText = extractTopHeadingSpecs(vehicle.descriptionHtml || '');
 
   return (
-    <div className="rounded-[10px] border border-[#E0E0E0] bg-[#F4F1F2] overflow-hidden  hover:shadow-md transition-shadow duration-200 cursor-pointer" style={{ backgroundColor: '#F4F1F2' }}>
-      {/* Vehicle Image */}
-      <div className="aspect-[1/0.68] relative" style={{ backgroundColor: '#F4F1F2' }}>
+    <Link href={`/inventory/${vehicle.handle}`} className="h-full overflow-hidden rounded-[10px] border border-[#E0E0E0] group cursor-pointer block">
+      {/* Image */}
+      <div className="relative w-full pt-[68%] overflow-hidden">
         <Image
           src={vehicle.image}
-          alt={vehicle.title}
+          alt={vehicle.model}
           fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="w-full h-full object-cover group-hover:scale-110 transition-all ease-in-out duration-400"
         />
-
-        {/* Status Badge */}
-        {vehicle.status === 'pre-order' && (
-          <div className="absolute top-3 left-3">
-            <span className="bg-black text-white px-2 py-1 text-xs font-medium rounded">
-              Pre-Order
-            </span>
-          </div>
-        )}
       </div>
 
-      {/* Vehicle Details */}
-      <div className="p-6">
-        {/* Title */}
-        <h3 className="text-[#111] font-medium text-[16px] leading-[150%] capitalize">
-          {vehicle.title}
-        </h3>
+      {/* Info */}
+      <div className="p-[24px]">
+        <div className="max-w-[320px]">
+          <h3 className="text-[16px] font-[500] font-helvetica text-[#111] mb-1">
+            {vehicle.model}
+          </h3>
+          <p className="text-[14px] font-[600] font-helvetica text-[#111] mb-[8px]">
+            ${vehicle.price.toLocaleString()}
+          </p>
 
-        {/* Price */}
-        <div className="">
-          <div className="text-[#111] font-medium text-[16px] leading-[150%] capitalize">
-            Est {formatPrice(vehicle.monthlyFinancing)}/Mo Financing • {formatPrice(vehicle.price)}
-          </div>
-        </div>
+          {/* Active filters summary */}
+          {activeFilters.length > 0 && (
+            <div className="mt-2">
+              <p className="text-[14px] text-[#636363] font-helvetica capitalize leading-[140%] mb-2">
+                {activeFilters.map(([key, value]) => {
+                  let displayValue = '';
+                  if (Array.isArray(value)) {
+                    displayValue = value.join(', ');
+                  } else if (typeof value === 'string' && value) {
+                    displayValue = value;
+                  }
+                  return displayValue;
+                }).filter(Boolean).join(' • ')}
+              </p>
+            </div>
+          )}
 
-        {/* Vehicle Info */}
-        <div className="text-[#636363] font-normal text-[12px] leading-[150%] capitalize mb-[10px]">
-          <div>{vehicle.year} Pre-Owned Vehicle With {vehicle.mileage}</div>
-          <div>Located in {vehicle.location}</div>
-          <div>{vehicle.range}</div>
-        </div>
+          {specsText && (
+            <p className="text-[12px] text-[#636363] mb-[10px] line-clamp-3 font-[400] font-helvetica leading-[150%] capitalize">
+              {specsText}
+            </p>
+          )}
 
-        {/* Features */}
-        <div className="flex flex-wrap gap-2 text-xs text-[#111] font-normal text-[12px] leading-[150%] capitalize">
-          <span className="flex items-center gap-1">
-            <div className="w-[12px] h-[12px] bg-gray-900 rounded-full"></div>
-            {vehicle.features.paint}
-          </span>
-          <span className="flex items-center gap-1 text-[#111] font-normal text-[12px] leading-[150%] capitalize">
-            <div className="w-[12px] h-[12px] bg-[#C5C5C5] rounded-full"></div>
-            {vehicle.features.interior}
-          </span>
+          {/* Vehicle tags */}
+          {vehicle.tags && vehicle.tags.length > 0 && (
+            <div className="flex flex-wrap gap-x-[16px] gap-y-[10px] mt-[6px]">
+              {vehicle.tags.map((tag, idx) => {
+                const cleanTag = tag.includes(':') ? tag.split(':')[1] : tag;
+                const icons = [
+                  <svg key="b1" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none"><circle cx="6" cy="6" r="6" fill="black" /></svg>,
+                  <svg key="g1" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="#C5C5C5"><circle cx="6" cy="6" r="6" /></svg>
+                ];
+                const icon = icons[idx % icons.length];
+
+                return (
+                  <span key={idx} className="flex gap-[5px] items-center text-[#111] text-[14px] font-helvetica font-[400] capitalize">
+                    {icon}
+                    {cleanTag}
+                  </span>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 import FilterSidebar from '@/components/inventory/FilterSidebar';
-import Image from 'next/image';
-import Link from 'next/link';
+import VehicleCard from '@/components/inventory/VehicleCard';
 
 interface Vehicle {
   id: string;
@@ -43,22 +42,6 @@ const criticalInlineStyles = `
   -ms-overflow-style: none;
 }
 `;
-
-function extractTopHeadingSpecs(html: string): string {
-  if (!html) return '';
-
-  const topHeadingStart = html.indexOf('<div id="top-heading">');
-  if (topHeadingStart === -1) return '';
-
-  const topHeadingEnd = html.indexOf('</div>', topHeadingStart);
-  if (topHeadingEnd === -1) return '';
-
-  const topHeadingHtml = html.substring(topHeadingStart, topHeadingEnd + 6);
-  const tempDiv = typeof document !== 'undefined' ? document.createElement('div') : null;
-  if (!tempDiv) return topHeadingHtml.replace(/<[^>]+>/g, '');
-  tempDiv.innerHTML = topHeadingHtml;
-  return tempDiv.textContent || tempDiv.innerText || '';
-}
 
 export default function InventoryClient({
   vehicles,
@@ -226,6 +209,17 @@ export default function InventoryClient({
     setFilteredVehicles(vehicles.filter(vehicle => !vehicle.title.toLowerCase().includes('due today')));
   };
 
+  // Get active filters for the vehicle cards
+  const getActiveFiltersForCards = () => {
+    const activeFilters = Object.entries(filters).filter(([key, value]) => {
+      if (!value || (Array.isArray(value) && value.length === 0)) return false;
+      if (key === 'priceRange' && Array.isArray(value) &&
+          value[0] === priceRange.min && value[1] === priceRange.max) return false;
+      return true;
+    });
+    return activeFilters;
+  };
+
   return (
     <div className="min-h-screen pt-[126px] pb-[95px] bg-[#FFFFFF] relative">
       {/* Mobile header with inventory title, zip code, new/pre-order buttons, and filter button */}
@@ -374,96 +368,13 @@ export default function InventoryClient({
           )}
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-[15px] gap-y-[35px]">
-            {filteredVehicles.map((vehicle) => {
-              const specsText = extractTopHeadingSpecs(vehicle.descriptionHtml || '');
-
-              return (
-                <Link key={vehicle.id} href={`/inventory/${vehicle.handle}`}>
-                  <div className="h-full overflow-hidden rounded-[10px] border border-[#E0E0E0] group cursor-pointer">
-                    {/* Image */}
-                    <div className="relative h-[230px] w-full overflow-hidden">
-                      <Image
-                        src={vehicle.image}
-                        alt={vehicle.model}
-                        fill
-                        className="w-full h-full object-cover group-hover:scale-110 transition-all ease-in-out duration-400"
-                      />
-                    </div>
-
-                    {/* Info */}
-                    <div className="p-[24px]">
-                      <div className="max-w-[320px]">
-                        <h3 className="text-[16px] font-[500] font-helvetica text-[#111] mb-1">
-                          {vehicle.model}
-                        </h3>
-                        <p className="text-[14px] font-[600] font-helvetica text-[#111] mb-[8px]">
-                          ${vehicle.price.toLocaleString()}
-                        </p>
-
-                        {/* ✅ Active filters summary (fixed) */}
-                        <div className="mt-2">
-                          {(() => {
-                            const activeFilters = Object.entries(filters).filter(([key, value]) => {
-                              if (!value || (Array.isArray(value) && value.length === 0)) return false;
-                              if (key === 'priceRange' && Array.isArray(value) &&
-                                  value[0] === priceRange.min && value[1] === priceRange.max) return false;
-                              return true;
-                            });
-
-                            if (activeFilters.length === 0) return null;
-
-                            const filterTexts = activeFilters.map(([key, value]) => {
-                              let displayValue = '';
-                              if (Array.isArray(value)) {
-                                displayValue = value.join(', ');
-                              } else if (typeof value === 'string' && value) {
-                                displayValue = value;
-                              }
-
-                              // ✅ Hide key label for all filter types — only show the value
-                              return displayValue ? `${displayValue}` : null;
-                            }).filter(Boolean);
-
-                            return filterTexts.length > 0 ? (
-                              <p className="text-[14px] text-[#636363] font-helvetica capitalize leading-[140%] mb-2">
-                                {filterTexts.join(' • ')}
-                              </p>
-                            ) : null;
-                          })()}
-                        </div>
-
-                        {specsText && (
-                          <p className="text-[12px] text-[#636363] mb-[10px] line-clamp-3 font-[400] font-helvetica leading-[150%] capitalize">
-                            {specsText}
-                          </p>
-                        )}
-
-                        {/* Vehicle tags */}
-                        {vehicle.tags && vehicle.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-x-[16px] gap-y-[10px] mt-[6px]">
-                            {vehicle.tags.map((tag, idx) => {
-                              const cleanTag = tag.includes(':') ? tag.split(':')[1] : tag;
-                              const icons = [
-                                <svg key="b1" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none"><circle cx="6" cy="6" r="6" fill="black" /></svg>,
-                                <svg key="g1" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="#C5C5C5"><circle cx="6" cy="6" r="6" /></svg>
-                              ];
-                              const icon = icons[idx % icons.length];
-
-                              return (
-                                <span key={idx} className="flex gap-[5px] items-center text-[#111] text-[14px] font-helvetica font-[400] capitalize">
-                                  {icon}
-                                  {cleanTag}
-                                </span>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
+            {filteredVehicles.map((vehicle) => (
+              <VehicleCard 
+                key={vehicle.id} 
+                vehicle={vehicle} 
+                activeFilters={getActiveFiltersForCards()} 
+              />
+            ))}
           </div>
 
           {filteredVehicles.length === 0 && (

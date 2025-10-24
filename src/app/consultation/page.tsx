@@ -292,9 +292,12 @@ export default function ConsultationPage() {
   const [consultationData, setConsultationData] = useState<Consultation | null>(null)
   const [showcaseData, setShowcaseData] = useState<ShowcaseProduct[]>([])
   const [experienceXodiumData, setExperienceXodiumData] = useState<any>(null)
+
+  // slider state
   const [currentIndex, setCurrentIndex] = useState(0)
   const [dragX, setDragX] = useState(0)
-  const constraintsRef = useRef(null)
+  const [isSmallScreen, setIsSmallScreen] = useState(false)
+  const constraintsRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -305,9 +308,6 @@ export default function ConsultationPage() {
           getProductShowcaseData(),
           getExperienceXodiumData()
         ])
-        console.log('Consultation data:', consultation)
-        console.log('Showcase data:', showcase)
-        console.log('Experience Xodium data:', experienceXodium)
         setConsultationData(consultation)
         setShowcaseData(showcase)
         setExperienceXodiumData(experienceXodium)
@@ -322,15 +322,36 @@ export default function ConsultationPage() {
     fetchData()
   }, [])
 
+  // detect small screen for swipe behavior
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   const totalSlides = consultationData?.sliderSection.slides.length || 0
-  const cardWidth = 1000 + 20 // card width + gap
+
+  // cardWidth should match the visible slide size on the current screen
+  const cardWidth = isSmallScreen ? (Math.min(window.innerWidth, 420)) : 1000 + 20 // desktop original approx
+  // max scroll left value
   const maxScroll = -(totalSlides - 1) * cardWidth
+
+  // ensure dragX follows currentIndex and cardWidth changes
+  useEffect(() => {
+    setDragX(-currentIndex * cardWidth)
+  }, [currentIndex, cardWidth])
 
   const slideLeft = () => {
     if (currentIndex > 0) {
       const newIndex = currentIndex - 1
       setCurrentIndex(newIndex)
-      setDragX(-newIndex * cardWidth)
+      // setDragX will be applied by effect
+    } else {
+      // snap back
+      setDragX(-currentIndex * cardWidth)
     }
   }
 
@@ -338,7 +359,8 @@ export default function ConsultationPage() {
     if (currentIndex < totalSlides - 1) {
       const newIndex = currentIndex + 1
       setCurrentIndex(newIndex)
-      setDragX(-newIndex * cardWidth)
+    } else {
+      setDragX(-currentIndex * cardWidth)
     }
   }
 
@@ -424,40 +446,25 @@ export default function ConsultationPage() {
             </motion.div>
           ))}
         </div>
-{showcaseData.length > 0 && (
-        <ProductShowcase
-          products={showcaseData}
-        />
-      )}
-        {/* Slider Section */}
+
+        {showcaseData.length > 0 && (
+          <ProductShowcase products={showcaseData} />
+        )}
+
+        {/* Slider Section (keeps desktop layout; improved mobile swipe) */}
         {consultationData.sliderSection.slides.length > 0 && (
           <section className="pt-[50px] lg:pt-[90px] bg-[#F4F1F2] mmd:px-0 px-[13px] text-black overflow-hidden md:-mx-[calc(var(--spacing)*12)] " style={{ contain: 'layout style' }}>
-            {/* Header Section - Constrained max-w-7xl */}
-            <div className="max-w-[1304px] mx-auto  md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, staggerChildren: 0.15 }}
-              >
+            {/* Header Section */}
+            <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, staggerChildren: 0.15 }}>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-[10px] lg:gap-16">
-                  {/* Left - Title */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="lg:col-span-1"
-                  >
+                  <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} className="lg:col-span-1">
                     <h2 className="md:text-left text-center text-black font-medium md:text-[64px] text-[30px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
                       {consultationData.sliderSection.mainName}
                     </h2>
                   </motion.div>
 
-                  {/* Right - Description */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
-                    className="lg:col-span-1 flex items-center justify-end"
-                  >
+                  <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }} className="lg:col-span-1 flex items-center justify-end">
                     <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
                       {consultationData.sliderSection.mainTitle}
                     </p>
@@ -467,37 +474,32 @@ export default function ConsultationPage() {
             </div>
 
             {/* Slider - Extending Full Width */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, staggerChildren: 0.15 }}
-              className="relative"
-            >
-              {/* Left Padding for Content Alignment */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, staggerChildren: 0.15 }} className="relative">
               <div className="md:pl-6 lg:pl-[calc((100vw-1280px)/2+-1rem)]">
-                {/* Slider Container */}
                 <div className="relative overflow-visible" ref={constraintsRef}>
                   <motion.div
                     className="flex gap-5 cursor-grab active:cursor-grabbing md:w-fit !w-full"
                     drag="x"
-                    dragConstraints={{
-                      left: maxScroll,
-                      right: 0
-                    }}
-                    dragElastic={0.1}
+                    dragConstraints={{ left: maxScroll, right: 0 }}
+                    dragElastic={0.12}
                     dragMomentum={false}
                     animate={{ x: dragX }}
-                    transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                    transition={{ type: 'spring', damping: 26, stiffness: 220 }}
                     onDragEnd={(_, info) => {
                       const offset = info.offset.x
                       const velocity = info.velocity.x
+                      // threshold smaller on mobile
+                      const threshold = isSmallScreen ? (cardWidth * 0.12) : 100
+                      const fastSwipe = Math.abs(velocity) > (isSmallScreen ? 400 : 800)
 
-                      if (Math.abs(offset) > 100 || Math.abs(velocity) > 500) {
-                        if (offset > 0 && currentIndex > 0) {
-                          slideLeft()
-                        } else if (offset < 0 && currentIndex < totalSlides - 1) {
-                          slideRight()
-                        }
+                      if (offset > threshold || (fastSwipe && offset > 0)) {
+                        // move to previous
+                        slideLeft()
+                      } else if (offset < -threshold || (fastSwipe && offset < 0)) {
+                        slideRight()
+                      } else {
+                        // snap back to current
+                        setDragX(-currentIndex * cardWidth)
                       }
                     }}
                     style={{ width: 'max-content' }}
@@ -505,7 +507,8 @@ export default function ConsultationPage() {
                     {consultationData.sliderSection.slides.map((slide, index) => (
                       <motion.div
                         key={`${slide.name}-${index}`}
-                        className="w-full md:w-[936px] 2xl:w-[1100px] flex-shrink-0 group transition-all duration-300"
+                        // Responsive widths — keep desktop look, but mobile shows one centered card
+                        className="w-full md:w-[936px] 2xl:w-[1100px] flex-shrink-0 group transition-all duration-300 mx-auto"
                         initial={{ opacity: 0, x: 50 }}
                         animate={{
                           opacity: 1,
@@ -513,12 +516,12 @@ export default function ConsultationPage() {
                           transition: {
                             delay: index * 0.1,
                             duration: 0.6,
-                            ease: "easeOut"
+                            ease: 'easeOut'
                           }
                         }}
                       >
                         {/* Media Content */}
-                        <div className= "h-[468px] w-full relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
+                        <div className="h-[468px] w-full relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
                           {slide.image?.asset?.url && (
                             <Image
                               src={slide.image.asset.url}
@@ -535,11 +538,11 @@ export default function ConsultationPage() {
 
                         {/* Content */}
                         <div className="md:pt-[42px] pt-[15px] md:max-w-[656px] w-full">
-                          <div className="">
-                            <h3 className="md:text-left text-center  text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
+                          <div>
+                            <h3 className="md:text-left text-center text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                               {slide.name}
                             </h3>
-                            <p className=" sm:max-w-fit max-w-[283px]  text-[16px] md:text-left text-center leading-[20px] tracking-[0] m-0 mx-auto font-normal font-helvetica text-black opacity-60">
+                            <p className="sm:max-w-fit max-w-[283px] text-[16px] md:text-left text-center leading-[20px] tracking-[0] m-0 mx-auto font-normal font-helvetica text-black opacity-60">
                               {slide.description}
                             </p>
                           </div>
@@ -553,10 +556,9 @@ export default function ConsultationPage() {
           </section>
         )}
       </div>
-        {experienceXodiumData && (
-        <ExperienceXodiumSection
-          data={experienceXodiumData}
-        />
+
+      {experienceXodiumData && (
+        <ExperienceXodiumSection data={experienceXodiumData} />
       )}
     </>
   )

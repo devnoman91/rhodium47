@@ -126,8 +126,8 @@ line-height: 20px;
       font-size: 16px;
     }
     .info-sections {
-      grid-template-columns: 1fr;
-      gap: 20px;
+      flex-direction: column;
+      gap: 41px;
     }
   }
 `
@@ -159,7 +159,8 @@ export default function TrainingPage() {
   const [showcaseData, setShowcaseData] = useState<ShowcaseProduct[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [dragX, setDragX] = useState(0)
-  const constraintsRef = useRef(null)
+  const [isSmallScreen, setIsSmallScreen] = useState(false)
+  const constraintsRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -184,15 +185,36 @@ export default function TrainingPage() {
     fetchData()
   }, [])
 
+  // detect small screen for swipe behavior
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   const totalSlides = trainingData?.sliderSection.slides.length || 0
-  const cardWidth = 1000 + 20
+
+  // cardWidth should match the visible slide size on the current screen
+  const cardWidth = isSmallScreen ? (Math.min(window.innerWidth, 420)) : 1000 + 20 // desktop original approx
+  // max scroll left value
   const maxScroll = -(totalSlides - 1) * cardWidth
+
+  // ensure dragX follows currentIndex and cardWidth changes
+  useEffect(() => {
+    setDragX(-currentIndex * cardWidth)
+  }, [currentIndex, cardWidth])
 
   const slideLeft = () => {
     if (currentIndex > 0) {
       const newIndex = currentIndex - 1
       setCurrentIndex(newIndex)
-      setDragX(-newIndex * cardWidth)
+      // setDragX will be applied by effect
+    } else {
+      // snap back
+      setDragX(-currentIndex * cardWidth)
     }
   }
 
@@ -200,7 +222,8 @@ export default function TrainingPage() {
     if (currentIndex < totalSlides - 1) {
       const newIndex = currentIndex + 1
       setCurrentIndex(newIndex)
-      setDragX(-newIndex * cardWidth)
+    } else {
+      setDragX(-currentIndex * cardWidth)
     }
   }
 
@@ -309,123 +332,112 @@ export default function TrainingPage() {
         )}
       </div>
 
-      <div className="training-container" style={{ paddingTop: 0 }}>
-        {/* Slider Section */}
-        {trainingData.sliderSection.slides.length > 0 && (
-          <section className="py-[50px] lg:pt-[90px] lg:pb-[67px] bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
-            <div className="max-w-[1332px] mx-auto mb-[44px]" style={{ contain: 'layout style' }}>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, staggerChildren: 0.15 }}
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-                  <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="lg:col-span-1"
-                  >
-                    <h2 className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
-                      {trainingData.sliderSection.mainName}
-                    </h2>
-                  </motion.div>
+      {/* Slider Section (keeps desktop layout; improved mobile swipe) */}
+      {trainingData.sliderSection.slides.length > 0 && (
+        <section className="pt-[50px] lg:pt-[90px] pb-[50px] lg:pb-[67px] bg-[#F4F1F2] text-black overflow-hidden mmd:px-0 px-[13px]" style={{ contain: 'layout style' }}>
+            {/* Header Section */}
+            <div className="max-w-[1332px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, staggerChildren: 0.15 }}>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-[10px] lg:gap-16">
+                <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} className="lg:col-span-1">
+                  <h2 className="md:text-left text-center text-black font-medium md:text-[64px] text-[30px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+                    {trainingData.sliderSection.mainName}
+                  </h2>
+                </motion.div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
-                    className="lg:col-span-1 flex items-center justify-end"
-                  >
-                    <p className="text-black font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
-                      {trainingData.sliderSection.mainTitle}
-                    </p>
-                  </motion.div>
-                </div>
-              </motion.div>
-            </div>
+                <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }} className="lg:col-span-1 flex items-center justify-end">
+                  <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                    {trainingData.sliderSection.mainTitle}
+                  </p>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, staggerChildren: 0.15 }}
-              className="relative"
-            >
-              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+-1.5rem)]">
-                <div className="relative overflow-visible" ref={constraintsRef}>
-                  <motion.div
-                    className="flex gap-5 cursor-grab active:cursor-grabbing"
-                    drag="x"
-                    dragConstraints={{
-                      left: maxScroll,
-                      right: 0
-                    }}
-                    dragElastic={0.1}
-                    dragMomentum={false}
-                    animate={{ x: dragX }}
-                    transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                    onDragEnd={(_, info) => {
-                      const offset = info.offset.x
-                      const velocity = info.velocity.x
+          {/* Slider - Extending Full Width */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, staggerChildren: 0.15 }} className="relative">
+            <div className="md:pl-6 lg:pl-[calc((100vw-1280px)/2+-1.5rem)]">
+              <div className="relative overflow-visible" ref={constraintsRef}>
+                <motion.div
+                  className="flex gap-5 cursor-grab active:cursor-grabbing md:w-fit !w-full"
+                  drag="x"
+                  dragConstraints={{ left: maxScroll, right: 0 }}
+                  dragElastic={0.12}
+                  dragMomentum={false}
+                  animate={{ x: dragX }}
+                  transition={{ type: 'spring', damping: 26, stiffness: 220 }}
+                  onDragEnd={(_, info) => {
+                    const offset = info.offset.x
+                    const velocity = info.velocity.x
+                    // threshold smaller on mobile
+                    const threshold = isSmallScreen ? (cardWidth * 0.12) : 100
+                    const fastSwipe = Math.abs(velocity) > (isSmallScreen ? 400 : 800)
 
-                      if (Math.abs(offset) > 100 || Math.abs(velocity) > 500) {
-                        if (offset > 0 && currentIndex > 0) {
-                          slideLeft()
-                        } else if (offset < 0 && currentIndex < totalSlides - 1) {
-                          slideRight()
+                    if (offset > threshold || (fastSwipe && offset > 0)) {
+                      // move to previous
+                      slideLeft()
+                    } else if (offset < -threshold || (fastSwipe && offset < 0)) {
+                      slideRight()
+                    } else {
+                      // snap back to current
+                      setDragX(-currentIndex * cardWidth)
+                    }
+                  }}
+                  style={{ width: 'max-content' }}
+                >
+                  {trainingData.sliderSection.slides.map((slide, index) => (
+                    <motion.div
+                      key={`${slide.name}-${index}`}
+                      // Responsive widths — keep desktop look, but mobile shows one centered card
+                      className="w-full md:w-[936px] 2xl:w-[1100px] flex-shrink-0 group transition-all duration-300 mx-auto"
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{
+                        opacity: 1,
+                        x: 0,
+                        transition: {
+                          delay: index * 0.1,
+                          duration: 0.6,
+                          ease: 'easeOut'
                         }
-                      }
-                    }}
-                    style={{ width: 'max-content' }}
-                  >
-                    {trainingData.sliderSection.slides.map((slide, index) => (
-                      <motion.div
-                        key={`${slide.name}-${index}`}
-                        className="w-[936px] 2xl-w-[1100px] flex-shrink-0 group transition-all duration-300"
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{
-                          opacity: 1,
-                          x: 0,
-                          transition: {
-                            delay: index * 0.1,
-                            duration: 0.6,
-                            ease: "easeOut"
-                          }
-                        }}
-                      >
-                        <div className="h-[468px] w-full relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
-                          {slide.image?.asset?.url && (
-                            <Image
-                              src={slide.image.asset.url}
-                              alt={slide.image.alt || slide.name}
-                              fill
-                              className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px]"
-                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                              loading="lazy"
-                              style={{ contain: 'layout style paint' }}
-                            />
-                          )}
-                          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
-                        </div>
+                      }}
+                    >
+                      {/* Media Content */}
+                      <div className="h-[468px] w-full relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
+                        {slide.image?.asset?.url && (
+                          <Image
+                            src={slide.image.asset.url}
+                            alt={slide.image.alt || slide.name}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px] w-full"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            loading="lazy"
+                            style={{ contain: 'layout style paint' }}
+                          />
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
+                      </div>
 
-                        <div className="pt-[42px] max-w-[656px]">
-                          <div className="">
-                            <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
+                      {/* Content */}
+                      <div className="md:pt-[42px] pt-[15px] md:max-w-[656px] w-full">
+                        <div>
+                          <h3 className="md:text-left text-center text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                               {slide.name}
                             </h3>
-                            <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
-                              {slide.description}
-                            </p>
-                          </div>
+                          <p className="sm:max-w-fit max-w-[283px] text-[16px] md:text-left text-center leading-[20px] tracking-[0] m-0 mx-auto font-normal font-helvetica text-black opacity-60">
+                            {slide.description}
+                          </p>
                         </div>
-                      </motion.div>
-                    ))}
+                      </div>
+                    </motion.div>
+                  ))}
                   </motion.div>
                 </div>
               </div>
-            </motion.div>
-          </section>
-        )}
+          </motion.div>
+        </section>
+      )}
 
+      <div className="training-container" style={{ paddingTop: 0 }}>
         {/* Training Levels Section */}
         {trainingData.trainingLevels.cards.length > 0 && (
           <section className="pt-[50px] lg:pt-[90px] pb-[50px] lg:pb-[115px] bg-[#111] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">

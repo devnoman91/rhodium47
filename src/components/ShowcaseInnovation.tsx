@@ -99,7 +99,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
               className="lg:flex-1 md:block hidden"
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             >
-              <p className="text-[16px] leading-[30px] tracking-[0] m-0 font-medium font-helvetica opacity-70">
+              <p className="text-[16px] leading-[30px] text-black tracking-[0] m-0 font-medium font-helvetica opacity-70">
                 {data.main.description}
               </p>
             </motion.div>

@@ -307,7 +307,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
               variants={titleVariants}
               className="mb-[24px] lg:mb-0 m-auto"
             >
-              <h1 className="md:text-left text-center font-helvetica md:text-[64px] text-[30px] not-italic font-medium md:leading-[110%] leading-[40px] tracking-[-1.28px]">
+              <h1 className="md:text-left text-center text-black font-helvetica md:text-[64px] text-[30px] not-italic font-medium md:leading-[110%] leading-[40px] tracking-[-1.28px]">
                 <motion.span
                   variants={titleLineVariants}
                   className="block"

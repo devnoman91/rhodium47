@@ -88,7 +88,7 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
         {/* Content Section */}
         <div className="flex flex-col gap-2 md:px-[50px]">
           {/* Title */}
-          <h3 className="md:text-[22px] text-[16px]  leading-[24px] md:leading-[32px] tracking-[0] m-0 font-medium  text-black font-helvetica">
+          <h3 className="md:text-[22px] text-[16px]  text-black leading-[24px] md:leading-[32px] tracking-[0] m-0 font-medium  font-helvetica">
             {product.title}
           </h3>
 

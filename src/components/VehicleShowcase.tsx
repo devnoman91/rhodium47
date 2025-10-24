@@ -122,117 +122,6 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
     hasStartedScrolling.current = false
   }, [])
 
-  // Determine if current device is mobile
-  useEffect(() => {
-    const checkIsMobile = () => {
-      const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-      setIsMobile(
-        mobileRegex.test(navigator.userAgent) || 
-        window.innerWidth <= 768 // Standard mobile breakpoint
-      )
-    }
-
-    checkIsMobile()
-    window.addEventListener('resize', checkIsMobile)
-
-    return () => {
-      window.removeEventListener('resize', checkIsMobile)
-    }
-  }, [])
-
-  // Auto slide functionality for mobile only
-  useEffect(() => {
-    if (!isMobile || filteredVehicles.length <= 1) return
-
-    // Function to start auto sliding
-    const startAutoSlide = () => {
-      if (autoSlideIntervalRef.current) {
-        clearInterval(autoSlideIntervalRef.current)
-      }
-
-      autoSlideIntervalRef.current = setInterval(() => {
-        setCurrentIndex(prevIndex => {
-          const nextIndex = (prevIndex + 1) % filteredVehicles.length
-          return nextIndex
-        })
-      }, 4000) // Auto slide every 4 seconds
-
-      setIsAutoSliding(true)
-    }
-
-    // Function to stop auto sliding
-    const stopAutoSlide = () => {
-      if (autoSlideIntervalRef.current) {
-        clearInterval(autoSlideIntervalRef.current)
-        autoSlideIntervalRef.current = null
-      }
-      setIsAutoSliding(false)
-    }
-
-    // Start auto slide when component mounts and is mobile
-    if (isInView && isMobile) {
-      startAutoSlide()
-    } else {
-      stopAutoSlide()
-    }
-
-    // Clean up on unmount
-    return () => {
-      if (autoSlideIntervalRef.current) {
-        clearInterval(autoSlideIntervalRef.current)
-      }
-    }
-  }, [isMobile, filteredVehicles.length, isInView])
-
-  // Pause auto sliding on user interaction (drag, scroll)
-  useEffect(() => {
-    if (!isMobile) return
-
-    const handleUserInteraction = () => {
-      if (autoSlideIntervalRef.current) {
-        clearInterval(autoSlideIntervalRef.current)
-        autoSlideIntervalRef.current = null
-      }
-      
-      // Restart auto sliding after 5 seconds of inactivity
-      if (autoSlideTimeoutRef.current) {
-        clearTimeout(autoSlideTimeoutRef.current)
-      }
-      
-      autoSlideTimeoutRef.current = setTimeout(() => {
-        if (isInView) {
-          if (autoSlideIntervalRef.current) {
-            clearInterval(autoSlideIntervalRef.current)
-          }
-          
-          autoSlideIntervalRef.current = setInterval(() => {
-            setCurrentIndex(prevIndex => {
-              const nextIndex = (prevIndex + 1) % filteredVehicles.length
-              return nextIndex
-            })
-          }, 4000)
-        }
-      }, 5000) // Restart auto slide after 5 seconds of inactivity
-    }
-
-    // Add listeners for drag and scroll events to pause auto sliding
-    if (sliderRef.current) {
-      sliderRef.current.addEventListener('mousedown', handleUserInteraction)
-      sliderRef.current.addEventListener('touchstart', handleUserInteraction)
-    }
-
-    return () => {
-      if (sliderRef.current) {
-        sliderRef.current.removeEventListener('mousedown', handleUserInteraction)
-        sliderRef.current.removeEventListener('touchstart', handleUserInteraction)
-      }
-      
-      if (autoSlideTimeoutRef.current) {
-        clearTimeout(autoSlideTimeoutRef.current)
-      }
-    }
-  }, [isMobile, filteredVehicles.length, isInView])
-
   // Section visibility detection - only start slider when section is fully visible
   useEffect(() => {
     const container = containerRef.current
@@ -666,7 +555,7 @@ const VehicleSlide: React.FC<{
     </Link>
 
     {/* Buy Now Button - Links to product-design */}
-    <Link href={`/product-design/${vehicle.handle}`}>
+    <Link href={`/inventory/${vehicle.handle}`}>
       <motion.button
         className="relative overflow-hidden cursor-pointer w-[132px] h-[48px] flex justify-center items-center
                   rounded-[50px] font-helvetica text-[16px] font-medium bg-white text-black border border-black group"

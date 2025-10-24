@@ -30,7 +30,7 @@ const cardVariants = {
 
 const ProductShowcase: React.FC<ProductShowcaseProps> = ({ products }) => {
   return (
-    <section className="md:py-[80px] pt-[78px] pb-[50px] lg:py-24 md:bg-white">
+    <section className="md:py-[80px] pt-[78px] pb-[50px] lg:py-24 bg-white">
       <div className="mx-auto px-5">
         <motion.div
           variants={containerVariants}
@@ -69,7 +69,7 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
         delay: index * 0.2,
         ease: [0.4, 0, 0.2, 1]
       }}
-      className="group md:bg-[#F4F1F2] md:rounded-[16px] transition-colors duration-300"
+      className="group bg-[#F4F1F2] md:rounded-[16px] transition-colors duration-300"
     >
       <div className="flex items-center gap-6 md:flex-row-reverse justify-between">
         {/* Image Section */}

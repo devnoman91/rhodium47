@@ -114,8 +114,9 @@ line-height: 20px;
   }
   @media (max-width: 768px) {
     .xodium-armor-container {
-      padding-inline: 20px;
+      padding-inline: 15px;
       padding-top: 100px;
+      padding-bottom: 37px;
     }
     .xodium-armor-hero-title {
       font-size: 40px;
@@ -124,8 +125,8 @@ line-height: 20px;
       font-size: 16px;
     }
     .info-sections {
-      grid-template-columns: 1fr;
-      gap: 20px;
+      flex-direction: column;
+      gap: 41px;
     }
   }
 `
@@ -235,7 +236,8 @@ export default function XodiumArmorPage() {
   const [armorData, setArmorData] = useState<XodiumArmor | null>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [dragX, setDragX] = useState(0)
-  const constraintsRef = useRef(null)
+  const [isSmallScreen, setIsSmallScreen] = useState(false)
+  const constraintsRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -255,15 +257,36 @@ export default function XodiumArmorPage() {
     fetchData()
   }, [])
 
+  // detect small screen for swipe behavior
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   const totalSlides = armorData?.sliderSection.slides.length || 0
-  const cardWidth = 1000 + 20
+
+  // cardWidth should match the visible slide size on the current screen
+  const cardWidth = isSmallScreen ? (Math.min(window.innerWidth, 420)) : 1000 + 20
+  // max scroll left value
   const maxScroll = -(totalSlides - 1) * cardWidth
+
+  // ensure dragX follows currentIndex and cardWidth changes
+  useEffect(() => {
+    setDragX(-currentIndex * cardWidth)
+  }, [currentIndex, cardWidth])
 
   const slideLeft = () => {
     if (currentIndex > 0) {
       const newIndex = currentIndex - 1
       setCurrentIndex(newIndex)
-      setDragX(-newIndex * cardWidth)
+      // setDragX will be applied by effect
+    } else {
+      // snap back
+      setDragX(-currentIndex * cardWidth)
     }
   }
 
@@ -271,7 +294,8 @@ export default function XodiumArmorPage() {
     if (currentIndex < totalSlides - 1) {
       const newIndex = currentIndex + 1
       setCurrentIndex(newIndex)
-      setDragX(-newIndex * cardWidth)
+    } else {
+      setDragX(-currentIndex * cardWidth)
     }
   }
 
@@ -435,136 +459,126 @@ export default function XodiumArmorPage() {
             </div>
           </section>
         )}
+      </div>
 
-        {/* Slider Section */}
-        {armorData.sliderSection.slides.length > 0 && (
-          <section className="pt-[50px] lg:pt-[45px] pb-[69px] bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
-            <div className="max-w-[1304px] mx-auto mb-[29px]" style={{ contain: 'layout style' }}>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, staggerChildren: 0.15 }}
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-                  <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="lg:col-span-1"
-                  >
-                    <h2 className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
-                      {armorData.sliderSection.mainName}
-                    </h2>
-                  </motion.div>
+      {/* Slider Section (keeps desktop layout; improved mobile swipe) */}
+      {armorData.sliderSection.slides.length > 0 && (
+        <section className="pt-[50px] lg:pt-[45px] pb-[50px] lg:pb-[69px] bg-[#F4F1F2] text-black overflow-hidden mmd:px-0 px-[13px]" style={{ contain: 'layout style' }}>
+          {/* Header Section */}
+          <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, staggerChildren: 0.15 }}>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-[10px] lg:gap-16">
+                <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} className="lg:col-span-1">
+                  <h2 className="md:text-left text-center text-black font-medium md:text-[64px] text-[30px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+                    {armorData.sliderSection.mainName}
+                  </h2>
+                </motion.div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
-                    className="lg:col-span-1 flex items-center justify-end"
-                  >
-                    <p className="text-black font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
-                      {armorData.sliderSection.mainTitle}
-                    </p>
-                  </motion.div>
-                </div>
-              </motion.div>
-            </div>
+                <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }} className="lg:col-span-1 flex items-center justify-end">
+                  <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                    {armorData.sliderSection.mainTitle}
+                  </p>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, staggerChildren: 0.15 }}
-              className="relative"
-            >
-              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+-0.5rem)]">
-                <div className="relative overflow-visible" ref={constraintsRef}>
-                  <motion.div
-                    className="flex gap-5 cursor-grab active:cursor-grabbing"
-                    drag="x"
-                    dragConstraints={{
-                      left: maxScroll,
-                      right: 0
-                    }}
-                    dragElastic={0.1}
-                    dragMomentum={false}
-                    animate={{ x: dragX }}
-                    transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                    onDragEnd={(_, info) => {
-                      const offset = info.offset.x
-                      const velocity = info.velocity.x
+          {/* Slider - Extending Full Width */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, staggerChildren: 0.15 }} className="relative">
+            <div className="md:pl-6 lg:pl-[calc((100vw-1280px)/2+-0.5rem)]">
+              <div className="relative overflow-visible" ref={constraintsRef}>
+                <motion.div
+                  className="flex gap-5 cursor-grab active:cursor-grabbing md:w-fit !w-full"
+                  drag="x"
+                  dragConstraints={{ left: maxScroll, right: 0 }}
+                  dragElastic={0.12}
+                  dragMomentum={false}
+                  animate={{ x: dragX }}
+                  transition={{ type: 'spring', damping: 26, stiffness: 220 }}
+                  onDragEnd={(_, info) => {
+                    const offset = info.offset.x
+                    const velocity = info.velocity.x
+                    // threshold smaller on mobile
+                    const threshold = isSmallScreen ? (cardWidth * 0.12) : 100
+                    const fastSwipe = Math.abs(velocity) > (isSmallScreen ? 400 : 800)
 
-                      if (Math.abs(offset) > 100 || Math.abs(velocity) > 500) {
-                        if (offset > 0 && currentIndex > 0) {
-                          slideLeft()
-                        } else if (offset < 0 && currentIndex < totalSlides - 1) {
-                          slideRight()
+                    if (offset > threshold || (fastSwipe && offset > 0)) {
+                      // move to previous
+                      slideLeft()
+                    } else if (offset < -threshold || (fastSwipe && offset < 0)) {
+                      slideRight()
+                    } else {
+                      // snap back to current
+                      setDragX(-currentIndex * cardWidth)
+                    }
+                  }}
+                  style={{ width: 'max-content' }}
+                >
+                  {armorData.sliderSection.slides.map((slide, index) => (
+                    <motion.div
+                      key={`${slide.name}-${index}`}
+                      // Responsive widths — keep desktop look, but mobile shows one centered card
+                      className="w-full md:w-[936px] 2xl:w-[1100px] flex-shrink-0 group transition-all duration-300 mx-auto"
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{
+                        opacity: 1,
+                        x: 0,
+                        transition: {
+                          delay: index * 0.1,
+                          duration: 0.6,
+                          ease: 'easeOut'
                         }
-                      }
-                    }}
-                    style={{ width: 'max-content' }}
-                  >
-                    {armorData.sliderSection.slides.map((slide, index) => (
-                      <motion.div
-                        key={`${slide.name}-${index}`}
-                        className="w-[936px] 2xl:w-[1100px] flex-shrink-0 group transition-all duration-300"
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{
-                          opacity: 1,
-                          x: 0,
-                          transition: {
-                            delay: index * 0.1,
-                            duration: 0.6,
-                            ease: "easeOut"
-                          }
-                        }}
-                      >
-                        <div className="h-[468px] w-full relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
-                          {slide.image?.asset?.url && (
-                            <Image
-                              src={slide.image.asset.url}
-                              alt={slide.image.alt || slide.name}
-                              fill
-                              className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px]"
-                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                              loading="lazy"
-                              style={{ contain: 'layout style paint' }}
-                            />
-                          )}
-                          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
-                        </div>
+                      }}
+                    >
+                      {/* Media Content */}
+                      <div className="h-[468px] w-full relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
+                        {slide.image?.asset?.url && (
+                          <Image
+                            src={slide.image.asset.url}
+                            alt={slide.image.alt || slide.name}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px] w-full"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            loading="lazy"
+                            style={{ contain: 'layout style paint' }}
+                          />
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
+                      </div>
 
-                        <div className="pt-[42px] max-w-[630px]">
-                          <div className="">
-                            <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
-                              {slide.name}
-                            </h3>
-                            <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
-                              {slide.description}
-                            </p>
-                          </div>
+                      {/* Content */}
+                      <div className="md:pt-[42px] pt-[15px] md:max-w-[630px] w-full">
+                        <div>
+                          <h3 className="md:text-left text-center text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
+                            {slide.name}
+                          </h3>
+                          <p className="sm:max-w-fit max-w-[283px] text-[16px] md:text-left text-center leading-[20px] tracking-[0] m-0 mx-auto font-normal font-helvetica text-black opacity-60">
+                            {slide.description}
+                          </p>
                         </div>
-                      </motion.div>
-                    ))}
+                      </div>
+                    </motion.div>
+                  ))}
                   </motion.div>
                 </div>
               </div>
-            </motion.div>
-          </section>
-        )}
-      </div>
+          </motion.div>
+        </section>
+      )}
 
       {/* Call to Action Section */}
-      <section className="py-16 lg:py-[120px] bg-white">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="pt-[40px] pb-[35px] lg:py-[120px] bg-white">
+        <div className="max-w-7xl mx-auto px-[15px]">
           <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[71px]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-[71px] gap-[18px]">
+              {/* Left - Title and Button */}
               <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
-                <h1 className="text-[62px] not-italic tracking-[-1px] leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
+                <h1 className="text-[30px] md:text-[62px] not-italic tracking-[-1px] md:leading-[68px] leading-[33px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
                   style={{
                     background: "conic-gradient(from 180deg at 50% 116.28%, #000 0.91deg, rgba(0, 0, 0, 0.24) 360deg)",
                     WebkitBackgroundClip: "text",
@@ -574,7 +588,8 @@ export default function XodiumArmorPage() {
                   {armorData.callToAction.title}
                 </h1>
 
-                <div className="lg:col-span-1 space-y-8">
+                {/* CTA Button - Desktop */}
+                <div className="lg:col-span-1 space-y-8 md:block hidden">
                   <motion.a
                     href={armorData.callToAction.buttonLink}
                     initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -591,11 +606,14 @@ export default function XodiumArmorPage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
+                    {/* sliding overlay */}
                     <span
                       className="absolute inset-0 bg-white translate-x-full
                                  transition-transform duration-500 ease-in-out rounded-[32px]
                                  group-hover:translate-x-0"
                     />
+
+                    {/* text */}
                     <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
                       {armorData.callToAction.buttonText}
                     </span>
@@ -603,6 +621,7 @@ export default function XodiumArmorPage() {
                 </div>
               </motion.div>
 
+              {/* Right - Description */}
               <motion.div
                 variants={itemVariants}
                 className="lg:col-span-1"
@@ -619,6 +638,38 @@ export default function XodiumArmorPage() {
                   ))}
                 </div>
               </motion.div>
+            </div>
+
+            {/* CTA Button - Mobile */}
+            <div className="lg:col-span-1 mt-[14px] space-y-8 block md:hidden">
+              <motion.a
+                href={armorData.callToAction.buttonLink}
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.3,
+                  ease: [0.4, 0, 0.2, 1],
+                }}
+                className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
+                           border border-black bg-black text-white font-helvetica
+                           text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {/* sliding overlay */}
+                <span
+                  className="absolute inset-0 bg-white translate-x-full
+                             transition-transform duration-500 ease-in-out rounded-[32px]
+                             group-hover:translate-x-0"
+                />
+
+                {/* text */}
+                <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
+                  {armorData.callToAction.buttonText}
+                </span>
+              </motion.a>
             </div>
           </motion.div>
         </div>

@@ -1,4 +1,3 @@
-
 'use client'
 
 import Link from 'next/link'
@@ -34,30 +33,36 @@ export default function Navbar() {
     if (!shouldBeTransparent) return
 
     const handleScroll = () => {
-      // Check if user has scrolled past the hero section (approximately 100vh)
       const scrollPosition = window.scrollY
       const viewportHeight = window.innerHeight
-      setIsScrolled(scrollPosition > viewportHeight * 0.8) // 80% of viewport height
+      setIsScrolled(scrollPosition > viewportHeight * 0.8)
     }
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [shouldBeTransparent])
 
+  // ✅ Auto close mobile menu on route change
+  useEffect(() => {
+    setIsMenuOpen(false)
+  }, [pathname])
+
   if (!navbarData) {
     return null
   }
 
   return (
-    <nav className={`fixed left-0 right-0 z-50 md:px-12 px-5 py-4 font-helvetica transition-all duration-600 ${
-      shouldBeTransparent
-        ? isScrolled   
-        // bg-black/95
-          ? 'top-0 bg-[#000]'
-          : '[background:linear-gradient(180deg,_#000_0%,_rgba(0,0,0,0)_100%)]'
-        : 'top-0 bg-[#000] backdrop-blur-md shadow-sm'
-    }`}>
+    <nav
+      className={`fixed left-0 right-0 z-50 md:px-12 px-5 py-4 font-helvetica transition-all duration-600 ${
+        shouldBeTransparent
+          ? isScrolled
+            ? 'top-0 bg-[#000]'
+            : '[background:linear-gradient(180deg,_#000_0%,_rgba(0,0,0,0)_100%)]'
+          : 'top-0 bg-[#000] backdrop-blur-md shadow-sm'
+      }`}
+    >
       <div className="flex items-center justify-between">
+        {/* Logo */}
         <div className="flex items-center">
           <Link href="/" className="flex items-center group">
             <div className="w-[148px] h-[44px] flex-shrink-0 aspect-[37/11] relative">
@@ -73,6 +78,7 @@ export default function Navbar() {
           </Link>
         </div>
 
+        {/* Links + CTA */}
         <div className="flex items-center justify-end space-x-8">
           <div className="hidden md:flex items-center space-x-8 gap-[20px]">
             {navbarData.links.map((link) => (
@@ -85,6 +91,7 @@ export default function Navbar() {
               </Link>
             ))}
           </div>
+
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -100,19 +107,17 @@ export default function Navbar() {
               }
             }}
           >
-            {/* sliding overlay */}
             <span
               className="absolute inset-0 bg-black translate-x-full
                          transition-transform duration-700 ease-out rounded-[50px]
                          group-hover:translate-x-0"
             />
-
-            {/* text */}
             <span className="relative z-10 transition-colors duration-700 ease-out group-hover:text-white">
               {navbarData.ctaButton.text}
             </span>
           </motion.button>
 
+          {/* Hamburger */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 text-white"
@@ -130,6 +135,7 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden mt-4 bg-black bg-opacity-90 rounded-lg p-4">
           <div className="flex flex-col space-y-4">
@@ -137,6 +143,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={() => setIsMenuOpen(false)} // ✅ close menu on link click
                 className="font-helvetica text-white hover:opacity-80 transition-opacity font-normal text-[16px]"
               >
                 {link.label}
@@ -146,6 +153,7 @@ export default function Navbar() {
             <button
               className="mt-2 bg-white text-black px-5 py-2 rounded-full font-helvetica font-medium hover:bg-gray-100 transition-colors text-[16px] w-full"
               onClick={() => {
+                setIsMenuOpen(false) // ✅ close menu before redirect
                 if (navbarData.ctaButton.link) {
                   window.location.href = navbarData.ctaButton.link
                 }
@@ -159,12 +167,3 @@ export default function Navbar() {
     </nav>
   )
 }
-
-
-
-
-
-
-
-
-

@@ -69,7 +69,7 @@ export default function VehicleCard({ vehicle, activeFilters = [] }: VehicleCard
           {activeFilters.length > 0 && (
             <div className="mt-2">
               <p className="text-[14px] text-[#636363] font-helvetica capitalize leading-[140%] mb-2">
-                {activeFilters.map(([key, value]) => {
+                {activeFilters.map(({ key, value }) => {
                   let displayValue = '';
                   if (Array.isArray(value)) {
                     displayValue = value.join(', ');

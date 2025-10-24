@@ -4,81 +4,62 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { directCheckout } from '@/app/inventory/[slug]/actions';
 
-// style
-const performanceStyles  = `
-   /* Hide scrollbar for Chrome, Safari and Opera */
-   .scrollbar-hide::-webkit-scrollbar {
-     display: none;
-   }
-
-   /* Hide scrollbar for IE, Edge and Firefox */
-   .scrollbar-hide {
-     -ms-overflow-style: none;  /* IE and Edge */
-     scrollbar-width: none;  /* Firefox */
-   }
-
-   .performance-section h2{
+const performanceStyles = `
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.performance-section h2 {
   color: #111;
-font-size: 20px;
-font-style: normal;
-font-weight: 600;
-line-height: 22px;
-text-transform: capitalize;
- margin-bottom:17px;
-  }
- .performance-section h3{
-margin-bottom:17px;
- }
-  h3{
-color: #111;
-font-size: 20px;
-font-style: normal;
-font-weight: 600;
-line-height: 22px;
-text-transform: capitalize;
-
- }
-
- p{
-font-size: 10px;
-font-style: normal;
-font-weight: 400;
-line-height: 22px;
-text-transform: capitalize;
-color:#323232;
-  }
-h6{
-font-size: 10px;
-font-style: normal;
-font-weight: 400;
-line-height: 22px;
-text-transform: capitalize;
-color:#323232;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 22px;
+  text-transform: capitalize;
+  margin-bottom: 17px;
 }
- .performance-section p{
- font-size: 16px;
- margin-bottom:10px;
- }
+.performance-section h3 {
+  margin-bottom: 17px;
+}
+h3 {
+  color: #111;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 22px;
+  text-transform: capitalize;
+}
+p, h6 {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 22px;
+  text-transform: capitalize;
+  color: #323232;
+}
+.performance-section p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
 .performance-section ul {
-  list-style: none; 
-  
+  list-style: none;
 }
-
 .performance-section li {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   position: relative;
-  padding-left: 1.5rem; 
+  padding-left: 1.5rem;
 }
-
 .performance-section li::before {
   content: "•";
   color: #000;
   font-size: 1rem;
   margin-right: 0.5rem;
-  position:absolute;    left: 0;
+  position: absolute;
+  left: 0;
 }
-    `
+`;
+
 interface VehicleConfigClientProps {
   product: any;
   dueTodayProduct?: any;
@@ -86,35 +67,32 @@ interface VehicleConfigClientProps {
   performanceHtml: string;
 }
 
-export default function
-VehicleConfigClient({
+export default function VehicleConfigClient({
   product,
   dueTodayProduct,
   topHeadingHtml,
-  performanceHtml
+  performanceHtml,
 }: VehicleConfigClientProps) {
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Get all product images
   const images = product.images || [];
   const totalImages = images.length;
 
-  const selectedVariant = product.variants && product.variants.length > 0
-    ? product.variants[selectedVariantIndex]
-    : null;
+  const selectedVariant =
+    product.variants && product.variants.length > 0
+      ? product.variants[selectedVariantIndex]
+      : null;
 
   const selectedVariantPrice = selectedVariant
     ? parseFloat(selectedVariant.price.amount)
     : parseFloat(product.priceRange?.minVariantPrice?.amount || '0');
 
-  // Navigation handlers for main image
   const handlePrevImage = () => {
     setCurrentImageIndex((prev) => (prev === 0 ? totalImages - 1 : prev - 1));
   };
-
   const handleNextImage = () => {
     setCurrentImageIndex((prev) => (prev === totalImages - 1 ? 0 : prev + 1));
   };
@@ -124,67 +102,64 @@ VehicleConfigClient({
       setError('This variant is not available for sale');
       return;
     }
-
     setIsCheckingOut(true);
     setError(null);
-
     try {
-      // Pass the selected variant's merchandiseId and title to checkout
       const result = await directCheckout(selectedVariant.id, selectedVariant.title);
-
       if (result.success && result.checkoutUrl) {
-        // Redirect to Shopify checkout with the selected variant
         window.location.href = result.checkoutUrl;
       } else {
         setError(result.error || 'Failed to start checkout');
         setIsCheckingOut(false);
       }
-    } catch (err) {
+    } catch {
       setError('An unexpected error occurred');
       setIsCheckingOut(false);
     }
   };
 
   return (
-    <div className="min-h-screen pt-[100px] pb-[73px]" style={{ backgroundColor: '#F4F1F2' }}>
-      <div className='max-w-[1500px] m-auto '>
-           {/* Back to Inventory link */}
-      <div className="px-12 pb-[10px]">
-        <a href={`/product-detail/${product.handle}`} className="text-[#747474] font-[400] text-[12px] leading-[110%] tracking-[-0.24px] underline decoration-solid font-helvetica">
-          Learn more
-        </a>
-      </div>
+    <div className="min-h-screen pt-[100px]  pb-[73px]" style={{ backgroundColor: '#F4F1F2' }}>
+      <div className="max-w-[1600px]  mx-auto">
+        {/* Learn More */}
+        <div className="px-6 sm:px-12 pb-[10px] text-center sm:text-left">
+          <a
+            href={`/product-detail/${product.handle}`}
+            className="text-[#747474] font-[400] text-[12px] underline"
+          >
+            Learn more
+          </a>
+        </div>
 
-        <div className="flex justify-between gap-[35px] relative">
-          {/* Left Sidebar - Vehicle Image & Slider */}
-          <div className="max-w-[1100px] w-full sticky top-[138px] h-fit">
-            {/* Main Image Container */}
+        {/* Responsive Layout */}
+        <div className="flex flex-col lg:flex-row justify-between gap-[35px] relative px-6 sm:px-12">
+          {/* LEFT - Images */}
+          <div className="w-full lg:max-w-[1100px] lg:sticky lg:top-[138px] h-fit mb-10 lg:mb-0">
             <div className="relative mb-4">
-              {/* Navigation arrows for main image */}
+              {/* Image nav arrows */}
               {totalImages > 1 && (
                 <>
                   <button
                     onClick={handlePrevImage}
-                    className="absolute left-6 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer border border-black w-[25px] h-[25px] rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors"
+                    className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-10 border border-black w-[25px] h-[25px] rounded-full flex items-center justify-center bg-white/70 hover:bg-white"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 8 8" fill="none">
-                      <path d="M8.00026 3.99953C8.00026 4.08794 7.96514 4.17272 7.90263 4.23524C7.84012 4.29775 7.75533 4.33287 7.66693 4.33287H1.13818L3.56943 6.7637C3.6004 6.79467 3.62497 6.83144 3.64173 6.8719C3.65849 6.91237 3.66711 6.95574 3.66711 6.99953C3.66711 7.04333 3.65849 7.0867 3.64173 7.12717C3.62497 7.16763 3.6004 7.2044 3.56943 7.23537C3.53846 7.26634 3.50169 7.2909 3.46123 7.30767C3.42076 7.32443 3.37739 7.33305 3.3336 7.33305C3.2898 7.33305 3.24643 7.32443 3.20596 7.30767C3.1655 7.2909 3.12873 7.26634 3.09776 7.23537L0.0977622 4.23537C0.06677 4.20441 0.0421837 4.16765 0.025409 4.12718C0.00863422 4.08671 0 4.04334 0 3.99953C0 3.95573 0.00863422 3.91235 0.025409 3.87189C0.0421837 3.83142 0.06677 3.79466 0.0977622 3.7637L3.09776 0.763701C3.16031 0.701154 3.24514 0.666016 3.3336 0.666016C3.42205 0.666016 3.50688 0.701154 3.56943 0.763701C3.63198 0.826248 3.66711 0.91108 3.66711 0.999534C3.66711 1.08799 3.63198 1.17282 3.56943 1.23537L1.13818 3.6662H7.66693C7.75533 3.6662 7.84012 3.70132 7.90263 3.76383C7.96514 3.82634 8.00026 3.91113 8.00026 3.99953Z" fill="black"/>
+                      <path d="M8 4a.333.333 0 0 1-.333.333H1.14L3.57 6.764A.332.332 0 1 1 3.097 7.236L.098 4.236A.333.333 0 0 1 .098 3.764L3.097.764a.333.333 0 1 1 .472.472L1.14 3.667h6.528A.333.333 0 0 1 8 4Z" fill="black"/>
                     </svg>
                   </button>
-
                   <button
                     onClick={handleNextImage}
-                    className="absolute right-6 top-1/2 transform -translate-y-1/2 z-10 border cursor-pointer border-black w-[25px] h-[25px] rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors"
+                    className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-10 border border-black w-[25px] h-[25px] rounded-full flex items-center justify-center bg-white/70 hover:bg-white"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 8 8" fill="none">
-                      <path d="M-0.000262181 4.00047C-0.000262181 3.91206 0.0348565 3.82728 0.0973686 3.76476C0.159881 3.70225 0.244666 3.66713 0.333071 3.66713H6.86182L4.43057 1.2363C4.3996 1.20533 4.37503 1.16856 4.35827 1.1281C4.34151 1.08763 4.33289 1.04426 4.33289 1.00047C4.33289 0.956667 4.34151 0.913298 4.35827 0.872834C4.37503 0.832369 4.3996 0.795602 4.43057 0.764632C4.46154 0.733662 4.49831 0.709096 4.53877 0.692335C4.57924 0.675574 4.62261 0.666947 4.6664 0.666947C4.7102 0.666947 4.75357 0.675574 4.79404 0.692335C4.8345 0.709096 4.87127 0.733662 4.90224 0.764632L7.90224 3.76463C7.93323 3.79559 7.95782 3.83235 7.97459 3.87282C7.99137 3.91329 8 3.95666 8 4.00047C8 4.04427 7.99137 4.08765 7.97459 4.12811C7.95782 4.16858 7.93323 4.20534 7.90224 4.2363L4.90224 7.2363C4.83969 7.29885 4.75486 7.33398 4.6664 7.33398C4.57795 7.33398 4.49312 7.29885 4.43057 7.2363C4.36802 7.17375 4.33289 7.08892 4.33289 7.00047C4.33289 6.91201 4.36802 6.82718 4.43057 6.76463L6.86182 4.3338H0.333071C0.244666 4.3338 0.159881 4.29868 0.0973686 4.23617C0.0348565 4.17366 -0.000262181 4.08887 -0.000262181 4.00047Z" fill="black"/>
+                      <path d="M0 4a.333.333 0 0 1 .333-.333h6.528L4.43 1.236A.333.333 0 1 1 4.903.764l3 3a.333.333 0 0 1 0 .472l-3 3a.333.333 0 1 1-.472-.472l2.431-2.431H.333A.333.333 0 0 1 0 4Z" fill="black"/>
                     </svg>
                   </button>
                 </>
               )}
 
-              {/* Main Image */}
-              <div className="mx-auto px-14">
+              {/* Main image */}
+              <div className="mx-auto px-4 sm:px-14">
                 <Image
                   src={images[currentImageIndex]?.url || '/images/dynmaicpagecar.png'}
                   alt={product.title}
@@ -195,10 +170,10 @@ VehicleConfigClient({
               </div>
             </div>
 
-            {/* Thumbnail Slider */}
+            {/* Thumbnails */}
             {totalImages > 1 && (
-              <div className="px-14">
-                <div className="flex gap-3 overflow-x-auto scrollbar-hide">
+              <div className="px-4 sm:px-14">
+                <div className="flex gap-3 overflow-x-auto scrollbar-hide justify-center lg:justify-start">
                   {images.map((image: any, index: number) => (
                     <button
                       key={index}
@@ -212,7 +187,7 @@ VehicleConfigClient({
                     >
                       <Image
                         src={image.url || '/images/dynmaicpagecar.png'}
-                        alt={`${product.title} - Image ${index + 1}`}
+                        alt={`${product.title} - ${index + 1}`}
                         width={80}
                         height={80}
                         className="w-full h-full object-cover"
@@ -224,33 +199,35 @@ VehicleConfigClient({
             )}
           </div>
 
-          {/* Right Sidebar - Configuration */}
-          <div className=" w-full max-w-[386px] pr-[20px]">
-            <div className="pt-[68px] space-y-6">
-              {/* Vehicle Title */}
-              <div className="text-center mb-6">
-                <h1 className="text-black  font-helvetica text-[40px] not-italic font-bold leading-[110%] tracking-[-0.8px] mb-[28px] text-center">{product.title}</h1>
-              </div>
+          {/* RIGHT - Details */}
+          <div className="w-full   pr-0 lg:pr-[20px] text-center lg:text-left">
+            <div className="pt-0 lg:pt-[68px] space-y-6">
+              {/* Title */}
+              <h1 className="text-black font-helvetica text-[32px] sm:text-[40px] font-bold leading-[110%] tracking-[-0.8px] mb-[28px]">
+                {product.title}
+              </h1>
 
-              {/* Top Heading Section (Specs) */}
+              {/* Top heading HTML */}
               <style dangerouslySetInnerHTML={{ __html: performanceStyles }} />
               {topHeadingHtml && (
-                <div className="text-black text-center flex justify-between mb-[21px] gap-4 " dangerouslySetInnerHTML={{ __html: topHeadingHtml }} />
+                <div
+                  className="text-black text-center flex flex-col gap-4 mb-[21px]"
+                  dangerouslySetInnerHTML={{ __html: topHeadingHtml }}
+                />
               )}
 
-              {/* Variant Tabs */}
-              {product.variants && product.variants.length > 0 && (
+              {/* Variants */}
+              {product.variants?.length > 0 && (
                 <div className="mb-8">
-                  {/* Tabs */}
-                  <div className="flex gap-2 flex-wrap justify-between border-[#D5D7D7] border-b mb-[28px]">
+                  <div className="flex flex-wrap justify-center lg:justify-between border-b border-[#D5D7D7] mb-[28px]">
                     {product.variants.map((variant: any, index: number) => (
                       <button
                         key={variant.id}
                         onClick={() => setSelectedVariantIndex(index)}
-                        className={`cursor-pointer px-6 pb-[17px]  font-helvetica !text-[16px] not-italic font-[500] leading-[180%] transition-colors ${
+                        className={`cursor-pointer px-4 sm:px-6 pb-[17px] font-helvetica text-[16px] font-[500] ${
                           selectedVariantIndex === index
-                            ? ' text-[#000] border-b border-[#000]'
-                            : ' text-[#858585] hover:text-[#000]'
+                            ? 'text-[#000] border-b border-[#000]'
+                            : 'text-[#858585] hover:text-[#000]'
                         }`}
                       >
                         {variant.title}
@@ -258,25 +235,20 @@ VehicleConfigClient({
                     ))}
                   </div>
 
-                  {/* Selected Variant Info */}
                   {selectedVariant && (
-                    <div className="flex justify-between border border-[#000] items-center bg-[#F4F4F4] rounded-[4px] px-[21px] py-[13px]">
+                    <div className="flex justify-between items-center border border-[#000] bg-[#F4F4F4] rounded-[4px] px-[21px] py-[13px]">
                       <div className="text-left">
-                        <p className="text-[#747474] font-helvetica text-[12px] not-italic font-normal leading-[140%] mb-1">
-                          Standard
-                        </p>
-                        <p className="text-black font-helvetica !text-[14px] not-italic font-bold leading-[150%] capitalize">
+                        <p className="text-[#747474] text-[12px] mb-1">Standard</p>
+                        <p className="text-black text-[14px] font-bold capitalize">
                           {selectedVariant.title}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-black font-helvetica !text-[14px] not-italic font-bold leading-[150%] capitalize">
+                        <p className="text-black text-[14px] font-bold capitalize">
                           ${selectedVariantPrice.toLocaleString()}
                         </p>
                         {!selectedVariant.availableForSale && (
-                          <p className="text-red-500 font-helvetica !text-[14px] not-italic font-normal leading-[140%] mt-1">
-                            Out of Stock
-                          </p>
+                          <p className="text-red-500 text-[14px] mt-1">Out of Stock</p>
                         )}
                       </div>
                     </div>
@@ -284,80 +256,59 @@ VehicleConfigClient({
                 </div>
               )}
 
-              
+              {/* Performance */}
+              {performanceHtml && (
+                <div
+                  className="performance-section text-left"
+                  dangerouslySetInnerHTML={{ __html: performanceHtml }}
+                />
+              )}
 
-              {/* Performance Data Section */}
-               <style dangerouslySetInnerHTML={{ __html: performanceStyles }} />
-                  {performanceHtml && (
-                    <div
-                      className="performance-section"
-                      dangerouslySetInnerHTML={{ __html: performanceHtml }}
-                    />
-                  )}
-
-              {/* Error Message */}
+              {/* Error */}
               {error && (
-                <div className="text-red-500 text-center font-helvetica text-[14px] p-3 bg-red-50 rounded-md">
+                <div className="text-red-500 text-center text-[14px] p-3 bg-red-50 rounded-md">
                   {error}
                 </div>
               )}
-               
-               {/* Due Today Product Section - displayed below the main order button */}
-               {dueTodayProduct && (
+
+              {/* Due Today */}
+              {dueTodayProduct && (
                 <div className="mt-1 pt-4 border-t border-gray-200">
-                  <div className=" p-4 rounded-md flex gap-3 justify-between">
-                   <div>
-                     <p className="!text-[#111] mb-1 !text-[18px] not-italic !font-medium !leading-[22px] capitalize font-helvetica"><span>{dueTodayProduct.title || 'Security Deposit Package'}</span></p>
-                    {dueTodayProduct.variants && dueTodayProduct.variants[0] && (
-                      <p className="!text-[#323232]  !text-[12px] not-italic !font-[400] !leading-[18px] capitalize font-helvetica"><span>{dueTodayProduct.variants[0].title}</span></p>
-                    )}
-                   </div>
-                    {dueTodayProduct.priceRange && dueTodayProduct.priceRange.minVariantPrice && (
-                      <p className="!text-[#111]  !text-[18px] not-italic !font-medium !leading-[22px] capitalize font-helvetica"><span className="font-bold">${parseFloat(dueTodayProduct.priceRange.minVariantPrice.amount).toLocaleString()}</span></p>
+                  <div className="p-4 flex justify-between">
+                    <div>
+                      <p className="text-[#111] text-[18px] font-medium">
+                        {dueTodayProduct.title || 'Security Deposit Package'}
+                      </p>
+                      {dueTodayProduct.variants?.[0] && (
+                        <p className="text-[#323232] text-[12px]">
+                          {dueTodayProduct.variants[0].title}
+                        </p>
+                      )}
+                    </div>
+                    {dueTodayProduct.priceRange?.minVariantPrice && (
+                      <p className="text-[#111] text-[18px] font-medium">
+                        ${parseFloat(dueTodayProduct.priceRange.minVariantPrice.amount).toLocaleString()}
+                      </p>
                     )}
                   </div>
                 </div>
               )}
 
-              {/* Order Button - will add both products to cart */}
+              {/* Order Button */}
               <button
                 onClick={handleDirectCheckout}
                 disabled={isCheckingOut || !selectedVariant?.availableForSale}
-                className="relative overflow-hidden w-full cursor-pointer text-white text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] rounded-full py-[14px] px-4 bg-black border border-transparent group
-                          focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black
-                          transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                className="relative overflow-hidden w-full max-w-[360px] mx-auto cursor-pointer text-white text-center font-helvetica text-[16px] font-bold rounded-full py-[14px] px-4 bg-black border border-transparent group transition disabled:bg-gray-400"
               >
-                {/* Sliding overlay */}
-                <span
-                  className="absolute inset-0 bg-white translate-x-full
-                            transition-transform duration-500 ease-in-out rounded-full
-                            group-hover:translate-x-0"
-                />
-
-                {/* Button text */}
-                <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
+                <span className="absolute inset-0 bg-white translate-x-full transition-transform duration-500 rounded-full group-hover:translate-x-0" />
+                <span className="relative z-10 group-hover:text-black">
                   {isCheckingOut
                     ? 'Processing...'
                     : selectedVariant
-                      ? `Order Now - ${selectedVariant.title}`
-                      : 'Order with Card'}
+                    ? `Order Now - ${selectedVariant.title}`
+                    : 'Order with Card'}
                 </span>
               </button>
-
-              {/* <button
-                onClick={handleDirectCheckout}
-                disabled={isCheckingOut || !selectedVariant?.availableForSale}
-                className="w-full cursor-pointer text-white text-center font-helvetica text-[16px] not-italic font-bold leading-[150%] rounded-full py-[14px] px-4 bg-black hover:bg-gray-800 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
-              >
-                {isCheckingOut
-                  ? 'Processing...'
-                  : selectedVariant
-                    ? `Order Now - ${selectedVariant.title}`
-                    : 'Order with Card'
-                }
-              </button> */}
-
-           
             </div>
           </div>
         </div>

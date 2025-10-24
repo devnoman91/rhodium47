@@ -217,7 +217,7 @@ export default function InventoryClient({
           value[0] === priceRange.min && value[1] === priceRange.max) return false;
       return true;
     });
-    return activeFilters;
+    return activeFilters.map(([key, value]) => ({ key, value }));
   };
 
   return (

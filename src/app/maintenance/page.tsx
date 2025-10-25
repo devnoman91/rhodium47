@@ -490,13 +490,13 @@ export default function MaintenancePage() {
       <div className="maintenance-container" style={{ paddingTop: 0 }}>
 
         {/* Emergency Service Section (24/7) */}
-        <section className="pt-[50px] lg:pt-[90px]  bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+        <section className="pt-[50px] lg:pt-[90px]  bg-[#F4F1F2] md:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
           <div className="max-w-[1304px] mx-auto text-center">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-[64px] text-black font-medium leading-[110%] tracking-[-1.28px] font-helvetica mb-[14px]"
+              className="text-[30px] md:text-[64px] text-black font-medium leading-[110%] tracking-[-1.28px] font-helvetica mb-[14px]"
             >
               {maintenanceData.emergencyService.title}
             </motion.h2>
@@ -505,7 +505,7 @@ export default function MaintenancePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-[24px] font-[500] text-black leading-[150%] font-helvetica max-w-[855px] mx-auto mb-[52px]"
+              className="text-[16px] font-[500] text-black leading-[150%] font-helvetica max-w-[855px] mx-auto md:mb-[52px] mb-[46px]"
             >
               {maintenanceData.emergencyService.description}
             </motion.p>
@@ -516,10 +516,10 @@ export default function MaintenancePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="grid grid-cols-1 md:grid-cols-3  mb-[73px] max-w-[720px] m-auto"
+              className="grid grid-cols-1 md:grid-cols-3 md:gap-0 gap-[18px]  md:mb-[73px] mb-[15px] max-w-[720px] m-auto"
             >
               {maintenanceData.emergencyService.stats.map((stat, index) => (
-                <div key={index} className=" border-r border-[#00000033] text-black last:border-r-0">
+                <div key={index} className="md:pb-0 pb-[18px] md:border-r border-b border-[#00000033] text-black md:last:border-r-0 last:border-b-0">
                   <div className="text-[50px] font-medium leading-[110%] font-helvetica mb-[3px]">
                     {stat.value}
                   </div>
@@ -548,9 +548,9 @@ export default function MaintenancePage() {
 
         {/* Pricing Section */}
         {maintenanceData.servicePricing.packages.length > 0 && (
-          <section className="pt-[50px] lg:pt-[72px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+          <section className="pt-[50px] lg:pt-[72px] md:pb-[50px] lg:pb-[90px] bg-[#F4F1F2] md:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
             <div className="max-w-[1304px] mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-[9px]">
+              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-[9px] gap-[20px]">
                 {maintenanceData.servicePricing.packages.map((pkg, index) => (
                   <motion.div
                     key={index}

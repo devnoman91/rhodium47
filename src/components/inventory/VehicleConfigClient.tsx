@@ -122,7 +122,7 @@ export default function VehicleConfigClient({
     <div className="min-h-screen pt-[100px]  pb-[73px]" style={{ backgroundColor: '#F4F1F2' }}>
       <div className="max-w-[1600px]  mx-auto">
         {/* Learn More */}
-        <div className="px-6 sm:px-12 pb-[10px] text-center sm:text-left">
+        <div className="px-6 sm:px-12 pb-[10px] text-left">
           <a
             href={`/product-detail/${product.handle}`}
             className="text-[#747474] font-[400] text-[12px] underline"
@@ -134,14 +134,14 @@ export default function VehicleConfigClient({
         {/* Responsive Layout */}
         <div className="flex flex-col lg:flex-row justify-between gap-[35px] relative px-6 sm:px-12">
           {/* LEFT - Images */}
-          <div className="w-full lg:max-w-[1100px] lg:sticky lg:top-[138px] h-fit mb-10 lg:mb-0">
+          <div className="w-full lg:w-[74%] lg:sticky lg:top-[138px] h-fit mb-10 lg:mb-0">
             <div className="relative mb-4">
               {/* Image nav arrows */}
               {totalImages > 1 && (
                 <>
                   <button
                     onClick={handlePrevImage}
-                    className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-10 border border-black w-[25px] h-[25px] rounded-full flex items-center justify-center bg-white/70 hover:bg-white"
+                    className="absolute -left-4 sm:left-6 top-1/2 -translate-y-1/2 z-10 border border-black w-[25px] h-[25px] rounded-full flex items-center justify-center bg-white/70 hover:bg-white"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 8 8" fill="none">
                       <path d="M8 4a.333.333 0 0 1-.333.333H1.14L3.57 6.764A.332.332 0 1 1 3.097 7.236L.098 4.236A.333.333 0 0 1 .098 3.764L3.097.764a.333.333 0 1 1 .472.472L1.14 3.667h6.528A.333.333 0 0 1 8 4Z" fill="black"/>
@@ -149,7 +149,7 @@ export default function VehicleConfigClient({
                   </button>
                   <button
                     onClick={handleNextImage}
-                    className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-10 border border-black w-[25px] h-[25px] rounded-full flex items-center justify-center bg-white/70 hover:bg-white"
+                    className="absolute -right-4 sm:right-6 top-1/2 -translate-y-1/2 z-10 border border-black w-[25px] h-[25px] rounded-full flex items-center justify-center bg-white/70 hover:bg-white"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 8 8" fill="none">
                       <path d="M0 4a.333.333 0 0 1 .333-.333h6.528L4.43 1.236A.333.333 0 1 1 4.903.764l3 3a.333.333 0 0 1 0 .472l-3 3a.333.333 0 1 1-.472-.472l2.431-2.431H.333A.333.333 0 0 1 0 4Z" fill="black"/>
@@ -159,7 +159,7 @@ export default function VehicleConfigClient({
               )}
 
               {/* Main image */}
-              <div className="mx-auto px-4 sm:px-14">
+              <div className="mx-auto px-3 sm:px-14">
                 <Image
                   src={images[currentImageIndex]?.url || '/images/dynmaicpagecar.png'}
                   alt={product.title}
@@ -200,10 +200,10 @@ export default function VehicleConfigClient({
           </div>
 
           {/* RIGHT - Details */}
-          <div className="w-full   pr-0 lg:pr-[20px] text-center lg:text-left">
+          <div className="pr-0 lg:pr-[20px] text-center lg:text-left lg:w-[23%] ">
             <div className="pt-0 lg:pt-[68px] space-y-6">
               {/* Title */}
-              <h1 className="text-black font-helvetica text-[32px] sm:text-[40px] font-bold leading-[110%] tracking-[-0.8px] mb-[28px]">
+              <h1 className="text-black text-center font-helvetica text-[32px] sm:text-[40px] font-bold leading-[110%] tracking-[-0.8px] mb-[28px]">
                 {product.title}
               </h1>
 
@@ -211,7 +211,7 @@ export default function VehicleConfigClient({
               <style dangerouslySetInnerHTML={{ __html: performanceStyles }} />
               {topHeadingHtml && (
                 <div
-                  className="text-black text-center flex flex-col gap-4 mb-[21px]"
+                  className="text-black text-center items-center justify-center  flex flex-wrap gap-4 mb-[21px]"
                   dangerouslySetInnerHTML={{ __html: topHeadingHtml }}
                 />
               )}

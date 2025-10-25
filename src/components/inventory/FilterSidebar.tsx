@@ -62,7 +62,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
   };
 
   return (
-    <div className="bg-white overflow-y-auto p-5 no-scrollbar h-full">
+    <div className="bg-white overflow-y-auto  no-scrollbar h-full">
       {/* Header */}
       <div className="mb-0">
         <h2 className="font-helvetica text-black mb-[5px] font-medium text-[26px] leading-[110%] tracking-[-0.52px]">Inventory</h2>

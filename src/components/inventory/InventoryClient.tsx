@@ -221,55 +221,103 @@ export default function InventoryClient({
   };
 
   return (
-    <div className="min-h-screen pt-[126px] pb-[95px] bg-[#FFFFFF] relative">
+    <div className="min-h-screen md:pt-[126px] pt-[98px] md:pb-[95px] pb-[30px] bg-[#FFFFFF] relative">
       {/* Mobile header with inventory title, zip code, new/pre-order buttons, and filter button */}
-      <div className="md:hidden px-[20px] py-4 border-b border-gray-200">
-       
-        <div className="mb-4 flex gap-4">
+      <div className="md:hidden px-[15px] ">
+       <h2 className="font-helvetica text-black mb-[5px] font-medium text-[26px] leading-[110%] tracking-[-0.52px]">Inventory</h2>
+        <div className="mb-[28px] flex gap-4">
           <input
             type="text"
             placeholder="Enter zip code"
             value={filters.zipCode}
             onChange={(e) => handleFilterChange({ ...filters, zipCode: e.target.value })}
-            className="flex-1 px-1 py-0 placeholder-gray-500 focus:outline-none focus:ring-0 focus:ring-black focus:border-transparent text-[#747474] font-normal text-[12px] leading-[110%] tracking-[-0.24px] underline font-helvetica not-italic decoration-solid"
+            className="flex-1 px-1 py-0 placeholder-[#747474] focus:outline-none focus:ring-0 focus:ring-black focus:border-transparent text-[#747474] font-normal text-[12px] leading-[110%] tracking-[-0.24px] underline font-helvetica not-italic decoration-solid"
           />
           
-          <button 
-            onClick={() => setIsFilterOpen(true)}
-            className="relative overflow-hidden px-4 py-2 rounded-[4px] bg-black text-white font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures whitespace-nowrap"
-          >
-            Filter
-          </button>
+         
         </div>
         
-        <div className="flex gap-2">
-          <button
-            onClick={() => handleFilterChange({ ...filters, status: filters.status === 'new' ? '' : 'new' })}
-            className={`relative overflow-hidden flex-1 rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures group
-              ${filters.status === 'new'
-                ? 'bg-black text-white shadow-sm'
-                : 'bg-[#F4F1F2] text-black'}`}
-          >
-            <span className="relative z-10 transition-colors duration-500 ease-in-out">
-              New
-            </span>
-          </button>
+        <div className='flex gap-[20px] justify-between'>
 
-          <button
-            onClick={() => handleFilterChange({ ...filters, status: filters.status === 'pre-order' ? '' : 'pre-order' })}
-            className={`relative overflow-hidden flex-1 rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures group
-              ${filters.status === 'pre-order'
-                ? 'bg-black text-white shadow-sm'
-                : 'bg-[#F4F1F2] text-black'}`}
+        
+
+           <div className="flex gap-2 px-[11px] py-[8px] rounded-[4px] bg-[#F4F1F2] max-w-[153px] w-full">
+            {/* New Button */}
+            <button
+              onClick={() =>
+                handleFilterChange({
+                  ...filters,
+                  status: filters.status === 'new' ? '' : 'new',
+                })
+              }
+              className={`relative px-[10px] py-[7px] overflow-hidden  rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures group
+                ${
+                  filters.status === 'new'
+                    ? 'bg-white text-black shadow-sm'
+                    : 'bg-black text-white'
+                }`}
+            >
+              {/* Sliding overlay */}
+              {filters.status !== 'new' && (
+                <span
+                  className="absolute inset-0 bg-white translate-x-full transition-transform duration-500 ease-in-out rounded-[4px] group-hover:translate-x-0"
+                />
+              )}
+
+              {/* Text */}
+              <span
+                className={`relative z-10 transition-colors duration-500 ease-in-out
+                  ${filters.status === 'new' ? 'group-hover:text-black' : 'group-hover:text-black'}`}
+              >
+                New
+              </span>
+            </button>
+
+            {/* Pre-Order Button */}
+            <button
+              onClick={() =>
+                handleFilterChange({
+                  ...filters,
+                  status: filters.status === 'pre-order' ? '' : 'pre-order',
+                })
+              }
+              className={`relative px-[2px] py-[7px] overflow-hidden flex-1 rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures group
+                ${
+                  filters.status === 'pre-order'
+                    ? 'bg-black text-white shadow-sm'
+                    : 'bg-white text-black'
+                }`}
+            >
+              {/* Sliding overlay */}
+              {filters.status !== 'pre-order' && (
+                <span
+                  className="absolute inset-0 bg-black translate-x-full transition-transform duration-500 ease-in-out rounded-[4px] group-hover:translate-x-0"
+                />
+              )}
+
+              {/* Text */}
+              <span
+                className={`relative z-10 transition-colors duration-500 ease-in-out
+                  ${filters.status === 'pre-order' ? 'group-hover:text-white' : 'group-hover:text-white'}`}
+              >
+                Pre-Order
+              </span>
+            </button>
+          </div>
+
+            <button 
+            onClick={() => setIsFilterOpen(true)}
+            className="relative flex justify-between items-center overflow-hidden pl-[12px] pr-[15px] py-[15px] max-w-[153px] w-full rounded-[4px] bg-[#E6E6E6] text-[#000] font-[500] font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures whitespace-nowrap"
           >
-            <span className="relative z-10 transition-colors duration-500 ease-in-out">
-              Pre-Order
-            </span>
+            Filter
+            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="6" viewBox="0 0 9 6" fill="none">
+              <path d="M4.243 5.657L0 1.414L1.415 0L4.243 2.829L7.071 0L8.486 1.414L4.243 5.657Z" fill="black"/>
+            </svg>
           </button>
-        </div>
+         </div>
       </div>
       
-      <div className="flex max-w-[1600px] px-[20px] m-auto gap-[45px]">
+      <div className="flex max-w-[1600px] px-[15px] m-auto gap-[45px]">
         <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
 
         {/* Sidebar - Hidden on mobile when filter is closed */}
@@ -287,7 +335,7 @@ export default function InventoryClient({
             </div>
             
             {/* New and Pre-Order buttons in sidebar */}
-            <div className="hidden md:block mb-6 px-5 pt-5">
+            <div className="hidden md:block mb-6  pt-5">
               <div className="flex gap-2 px-[17px] py-[8px] rounded-[4px]" style={{ backgroundColor: '#F4F1F2' }}>
                 <button
                   onClick={() => handleFilterChange({ ...filters, status: filters.status === 'new' ? '' : 'new' })}
@@ -353,7 +401,7 @@ export default function InventoryClient({
         </div>
 
         {/* Main content */}
-        <div className="flex-1 min-h-screen pt-[50px]">
+        <div className="flex-1 min-h-screen md:pt-[50px] pt-[21px]">
           
           {/* Show Clear Filters button when filters are active */}
           {hasActiveFilters() && (

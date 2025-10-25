@@ -51,7 +51,7 @@ export default function VehicleCard({ vehicle, activeFilters = [] }: VehicleCard
           src={vehicle.image}
           alt={vehicle.model}
           fill
-          className="w-full h-full object-cover group-hover:scale-110 transition-all ease-in-out duration-400"
+          className="w-full h-full md:object-cover object-contain group-hover:scale-110 transition-all ease-in-out duration-400"
         />
       </div>
 

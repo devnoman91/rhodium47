@@ -113,8 +113,9 @@ line-height: 20px; /* 125% */
   }
   @media (max-width: 768px) {
     .custom-design-container {
-      padding-inline: 20px;
+      padding-inline: 15px;
       padding-top: 100px;
+       padding-bottom: 37px;
     }
     .custom-design-hero-title {
       font-size: 40px;
@@ -160,7 +161,7 @@ const DesignPhilosophySection: React.FC<{ title: string; description: string }> 
   const words = useMemo(() => description.split(' '), [description])
 
   return (
-    <section className="py-12 md:pb-[90px] md:pt-[106px] ">
+    <section className="py-[37px] md:pb-[90px] md:pt-[106px] ">
       <div className="max-w-[1304px] mx-auto px-4 md:px-6">
         <motion.div
           variants={containerVariants}
@@ -402,7 +403,7 @@ export default function CustomDesignPage() {
             {/* Header Section */}
             <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, staggerChildren: 0.15 }}>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-[10px] lg:gap-16">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-[32px] lg:gap-16">
                   <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} className="lg:col-span-1">
                     <h2 className="md:text-left text-center text-white font-medium md:text-[64px] text-[30px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
                       {customDesignData.sliderSection.mainName}
@@ -504,15 +505,15 @@ export default function CustomDesignPage() {
       <div className="custom-design-container" style={{ paddingTop: 0 }}>
         {/* Design Process Section */}
         {customDesignData.designProcess.sections.length > 0 && (
-          <section className="pt-[50px] lg:pt-[94px] bg-[#F4F1F2] text-black -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]" style={{ contain: 'layout style' }}>
+          <section className="pt-[50px] lg:pt-[94px] bg-[#F4F1F2] text-black md:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]" style={{ contain: 'layout style' }}>
             {/* Header Section */}
-            <div className="max-w-[1304px] mx-auto mb-[62px]" style={{ contain: 'layout style' }}>
+            <div className="max-w-[1304px] mx-auto md:mb-[62px] mb-[32px]" style={{ contain: 'layout style' }}>
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, staggerChildren: 0.15 }}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12  lg:gap-16">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-[9px]  lg:gap-16">
                   {/* Left - Title */}
                   <motion.div
                     initial={{ opacity: 0, y: 40 }}
@@ -556,7 +557,7 @@ export default function CustomDesignPage() {
                     }}
                   >
                     {/* Media Content */}
-                    <div className="h-[468px] w-full relative overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
+                    <div className="md:h-[468px] h-[236px] w-full relative overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
                       {section.image?.asset?.url && (
                         <Image
                           src={section.image.asset.url}
@@ -572,12 +573,12 @@ export default function CustomDesignPage() {
                     </div>
 
                     {/* Content */}
-                    <div className="pt-[42px] max-w-[656px]">
+                    <div className="md:pt-[42px] pt-[20px] max-w-[656px]">
                       <div className="">
-                        <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
+                        <h3 className="text-[#111] md:text-left text-center font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                           {section.title}
                         </h3>
-                        <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
+                        <p className="text-[16px] md:text-left text-center leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
                           {section.description}
                         </p>
                       </div>
@@ -591,18 +592,18 @@ export default function CustomDesignPage() {
       </div>
 
       {/* Call to Action Section */}
-      <section className="py-16 lg:py-[120px] bg-white">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="pt-[40px] pb-[35px] lg:py-[120px] bg-white">
+        <div className="max-w-7xl mx-auto px-[15px]">
           <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[71px]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-[71px] gap-[18px]">
               {/* Left - Title and Button */}
               <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
-                <h1 className="text-[62px] not-italic tracking-normal leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
+                <h1 className="text-[30px] md:text-[62px]  not-italic tracking-normal md:leading-[68px] leading-[33px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
                   style={{
                     background: "conic-gradient(from 180deg at 50% 116.28%, #000 0.91deg, rgba(0, 0, 0, 0.24) 360deg)",
                     WebkitBackgroundClip: "text",
@@ -613,7 +614,7 @@ export default function CustomDesignPage() {
                 </h1>
 
                 {/* CTA Button */}
-                <div className="lg:col-span-1 space-y-8">
+                <div className="lg:col-span-1 space-y-8 md:block hidden">
                   <motion.a
                     href={customDesignData.callToAction.buttonLink}
                     initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -664,6 +665,37 @@ export default function CustomDesignPage() {
                 </div>
               </motion.div>
             </div>
+             {/* CTA Button */}
+                <div className="lg:col-span-1 mt-[14px] space-y-8 block md:hidden">
+                  <motion.a
+                    href={customDesignData.callToAction.buttonLink}
+                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.6,
+                      delay: 0.3,
+                      ease: [0.4, 0, 0.2, 1],
+                    }}
+                    className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
+                               border border-black bg-black text-white font-helvetica
+                               text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {/* sliding overlay */}
+                    <span
+                      className="absolute inset-0 bg-white translate-x-full
+                                 transition-transform duration-500 ease-in-out rounded-[32px]
+                                 group-hover:translate-x-0"
+                    />
+
+                    {/* text */}
+                    <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
+                      {customDesignData.callToAction.buttonText}
+                    </span>
+                  </motion.a>
+                </div>
           </motion.div>
         </div>
       </section>

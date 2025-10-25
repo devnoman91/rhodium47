@@ -148,7 +148,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
               {/* Inline label to avoid grid gap */}
               <motion.div
                 className="h-[1px] w-full bg-[#777] rounded-full mb-3"
-                initial={{ opacity: 0, scaleX: 0 }}
+                initial={{ opacity: 1, scaleX: 1 }}
                 whileInView={{ opacity: 1, scaleX: 1 }}
                 viewport={{ once: true, margin: '-100px' }}
                 transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}

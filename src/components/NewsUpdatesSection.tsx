@@ -107,8 +107,8 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
                   })
                 }
               }}
-              className={`w-2.5 h-2.5 rounded-full transition-all ${
-                i === activeIndex ? 'bg-white' : 'bg-white/30'
+              className={`w-[12px] h-[12px] rounded-full transition-all ${
+                i === activeIndex ? 'bg-[#fff]' : 'bg-[#D9D9D980]'
               }`}
             />
           ))}
@@ -117,7 +117,7 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
 
       {/* Bottom fade overlay */}
       <div
-        className="absolute w-full bottom-0 left-0 h-32 pointer-events-none"
+        className="absolute w-full bottom-0 left-0 h-32 pointer-events-none md:block hidden"
         style={{
           background: 'linear-gradient(0deg, #111 0%, rgba(17, 17, 17, 0) 100%)'
         }}

@@ -637,7 +637,7 @@ export default function HeroCarousel() {
           onSlideChange={goToSlide}
         />
         {/* Left-side numbers control */}
-        <div className="absolute bottom-8 left-0 right-0 m-auto md:left-16 z-10 flex items-center md:justify-start justify-center space-x-3">
+        <div className="absolute md:bottom-8 bottom-5 left-0 right-0 m-auto md:left-16 z-10 flex items-center md:justify-start justify-center space-x-3">
           <button
             className="text-white text-2xl font-helvetica font-medium leading-none"
             onClick={() => goToSlide(currentIndex)}

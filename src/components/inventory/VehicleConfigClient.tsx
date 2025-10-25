@@ -211,7 +211,7 @@ export default function VehicleConfigClient({
               <style dangerouslySetInnerHTML={{ __html: performanceStyles }} />
               {topHeadingHtml && (
                 <div
-                  className="text-black text-center items-center justify-center  flex flex-wrap gap-4 mb-[21px]"
+                  className="text-black text-center items-center md:justify-center justify-between  flex flex-wrap gap-4 mb-[21px]"
                   dangerouslySetInnerHTML={{ __html: topHeadingHtml }}
                 />
               )}
@@ -219,7 +219,7 @@ export default function VehicleConfigClient({
               {/* Variants */}
               {product.variants?.length > 0 && (
                 <div className="mb-8">
-                  <div className="flex flex-wrap justify-center lg:justify-between border-b border-[#D5D7D7] mb-[28px]">
+                  <div className="flex flex-wrap justify-between border-b border-[#D5D7D7] mb-[28px]">
                     {product.variants.map((variant: any, index: number) => (
                       <button
                         key={variant.id}

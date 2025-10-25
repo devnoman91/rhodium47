@@ -17,7 +17,7 @@ const criticalInlineStyles = `
     margin: 0 auto;
     padding-top: 138px;
     background: #F4F1F2;
-    padding-inline: calc(var(--spacing) * 12);
+    // padding-inline: calc(var(--spacing) * 12);
     padding-bottom: 69px;
   }
 
@@ -28,6 +28,7 @@ const criticalInlineStyles = `
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    padding:0 13px;
   }
   .consultation-hero-title {
    color: #000;
@@ -37,7 +38,7 @@ font-style: normal;
 font-weight: 500;
 line-height: 110%; /* 70.4px */
 letter-spacing: -1.28px;
-margin-bottom:14px;
+margin-bottom:24px;
   }
   .consultation-hero-description {
     color: #111;
@@ -62,6 +63,7 @@ margin:auto;
     max-width: 1304px;
     margin: auto;
     margin-bottom: 49px;
+    padding:0 13px;
   }
   .info-card {
     max-width: 392px;
@@ -258,18 +260,22 @@ line-height: 20px; /* 125% */
   }
   @media (max-width: 768px) {
     .consultation-container {
-      padding-inline: 20px;
       padding-top: 100px;
-    }
+    padding-bottom: 59px;
+}
+        .consultation-hero {
+    margin-bottom: 29px;
+}
     .consultation-hero-title {
-      font-size: 40px;
+      font-size: 34px;
+      margin-bottom:6px;
     }
     .consultation-hero-description {
       font-size: 16px;
     }
     .info-sections {
-      grid-template-columns: 1fr;
-      gap: 20px;
+      flex-direction:column;
+      gap: 41px;
     }
     .slider-main-title {
       font-size: 32px;
@@ -425,22 +431,22 @@ export default function ConsultationPage() {
       )}
         {/* Slider Section */}
         {consultationData.sliderSection.slides.length > 0 && (
-          <section className="pt-[50px] lg:pt-[90px] bg-[#F4F1F2] text-black overflow-hidden -mx-[calc(var(--spacing)*12)] px-0" style={{ contain: 'layout style' }}>
+          <section className="pt-[50px] lg:pt-[90px] bg-[#F4F1F2] mmd:px-0 px-[13px] text-black overflow-hidden md:-mx-[calc(var(--spacing)*12)] " style={{ contain: 'layout style' }}>
             {/* Header Section - Constrained max-w-7xl */}
-            <div className="max-w-[1304px] mx-auto  mb-[64px]" style={{ contain: 'layout style' }}>
+            <div className="max-w-[1304px] mx-auto  md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, staggerChildren: 0.15 }}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-[10px] lg:gap-16">
                   {/* Left - Title */}
                   <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="lg:col-span-1"
                   >
-                    <h2 className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+                    <h2 className="md:text-left text-center text-black font-medium md:text-[64px] text-[30px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
                       {consultationData.sliderSection.mainName}
                     </h2>
                   </motion.div>
@@ -452,7 +458,7 @@ export default function ConsultationPage() {
                     transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
                     className="lg:col-span-1 flex items-center justify-end"
                   >
-                    <p className="text-black font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                    <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
                       {consultationData.sliderSection.mainTitle}
                     </p>
                   </motion.div>
@@ -468,11 +474,11 @@ export default function ConsultationPage() {
               className="relative"
             >
               {/* Left Padding for Content Alignment */}
-              <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+-1rem)]">
+              <div className="md:pl-6 lg:pl-[calc((100vw-1280px)/2+-1rem)]">
                 {/* Slider Container */}
                 <div className="relative overflow-visible" ref={constraintsRef}>
                   <motion.div
-                    className="flex gap-5 cursor-grab active:cursor-grabbing"
+                    className="flex gap-5 cursor-grab active:cursor-grabbing md:w-fit !w-full"
                     drag="x"
                     dragConstraints={{
                       left: maxScroll,
@@ -499,7 +505,7 @@ export default function ConsultationPage() {
                     {consultationData.sliderSection.slides.map((slide, index) => (
                       <motion.div
                         key={`${slide.name}-${index}`}
-                        className="w-[936px] 2xl:w-[1100px] flex-shrink-0 group transition-all duration-300"
+                        className="w-full md:w-[936px] 2xl:w-[1100px] flex-shrink-0 group transition-all duration-300"
                         initial={{ opacity: 0, x: 50 }}
                         animate={{
                           opacity: 1,
@@ -518,7 +524,7 @@ export default function ConsultationPage() {
                               src={slide.image.asset.url}
                               alt={slide.image.alt || slide.name}
                               fill
-                              className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px]"
+                              className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px] w-full"
                               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                               loading="lazy"
                               style={{ contain: 'layout style paint' }}
@@ -528,12 +534,12 @@ export default function ConsultationPage() {
                         </div>
 
                         {/* Content */}
-                        <div className="pt-[42px] max-w-[656px]">
+                        <div className="md:pt-[42px] pt-[15px] md:max-w-[656px] w-full">
                           <div className="">
-                            <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
+                            <h3 className="md:text-left text-center  text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                               {slide.name}
                             </h3>
-                            <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
+                            <p className=" sm:max-w-fit max-w-[283px]  text-[16px] md:text-left text-center leading-[20px] tracking-[0] m-0 mx-auto font-normal font-helvetica text-black opacity-60">
                               {slide.description}
                             </p>
                           </div>

@@ -71,14 +71,14 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
       }}
       className="group bg-[#fff] rounded-[16px] transition-colors duration-300"
     >
-      <div className="flex items-center gap-6 flex-row-reverse justify-between">
+      <div className="flex items-center gap-6 md:flex-row-reverse justify-between md:p-0 p-5">
         {/* Image Section */}
         <div className="flex-shrink-0">
-          <div className="relative w-[280px] h-[240px]  rounded-tl-none rounded-tr-[20px] rounded-br-[20px] rounded-bl-none overflow-hidden bg-gray-200">
+          <div className="relative md:w-[280px] w-[158px] h-[177px]  md:h-[240px]  md:rounded-tl-none rounded-tl-[20px] rounded-tr-[20px] rounded-br-[20px] md:rounded-bl-none rounded-bl-[20px] overflow-hidden bg-gray-200">
             <motion.img
               src={product.image.asset.url}
               alt={product.image.alt || product.title}
-              className="w-full rounded-tl-none rounded-tr-[20px] rounded-br-[20px] rounded-bl-none h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="w-full md:rounded-tl-none rounded-tl-[20px] rounded-tr-[20px] rounded-br-[20px] md:rounded-bl-none rounded-bl-[20px] h-full object-cover group-hover:scale-105 transition-transform duration-500"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
             />
@@ -86,9 +86,9 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
         </div>
 
         {/* Content Section */}
-        <div className="flex flex-col gap-2 px-[50px]">
+        <div className="flex flex-col gap-2 md:px-[50px]">
           {/* Title */}
-          <h3 className="text-[22px]  leading-[32px] tracking-[0] m-0 font-medium  text-black font-helvetica">
+          <h3 className="md:text-[22px] text-[16px]  md:leading-[32px] leading-[24px] tracking-[0] m-0 font-medium  text-black font-helvetica">
             {product.title}
           </h3>
 

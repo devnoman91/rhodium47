@@ -120,7 +120,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ blogData }) => {
   }, [blogData.products, categories])
 
   return (
-    <section className=" bg-white md:pt-30 pt-[54px] md:pb-[76px]">
+    <section className=" bg-white md:pt-30 pt-[70px] md:pb-[76px]">
       <div className=" mx-auto">
         {/* Title & Categories */}
         <motion.div

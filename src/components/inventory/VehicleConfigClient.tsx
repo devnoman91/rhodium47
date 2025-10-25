@@ -119,7 +119,7 @@ export default function VehicleConfigClient({
   };
 
   return (
-    <div className="min-h-screen pt-[100px]  pb-[73px]" style={{ backgroundColor: '#F4F1F2' }}>
+    <div className="min-h-screen pt-[100px]  md:pb-[73px] pb-[23px]" style={{ backgroundColor: '#F4F1F2' }}>
       <div className="max-w-[1600px]  mx-auto">
         {/* Learn More */}
         <div className="px-6 sm:px-12 pb-[10px] text-left">
@@ -274,19 +274,19 @@ export default function VehicleConfigClient({
               {/* Due Today */}
               {dueTodayProduct && (
                 <div className="mt-1 pt-4 border-t border-gray-200">
-                  <div className="p-4 flex justify-between">
+                  <div className="md:p-4 flex justify-between">
                     <div>
-                      <p className="text-[#111] text-[18px] font-medium">
+                      <p className="text-[#111] !text-[18px] font-medium !text-left">
                         {dueTodayProduct.title || 'Security Deposit Package'}
                       </p>
                       {dueTodayProduct.variants?.[0] && (
-                        <p className="text-[#323232] text-[12px]">
+                        <p className="!text-[#323232] !text-[12px]">
                           {dueTodayProduct.variants[0].title}
                         </p>
                       )}
                     </div>
                     {dueTodayProduct.priceRange?.minVariantPrice && (
-                      <p className="text-[#111] text-[18px] font-medium">
+                      <p className="text-[#111] !text-[18px] font-medium !text-left">
                         ${parseFloat(dueTodayProduct.priceRange.minVariantPrice.amount).toLocaleString()}
                       </p>
                     )}

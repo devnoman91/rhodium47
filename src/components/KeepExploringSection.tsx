@@ -59,7 +59,7 @@ const KeepExploringSection: React.FC<KeepExploringSectionProps> = ({ data }) => 
   const words = useMemo(() => data.description.split(' '), [data.description])
 
   return (
-    <section className="py-12 md:py-16 lg:py-24 bg-white">
+    <section className="pt-12 md:py-16 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-5">
         <motion.div
           variants={containerVariants}
@@ -105,7 +105,7 @@ const KeepExploringSection: React.FC<KeepExploringSectionProps> = ({ data }) => 
             </motion.div>
 
             {/* Right - Content */}
-            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black mb-8 md:mb-12 lg:mb-[60px]">
+            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black md:mb-12 lg:mb-[60px]">
               {/* Section Label */}
               <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center uppercase">
                 <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>

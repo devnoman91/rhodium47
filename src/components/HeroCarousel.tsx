@@ -103,7 +103,7 @@ const criticalInlineStyles = `
 .hero-content{
     display: flex;
     width: 100% !important;
-    height: 70%;
+    height: 75%;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -194,7 +194,7 @@ const VideoControlsInline = ({ videos, currentIndex, onSlideChange }: {
   currentIndex: number
   onSlideChange: (index: number) => void
 }) => (
-  <div className="absolute bottom-8 right-8 md:right-16 z-10">
+  <div className="absolute bottom-8 right-8 md:right-16 z-10 md:block hidden">
     <SegmentedCircleIndicator total={videos.length} current={currentIndex} onClick={onSlideChange} />
   </div>
 )
@@ -637,7 +637,7 @@ export default function HeroCarousel() {
           onSlideChange={goToSlide}
         />
         {/* Left-side numbers control */}
-        <div className="absolute bottom-8 left-8 md:left-16 z-10 flex items-center space-x-3">
+        <div className="absolute bottom-8 left-0 right-0 m-auto md:left-16 z-10 flex items-center md:justify-start justify-center space-x-3">
           <button
             className="text-white text-2xl font-helvetica font-medium leading-none"
             onClick={() => goToSlide(currentIndex)}

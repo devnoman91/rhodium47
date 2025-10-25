@@ -30,7 +30,7 @@ const cardVariants = {
 
 const ProductShowcase: React.FC<ProductShowcaseProps> = ({ products }) => {
   return (
-    <section className="md:py-[80px] pt-[78px] pb-[50px] lg:py-24 bg-white">
+    <section className="md:py-[80px] pt-[78px] pb-[50px] lg:py-24 md:bg-white bg-[#F4F1F2]">
       <div className="mx-auto px-5">
         <motion.div
           variants={containerVariants}

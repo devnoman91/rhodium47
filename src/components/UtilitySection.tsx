@@ -74,11 +74,11 @@ const UtilitySection: React.FC<UtilitySectionProps> = ({ data }) => {
               <motion.div
                 variants={itemVariants}
                 transition={{ duration: 0.6, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
-                className="max-w-sm md:max-w-3xl lg:max-w-5xl mx-auto text-center md:text-left"
+                className="max-w-sm md:max-w-3xl lg:max-w-5xl mx-auto text-left"
               >
                 <p
                   ref={descriptionRef}
-                  className="text-[20px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-normal m-0 font-medium font-helvetica flex flex-wrap justify-center md:justify-start"
+                  className="text-[20px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-normal m-0 font-medium font-helvetica flex flex-wrap justify-start"
                 >
                   {words.map((word, i) => {
                     const start = i / words.length

@@ -175,14 +175,14 @@ const VehicleSlide: React.FC<{
   isActive: boolean;
   slideIndex: number;
   currentIndex: number;
-  direction: number;
-}> = React.memo(({ vehicle, isActive, slideIndex, currentIndex, direction }) => {
-  // Calculate slide position - ALL slides come from RIGHT and exit to LEFT
+}> = React.memo(({ vehicle, isActive, slideIndex, currentIndex }) => {
+  // Calculate slide position - all slides come from left
   const getSlidePosition = () => {
     if (isActive) return 0 // Center position (visible)
 
-    // All inactive slides: waiting on RIGHT (100) or already exited to LEFT (-100)
-    return slideIndex > currentIndex ? 100 : -100
+    // Inactive slides: if index is less than current, it's exiting right
+    // if index is greater, it's waiting on the left
+    return slideIndex < currentIndex ? 100 : -100
   }
 
   return (
@@ -215,6 +215,7 @@ const VehicleSlide: React.FC<{
 
         <p className="text-[color:var(--Sub-Heading,#6B7280)] text-center font-helvetica text-[18px] not-italic font-medium leading-[120%] mb-[30px]">
           {vehicle.pricingLine}
+
         </p>
 
         {/* Action Buttons */}

@@ -176,13 +176,13 @@ const VehicleSlide: React.FC<{
   slideIndex: number;
   currentIndex: number;
 }> = React.memo(({ vehicle, isActive, slideIndex, currentIndex }) => {
-  // Calculate slide position - all slides come from left
+  // Calculate slide position - NEW slides from RIGHT, OLD slides to LEFT
   const getSlidePosition = () => {
     if (isActive) return 0 // Center position (visible)
 
-    // Inactive slides: if index is less than current, it's exiting right
-    // if index is greater, it's waiting on the left
-    return slideIndex < currentIndex ? 100 : -100
+    // New slides (ahead of current): waiting on RIGHT (100)
+    // Old slides (behind current): exited to LEFT (-100)
+    return slideIndex > currentIndex ? 100 : -100
   }
 
   return (

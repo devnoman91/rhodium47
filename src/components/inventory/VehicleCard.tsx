@@ -43,6 +43,12 @@ function extractTopHeadingSpecs(html: string): string {
 export default function VehicleCard({ vehicle, activeFilters = [] }: VehicleCardProps) {
   const specsText = extractTopHeadingSpecs(vehicle.descriptionHtml || '');
 
+  // Find cash variant price if available
+  const cashVariant = vehicle.variants?.find((variant: any) => 
+    variant.title && variant.title.toLowerCase().includes('cash')
+  );
+  const displayPrice = cashVariant ? parseFloat(cashVariant.price?.amount || vehicle.price) : vehicle.price;
+
   return (
     <Link href={`/inventory/${vehicle.handle}`} className="h-full overflow-hidden rounded-[10px] border border-[#E0E0E0] group cursor-pointer block">
       {/* Image */}
@@ -62,8 +68,20 @@ export default function VehicleCard({ vehicle, activeFilters = [] }: VehicleCard
             {vehicle.model}
           </h3>
           <p className="text-[14px] font-[600] font-helvetica text-[#111] mb-[8px]">
+<<<<<<< HEAD
             Starts from
             ${vehicle.price.toLocaleString()}
+=======
+            Start from
+            ${displayPrice.toLocaleString()}
+            {(cashVariant || 
+            vehicle.tags?.some(tag => 
+              tag.toLowerCase().includes('payment:cash')
+            ) || 
+            vehicle.title.toLowerCase().includes('cash')) && (
+              <span className="ml-2 text-[12px] font-[400] text-[#636363]">(Cash only)</span>
+            )}
+>>>>>>> 568c829 (add)
           </p>
 
           {/* Active filters summary */}

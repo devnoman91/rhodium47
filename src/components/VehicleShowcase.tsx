@@ -118,6 +118,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
                   isActive={currentIndex === index}
                   slideIndex={index}
                   currentIndex={currentIndex}
+                  direction={direction}
                 />
               </div>
             ))}
@@ -174,14 +175,14 @@ const VehicleSlide: React.FC<{
   isActive: boolean;
   slideIndex: number;
   currentIndex: number;
-}> = React.memo(({ vehicle, isActive, slideIndex, currentIndex }) => {
-  // Calculate slide position - all slides come from left
+  direction: number;
+}> = React.memo(({ vehicle, isActive, slideIndex, currentIndex, direction }) => {
+  // Calculate slide position - ALL slides come from RIGHT and exit to LEFT
   const getSlidePosition = () => {
     if (isActive) return 0 // Center position (visible)
 
-    // Inactive slides: if index is less than current, it's exiting right
-    // if index is greater, it's waiting on the left
-    return slideIndex < currentIndex ? 100 : -100
+    // All inactive slides: waiting on RIGHT (100) or already exited to LEFT (-100)
+    return slideIndex > currentIndex ? 100 : -100
   }
 
   return (

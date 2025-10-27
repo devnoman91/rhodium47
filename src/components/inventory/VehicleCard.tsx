@@ -68,10 +68,6 @@ export default function VehicleCard({ vehicle, activeFilters = [] }: VehicleCard
             {vehicle.model}
           </h3>
           <p className="text-[14px] font-[600] font-helvetica text-[#111] mb-[8px]">
-<<<<<<< HEAD
-            Starts from
-            ${vehicle.price.toLocaleString()}
-=======
             Start from
             ${displayPrice.toLocaleString()}
             {(cashVariant || 
@@ -79,9 +75,8 @@ export default function VehicleCard({ vehicle, activeFilters = [] }: VehicleCard
               tag.toLowerCase().includes('payment:cash')
             ) || 
             vehicle.title.toLowerCase().includes('cash')) && (
-              <span className="ml-2 text-[12px] font-[400] text-[#636363]">(Cash only)</span>
+              <span className="ml-2 text-[12px] font-[400] text-[#636363]"></span>
             )}
->>>>>>> 568c829 (add)
           </p>
 
           {/* Active filters summary */}

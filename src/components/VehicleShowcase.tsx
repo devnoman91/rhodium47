@@ -118,7 +118,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
                   isActive={currentIndex === index}
                   slideIndex={index}
                   currentIndex={currentIndex}
-                  direction={direction}
+                  totalSlides={filteredVehicles.length}
                 />
               </div>
             ))}
@@ -175,22 +175,29 @@ const VehicleSlide: React.FC<{
   isActive: boolean;
   slideIndex: number;
   currentIndex: number;
-}> = React.memo(({ vehicle, isActive, slideIndex, currentIndex }) => {
-  // Calculate slide position - NEW slides from RIGHT, OLD slides to LEFT
-  const getSlidePosition = () => {
-    if (isActive) return 0 // Center position (visible)
+  totalSlides: number;
+}> = React.memo(({ vehicle, isActive, slideIndex, currentIndex, totalSlides }) => {
+  // Determine position: ALL slides come from RIGHT, exit to LEFT
+  const getPosition = () => {
+    if (isActive) return '0%'; // Active slide at center
 
-    // New slides (ahead of current): waiting on RIGHT (100)
-    // Old slides (behind current): exited to LEFT (-100)
-    return slideIndex > currentIndex ? 100 : -100
-  }
+    // Handle wrap-around: if current is at end (last slide) and slide is at start (first slide)
+    // the first slide should come from RIGHT, not LEFT
+    const isWrappingToStart = currentIndex === totalSlides - 1 && slideIndex === 0;
+
+    if (isWrappingToStart) {
+      return '100%'; // First slide waits on RIGHT when looping from last
+    }
+
+    return slideIndex > currentIndex ? '100%' : '-100%'; // Future on right, past on left
+  };
 
   return (
     <motion.div
       className="flex flex-col items-center px-4 md:px-6 w-full"
       initial={false}
       animate={{
-        x: `${getSlidePosition()}%`,
+        x: getPosition(),
         opacity: isActive ? 1 : 0
       }}
       transition={{

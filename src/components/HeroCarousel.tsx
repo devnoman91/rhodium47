@@ -222,6 +222,7 @@ export default function HeroCarousel() {
   const [mounted, setMounted] = useState(false)
   const [isVideoReady, setIsVideoReady] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const imageRef = useRef<HTMLImageElement>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -231,6 +232,18 @@ export default function HeroCarousel() {
   useEffect(() => {
     setMounted(true)
     preloadCriticalResources()
+  }, [])
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
   // Optimized video fetching with chunked processing
@@ -250,10 +263,15 @@ export default function HeroCarousel() {
       // Immediate processing for faster content availability
       const processVideos = (fetchedVideos: Video[]) => {
         const validVideos = fetchedVideos.filter((video: Video) => {
-          const hasRequiredFields = video && video.name && video.contentType
+          const hasRequiredFields = video && video.desktopName && video.contentType
+
+          // Check for valid content based on content type
+          // For videos: check desktop video (required), mobile is optional
+          // For images: check desktop image (required), mobile is optional
           const hasValidContent =
-            (video.contentType === 'video' && video.videoFile?.asset?.url) ||
-            (video.contentType === 'image' && video.image?.asset?.url)
+            (video.contentType === 'video' && video.desktopVideoFile?.asset?.url) ||
+            (video.contentType === 'image' && video.desktopImage?.asset?.url)
+
           return hasRequiredFields && hasValidContent
         })
         return Promise.resolve(validVideos)
@@ -285,13 +303,27 @@ export default function HeroCarousel() {
       // Immediate first content preload for faster LCP
       if (validVideos[0]) {
         const firstItem = validVideos[0]
-        if (firstItem.contentType === 'video' && firstItem.videoFile?.asset?.url) {
-          const video = document.createElement('video')
-          video.preload = 'metadata'
-          video.src = firstItem.videoFile.asset.url
-        } else if (firstItem.contentType === 'image' && firstItem.image?.asset?.url) {
-          const img = new Image()
-          img.src = firstItem.image.asset.url
+        if (firstItem.contentType === 'video') {
+          // Preload mobile video if available and on mobile, otherwise desktop
+          const videoUrl = isMobile && firstItem.mobileVideoFile?.asset?.url
+            ? firstItem.mobileVideoFile.asset.url
+            : firstItem.desktopVideoFile?.asset?.url
+
+          if (videoUrl) {
+            const video = document.createElement('video')
+            video.preload = 'metadata'
+            video.src = videoUrl
+          }
+        } else if (firstItem.contentType === 'image') {
+          // Preload mobile image if available and on mobile, otherwise desktop
+          const imageUrl = isMobile && firstItem.mobileImage?.asset?.url
+            ? firstItem.mobileImage.asset.url
+            : firstItem.desktopImage?.asset?.url
+
+          if (imageUrl) {
+            const img = new Image()
+            img.src = imageUrl
+          }
         }
       }
     } catch {
@@ -301,7 +333,7 @@ export default function HeroCarousel() {
       setError('Failed to load videos. Please try again later.')
       setLoading(false)
     }
-  }, [loading])
+  }, [loading, isMobile])
 
   useEffect(() => {
     if (!mounted) return
@@ -518,45 +550,63 @@ export default function HeroCarousel() {
           )}
 
           {/* Render video if content type is video */}
-          {currentVideo?.contentType === 'video' && (
-            <video
-              ref={videoRef}
-              key={`video-${currentVideo?._id}`}
-              src={currentVideo?.videoFile?.asset?.url}
-              className="hero-video"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              controls={false}
-              disablePictureInPicture
-              onLoadedData={handleVideoLoad}
-              onError={handleVideoError}
-              style={{
-                opacity: (videoLoaded && !isTransitioning) ? 1 : 0,
-                transition: 'opacity 0.3s ease-in-out'
-              }}
-              poster=""
-            />
-          )}
+          {currentVideo?.contentType === 'video' && (() => {
+            // Use mobile video if available and on mobile, otherwise use desktop video
+            const videoUrl = isMobile && currentVideo?.mobileVideoFile?.asset?.url
+              ? currentVideo.mobileVideoFile.asset.url
+              : currentVideo?.desktopVideoFile?.asset?.url
+
+            return videoUrl ? (
+              <video
+                ref={videoRef}
+                key={`video-${currentVideo?._id}-${isMobile ? 'mobile' : 'desktop'}`}
+                src={videoUrl}
+                className="hero-video"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                controls={false}
+                disablePictureInPicture
+                onLoadedData={handleVideoLoad}
+                onError={handleVideoError}
+                style={{
+                  opacity: (videoLoaded && !isTransitioning) ? 1 : 0,
+                  transition: 'opacity 0.3s ease-in-out'
+                }}
+                poster=""
+              />
+            ) : null
+          })()}
 
           {/* Render image if content type is image */}
-          {currentVideo?.contentType === 'image' && (
-            <img
-              ref={imageRef}
-              key={`image-${currentVideo?._id}`}
-              src={currentVideo?.image?.asset?.url}
-              alt={currentVideo?.image?.alt || currentVideo?.name || 'Hero image'}
-              className="hero-image"
-              onLoad={handleImageLoad}
-              onError={handleImageError}
-              style={{
-                opacity: (imageLoaded && !isTransitioning) ? 1 : 0,
-                transition: 'opacity 0.3s ease-in-out'
-              }}
-            />
-          )}
+          {currentVideo?.contentType === 'image' && (() => {
+            // Use mobile image if available and on mobile, otherwise use desktop image
+            const imageUrl = isMobile && currentVideo?.mobileImage?.asset?.url
+              ? currentVideo.mobileImage.asset.url
+              : currentVideo?.desktopImage?.asset?.url
+
+            const imageAlt = isMobile && currentVideo?.mobileImage?.alt
+              ? currentVideo.mobileImage.alt
+              : currentVideo?.desktopImage?.alt || currentVideo?.desktopName || 'Hero image'
+
+            return imageUrl ? (
+              <img
+                ref={imageRef}
+                key={`image-${currentVideo?._id}-${isMobile ? 'mobile' : 'desktop'}`}
+                src={imageUrl}
+                alt={imageAlt}
+                className="hero-image"
+                onLoad={handleImageLoad}
+                onError={handleImageError}
+                style={{
+                  opacity: (imageLoaded && !isTransitioning) ? 1 : 0,
+                  transition: 'opacity 0.3s ease-in-out'
+                }}
+              />
+            ) : null
+          })()}
         </div>
 
         {/* Content with stable positioning */}
@@ -579,54 +629,70 @@ export default function HeroCarousel() {
               contain: 'layout style paint'
             }}></div>
           </div>
-          {currentVideo?.name && (
-            <h1 className="hero-title">
-              {currentVideo.name}
-            </h1>
-          )}
+          {(() => {
+            // Use mobile name if available and on mobile, otherwise desktop name
+            const displayName = isMobile && currentVideo?.mobileName
+              ? currentVideo.mobileName
+              : currentVideo?.desktopName
+
+            return displayName ? (
+              <h1 className="hero-title">
+                {displayName}
+              </h1>
+            ) : null
+          })()}
          <div>
-            {currentVideo?.subtitle && (
-            <p className="hero-subtitle">
-              {currentVideo.subtitle}
-            </p>
-          )}
+            {(() => {
+              // Use mobile subtitle if available and on mobile, otherwise desktop subtitle
+              const displaySubtitle = isMobile && currentVideo?.mobileSubtitle
+                ? currentVideo.mobileSubtitle
+                : currentVideo?.desktopSubtitle
 
-            <Link href="/inventory">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                className="md:m-0 m-auto relative overflow-hidden flex items-center gap-[12px] px-6 py-3 rounded-full
-                          bg-white text-black font-helvetica font-medium text-[16px]
-                          border border-transparent cursor-pointer group
-                          focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                aria-label="Explore models"
-              >
-                {/* sliding overlay */}
-                <span
-                  className="absolute inset-0 bg-black translate-x-full
-                            transition-transform duration-500 ease-in-out rounded-full
-                            group-hover:translate-x-0"
-                />
+              return displaySubtitle ? (
+                <p className="hero-subtitle">
+                  {displaySubtitle}
+                </p>
+              ) : null
+            })()}
 
-                {/* icon */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="18"
-                  viewBox="0 0 22 18"
-                  fill="currentColor"
-                  className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white"
+            {currentVideo?.buttonText && currentVideo?.buttonLink && (
+              <Link href={currentVideo.buttonLink}>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  className="md:m-0 m-auto relative overflow-hidden flex items-center gap-[12px] px-6 py-3 rounded-full
+                            bg-white text-black font-helvetica font-medium text-[16px]
+                            border border-transparent cursor-pointer group
+                            focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  aria-label={currentVideo.buttonText}
                 >
-                  <path d="M21.2441 9.61955L13.3691 17.4946C13.2049 17.6587 12.9822 17.751 12.75 17.751C12.5178 17.751 12.2951 17.6587 12.1309 17.4946C11.9668 17.3304 11.8745 17.1077 11.8745 16.8755C11.8745 16.6433 11.9668 16.4206 12.1309 16.2564L18.513 9.87549H1.375C1.14294 9.87549 0.920376 9.7833 0.756282 9.61921C0.592187 9.45511 0.5 9.23255 0.5 9.00049C0.5 8.76842 0.592187 8.54586 0.756282 8.38177C0.920376 8.21767 1.14294 8.12549 1.375 8.12549H18.513L12.1309 1.74455C11.9668 1.58036 11.8745 1.35768 11.8745 1.12549C11.8745 0.893293 11.9668 0.67061 12.1309 0.506424C12.2951 0.342238 12.5178 0.25 12.75 0.25C12.9822 0.25 13.2049 0.342238 13.3691 0.506424L21.2441 8.38142C21.3254 8.46269 21.39 8.55919 21.434 8.66541C21.478 8.77164 21.5007 8.8855 21.5007 9.00049C21.5007 9.11548 21.478 9.22934 21.434 9.33556C21.39 9.44178 21.3254 9.53829 21.2441 9.61955Z" />
-                </svg>
+                  {/* sliding overlay */}
+                  <span
+                    className="absolute inset-0 bg-black translate-x-full
+                              transition-transform duration-500 ease-in-out rounded-full
+                              group-hover:translate-x-0"
+                  />
 
-                {/* text */}
-                <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
-                  Explore Models
-                </span>
-              </motion.button>
-            </Link>
+                  {/* icon */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="18"
+                    viewBox="0 0 22 18"
+                    fill="currentColor"
+                    className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white"
+                  >
+                    <path d="M21.2441 9.61955L13.3691 17.4946C13.2049 17.6587 12.9822 17.751 12.75 17.751C12.5178 17.751 12.2951 17.6587 12.1309 17.4946C11.9668 17.3304 11.8745 17.1077 11.8745 16.8755C11.8745 16.6433 11.9668 16.4206 12.1309 16.2564L18.513 9.87549H1.375C1.14294 9.87549 0.920376 9.7833 0.756282 9.61921C0.592187 9.45511 0.5 9.23255 0.5 9.00049C0.5 8.76842 0.592187 8.54586 0.756282 8.38177C0.920376 8.21767 1.14294 8.12549 1.375 8.12549H18.513L12.1309 1.74455C11.9668 1.58036 11.8745 1.35768 11.8745 1.12549C11.8745 0.893293 11.9668 0.67061 12.1309 0.506424C12.2951 0.342238 12.5178 0.25 12.75 0.25C12.9822 0.25 13.2049 0.342238 13.3691 0.506424L21.2441 8.38142C21.3254 8.46269 21.39 8.55919 21.434 8.66541C21.478 8.77164 21.5007 8.8855 21.5007 9.00049C21.5007 9.11548 21.478 9.22934 21.434 9.33556C21.39 9.44178 21.3254 9.53829 21.2441 9.61955Z" />
+                  </svg>
+
+                  {/* text */}
+                  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+                    {currentVideo.buttonText}
+                  </span>
+                </motion.button>
+              </Link>
+            )}
          </div>
 
         </div>

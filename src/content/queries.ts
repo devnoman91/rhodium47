@@ -1,46 +1,80 @@
 export const videoQueries = {
   getAllVideos: `*[_type == "product-video"]{
     _id,
-    name,
-    subtitle,
+    desktopName,
+    mobileName,
+    desktopSubtitle,
+    mobileSubtitle,
     slug,
     contentType,
-    videoFile{
+    desktopVideoFile{
       asset->{
         _ref,
         url
       }
     },
-    image{
+    mobileVideoFile{
+      asset->{
+        _ref,
+        url
+      }
+    },
+    desktopImage{
       asset->{
         _id,
         url
       },
       alt
     },
-    description
+    mobileImage{
+      asset->{
+        _id,
+        url
+      },
+      alt
+    },
+    description,
+    buttonText,
+    buttonLink
   }`,
 
   getVideoBySlug: (slug: string) => `*[_type == "product-video" && slug.current == "${slug}"][0]{
     _id,
-    name,
-    subtitle,
+    desktopName,
+    mobileName,
+    desktopSubtitle,
+    mobileSubtitle,
     slug,
     contentType,
-    videoFile{
+    desktopVideoFile{
       asset->{
         _ref,
         url
       }
     },
-    image{
+    mobileVideoFile{
+      asset->{
+        _ref,
+        url
+      }
+    },
+    desktopImage{
       asset->{
         _id,
         url
       },
       alt
     },
-    description
+    mobileImage{
+      asset->{
+        _id,
+        url
+      },
+      alt
+    },
+    description,
+    buttonText,
+    buttonLink
   }`
 }
 

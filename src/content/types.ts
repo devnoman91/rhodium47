@@ -1,18 +1,33 @@
 export interface Video {
   _id: string
-  name: string
-  subtitle?: string
+  desktopName: string
+  mobileName?: string
+  desktopSubtitle?: string
+  mobileSubtitle?: string
   slug?: {
     current: string
   }
   contentType: 'video' | 'image'
-  videoFile?: {
+  desktopVideoFile?: {
     asset: {
       _ref: string
       url: string
     }
   }
-  image?: {
+  mobileVideoFile?: {
+    asset: {
+      _ref: string
+      url: string
+    }
+  }
+  desktopImage?: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  mobileImage?: {
     asset: {
       _id: string
       url: string
@@ -20,6 +35,8 @@ export interface Video {
     alt?: string
   }
   description?: string
+  buttonText?: string
+  buttonLink?: string
 }
 
 export interface VideoCarousel {

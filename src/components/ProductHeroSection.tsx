@@ -172,6 +172,9 @@ const criticalInlineStyles = `
     color: white;
   }
 @media (max-width: 767px) {
+ .btn_wrapper {
+    justify-content: center;
+}
 .product-hero-content {
     left: 0 !important;
     top: 20% !important;

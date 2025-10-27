@@ -2117,3 +2117,14 @@ export const vehicleDiagramQuery = `
 export const getVehicleDiagram = async () => {
   return await client.fetch(vehicleDiagramQuery)
 }
+
+export const vehiclePricingQuery = `
+  *[_type == "vehicle-pricing"] {
+    productHandle,
+    pricingLine
+  }
+`
+
+export const getVehiclePricing = async () => {
+  return await client.fetch(vehiclePricingQuery)
+}

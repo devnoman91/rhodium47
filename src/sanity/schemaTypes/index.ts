@@ -18,6 +18,7 @@ import productBlog from './productBlog'
 import newsUpdates from './newsUpdates'
 import experienceXodiumTechnology from './experienceXodiumTechnology'
 import vehicleDiagram from './vehicleDiagram'
+import vehiclePricing from './vehiclePricing'
 
 // Products
 import product from './product'
@@ -71,6 +72,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     newsUpdates,
     experienceXodiumTechnology,
     vehicleDiagram,
+    vehiclePricing,
 
     // Products
     product,

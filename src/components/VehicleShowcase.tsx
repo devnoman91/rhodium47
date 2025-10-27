@@ -9,9 +9,7 @@ interface Vehicle {
   name: string
   model: string
   description: string
-  price: string
-  monthlyPayment: string
-  range: string
+  pricingLine: string
   image: string
   handle: string
 }
@@ -215,7 +213,7 @@ const VehicleSlide: React.FC<{
         </h2>
 
         <p className="text-[color:var(--Sub-Heading,#6B7280)] text-center font-helvetica text-[18px] not-italic font-medium leading-[120%] mb-[30px]">
-          From {vehicle.price} • Est. {vehicle.monthlyPayment} | EPA est. range {vehicle.range}
+          {vehicle.pricingLine}
         </p>
 
         {/* Action Buttons */}

@@ -52,6 +52,7 @@ export const structure: StructureResolver = (S) =>
             .title('Products')
             .items([
               S.documentTypeListItem('product').title('All Products'),
+              S.documentTypeListItem('vehicle-pricing').title('Vehicle Pricing'),
             ])
         ),
 

@@ -12,7 +12,7 @@ import ExperienceXodiumSection from "@/components/ExperienceXodiumSection";
 import VehicleShowcase from "@/components/VehicleShowcase";
 import VehicleDiagram from "@/components/VehicleDiagram";
 import { getExperienceXodiumData, getFAQData, getHomeAboutData, getKeepExploringData, getNewsUpdatesData, getProductBlogData, getProductDetails, getProductShowcaseData, getProtectionData, getShowcaseInnovationData, getUtilityData } from "@/sanity/lib/sanity";
-import { getVehicleDiagram } from "@/content/queries";
+import { getVehicleDiagram, getVehiclePricing } from "@/content/queries";
 import { getProducts } from "@/lib/shopify";
 
 // Revalidate every 60 seconds
@@ -20,7 +20,7 @@ export const revalidate = 60
 
 export default async function Home() {
   // Fetch data from Sanity CMS and Shopify
-  const [aboutData, products, blogData, showcaseData, innovationData, protectionData, faqData, utilityData, keepExploringData, newsUpdatesData, experienceXodiumData, vehicleDiagramData] = await Promise.all([
+  const [aboutData, products, blogData, showcaseData, innovationData, protectionData, faqData, utilityData, keepExploringData, newsUpdatesData, experienceXodiumData, vehicleDiagramData, vehiclePricingData] = await Promise.all([
     getHomeAboutData(),
     getProductDetails(),
     getProductBlogData(),
@@ -32,7 +32,8 @@ export default async function Home() {
     getKeepExploringData(),
     getNewsUpdatesData(),
     getExperienceXodiumData(),
-    getVehicleDiagram()
+    getVehicleDiagram(),
+    getVehiclePricing()
   ]);
 
   let vehicles: any[] = [];
@@ -41,19 +42,22 @@ export default async function Home() {
     // Fetch all products from Shopify
     const allProducts = await getProducts({});
 
+    // Create a map of pricing data by handle for quick lookup
+    const pricingMap = new Map(
+      vehiclePricingData.map((item: any) => [item.productHandle, item.pricingLine])
+    );
+
     // Map all products
     vehicles = allProducts.map((product) => {
-      const price = parseFloat(product.priceRange.minVariantPrice.amount);
-      const monthlyPayment = Math.round(price * 0.008);
+      // Get custom pricing line from Sanity
+      const customPricingLine = pricingMap.get(product.handle);
 
       return {
         id: product.id,
         name: product.title.toUpperCase(),
         model: product.title,
         description: product.description || 'Luxury vehicle with advanced features',
-        price: `$${price.toLocaleString()}`,
-        monthlyPayment: `$${monthlyPayment.toLocaleString()}/mo*`,
-        range: '400 mi*',
+        pricingLine: customPricingLine || '',
         image: product.images[0]?.url || '/car.png',
         handle: product.handle
       };

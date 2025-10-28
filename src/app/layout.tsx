@@ -129,11 +129,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${helveticaNeue.variable}`}
         suppressHydrationWarning={true}
       >
-        <PasswordProtection>
+        
           <Navbar />
           {children}
           <Footer />
-        </PasswordProtection>
+          {/* <PasswordProtection>
+        </PasswordProtection> */}
       </body>
     </html>
   );

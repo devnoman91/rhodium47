@@ -113,20 +113,26 @@ line-height: 20px;
     }
   }
   @media (max-width: 768px) {
+    .xodium-armor-hero {
+    text-align: center;
+    margin-bottom: 0px;
+}
     .xodium-armor-container {
       padding-inline: 15px;
       padding-top: 100px;
-      padding-bottom: 37px;
+      padding-bottom:0px;
     }
     .xodium-armor-hero-title {
-      font-size: 40px;
+      font-size: 34px;
+      margin-bottom:6px;
     }
     .xodium-armor-hero-description {
       font-size: 16px;
     }
     .info-sections {
       flex-direction: column;
-      gap: 41px;
+      gap: 41px !important;
+        padding-bottom: 63px !important;
     }
   }
 `
@@ -162,7 +168,7 @@ const ManufacturingExcellenceSection: React.FC<{ title: string; description: str
   const words = useMemo(() => description.split(' '), [description])
 
   return (
-    <section className="py-12 md:pb-[62px] md:pt-[0px]">
+    <section className="py-[37px] md:pb-[62px] md:pt-[0px]">
       <div className="max-w-[1304px] mx-auto px-4 md:px-6">
         <motion.div
           variants={containerVariants}
@@ -391,17 +397,17 @@ export default function XodiumArmorPage() {
       <div className="" style={{ paddingTop: 0 }}>
         {/* Technical Specifications Section */}
         {armorData.technicalSpecifications.cards.length > 0 && (
-          <section className="pt-[50px] px-[15px] lg:pt-[79px] pb-[50px] lg:pb-[104px] bg-[#111111] md:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
+          <section className="md:pt-[50px] py-[30px]  px-[15px] lg:pt-[79px] md:pb-[50px] lg:pb-[104px] bg-[#111111] md:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
             <div className="max-w-[1304px] mx-auto">
               {/* Header */}
-              <div className="mb-[91px]">
+              <div className="md:mb-[91px] mb-[48px]">
                 <motion.div
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   className=""
                 >
-                  <h2 className="text-white font-[500] md:text-[64px] text-[30px] leading-[110%] font-helvetica m-0">
+                  <h2 className="text-white text-center md:text-left  font-[500] md:text-[64px] text-[30px] leading-[133%] font-helvetica m-0">
                     {armorData.technicalSpecifications.title}
                   </h2>
                 </motion.div>
@@ -414,7 +420,7 @@ export default function XodiumArmorPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="flex flex-wrap gap-[128px] mb-[64px]"
+                  className="flex flex-wrap md:gap-[128px] gap-[25px] mb-[64px] md:flex-row flex-col"
                 >
                   {armorData.technicalSpecifications.countSection.map((count, index) => (
                     <motion.div
@@ -425,10 +431,10 @@ export default function XodiumArmorPage() {
                       transition={{ delay: index * 0.1 }}
                       className=""
                     >
-                      <div className="text-[35px] font-[500] text-white font-helvetica mb-[35px] leading-[30px]">
+                      <div className="md:text-[35px] text-[24px] text-center md:text-left font-[500] text-white font-helvetica md:mb-[35px] mb-[25px] leading-[30px]">
                          {count.name}
                       </div>
-                      <div className="max-w-[110px] text-[16px] text-[#FFFFFF80] font-[500] font-helvetica uppercase tracking-wider leading-[24px]">
+                      <div className="md:max-w-[110px] text-center md:text-left text-[16px] text-[#FFFFFF80] font-[500] font-helvetica uppercase tracking-wider leading-[24px]">
                         {count.value} 
                       </div>
                     </motion.div>
@@ -445,7 +451,7 @@ export default function XodiumArmorPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-[#1d1d1d] rounded-[30px] px-[40px] pt-[61px] pb-[67px] "
+                    className="bg-[#1d1d1d] rounded-[30px] px-[40px] md:pt-[61px] md:pb-[67px] py-[51px] "
                   >
                     <h3 className="text-[26px] text-white font-[400] leading-[30px] font-helvetica mb-[21px]">
                       {card.name}
@@ -463,7 +469,7 @@ export default function XodiumArmorPage() {
 
       {/* Slider Section (keeps desktop layout; improved mobile swipe) */}
       {armorData.sliderSection.slides.length > 0 && (
-        <section className="pt-[50px] lg:pt-[45px] pb-[50px] lg:pb-[69px] bg-[#F4F1F2] text-black overflow-hidden mmd:px-0 px-[13px]" style={{ contain: 'layout style' }}>
+        <section className="md:pt-[50px] pt-[37px] lg:pt-[45px] pb-[60px] lg:pb-[69px] bg-[#F4F1F2] text-black overflow-hidden mmd:px-0 px-[13px]" style={{ contain: 'layout style' }}>
           {/* Header Section */}
           <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, staggerChildren: 0.15 }}>

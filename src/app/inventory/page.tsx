@@ -156,9 +156,22 @@ export default async function InventoryPage() {
       publishedAt: product.publishedAt, // Include publishedAt
     }));
 
-    // Calculate dynamic price range from actual products
+    // Calculate dynamic price range from actual products using LOWEST cash variant prices
     if (vehicles.length > 0) {
-      const prices = vehicles.map(v => v.price);
+      const prices = vehicles.map(v => {
+        // Find ALL cash variants and get the LOWEST price
+        const cashVariants = v.variants?.filter((variant: any) =>
+          variant.title && variant.title.toLowerCase().includes('cash')
+        ) || [];
+
+        if (cashVariants.length > 0) {
+          const cashPrices = cashVariants.map((variant: any) => parseFloat(variant.price?.amount || 0)).filter(p => p > 0);
+          if (cashPrices.length > 0) {
+            return Math.min(...cashPrices);
+          }
+        }
+        return v.price;
+      });
       dynamicPriceRange = {
         min: Math.floor(Math.min(...prices)),
         max: Math.ceil(Math.max(...prices))

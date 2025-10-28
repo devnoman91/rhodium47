@@ -66,7 +66,7 @@ export default function InventoryClient({
     seatingCapacity: '',
     modelYear: '',
     paymentType: '',
-    priceRange: [priceRange.min, priceRange.max] as [number, number],
+    priceRange: [0, priceRange.max] as [number, number],
     trim: '',
     mileageYear: '',
     paint: '',
@@ -162,10 +162,23 @@ export default function InventoryClient({
       );
     }
 
-    filtered = filtered.filter(vehicle =>
-      vehicle.price >= newFilters.priceRange[0] &&
-      vehicle.price <= newFilters.priceRange[1]
-    );
+    // Filter by price using LOWEST cash variant price
+    filtered = filtered.filter(vehicle => {
+      // Find ALL cash variants and get the LOWEST price
+      const cashVariants = vehicle.variants?.filter((variant: any) =>
+        variant.title && variant.title.toLowerCase().includes('cash')
+      ) || [];
+
+      let displayPrice = vehicle.price;
+      if (cashVariants.length > 0) {
+        const cashPrices = cashVariants.map((v: any) => parseFloat(v.price?.amount || 0)).filter(p => p > 0);
+        if (cashPrices.length > 0) {
+          displayPrice = Math.min(...cashPrices);
+        }
+      }
+
+      return displayPrice >= newFilters.priceRange[0] && displayPrice <= newFilters.priceRange[1];
+    });
 
     setFilteredVehicles(filtered);
   };
@@ -175,7 +188,7 @@ export default function InventoryClient({
     return Object.entries(filters).some(([key, value]) => {
       if (!value || (Array.isArray(value) && value.length === 0)) return false;
       if (key === 'priceRange' && Array.isArray(value) &&
-          value[0] === priceRange.min && value[1] === priceRange.max) return false;
+          value[0] === 0 && value[1] === priceRange.max) return false;
       if (key === 'zipCode' && value === '') return false;
       if (key === 'status' && value === '') return false;
       return true;
@@ -195,7 +208,7 @@ export default function InventoryClient({
       seatingCapacity: '',
       modelYear: '',
       paymentType: '',
-      priceRange: [priceRange.min, priceRange.max] as [number, number],
+      priceRange: [0, priceRange.max] as [number, number],
       trim: '',
       mileageYear: '',
       paint: '',
@@ -214,7 +227,7 @@ export default function InventoryClient({
     const activeFilters = Object.entries(filters).filter(([key, value]) => {
       if (!value || (Array.isArray(value) && value.length === 0)) return false;
       if (key === 'priceRange' && Array.isArray(value) &&
-          value[0] === priceRange.min && value[1] === priceRange.max) return false;
+          value[0] === 0 && value[1] === priceRange.max) return false;
       return true;
     });
     return activeFilters.map(([key, value]) => ({ key, value }));

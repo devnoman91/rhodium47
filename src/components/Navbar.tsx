@@ -12,7 +12,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [navbarData, setNavbarData] = useState<NavbarType | null>(null)
-  const pathname = usePathname()
+  const pathname = usePathname() ?? ''
   const isHomePage = pathname === '/'
   const isProductDetailPage = pathname.startsWith('/product-detail/')
   const shouldBeTransparent = isHomePage || isProductDetailPage

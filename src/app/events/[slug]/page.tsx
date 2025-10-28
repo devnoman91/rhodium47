@@ -256,7 +256,7 @@ interface RegistrationFormData {
 
 export default function EventPage() {
   const params = useParams()
-  const slug = params.slug as string
+  const slug = Array.isArray(params?.slug) ? params.slug[0] : params?.slug ?? ''
 
   const [event, setEvent] = useState<any>(null)
   const [loading, setLoading] = useState(true)

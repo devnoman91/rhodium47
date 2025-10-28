@@ -181,25 +181,22 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
           ))}
         </div>
 
-        {/* Price Range Slider */}
+        {/* Price Range Slider - Cash Prices */}
         <div className="mt-4">
           <div className="flex items-center cursor-pointer gap-4 mb-2">
-            <span className="text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">${filters.priceRange[0]}</span>
-            <span className="text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">-</span>
-            <span className="text-[#111] font-normal text-[16px] leading-[180%] capitalize font-helvetica no-ligatures">${filters.priceRange[1]}</span>
+            <span className="text-[#111] font-normal text-[16px] leading-[180%] font-helvetica no-ligatures">${filters.priceRange[0].toLocaleString()}</span>
+            <span className="text-[#111] font-normal text-[16px] leading-[180%] font-helvetica no-ligatures">-</span>
+            <span className="text-[#111] font-normal text-[16px] leading-[180%] font-helvetica no-ligatures">${filters.priceRange[1].toLocaleString()}</span>
           </div>
+       
           <input
             type="range"
-            min={filterOptions.priceRange.min}
+            min={0}
             max={filterOptions.priceRange.max}
             value={filters.priceRange[1]}
-            onChange={(e) => updateFilter('priceRange', [filters.priceRange[0], parseInt(e.target.value)])}
+            onChange={(e) => updateFilter('priceRange', [0, parseInt(e.target.value)])}
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
           />
-          {/* <div className="mt-2 font-helvetica text-[#747474] border-b border-[#747474] font-normal text-[12px] leading-[140%] tracking-[-0.24px]">
-            Include $7,500 Federal Tax Credit<br />
-            See Eligibility Requirements
-          </div> */}
         </div>
       </ExpandableFilterSection>
 

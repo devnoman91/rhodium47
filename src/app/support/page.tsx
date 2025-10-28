@@ -507,6 +507,38 @@ export default function SupportPage() {
 
   const currentCategory = supportData.categories?.[activeCategory]
 
+  // Filter sections and questions based on search query
+  const getFilteredContent = () => {
+    if (!currentCategory || !searchQuery.trim()) {
+      return currentCategory
+    }
+
+    const query = searchQuery.toLowerCase().trim()
+
+    const filteredSections = currentCategory.sections
+      ?.map(section => {
+        const filteredQuestions = section.questions?.filter(qa =>
+          qa.question.toLowerCase().includes(query)
+        )
+
+        if (filteredQuestions && filteredQuestions.length > 0) {
+          return {
+            ...section,
+            questions: filteredQuestions
+          }
+        }
+        return null
+      })
+      .filter(section => section !== null)
+
+    return {
+      ...currentCategory,
+      sections: filteredSections
+    }
+  }
+
+  const filteredCategory = getFilteredContent()
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: supportStyles }} />
@@ -561,14 +593,14 @@ export default function SupportPage() {
             </svg>
             </span>
           </div>
-            {currentCategory && currentCategory.sections && currentCategory.sections.length > 0 ? (
+            {filteredCategory && filteredCategory.sections && filteredCategory.sections.length > 0 ? (
               <div className="content-body">
                 {/* Main Category Title */}
-                {currentCategory.mainTitle && (
-                  <h1>{currentCategory.mainTitle}</h1>
+                {filteredCategory.mainTitle && (
+                  <h1>{filteredCategory.mainTitle}</h1>
                 )}
 
-                {currentCategory.sections.map((section, sectionIndex) => (
+                {filteredCategory.sections.map((section, sectionIndex) => (
                   <div key={sectionIndex}>
                     {/* Section Title */}
                     {section.sectionTitle && (
@@ -608,7 +640,7 @@ export default function SupportPage() {
                             </h5>
 
                             {/* Answer */}
-                            <div 
+                            <div
                               className={`answer-content mt-[18px] transition-all duration-500 ease-in-out ${isOpen ? 'open' : ''}`}
                               style={{ maxHeight: isOpen ? '500px' : '0px' }}
                             >
@@ -627,7 +659,9 @@ export default function SupportPage() {
                 ))}
               </div>
             ) : (
-              <div className="no-data">No content available for this category</div>
+              <div className="no-data">
+                {searchQuery.trim() ? 'No results found for your search' : 'No content available for this category'}
+              </div>
             )}
           </main>
         </div>

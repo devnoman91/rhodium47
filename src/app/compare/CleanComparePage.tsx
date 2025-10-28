@@ -121,7 +121,7 @@ export default function CompareClient({ products }: CompareClientProps) {
 
   // Initialize selected products from URL or defaults
   useEffect(() => {
-    const productHandles = searchParams.get('products')?.split(',') || []
+    const productHandles = searchParams?.get('products')?.split(',') || []
     if (productHandles.length > 0) {
       const selected = allProducts.map(p => ({
         ...p,

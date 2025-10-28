@@ -1,9 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback, useMemo, memo } from 'react'
-import { client } from '@/sanity/lib/client'
 import { Video } from '@/content/types'
-import { videoQueries } from '@/content/queries'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -214,11 +212,13 @@ const preloadCriticalResources = () => {
   }
 }
 
-export default function HeroCarousel() {
-  const [videos, setVideos] = useState<Video[]>([])
+interface HeroCarouselProps {
+  initialVideos: Video[]
+}
+
+export default function HeroCarousel({ initialVideos = [] }: HeroCarouselProps) {
+  const [videos] = useState<Video[]>(initialVideos)
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -246,106 +246,37 @@ export default function HeroCarousel() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Optimized video fetching with chunked processing
-  const fetchVideos = useCallback(async () => {
-    try {
-      setLoading(true)
-      setError(null)
-
-      // Set timeout for faster fallback
-      timeoutRef.current = setTimeout(() => {
-        if (loading) {
-          setError('Loading timeout - using fallback content')
-          setLoading(false)
-        }
-      }, 500) // Reduced to 500ms for immediate fallback
-
-      // Immediate processing for faster content availability
-      const processVideos = (fetchedVideos: Video[]) => {
-        const validVideos = fetchedVideos.filter((video: Video) => {
-          const hasRequiredFields = video && video.desktopName && video.contentType
-
-          // Check for valid content based on content type
-          // For videos: check desktop video (required), mobile is optional
-          // For images: check desktop image (required), mobile is optional
-          const hasValidContent =
-            (video.contentType === 'video' && video.desktopVideoFile?.asset?.url) ||
-            (video.contentType === 'image' && video.desktopImage?.asset?.url)
-
-          return hasRequiredFields && hasValidContent
-        })
-        return Promise.resolve(validVideos)
-      }
-
-      const fetchedVideos = await client.fetch(videoQueries.getAllVideos)
-
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
-
-      if (!fetchedVideos || fetchedVideos.length === 0) {
-        setError('No product videos found')
-        setLoading(false)
-        return
-      }
-
-      const validVideos = await processVideos(fetchedVideos)
-
-      if (validVideos.length === 0) {
-        setError('No valid video content available')
-        setLoading(false)
-        return
-      }
-
-      setVideos(validVideos)
-      setLoading(false)
-
-      // Immediate first content preload for faster LCP
-      if (validVideos[0] && typeof window !== 'undefined') {
-        const firstItem = validVideos[0]
-        if (firstItem.contentType === 'video') {
-          // Preload mobile video if available and on mobile, otherwise desktop
-          const videoUrl = isMobile && firstItem.mobileVideoFile?.asset?.url
-            ? firstItem.mobileVideoFile.asset.url
-            : firstItem.desktopVideoFile?.asset?.url
-
-          if (videoUrl) {
-            // Use link preload for better LCP
-            const link = document.createElement('link')
-            link.rel = 'preload'
-            link.as = 'video'
-            link.href = videoUrl
-            document.head.appendChild(link)
-          }
-        } else if (firstItem.contentType === 'image') {
-          // Preload mobile image if available and on mobile, otherwise desktop
-          const imageUrl = isMobile && firstItem.mobileImage?.asset?.url
-            ? firstItem.mobileImage.asset.url
-            : firstItem.desktopImage?.asset?.url
-
-          if (imageUrl) {
-            // Use link preload for better LCP
-            const link = document.createElement('link')
-            link.rel = 'preload'
-            link.as = 'image'
-            link.href = imageUrl
-            document.head.appendChild(link)
-          }
-        }
-      }
-    } catch {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
-      setError('Failed to load videos. Please try again later.')
-      setLoading(false)
-    }
-  }, [isMobile]) // FIXED: Removed 'loading' dependency to prevent infinite loop
-
+  // Preload first video/image for faster LCP
   useEffect(() => {
-    if (!mounted) return
-    fetchVideos()
-  }, [mounted, fetchVideos])
+    if (initialVideos.length > 0 && typeof window !== 'undefined' && mounted) {
+      const firstItem = initialVideos[0]
+      if (firstItem.contentType === 'video') {
+        const videoUrl = isMobile && firstItem.mobileVideoFile?.asset?.url
+          ? firstItem.mobileVideoFile.asset.url
+          : firstItem.desktopVideoFile?.asset?.url
+
+        if (videoUrl) {
+          const link = document.createElement('link')
+          link.rel = 'preload'
+          link.as = 'video'
+          link.href = videoUrl
+          document.head.appendChild(link)
+        }
+      } else if (firstItem.contentType === 'image') {
+        const imageUrl = isMobile && firstItem.mobileImage?.asset?.url
+          ? firstItem.mobileImage.asset.url
+          : firstItem.desktopImage?.asset?.url
+
+        if (imageUrl) {
+          const link = document.createElement('link')
+          link.rel = 'preload'
+          link.as = 'image'
+          link.href = imageUrl
+          document.head.appendChild(link)
+        }
+      }
+    }
+  }, [mounted, isMobile, initialVideos])
 
   useEffect(() => {
     if (videos.length > 0) {
@@ -506,26 +437,12 @@ export default function HeroCarousel() {
           <div className="hero-video-container">
             <div className="hero-background"></div>
           </div>
-          {loading && (
-            <div style={{
-              position: 'absolute',
-              bottom: '2rem',
-              left: '2rem',
-              color: 'white',
-              fontSize: '0.875rem',
-              opacity: 0.7,
-              contain: 'layout style'
-            }}>
-              Loading...
-            </div>
-          )}
-        
         </div>
       </>
     )
   }
 
-  if (error || videos.length === 0) {
+  if (videos.length === 0) {
     return (
       <>
         <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />

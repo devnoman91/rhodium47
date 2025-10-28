@@ -1,6 +1,6 @@
 import { createClient } from '@sanity/client'
-import { homeAboutQuery, productDetailsQuery, productBlogQuery, productShowcaseQuery, showcaseInnovationQuery, protectionQuery, faqQuery, utilityQuery, keepExploringQuery, newsUpdatesQuery, experienceXodiumQuery } from '@/content/queries'
-import { HomeAbout, ProductDetail, ProductBlog, ShowcaseProduct, ShowcaseInnovation, Protection, FAQ, Utility, KeepExploring, NewsUpdates, ExperienceXodium } from '@/content/types'
+import { homeAboutQuery, productDetailsQuery, productBlogQuery, productShowcaseQuery, showcaseInnovationQuery, protectionQuery, faqQuery, utilityQuery, keepExploringQuery, newsUpdatesQuery, experienceXodiumQuery, videoQueries } from '@/content/queries'
+import { HomeAbout, ProductDetail, ProductBlog, ShowcaseProduct, ShowcaseInnovation, Protection, FAQ, Utility, KeepExploring, NewsUpdates, ExperienceXodium, Video } from '@/content/types'
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
@@ -105,6 +105,26 @@ export async function getExperienceXodiumData(): Promise<ExperienceXodium | null
   } catch (error) {
     console.error('Error fetching experience xodium data:', error)
     return null
+  }
+}
+
+export async function getHeroVideos(): Promise<Video[]> {
+  try {
+    const fetchedVideos = await client.fetch(videoQueries.getAllVideos)
+
+    // Filter valid videos on the server
+    const validVideos = fetchedVideos.filter((video: Video) => {
+      const hasRequiredFields = video && video.desktopName && video.contentType
+      const hasValidContent =
+        (video.contentType === 'video' && video.desktopVideoFile?.asset?.url) ||
+        (video.contentType === 'image' && video.desktopImage?.asset?.url)
+      return hasRequiredFields && hasValidContent
+    })
+
+    return validVideos
+  } catch (error) {
+    console.error('Error fetching hero videos:', error)
+    return []
   }
 }
 

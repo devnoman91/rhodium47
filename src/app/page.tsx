@@ -11,7 +11,7 @@ import NewsUpdatesSection from "@/components/NewsUpdatesSection";
 import ExperienceXodiumSection from "@/components/ExperienceXodiumSection";
 import VehicleShowcase from "@/components/VehicleShowcase";
 import VehicleDiagram from "@/components/VehicleDiagram";
-import { getExperienceXodiumData, getFAQData, getHomeAboutData, getKeepExploringData, getNewsUpdatesData, getProductBlogData, getProductDetails, getProductShowcaseData, getProtectionData, getShowcaseInnovationData, getUtilityData } from "@/sanity/lib/sanity";
+import { getExperienceXodiumData, getFAQData, getHomeAboutData, getKeepExploringData, getNewsUpdatesData, getProductBlogData, getProductDetails, getProductShowcaseData, getProtectionData, getShowcaseInnovationData, getUtilityData, getHeroVideos } from "@/sanity/lib/sanity";
 import { getVehicleDiagram, getVehiclePricing } from "@/content/queries";
 import { getProducts } from "@/lib/shopify";
 
@@ -20,7 +20,8 @@ export const revalidate = 60
 
 export default async function Home() {
   // Fetch data from Sanity CMS and Shopify
-  const [aboutData, products, blogData, showcaseData, innovationData, protectionData, faqData, utilityData, keepExploringData, newsUpdatesData, experienceXodiumData, vehicleDiagramData, vehiclePricingData] = await Promise.all([
+  const [heroVideos, aboutData, products, blogData, showcaseData, innovationData, protectionData, faqData, utilityData, keepExploringData, newsUpdatesData, experienceXodiumData, vehicleDiagramData, vehiclePricingData] = await Promise.all([
+    getHeroVideos(),
     getHomeAboutData(),
     getProductDetails(),
     getProductBlogData(),
@@ -69,7 +70,7 @@ export default async function Home() {
 
   return (
     <div className="relative">
-      <HeroCarousel />
+      <HeroCarousel initialVideos={heroVideos} />
        <VehicleShowcase vehicles={vehicles} />
       {aboutData && (
         <AboutSection

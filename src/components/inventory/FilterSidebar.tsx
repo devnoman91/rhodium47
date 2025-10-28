@@ -196,10 +196,10 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             onChange={(e) => updateFilter('priceRange', [filters.priceRange[0], parseInt(e.target.value)])}
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
           />
-          <div className="mt-2 font-helvetica text-[#747474] border-b border-[#747474] font-normal text-[12px] leading-[140%] tracking-[-0.24px]">
+          {/* <div className="mt-2 font-helvetica text-[#747474] border-b border-[#747474] font-normal text-[12px] leading-[140%] tracking-[-0.24px]">
             Include $7,500 Federal Tax Credit<br />
             See Eligibility Requirements
-          </div>
+          </div> */}
         </div>
       </ExpandableFilterSection>
 

@@ -62,6 +62,7 @@ export default function VehicleCard({ vehicle, activeFilters = [] }: VehicleCard
             {vehicle.model}
           </h3>
           <p className="text-[14px] font-[600] font-helvetica text-[#111] mb-[8px]">
+            Start from
             ${vehicle.price.toLocaleString()}
           </p>
 

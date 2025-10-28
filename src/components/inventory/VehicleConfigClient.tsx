@@ -44,6 +44,9 @@ p, h6 {
 .performance-section ul {
   list-style: none;
 }
+  .performance-section {
+  color: #000 !important ;
+  }
 .performance-section li {
   display: flex;
   justify-content: space-between;
@@ -217,15 +220,7 @@ export default function VehicleConfigClient({
                 {product.title}
               </h1>
 
-              {/* Top heading HTML */}
-              <style dangerouslySetInnerHTML={{ __html: performanceStyles }} />
-              {topHeadingHtml && (
-                <div
-                  className="text-black text-center items-center md:justify-center justify-between  flex flex-wrap gap-4 mb-[21px]"
-                  dangerouslySetInnerHTML={{ __html: topHeadingHtml }}
-                />
-              )}
-
+           
               {/* Variants */}
               {product.variants?.length > 0 && (
                 <div className="mb-8">
@@ -273,7 +268,7 @@ export default function VehicleConfigClient({
               {/* Performance */}
               {performanceHtml && (
                 <div
-                  className="performance-section text-left"
+                  className="performance-section text-left  "
                   dangerouslySetInnerHTML={{ __html: performanceHtml }}
                 />
               )}

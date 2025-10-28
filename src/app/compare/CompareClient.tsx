@@ -289,7 +289,7 @@ export default function CompareClient({ products }: CompareClientProps) {
                 {product.tagline}
               </p>
               <p className="text-black font-normal text-[16px] leading-[18px] tracking-[-0.48px] font-helvetica mb-[20px]">
-                From ${product.price.toLocaleString()}<sup>1</sup>
+                Starts from ${product.price.toLocaleString()}<sup>1</sup>
                 {product.leasePrice && ` • Est. lease ${product.leasePrice.toLocaleString()}/mo`}
               </p>
 

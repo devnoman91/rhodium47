@@ -48,12 +48,25 @@ export default async function ComparePage() {
   const allProducts: ComparisonProduct[] = shopifyProducts.map((product: any) => {
     const specs = parseSpecs(product.descriptionHtml || '')
 
+    // Find LOWEST cash variant price from all cash variants
+    const cashVariants = product.variants?.filter((variant: any) =>
+      variant.title && variant.title.toLowerCase().includes('cash')
+    ) || [];
+
+    let displayPrice = parseFloat(product.priceRange.minVariantPrice.amount);
+    if (cashVariants.length > 0) {
+      const cashPrices = cashVariants.map((v: any) => parseFloat(v.price?.amount || 0)).filter((p: number) => p > 0);
+      if (cashPrices.length > 0) {
+        displayPrice = Math.min(...cashPrices);
+      }
+    }
+
     return {
       id: product.id,
       handle: product.handle,
       title: product.title,
       image: product.images[0]?.url || '/images/vehicle.png',
-      price: parseFloat(product.priceRange.minVariantPrice.amount),
+      price: displayPrice,
       tagline: extractTagline(product.description),
       descriptionHtml: product.descriptionHtml, // Include the full HTML description
       specs,

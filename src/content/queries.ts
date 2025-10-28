@@ -243,6 +243,37 @@ export const newsUpdatesQuery = `
   }
 `
 
+export const newsItemBySlugQuery = (slug: string) => `
+  *[_type == "news-updates"][0] {
+    newsSection[slug.current == "${slug}"][0] {
+      title,
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      slug,
+      description,
+      content[] {
+        ...,
+        _type == "image" => {
+          ...,
+          asset-> {
+            _id,
+            url
+          }
+        }
+      }
+    }
+  }
+`
+
+export const getNewsItemBySlug = async (slug: string) => {
+  return await client.fetch(newsItemBySlugQuery(slug))
+}
+
 export const experienceXodiumQuery = `
   *[_type == "experience-xodium-technology"][0] {
     name,

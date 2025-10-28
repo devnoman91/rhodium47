@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 import { NewsUpdates, NewsItem } from '@/content/types'
 
 interface NewsUpdatesSectionProps {
@@ -161,27 +162,25 @@ const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(
         </div>
 
         {/* Learn More Button */}
-        <motion.button
-          className="relative overflow-hidden px-[24px] py-[5px] rounded-[50px] 
-                     border border-white text-white font-helvetica text-[14px] leading-[24px] 
-                     font-medium transition-colors duration-500 ease-in-out 
-                     w-fit block cursor-pointer mt-auto group"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => {
-            if (newsItem.slug.current)
-              window.location.href = `/news/${newsItem.slug.current}`
-          }}
-        >
-          <span
-            className="absolute inset-0 bg-white translate-x-full 
-                       transition-transform duration-500 ease-in-out rounded-[50px]
-                       group-hover:translate-x-0"
-          />
-          <span className="relative z-10 group-hover:text-black">
-            Learn More
-          </span>
-        </motion.button>
+        <Link href={`/news/${newsItem.slug.current}`}>
+          <motion.button
+            className="relative overflow-hidden px-[24px] py-[5px] rounded-[50px]
+                       border border-white text-white font-helvetica text-[14px] leading-[24px]
+                       font-medium transition-colors duration-500 ease-in-out
+                       w-fit block cursor-pointer mt-auto group"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <span
+              className="absolute inset-0 bg-white translate-x-full
+                         transition-transform duration-500 ease-in-out rounded-[50px]
+                         group-hover:translate-x-0"
+            />
+            <span className="relative z-10 group-hover:text-black">
+              Learn More
+            </span>
+          </motion.button>
+        </Link>
       </div>
     </motion.div>
   )

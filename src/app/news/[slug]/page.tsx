@@ -1,0 +1,285 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useParams } from 'next/navigation'
+import { getNewsItemBySlug } from '@/content/queries'
+import { PortableText } from '@portabletext/react'
+import type { NewsItem } from '@/content/types'
+
+// Portable Text Components for rich text rendering
+const portableTextComponents = {
+  block: {
+    h1: ({ children }: any) => (
+      <h1 className="text-[36px] lg:text-[50px] font-[500] text-black mb-[34px]  leading-tight">
+        {children}
+      </h1>
+    ),
+    h2: ({ children }: any) => (
+      <h2 className="text-[28px] lg:text-[40px] font-[500] text-black mb-[34px]  leading-tight">
+        {children}
+      </h2>
+    ),
+    h3: ({ children }: any) => (
+      <h3 className="text-[24px] lg:text-[32px] font-[500] text-black mb-[34px]  leading-tight">
+        {children}
+      </h3>
+    ),
+    normal: ({ children }: any) => (
+      <p className="text-[16px] text-[#111] mb-[34px] font-[400] leading-relaxed">
+        {children}
+      </p>
+    ),
+    blockquote: ({ children }: any) => (
+      <blockquote className="border-l-4 border-black pl-[24px] py-[16px] my-[32px] italic text-[18px] lg:text-[22px] text-gray-700 bg-gray-50 rounded-r-lg">
+        {children}
+      </blockquote>
+    ),
+  },
+  marks: {
+    strong: ({ children }: any) => (
+      <strong className="font-bold text-black">{children}</strong>
+    ),
+    em: ({ children }: any) => (
+      <em className="italic text-gray-700">{children}</em>
+    ),
+    code: ({ children }: any) => (
+      <code className="bg-gray-100 px-[8px] py-[4px] rounded text-[14px] font-mono text-gray-900">
+        {children}
+      </code>
+    ),
+    link: ({ children, value }: any) => (
+      <a
+        href={value?.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-black underline hover:text-gray-700 transition-colors font-medium"
+      >
+        {children}
+      </a>
+    ),
+  },
+  types: {
+    image: ({ value }: any) => {
+      // The query now resolves the full URL via asset->
+      const imageUrl = value?.asset?.url
+
+      if (!imageUrl) {
+        console.warn('Image missing URL:', value)
+        return null
+      }
+
+      return (
+        <div className="my-[40px] rounded-[16px] overflow-hidden">
+          <div className="relative flex-row w-full h-[400px] lg:h-[600px]">
+            <Image
+              src={imageUrl}
+              alt={value.alt || 'News image'}
+              fill
+              className="object-cover"
+            />
+          </div>
+          {value.caption && (
+            <p className="text-[14px] text-gray-600 mt-[12px] text-center italic">
+              {value.caption}
+            </p>
+          )}
+        </div>
+      )
+    },
+  },
+}
+
+// Hero Section
+const NewsHeroSection: React.FC = () => {
+  return (
+    <section  className=' pt-[138px] max-w-[1332px] mx-auto px-[20px] mb-[42px]'>
+
+      {/* Content */}
+      <div className="max-w-[1010px]">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          {/* Back Button */}
+          <Link
+            href="/"
+            className="text-black font-helvetica text-[12px] not-italic font-normal leading-[110%] tracking-[-0.24px] underline decoration-solid"
+          >
+            Back
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+// News Content Section
+const NewsContentSection: React.FC<{
+  content: any[]
+}> = ({ content }) => {
+  return (
+    <section className=" bg-white max-w-[1332px] m-auto">
+      <div className="max-w-[1010px] px-[20px]">
+        <motion.article
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="prose prose-lg max-w-none"
+        >
+          <PortableText value={content} components={portableTextComponents} />
+        </motion.article>
+      </div>
+    </section>
+  )
+}
+
+// Call to Action Section
+const CTASection: React.FC = () => {
+  return (
+    <section className="py-[60px] lg:py-[80px] bg-gray-50">
+      <div className="max-w-[1010px] mx-auto px-[20px] lg:px-[80px] text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-[28px] lg:text-[40px] font-bold text-black mb-[16px]">
+            Stay Updated with Latest News
+          </h2>
+          <p className="text-[16px] lg:text-[18px] text-gray-700 mb-[32px] max-w-[700px] mx-auto">
+            Discover more stories, updates, and innovations from our team.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-[16px] justify-center">
+              <Link href="/contact-us">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  className="relative overflow-hidden inline-block bg-black text-white px-[32px] py-[16px] rounded-full text-[16px] font-semibold
+                            hover:bg-black transition-colors group"
+                >
+                  {/* sliding overlay */}
+                  <span
+                    className="absolute inset-0 bg-white translate-x-full
+                              transition-transform duration-500 ease-in-out rounded-full
+                              group-hover:translate-x-0"
+                  />
+
+                  {/* text */}
+                  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
+                    Contact Us
+                  </span>
+                </motion.button>
+              </Link>
+
+              {/* Back to Home Button */}
+              <Link href="/">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  className="relative overflow-hidden inline-block bg-white border-2 border-black text-black px-[32px] py-[16px] rounded-full text-[16px] font-semibold
+                            hover:bg-white transition-colors group"
+                >
+                  {/* sliding overlay */}
+                  <span
+                    className="absolute inset-0 bg-black translate-x-full
+                              transition-transform duration-500 ease-in-out rounded-full
+                              group-hover:translate-x-0"
+                  />
+
+                  {/* text */}
+                  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+                    Back to Home
+                  </span>
+                </motion.button>
+              </Link>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+// Main Page Component
+export default function NewsDetailPage() {
+  const params = useParams()
+  const slug = params?.slug as string
+
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [newsItem, setNewsItem] = useState<NewsItem | null>(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true)
+        const response = await getNewsItemBySlug(slug)
+        console.log('News item response:', response)
+
+        // The query returns { newsSection: {...} } structure
+        if (response && response.newsSection) {
+          setNewsItem(response.newsSection)
+        } else {
+          setError('News article not found')
+        }
+        setLoading(false)
+      } catch (err) {
+        console.error('Error fetching news article:', err)
+        setError('Failed to load news article')
+        setLoading(false)
+      }
+    }
+
+    if (slug) {
+      fetchData()
+    }
+  }, [slug])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center">
+          <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-black border-r-transparent mb-4"></div>
+          <p className="text-[18px] text-gray-600">Loading article...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error || !newsItem) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center">
+          <p className="text-[18px] text-red-600 mb-4">{error || 'Article not found'}</p>
+          <Link
+            href="/"
+            className="inline-block bg-black text-white px-[24px] py-[12px] rounded-full text-[14px] font-semibold hover:bg-gray-800 transition-colors"
+          >
+            Back to Home
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <main className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <NewsHeroSection />
+
+      {/* News Content */}
+      {newsItem.content && newsItem.content.length > 0 && (
+        <NewsContentSection content={newsItem.content} />
+      )}
+
+      {/* Call to Action */}
+      <CTASection />
+    </main>
+  )
+}

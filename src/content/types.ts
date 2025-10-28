@@ -190,6 +190,7 @@ export interface NewsItem {
   slug: {
     current: string
   }
+  content?: any[] // Portable Text content
 }
 
 export interface NewsUpdates {

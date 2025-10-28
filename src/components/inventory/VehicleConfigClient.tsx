@@ -49,6 +49,7 @@ p, h6 {
   justify-content: space-between;
   position: relative;
   padding-left: 1.5rem;
+  gap:15px;
 }
 .performance-section li::before {
   content: "•";
@@ -58,6 +59,15 @@ p, h6 {
   position: absolute;
   left: 0;
 }
+  div#top-heading {
+    display: flex;
+    margin-bottom: 21px;
+    gap: 12px;
+}
+    .perfomance-data li{
+        display: flex;
+    justify-content: space-between;
+    }
 `;
 
 interface VehicleConfigClientProps {

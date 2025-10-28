@@ -235,7 +235,7 @@ const BlogCard: React.FC<{ product: BlogProduct; index: number }> = React.memo((
    <motion.div
   variants={cardVariants}
   transition={{ duration: 0.6, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
-  className="group bg-white font-helvetica  md:w-[32%] w-full flex-shrink-0 flex flex-col"
+  className="group bg-white font-helvetica  md:w-[32%] w-full flex-shrink-0 flex flex-col px-[15px]"
 >
   {/* Image */}
   <div className="relative rounded-2xl md:h-[400px] h-[250px] w-full">

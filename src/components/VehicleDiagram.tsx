@@ -55,7 +55,7 @@ const VehicleDiagram: React.FC<VehicleDiagramProps> = ({ data }) => {
 
   return (
     <div className="bg-white py-0 px-0 lg:py-24 lg:px-28">
-      <div className="flex justify-center w-full">
+      <div className="flex justify-center w-full px-3">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -106,7 +106,7 @@ const VehicleDiagram: React.FC<VehicleDiagramProps> = ({ data }) => {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center text-black font-bold text-base sm:text-lg shadow-lg border-2 border-gray-300 hover:border-white transition-all duration-200">
+                    <div className="md:w-8 w-6 md:h-8 h-6 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center text-black font-bold text-base sm:text-lg shadow-lg border-2 border-gray-300 hover:border-white transition-all duration-200">
                       {point.id}
                     </div>
                     <div className="absolute top-10 lg:block hidden left-1/2 transform -translate-x-1/2 text-white text-xs sm:text-sm font-medium whitespace-nowrap">

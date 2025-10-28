@@ -12,7 +12,7 @@ const criticalInlineStyles = `
     margin: 0 auto;
     padding-top: 138px;
     background: #F4F1F2;
-    padding-inline: calc(var(--spacing) * 12);
+    // padding-inline: calc(var(--spacing) * 12);
     padding-bottom: 0px;
   }
 
@@ -388,10 +388,10 @@ export default function XodiumArmorPage() {
         </div>
       </div>
 
-      <div className="xodium-armor-container" style={{ paddingTop: 0 }}>
+      <div className="" style={{ paddingTop: 0 }}>
         {/* Technical Specifications Section */}
         {armorData.technicalSpecifications.cards.length > 0 && (
-          <section className="pt-[50px] lg:pt-[79px] pb-[50px] lg:pb-[104px] bg-[#111111] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+          <section className="pt-[50px] px-[15px] lg:pt-[79px] pb-[50px] lg:pb-[104px] bg-[#111111] md:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
             <div className="max-w-[1304px] mx-auto">
               {/* Header */}
               <div className="mb-[91px]">
@@ -401,7 +401,7 @@ export default function XodiumArmorPage() {
                   viewport={{ once: true }}
                   className=""
                 >
-                  <h2 className="text-white font-[500] text-[64px] leading-[110%] font-helvetica m-0">
+                  <h2 className="text-white font-[500] md:text-[64px] text-[30px] leading-[110%] font-helvetica m-0">
                     {armorData.technicalSpecifications.title}
                   </h2>
                 </motion.div>

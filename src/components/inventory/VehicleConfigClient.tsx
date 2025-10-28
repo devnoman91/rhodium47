@@ -238,13 +238,13 @@ export default function VehicleConfigClient({
                   {selectedVariant && (
                     <div className="flex justify-between items-center border border-[#000] bg-[#F4F4F4] rounded-[4px] px-[21px] py-[13px]">
                       <div className="text-left">
-                        <p className="text-[#747474] text-[12px] mb-1">Standard</p>
-                        <p className="text-black text-[14px] font-bold capitalize">
+                        <p className="!text-[#747474] !text-[14px] !font-helvetica !font-[500] mb-1">Standard</p>
+                        <p className="!text-black !text-[14px] !font-bold capitalize">
                           {selectedVariant.title}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-black text-[14px] font-bold capitalize">
+                        <p className="!text-black !text-[14px] !font-bold !capitalize">
                           ${selectedVariantPrice.toLocaleString()}
                         </p>
                         {!selectedVariant.availableForSale && (

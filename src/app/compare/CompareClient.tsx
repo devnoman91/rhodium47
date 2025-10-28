@@ -273,7 +273,7 @@ export default function CompareClient({ products }: CompareClientProps) {
               <img
                 src={product.image}
                 alt={product.title}
-                className="w-full h-[257px] object-cover"
+                className="w-full h-[257px] object-contain"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = '/images/vehicle.png'
                 }}

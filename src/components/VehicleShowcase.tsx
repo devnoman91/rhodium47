@@ -103,7 +103,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
       {/* Vehicle Slider */}
       {filteredVehicles.length > 0 ? (
         <div className="relative py-2 lg:py-3">
-          <div className="relative w-full min-h-[600px] overflow-hidden">
+          <div className="relative w-full md:min-h-[600px] min-h-[430px] overflow-hidden">
             {filteredVehicles.map((vehicle, index) => (
               <div
                 key={vehicle.id}

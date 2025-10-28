@@ -93,7 +93,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
           viewport={{ once: true, margin: '-100px' }}
           className="mb-[25px] lg:mb-[70px]"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 xl:gap-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 md:gap-8 lg:gap-16 xl:gap-20">
             {/* Left Logo + Progress */}
             <motion.div
               variants={itemVariants}
@@ -134,7 +134,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
               </div>
 
               {/* Progress Line — always visible */}
-              <div className="w-full max-w-[280px] sm:max-w-[360px] md:max-w-[420px] lg:w-60 xl:w-80 h-1 bg-gray-200 rounded-full overflow-hidden">
+              <div className="w-full max-w-[280px] sm:max-w-[360px] md:max-w-[420px] md:block hidden lg:w-60 xl:w-80 h-1 bg-gray-200 rounded-full overflow-hidden">
                 <motion.div
                   className="h-full bg-gray-900 rounded-full"
                   style={{ width: `${(currentIndex + 1) * (100 / products.length)}%` }}

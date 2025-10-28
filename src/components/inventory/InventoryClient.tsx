@@ -300,7 +300,7 @@ export default function InventoryClient({
                 className={`relative z-10 transition-colors duration-500 ease-in-out
                   ${filters.status === 'pre-order' ? 'group-hover:text-white' : 'group-hover:text-white'}`}
               >
-               Preowned
+               Pre-Owned
               </span>
             </button>
           </div>
@@ -380,7 +380,7 @@ export default function InventoryClient({
                   <span className={`relative z-10 transition-colors duration-500 ease-in-out
                     ${filters.status === 'pre-order' ? 'group-hover:text-white' : 'group-hover:text-white'}`}>
                    
-                    Preowned
+                    Pre-Owned
                   </span>
                 </button>
               </div>

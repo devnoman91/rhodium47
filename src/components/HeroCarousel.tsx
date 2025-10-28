@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo, memo } from 'react'
 import { client } from '@/sanity/lib/client'
 import { Video } from '@/content/types'
 import { videoQueries } from '@/content/queries'
-import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 
 // Ultra-optimized critical styles for sub-1.5s LCP
 const criticalInlineStyles = `
@@ -120,8 +120,8 @@ const criticalInlineStyles = `
 }
 `
 
-// Segmented circular indicator + numeric list with divider
-const SegmentedCircleIndicator = ({
+// Segmented circular indicator + numeric list with divider - Memoized to prevent re-renders
+const SegmentedCircleIndicator = memo(({
   total,
   current,
   onClick,
@@ -187,9 +187,10 @@ const SegmentedCircleIndicator = ({
       )}
     </svg>
   )
-}
+})
+SegmentedCircleIndicator.displayName = 'SegmentedCircleIndicator'
 
-const VideoControlsInline = ({ videos, currentIndex, onSlideChange }: {
+const VideoControlsInline = memo(({ videos, currentIndex, onSlideChange }: {
   videos: Video[]
   currentIndex: number
   onSlideChange: (index: number) => void
@@ -197,9 +198,10 @@ const VideoControlsInline = ({ videos, currentIndex, onSlideChange }: {
   <div className="absolute bottom-8 right-8 md:right-16 z-10 md:block hidden">
     <SegmentedCircleIndicator total={videos.length} current={currentIndex} onClick={onSlideChange} />
   </div>
-)
+))
+VideoControlsInline.displayName = 'VideoControlsInline'
 
-// Preload critical resources
+// Preload critical resources - REMOVED: Next.js handles this automatically
 const preloadCriticalResources = () => {
   if (typeof window !== 'undefined') {
     // Preload font display
@@ -220,11 +222,9 @@ export default function HeroCarousel() {
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const [isVideoReady, setIsVideoReady] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const imageRef = useRef<HTMLImageElement>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const intersectionRef = useRef<HTMLDivElement>(null)
 
@@ -301,7 +301,7 @@ export default function HeroCarousel() {
       setLoading(false)
 
       // Immediate first content preload for faster LCP
-      if (validVideos[0]) {
+      if (validVideos[0] && typeof window !== 'undefined') {
         const firstItem = validVideos[0]
         if (firstItem.contentType === 'video') {
           // Preload mobile video if available and on mobile, otherwise desktop
@@ -310,9 +310,12 @@ export default function HeroCarousel() {
             : firstItem.desktopVideoFile?.asset?.url
 
           if (videoUrl) {
-            const video = document.createElement('video')
-            video.preload = 'metadata'
-            video.src = videoUrl
+            // Use link preload for better LCP
+            const link = document.createElement('link')
+            link.rel = 'preload'
+            link.as = 'video'
+            link.href = videoUrl
+            document.head.appendChild(link)
           }
         } else if (firstItem.contentType === 'image') {
           // Preload mobile image if available and on mobile, otherwise desktop
@@ -321,8 +324,12 @@ export default function HeroCarousel() {
             : firstItem.desktopImage?.asset?.url
 
           if (imageUrl) {
-            const img = new Image()
-            img.src = imageUrl
+            // Use link preload for better LCP
+            const link = document.createElement('link')
+            link.rel = 'preload'
+            link.as = 'image'
+            link.href = imageUrl
+            document.head.appendChild(link)
           }
         }
       }
@@ -333,7 +340,7 @@ export default function HeroCarousel() {
       setError('Failed to load videos. Please try again later.')
       setLoading(false)
     }
-  }, [loading, isMobile])
+  }, [isMobile]) // FIXED: Removed 'loading' dependency to prevent infinite loop
 
   useEffect(() => {
     if (!mounted) return
@@ -426,7 +433,6 @@ export default function HeroCarousel() {
 
   const handleVideoLoad = useCallback(() => {
     setVideoLoaded(true)
-    setIsVideoReady(true)
     if (videoRef.current && !isTransitioning) {
       videoRef.current.style.opacity = '1'
     }
@@ -434,7 +440,6 @@ export default function HeroCarousel() {
 
   const handleVideoError = useCallback(() => {
     setVideoLoaded(false)
-    setIsVideoReady(false)
   }, [])
 
   const handleImageLoad = useCallback(() => {
@@ -566,7 +571,7 @@ export default function HeroCarousel() {
                 muted
                 loop
                 playsInline
-                preload="metadata"
+                preload={currentIndex === 0 ? "auto" : "metadata"}
                 controls={false}
                 disablePictureInPicture
                 onLoadedData={handleVideoLoad}
@@ -576,6 +581,7 @@ export default function HeroCarousel() {
                   transition: 'opacity 0.3s ease-in-out'
                 }}
                 poster=""
+                {...(currentIndex === 0 && { fetchpriority: "high" } as any)}
               />
             ) : null
           })()}
@@ -592,12 +598,15 @@ export default function HeroCarousel() {
               : currentVideo?.desktopImage?.alt || currentVideo?.desktopName || 'Hero image'
 
             return imageUrl ? (
-              <img
-                ref={imageRef}
+              <Image
                 key={`image-${currentVideo?._id}-${isMobile ? 'mobile' : 'desktop'}`}
                 src={imageUrl}
                 alt={imageAlt}
-                className="hero-image"
+                fill
+                priority={currentIndex === 0}
+                quality={90}
+                sizes="100vw"
+                className="object-cover"
                 onLoad={handleImageLoad}
                 onError={handleImageError}
                 style={{
@@ -657,14 +666,13 @@ export default function HeroCarousel() {
 
             {currentVideo?.buttonText && currentVideo?.buttonLink && (
               <Link href={currentVideo.buttonLink}>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                <button
                   className="md:m-0 m-auto relative overflow-hidden flex items-center gap-[12px] px-6 py-3 rounded-full
                             bg-white text-black font-helvetica font-medium text-[16px]
-                            border border-transparent cursor-pointer group
-                            focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                            border-none cursor-pointer group
+                            focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black
+                            transition-transform duration-150 ease-out
+                            hover:scale-105 active:scale-95"
                   aria-label={currentVideo.buttonText}
                 >
                   {/* sliding overlay */}
@@ -690,7 +698,7 @@ export default function HeroCarousel() {
                   <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
                     {currentVideo.buttonText}
                   </span>
-                </motion.button>
+                </button>
               </Link>
             )}
          </div>

@@ -112,20 +112,28 @@ line-height: 20px;
     }
   }
   @media (max-width: 768px) {
+  .info-card:nth-child(2),
+  .info-card {
+    max-width: 100%;
+}
     .br6-protection-container {
       padding-inline: 15px;
       padding-top: 100px;
       padding-bottom: 37px;
     }
+      .br6-protection-hero{
+      margin-bottom:37px;
+      }
     .br6-protection-hero-title {
-      font-size: 40px;
+      font-size: 30px;
+      margin-bottom:6px;
     }
     .br6-protection-hero-description {
       font-size: 16px;
     }
     .info-sections {
       flex-direction: column;
-      gap: 41px;
+      gap: 40px !important;
     }
   }
 `
@@ -165,7 +173,7 @@ const InternationalCertificationsSection: React.FC<{
   const words = useMemo(() => description ? description.split(' ') : [], [description])
 
   return (
-    <section className="pt-[50px] lg:pt-[108px] pb-[50px] lg:pb-[54px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+    <section className="pt-[37px] lg:pt-[108px] pb-[50px] lg:pb-[54px] bg-[#F4F1F2] lg:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
       <div className="max-w-[1304px] mx-auto">
         <motion.div
           variants={containerVariants}
@@ -173,7 +181,7 @@ const InternationalCertificationsSection: React.FC<{
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 mb-[96px]">
+          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 md:mb-[96px] mb-[67px]">
             {/* Left - Sunburst Icon */}
             {/* <motion.div
               className="w-full max-w-[400px] hidden lg:flex lg:justify-start justify-center"
@@ -236,7 +244,7 @@ const InternationalCertificationsSection: React.FC<{
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-[1280px] m-auto"
+            className="grid grid-cols-1 md:grid-cols-4 md:gap-8 gap-[52px]  max-w-[1280px] m-auto"
           >
             {countSection.map((count, index) => (
               <motion.div
@@ -268,7 +276,7 @@ const ThreatProtectionMatrixSection: React.FC<{
   cards: Array<{ title: string; description: string }>
 }> = ({ title, cards }) => {
   return (
-    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#111111] text-white overflow-hidden -mx-[calc(var(--spacing)*12)] md:px-0 px-[15px]">
+    <section className="pt-[62px] pb-[50px] lg:pb-[90px] bg-[#111111] text-white overflow-hidden md:px-0 px-[15px]">
       {/* Top Section - Constrained */}
       <div className="max-w-7xl mx-auto md:px-6 md:mb-16 lg:mb-20 mb-[32px]">
         <motion.div
@@ -278,8 +286,8 @@ const ThreatProtectionMatrixSection: React.FC<{
           viewport={{ once: true, margin: "-100px" }}
         >
           {/* Main Title */}
-          <motion.div variants={itemVariants} className="md:mb-[70px] mb-[32px]">
-            <h1 className="md:text-[64px] text-[30px] md:text-left text-center not-italic tracking-normal md:leading-[70px] leading-[33px] font-medium font-helvetica">
+          <motion.div variants={itemVariants} className="md:mb-[70px] mb-[65px]">
+            <h1 className="md:text-[64px] text-[31px] md:text-left text-center not-italic tracking-normal md:leading-[70px] leading-[40px] font-medium font-helvetica">
               {title}
             </h1>
           </motion.div>
@@ -348,7 +356,7 @@ const ThreatProtectionMatrixSection: React.FC<{
         </div>
 
         {/* Mobile Column - Hidden on desktop */}
-        <div className="md:hidden block max-w-[420px] mx-auto">
+        <div className="md:hidden block md:max-w-[420px] mx-auto">
           <div className="flex flex-col gap-[20px]">
             {cards.map((card, index) => (
               <motion.div
@@ -361,7 +369,7 @@ const ThreatProtectionMatrixSection: React.FC<{
                   duration: 0.6,
                   ease: "easeOut"
                 }}
-                className="pt-[30px] pr-[30px] pb-[20px] pl-[30px] rounded-[20px] bg-[rgba(255,255,255,0.05)]"
+                className="!pb-[61px] px-[40px] pt-[61px]  md:px-[45px] rounded-[20px] bg-[rgba(255,255,255,0.05)]"
               >
                 <div className="flex flex-col">
                   <h3 className="text-white font-helvetica text-[20px] font-normal leading-[30px] mb-[12px]">
@@ -535,25 +543,24 @@ export default function BR6ProtectionPage() {
           description={protectionData.internationalCertifications.description}
           countSection={protectionData.internationalCertifications.countSection}
         />
-
-
- {/* Threat Protection Matrix Section */}
+       
+ 
+      </div>
+      {/* Threat Protection Matrix Section */}
         <ThreatProtectionMatrixSection
           title={protectionData.threatProtectionMatrix.title}
           cards={protectionData.threatProtectionMatrix.cards}
         />
-      </div>
-
       {/* Testing & Certification Slider Section */}
       {protectionData.testingCertificationSlider.slides.length > 0 && (
-        <section className="pt-[50px] lg:pt-[79px] pb-[50px] lg:pb-[102px] bg-[#F4F1F2] text-black overflow-hidden mmd:px-0 px-[13px]" style={{ contain: 'layout style' }}>
+        <section className="pt-[50px] lg:pt-[79px] pb-[80px] lg:pb-[102px] bg-[#F4F1F2] text-black overflow-hidden mmd:px-0 px-[13px]" style={{ contain: 'layout style' }}>
             <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, staggerChildren: 0.15 }}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-[32px] lg:gap-16">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-[17px] lg:gap-16">
                   <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -570,7 +577,7 @@ export default function BR6ProtectionPage() {
                     transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
                     className="lg:col-span-1 flex items-center justify-end"
                   >
-                    <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                    <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica md:max-w-[480px]">
                       {protectionData.testingCertificationSlider.mainTitle}
                     </p>
                   </motion.div>
@@ -725,7 +732,7 @@ export default function BR6ProtectionPage() {
                   {protectionData.callToAction.description.split('\n\n').map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
+                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] md:max-w-[575px]"
                     >
                       {paragraph.trim()}
                     </p>

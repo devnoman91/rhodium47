@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, useMemo } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import type { TexasFacility } from '@/content/types'
@@ -19,7 +19,7 @@ const criticalInlineStyles = `
   /* Hero Section */
   .texas-facility-hero {
     text-align: center;
-    // margin-bottom: 62px;
+    margin-bottom: 62px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -158,7 +158,7 @@ const itemVariants = {
   }
 }
 
-// Manufacturing Excellence Section Component (with word animation)
+// Manufacturing Excellence Section
 const ManufacturingExcellenceSection: React.FC<{
   title: string
   description: string
@@ -169,21 +169,26 @@ const ManufacturingExcellenceSection: React.FC<{
     offset: ["start 0.8", "end 0.2"]
   })
 
-  const words = useMemo(() => description ? description.split(' ') : [], [description])
+  const words = React.useMemo(() => description.split(' '), [description])
 
   return (
-    <section className="pt-[37px] lg:pt-[106px] pb-[50px] lg:pb-[54px] bg-[#F4F1F2] lg:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
+    <section className="pt-[37px] lg:pt-[108px] pb-[50px] lg:pb-[54px] bg-[#F4F1F2] lg:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
       <div className="max-w-[1304px] mx-auto">
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, staggerChildren: 0.15 }}
         >
-          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 md:mb-[90px] mb-[32px]">
+          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 md:mb-[96px] mb-[67px]">
             {/* Right - Content */}
-            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black max-w-[810px] m-auto">
-              <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center uppercase">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="my-0 pt-3 border-t border-black max-w-[773px]"
+            >
+              <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-[27px] font-helvetica items-center uppercase">
                 <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
                 <span>{title}</span>
               </div>
@@ -214,7 +219,55 @@ const ManufacturingExcellenceSection: React.FC<{
   )
 }
 
-// Facility Features Section Component
+// Info Sections Component
+const InfoSections: React.FC<{
+  sections: Array<{
+    name: string
+    description: string
+    image: { asset: { url: string }; alt?: string }
+  }>
+}> = ({ sections }) => {
+  return (
+    <section className="bg-[#F4F1F2] pb-[69px]">
+      <div className="max-w-[1304px] mx-auto px-4 md:px-6">
+        <div className="flex flex-col lg:flex-row gap-[30px]">
+          {sections.map((section, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+              className={`${
+                index === 1 ? 'max-w-[463px]' : 'max-w-[392px]'
+              } w-full overflow-hidden`}
+            >
+              <div className="relative w-full h-[260px] rounded-[20px] overflow-hidden">
+                {section.image?.asset?.url && (
+                  <img
+                    src={section.image.asset.url}
+                    alt={section.image.alt || section.name}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                )}
+              </div>
+              <div className="pt-[31px]">
+                <h3 className="text-[#111] text-center font-medium text-[16px] leading-[150%] capitalize mb-[8px]">
+                  {section.name}
+                </h3>
+                <p className="text-[#3F3E4B] text-center text-[16px] font-normal leading-[20px]">
+                  {section.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Facility Features Section
 const FacilityFeaturesSection: React.FC<{
   title: string
   description: string
@@ -225,75 +278,52 @@ const FacilityFeaturesSection: React.FC<{
   }>
 }> = ({ title, description, cards }) => {
   return (
-    <section className="pt-[62px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] text-black overflow-hidden md:px-0 px-[15px]">
-      {/* Top Section - Constrained */}
-      <div className="max-w-7xl mx-auto md:px-6 md:mb-16 lg:mb-20 mb-[32px]">
+    <section className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2]">
+      <div className="max-w-[1304px] m-auto px-4 md:px-6">
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-[54px] flex flex-col lg:flex-row justify-between gap-8 lg:gap-[182px]"
         >
-          {/* Main Title */}
-          <motion.div variants={itemVariants} className="md:mb-[70px] mb-[65px] flex flex-col md:flex-row justify-between gap-4 md:gap-[182px]">
-            <h1 className="md:text-[64px] text-[31px] md:text-left text-center not-italic tracking-normal md:leading-[70px] leading-[40px] font-medium font-helvetica">
-              {title}
-            </h1>
-            <p className="text-[16px] md:text-left text-center leading-[24px] font-helvetica text-black max-w-[517px] md:ml-auto">
-              {description}
-            </p>
-          </motion.div>
+          <h2 className="text-[48px] lg:text-[64px] font-[500] text-black mb-0">{title}</h2>
+          <p className="text-[16px] lg:text-[16px] font-medium text-black max-w-[517px] lg:ml-auto">
+            {description}
+          </p>
         </motion.div>
-      </div>
 
-      {/* Cards Section - Desktop: Grid, Mobile: Column */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        className="relative max-w-[1304px] mx-auto"
-      >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[20px] md:gap-[32px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[32px]">
           {cards.map((card, index) => (
             <motion.div
-              key={`${card.title}-${index}`}
-              initial={{ opacity: 0, y: 30 }}
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{
-                delay: index * 0.1,
-                duration: 0.6,
-                ease: "easeOut"
-              }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <div className="relative h-[260px] rounded-[20px] overflow-hidden mb-[31px]">
-                {card.image?.asset?.url && (
-                  <Image
-                    src={card.image.asset.url}
-                    alt={card.image.alt || card.title}
-                    fill
-                    className="object-cover hover:scale-105 transition-transform duration-500"
-                  />
-                )}
+              <div className="relative h-[260px] rounded-[20px] overflow-hidden mb-[31px] mx-auto">
+                <Image
+                  src={card.image.asset.url}
+                  alt={card.image.alt || card.title}
+                  fill
+                  className="object-cover"
+                />
               </div>
-              <div className="flex flex-col">
-                <h3 className="text-[#111] font-helvetica text-[16px] font-medium leading-[150%] capitalize text-center mb-[8px]">
-                  {card.title}
-                </h3>
-                <p className="text-[#3F3E4B] font-helvetica text-[16px] font-normal leading-[20px] text-center m-0">
-                  {card.description}
-                </p>
-              </div>
+              <h3 className="text-[16px] leading-[1] font-[500] text-black mb-[8px] text-center">
+                {card.title}
+              </h3>
+              <p className="text-[16px] text-[#3F3E4B] font-[400] text-center">{card.description}</p>
             </motion.div>
           ))}
         </div>
-      </motion.div>
+      </div>
     </section>
   )
 }
 
-// Slider Section Component (Horizontal Draggable Slider)
+
+// Slider Section Component (Horizontal Draggable Slider - Forever Section Style)
 const SliderSection: React.FC<{
   mainName: string
   mainTitle: string
@@ -305,34 +335,17 @@ const SliderSection: React.FC<{
 }> = ({ mainName, mainTitle, slides }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [dragX, setDragX] = useState(0)
-  const [isSmallScreen, setIsSmallScreen] = useState(false)
-  const constraintsRef = useRef<HTMLDivElement | null>(null)
-
-  // detect small screen for swipe behavior
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 768)
-    }
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  const constraintsRef = useRef(null)
 
   const totalSlides = slides.length
-  const cardWidth = isSmallScreen ? (Math.min(window.innerWidth, 420)) : 1000 + 20
+  const cardWidth = 1000 + 20 // card width + gap
   const maxScroll = -(totalSlides - 1) * cardWidth
-
-  // ensure dragX follows currentIndex and cardWidth changes
-  useEffect(() => {
-    setDragX(-currentIndex * cardWidth)
-  }, [currentIndex, cardWidth])
 
   const slideLeft = () => {
     if (currentIndex > 0) {
       const newIndex = currentIndex - 1
       setCurrentIndex(newIndex)
-    } else {
-      setDragX(-currentIndex * cardWidth)
+      setDragX(-newIndex * cardWidth)
     }
   }
 
@@ -340,11 +353,11 @@ const SliderSection: React.FC<{
     if (currentIndex < totalSlides - 1) {
       const newIndex = currentIndex + 1
       setCurrentIndex(newIndex)
-    } else {
-      setDragX(-currentIndex * cardWidth)
+      setDragX(-newIndex * cardWidth)
     }
   }
 
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'ArrowLeft') {
@@ -359,31 +372,34 @@ const SliderSection: React.FC<{
   }, [currentIndex, totalSlides])
 
   return (
-    <section className="pt-[50px] lg:pt-[79px] pb-[80px] lg:pb-[102px] bg-[#111111] text-white overflow-hidden md:px-0 px-[13px]" style={{ contain: 'layout style' }}>
-      <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
+    <section className="pt-[50px] lg:pt-[90px] pb-[102px] bg-[#111111] overflow-hidden" style={{ contain: 'layout style' }}>
+      {/* Header Section */}
+      <div className="max-w-[1304px] mx-auto px-6 mb-[64px]" style={{ contain: 'layout style' }}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, staggerChildren: 0.15 }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[17px] lg:gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            {/* Left - Title */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               className="lg:col-span-1"
             >
-              <h2 className="md:text-left text-center text-white font-medium md:text-[64px] text-[30px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+              <h2 className="text-white font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
                 {mainName}
               </h2>
             </motion.div>
 
+            {/* Right - Description */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
               className="lg:col-span-1 flex items-center justify-end"
             >
-              <p className="text-white md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica md:max-w-[480px]">
+              <p className="text-white font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
                 {mainTitle}
               </p>
             </motion.div>
@@ -391,37 +407,38 @@ const SliderSection: React.FC<{
         </motion.div>
       </div>
 
+      {/* Horizontal Draggable Slider */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, staggerChildren: 0.15 }}
         className="relative"
       >
-        <div className="md:pl-6 lg:pl-[calc((100vw-1280px)/2+-1rem)]">
+        {/* Left Padding for Content Alignment */}
+        <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+-1rem)]">
+          {/* Slider Container */}
           <div className="relative overflow-visible" ref={constraintsRef}>
             <motion.div
-              className="flex gap-5 cursor-grab active:cursor-grabbing md:w-fit !w-full"
+              className="flex gap-5 cursor-grab active:cursor-grabbing"
               drag="x"
               dragConstraints={{
                 left: maxScroll,
                 right: 0
               }}
-              dragElastic={0.12}
+              dragElastic={0.1}
               dragMomentum={false}
               animate={{ x: dragX }}
-              transition={{ type: 'spring', damping: 26, stiffness: 220 }}
+              transition={{ type: "spring", damping: 20, stiffness: 300 }}
               onDragEnd={(_, info) => {
                 const offset = info.offset.x
                 const velocity = info.velocity.x
-                const threshold = isSmallScreen ? (cardWidth * 0.12) : 100
-                const fastSwipe = Math.abs(velocity) > (isSmallScreen ? 400 : 800)
 
-                if (offset > threshold || (fastSwipe && offset > 0)) {
-                  slideLeft()
-                } else if (offset < -threshold || (fastSwipe && offset < 0)) {
-                  slideRight()
-                } else {
-                  setDragX(-currentIndex * cardWidth)
+                if (Math.abs(offset) > 100 || Math.abs(velocity) > 500) {
+                  if (offset > 0 && currentIndex > 0) {
+                    slideLeft()
+                  } else if (offset < 0 && currentIndex < totalSlides - 1) {
+                    slideRight()
+                  }
                 }
               }}
               style={{ width: 'max-content' }}
@@ -429,7 +446,7 @@ const SliderSection: React.FC<{
               {slides.map((slide, index) => (
                 <motion.div
                   key={`${slide.name}-${index}`}
-                  className="w-full md:w-[936px] 2xl:w-[1100px] flex-shrink-0 group transition-all duration-300 mx-auto"
+                  className="w-[936px] 2xl:w-[1100px] flex-shrink-0 group transition-all duration-300"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{
                     opacity: 1,
@@ -441,14 +458,15 @@ const SliderSection: React.FC<{
                     }
                   }}
                 >
+                  {/* Media Content */}
                   <div className="h-[468px] w-full relative aspect-[1/0.55] overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
                     {slide.image?.asset?.url && (
                       <Image
                         src={slide.image.asset.url}
                         alt={slide.image.alt || slide.name}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px] w-full"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px]"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
                         loading="lazy"
                         style={{ contain: 'layout style paint' }}
                       />
@@ -456,12 +474,13 @@ const SliderSection: React.FC<{
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
                   </div>
 
-                  <div className="md:pt-[42px] pt-[15px] md:max-w-[656px] w-full">
-                    <div>
-                      <h3 className="md:text-left text-center text-white font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
+                  {/* Content */}
+                  <div className="pt-[42px] max-w-[656px]">
+                    <div className="">
+                      <h3 className="font-medium text-[24px] leading-[150%] text-white capitalize font-helvetica mb-[9px]">
                         {slide.name}
                       </h3>
-                      <p className="sm:max-w-fit max-w-[283px] text-[16px] md:text-left text-center leading-[20px] tracking-[0] m-0 mx-auto font-normal font-helvetica text-white opacity-60">
+                      <p className="text-[16px] leading-[20px]  tracking-[0] m-0 font-normal font-helvetica text-white opacity-60">
                         {slide.description}
                       </p>
                     </div>
@@ -476,7 +495,7 @@ const SliderSection: React.FC<{
   )
 }
 
-// Design Process Section Component
+// Design Process Section
 const DesignProcessSection: React.FC<{
   title: string
   description: string
@@ -487,39 +506,48 @@ const DesignProcessSection: React.FC<{
   }>
 }> = ({ title, description, sections }) => {
   return (
-    <section className="pt-[62px] pb-[50px] lg:pb-[90px] bg-[#F4F1F2] text-black overflow-hidden md:px-0 px-[15px]">
-      {/* Top Section - Constrained */}
-      <div className="max-w-7xl mx-auto md:px-6 md:mb-16 lg:mb-20 mb-[32px]">
+    <section className="pt-[50px] lg:pt-[94px] lg:pb-[64px] bg-[#F4F1F2] text-black" style={{ contain: 'layout style' }}>
+      {/* Header Section */}
+      <div className="max-w-[1304px] mx-auto mb-[62px]" style={{ contain: 'layout style' }}>
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, staggerChildren: 0.15 }}
         >
-          {/* Main Title */}
-          <motion.div variants={itemVariants} className="md:mb-[70px] mb-[65px] flex flex-col md:flex-row justify-between gap-4 md:gap-[182px]">
-            <h1 className="md:text-[64px] text-[31px] md:text-left text-center not-italic tracking-normal md:leading-[70px] leading-[40px] font-medium font-helvetica">
-              {title}
-            </h1>
-            <p className="text-[16px] md:text-left text-center leading-[24px] font-helvetica text-black max-w-[517px] md:ml-auto">
-              {description}
-            </p>
-          </motion.div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12  lg:gap-16">
+            {/* Left - Title */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="lg:col-span-1"
+            >
+              <h2 className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+                {title}
+              </h2>
+            </motion.div>
+
+            {/* Right - Description */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+              className="lg:col-span-1 flex items-center justify-end"
+            >
+              <p className="text-black font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                {description}
+              </p>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
 
-      {/* Cards Section - Desktop: 2-column Grid, Mobile: Column */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        className="relative max-w-[1304px] mx-auto"
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-[20px] md:gap-x-[20px] md:gap-y-[42px]">
+      {/* Design Process Grid - 2 columns */}
+      <div className="max-w-[1304px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-[42px]">
           {sections.map((section, index) => (
             <motion.div
               key={`${section.title}-${index}`}
+              className="group transition-all duration-300"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -529,120 +557,218 @@ const DesignProcessSection: React.FC<{
                 ease: "easeOut"
               }}
             >
-              <div className="h-[468px] w-full relative overflow-hidden rounded-[20px]">
+              {/* Media Content */}
+              <div className="h-[468px] w-full relative overflow-hidden rounded-[20px]" style={{ contain: 'layout style paint' }}>
                 {section.image?.asset?.url && (
                   <Image
                     src={section.image.asset.url}
                     alt={section.image.alt || section.title}
                     fill
-                    className="object-cover hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-[20px]"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
+                    loading="lazy"
+                    style={{ contain: 'layout style paint' }}
                   />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" style={{ contain: 'layout style paint' }} />
               </div>
+
+              {/* Content */}
               <div className="pt-[42px] max-w-[656px]">
-                <h3 className="md:text-left text-center text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
-                  {section.title}
-                </h3>
-                <p className="md:text-left text-center text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
-                  {section.description}
-                </p>
+                <div className="">
+                  <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
+                    {section.title}
+                  </h3>
+                  <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
+                    {section.description}
+                  </p>
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
-      </motion.div>
+      </div>
     </section>
   )
 }
 
-// By The Numbers Section Component (with word animation)
+// By The Numbers Section
 const ByTheNumbersSection: React.FC<{
   title: string
   description: string
   countSection: Array<{ name: string; value: string }>
 }> = ({ title, description, countSection }) => {
-  const descriptionRef = useRef<HTMLParagraphElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
-    target: descriptionRef,
-    offset: ["start 0.8", "end 0.2"]
+    target: containerRef,
+    offset: ['start end', 'end start'],
   })
 
-  const words = useMemo(() => description ? description.split(' ') : [], [description])
+  const words = description.split(' ')
 
   return (
-    <section className="pt-[37px] lg:pt-[108px] pb-[50px] lg:pb-[54px] bg-[#111111]">
-      <div className="max-w-[1304px] mx-auto md:px-[calc(var(--spacing)*12)] px-[15px]">
+    <section ref={containerRef} className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#111111]">
+      <div className="max-w-[1304px] mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-[96px] max-w-[810px] m-auto"
+        >
+          <div className="pt-3 border-t border-white flex flex-row text-white text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-[30px] font-helvetica items-center uppercase">
+            <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
+             <h2>{title}</h2>
+          </div>
+
+          <div className="text-[24px] md:text-[32px] text-white lg:text-[40px] leading-[1.2] tracking-[-0.8px] m-0 font-medium font-helvetica flex flex-wrap max-w-[810px] mx-auto">
+            {words.map((word, index) => {
+              const start = index / words.length
+              const end = start + 1 / words.length
+              const opacity = useTransform(scrollYProgress, [start, end], [0.3, 1])
+              const color = useTransform(
+                scrollYProgress,
+                [start, end],
+                ['#fff', '#fff']
+              )
+
+              return (
+                <motion.span
+                  key={index}
+                  style={{ opacity, color }}
+                  className="inline-block text-white mr-[0.2em]"
+                >
+                  {word}
+                </motion.span>
+              )
+            })}
+          </div>
+        </motion.div>
+
+        {/* Count Section */}
+        <div className="max-[1280px] m-auto grid grid-cols-2 md:grid-cols-4 gap-[24px] lg:gap-[48px] mt-[48px]">
+          {countSection.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="text-center"
+            >
+              <p className="border-b  border-[#fff] text-[20px] tracking-[-0.8px] font-[400] text-[#fff] font-helvetica mb-[24px] pb-[31px]">
+                {item.value}
+              </p>
+              <p className="text-[20px] tracking-[-0.8px]  font-[500] text-[#fff] font-helvetica uppercase ">{item.name}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.8,
+      staggerChildren: 0.15
+    }
+  }
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0
+  }
+}
+
+// Call to Action Section
+const CallToActionSection: React.FC<{
+  title: string
+  description: string
+  buttonText: string
+  buttonLink: string
+}> = ({ title, description, buttonText, buttonLink }) => {
+  return (
+    <section className="py-16 lg:py-[120px] bg-white">
+      <div className="max-w-7xl mx-auto px-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 md:mb-[96px] mb-[67px]">
-            {/* Right - Content */}
-            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-white max-w-[810px] m-auto">
-              <div className="flex flex-row text-white text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center uppercase">
-                <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
-                <span>{title}</span>
-              </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[71px]">
+            <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
+              <h1 className="pr-1 text-[62px] not-italic tracking-normal leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
+                style={{
+                  background: "conic-gradient(from 180deg at 50% 116.28%, #000 0.91deg, rgba(0, 0, 0, 0.24) 360deg)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                {title}
+              </h1>
 
-              <div className="space-y-6">
-                <p
-                  ref={descriptionRef}
-                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-[-0.8px] m-0 font-medium font-helvetica flex flex-wrap"
+              <div className="lg:col-span-1 space-y-8">
+                <motion.a
+                  href={buttonLink}
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.3,
+                    ease: [0.4, 0, 0.2, 1],
+                  }}
+                  className="relative overflow-hidden px-[24px] py-[8px] rounded-[50px]
+                             border border-black bg-black text-white font-helvetica
+                             text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  {words.map((word, i) => {
-                    const start = i / words.length
-                    const end = (i + 1) / words.length
-                    const color = useTransform(scrollYProgress, [start, end], ['#7F7F7F', '#FFFFFF'])
-                    const opacity = useTransform(scrollYProgress, [start, end], [0.6, 1])
-                    return (
-                      <motion.span key={i} style={{ color, opacity }} className="mr-2">
-                        {word}
-                      </motion.span>
-                    )
-                  })}
-                </p>
+                  <span
+                    className="absolute inset-0 bg-white translate-x-full
+                               transition-transform duration-500 ease-in-out rounded-[50px]
+                               group-hover:translate-x-0"
+                  />
+                  <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
+                    {buttonText}
+                  </span>
+                </motion.a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              variants={itemVariants}
+              className="lg:col-span-1"
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <div className="space-y-5 flex flex-col justify-end items-end">
+                {description.split('\n\n').map((paragraph, index) => (
+                  <p
+                    key={index}
+                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
+                  >
+                    {paragraph.trim()}
+                  </p>
+                ))}
               </div>
             </motion.div>
           </div>
         </motion.div>
-
-        {/* Count Section */}
-        {countSection && countSection.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-4 md:gap-8 gap-[52px] max-w-[1280px] m-auto"
-          >
-            {countSection.map((count, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="border-b border-[#777777] text-[20px] tracking-[-0.4px] font-[400] text-[#ffffff80] font-helvetica mb-[24px] pb-[31px]">
-                  {count.value}
-                </div>
-                <div className="text-[20px] tracking-[-0.8px] font-[500] text-[#fff] font-helvetica uppercase">
-                  {count.name}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
       </div>
     </section>
   )
 }
 
+// Main Page Component
 export default function TexasFacilityPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -667,92 +793,51 @@ export default function TexasFacilityPage() {
 
   if (loading) {
     return (
-      <>
-        <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
-        <div className="texas-facility-container">
-          <div style={{ textAlign: 'center', padding: '100px 0' }}>
-            <div style={{ fontSize: '18px', color: '#6b7280' }}>Loading Texas Facility...</div>
-          </div>
-        </div>
-      </>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <p className="text-[18px] text-gray-600">Loading Texas Facility...</p>
+      </div>
     )
   }
 
   if (error || !data) {
     return (
-      <>
-        <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
-        <div className="texas-facility-container">
-          <div style={{ textAlign: 'center', padding: '100px 0' }}>
-            <div style={{ fontSize: '18px', color: '#ef4444' }}>{error || 'No Texas Facility data found'}</div>
-          </div>
-        </div>
-      </>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <p className="text-[18px] text-red-600">{error || 'No Texas Facility data found'}</p>
+      </div>
     )
   }
 
   return (
-    <>
-      <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
+    <main className="min-h-screen bg-white">
+      {/* Hero Section */}
+      {data.heroSection && (
+        <HeroSection
+          sectionLabel={data.heroSection.sectionLabel}
+          mainHeading={data.heroSection.mainHeading}
+        />
+      )}
 
-      <div className="texas-facility-container">
-        {/* Hero Section */}
-        <motion.div
-          className="texas-facility-hero"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h1 className="texas-facility-hero-title font-helvetica">{data.heroSection.sectionLabel}</h1>
-          <p className="texas-facility-hero-description">{data.heroSection.mainHeading}</p>
-        </motion.div>
+      {/* Manufacturing Excellence Section */}
+      {data.manufacturingExcellence && (
+        <ManufacturingExcellenceSection
+          title={data.manufacturingExcellence.title}
+          description={data.manufacturingExcellence.description}
+        />
+      )}
 
-        {/* Manufacturing Excellence Section */}
-        {data.manufacturingExcellence && (
-          <ManufacturingExcellenceSection
-            title={data.manufacturingExcellence.title}
-            description={data.manufacturingExcellence.description}
-          />
-        )}
+      {/* Info Sections */}
+      {data.infoSections && data.infoSections.length > 0 && (
+        <InfoSections sections={data.infoSections} />
+      )}
 
-        {/* Info Sections */}
-        {data.infoSections && data.infoSections.length > 0 && (
-          <div className="info-sections">
-            {data.infoSections.map((section, index) => (
-              <motion.div
-                key={index}
-                className="info-card"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-              >
-                <div className="info-card-image-wrapper">
-                  {section.image?.asset?.url && (
-                    <img
-                      src={section.image.asset.url}
-                      alt={section.image.alt || section.name}
-                      className="info-card-image"
-                    />
-                  )}
-                </div>
-                <div className="info-card-content">
-                  <h3 className="info-card-name">{section.name}</h3>
-                  <p className="info-card-description">{section.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
-
-        {/* Facility Features */}
-        {data.facilityFeatures && (
-          <FacilityFeaturesSection
-            title={data.facilityFeatures.title}
-            description={data.facilityFeatures.description}
-            cards={data.facilityFeatures.cards}
-          />
-        )}
-      </div>
+      {/* Facility Features */}
+      {data.facilityFeatures && (
+        <FacilityFeaturesSection
+          title={data.facilityFeatures.title}
+          description={data.facilityFeatures.description}
+          cards={data.facilityFeatures.cards}
+        />
+      )}
 
       {/* Slider Section */}
       {data.sliderSection && (
@@ -763,16 +848,14 @@ export default function TexasFacilityPage() {
         />
       )}
 
-      <div className="texas-facility-container">
-        {/* Design Process Section */}
-        {data.designProcess && (
-          <DesignProcessSection
-            title={data.designProcess.title}
-            description={data.designProcess.description}
-            sections={data.designProcess.sections}
-          />
-        )}
-      </div>
+      {/* Design Process Section */}
+      {data.designProcess && (
+        <DesignProcessSection
+          title={data.designProcess.title}
+          description={data.designProcess.description}
+          sections={data.designProcess.sections}
+        />
+      )}
 
       {/* By The Numbers Section */}
       {data.byTheNumbersSection && (
@@ -783,108 +866,15 @@ export default function TexasFacilityPage() {
         />
       )}
 
-      {/* Call to Action Section */}
+      {/* Call to Action */}
       {data.callToAction && (
-        <section className="pt-[40px] pb-[35px] lg:py-[120px] bg-white">
-          <div className="max-w-7xl mx-auto px-[15px]">
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-[71px] gap-[18px]">
-                <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
-                  <h1 className="text-[30px] md:text-[62px] not-italic tracking-normal md:leading-[68px] leading-[33px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
-                    style={{
-                      background: "conic-gradient(from 180deg at 50% 116.28%, #000 0.91deg, rgba(0, 0, 0, 0.24) 360deg)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
-                  >
-                    {data.callToAction.title}
-                  </h1>
-
-                  {/* Desktop Button */}
-                  <div className="lg:col-span-1 space-y-8 md:block hidden">
-                    <motion.a
-                      href={data.callToAction.buttonLink}
-                      initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0.6,
-                        delay: 0.3,
-                        ease: [0.4, 0, 0.2, 1],
-                      }}
-                      className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
-                                 border border-black bg-black text-white font-helvetica
-                                 text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <span
-                        className="absolute inset-0 bg-white translate-x-full
-                                   transition-transform duration-500 ease-in-out rounded-[32px]
-                                   group-hover:translate-x-0"
-                      />
-                      <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
-                        {data.callToAction.buttonText}
-                      </span>
-                    </motion.a>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  variants={itemVariants}
-                  className="lg:col-span-1"
-                  transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
-                >
-                  <div className="space-y-5 flex flex-col justify-end items-end">
-                    {data.callToAction.description.split('\n\n').map((paragraph, index) => (
-                      <p
-                        key={index}
-                        className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] md:max-w-[575px]"
-                      >
-                        {paragraph.trim()}
-                      </p>
-                    ))}
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Mobile Button - shown after description */}
-              <div className="mt-[14px] space-y-8 block md:hidden">
-                <motion.a
-                  href={data.callToAction.buttonLink}
-                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.3,
-                    ease: [0.4, 0, 0.2, 1],
-                  }}
-                  className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
-                             border border-black bg-black text-white font-helvetica
-                             text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span
-                    className="absolute inset-0 bg-white translate-x-full
-                               transition-transform duration-500 ease-in-out rounded-[32px]
-                               group-hover:translate-x-0"
-                  />
-                  <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
-                    {data.callToAction.buttonText}
-                  </span>
-                </motion.a>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+        <CallToActionSection
+          title={data.callToAction.title}
+          description={data.callToAction.description}
+          buttonText={data.callToAction.buttonText}
+          buttonLink={data.callToAction.buttonLink}
+        />
       )}
-    </>
+    </main>
   )
 }

@@ -182,18 +182,50 @@ const CTASection: React.FC = () => {
             Join our community of satisfied customers and experience the difference that quality makes.
           </p>
           <div className="flex flex-col sm:flex-row gap-[16px] justify-center">
-            <Link
-              href="/contact"
-              className="inline-block bg-black text-white px-[32px] py-[16px] rounded-full text-[16px] font-semibold hover:bg-gray-800 transition-colors"
-            >
-              Contact Us
-            </Link>
-            <Link
-              href="/customer-stories"
-              className="inline-block bg-white border-2 border-black text-black px-[32px] py-[16px] rounded-full text-[16px] font-semibold hover:bg-gray-50 transition-colors"
-            >
-              View More Stories
-            </Link>
+              <Link href="/contact">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  className="relative overflow-hidden inline-block bg-black text-white px-[32px] py-[16px] rounded-full text-[16px] font-semibold 
+                            hover:bg-black transition-colors group"
+                >
+                  {/* sliding overlay */}
+                  <span
+                    className="absolute inset-0 bg-white translate-x-full
+                              transition-transform duration-500 ease-in-out rounded-full
+                              group-hover:translate-x-0"
+                  />
+
+                  {/* text */}
+                  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
+                    Contact Us
+                  </span>
+                </motion.button>
+              </Link>
+
+              {/* View More Stories Button */}
+              <Link href="/customer-stories">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  className="relative overflow-hidden inline-block bg-white border-2 border-black text-black px-[32px] py-[16px] rounded-full text-[16px] font-semibold 
+                            hover:bg-white transition-colors group"
+                >
+                  {/* sliding overlay */}
+                  <span
+                    className="absolute inset-0 bg-black translate-x-full
+                              transition-transform duration-500 ease-in-out rounded-full
+                              group-hover:translate-x-0"
+                  />
+
+                  {/* text */}
+                  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+                    View More Stories
+                  </span>
+                </motion.button>
+              </Link>
           </div>
         </motion.div>
       </div>

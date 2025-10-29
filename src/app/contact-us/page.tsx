@@ -482,12 +482,31 @@ export default function ContactUsPage() {
               </div>
 
               <button
-                type="submit"
-                className="submit-btn"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Sending...' : 'Submit'}
-              </button>
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`relative overflow-hidden submit-btn px-[32px] py-[14px] rounded-full font-semibold text-[16px] transition-all duration-300 group
+                    ${isSubmitting ? 'bg-gray-400 cursor-not-allowed text-white' : 'bg-black text-white hover:bg-black'}
+                  `}
+                >
+                  {/* sliding overlay */}
+                  {!isSubmitting && (
+                    <span
+                      className="absolute inset-0 bg-white translate-x-full
+                                transition-transform duration-500 ease-in-out rounded-full
+                                group-hover:translate-x-0"
+                    />
+                  )}
+
+                  {/* text */}
+                  <span
+                    className={`relative z-10 transition-colors duration-500 ease-in-out ${
+                      isSubmitting ? 'text-white' : 'group-hover:text-black'
+                    }`}
+                  >
+                    {isSubmitting ? 'Sending...' : 'Submit'}
+                  </span>
+                </button>
+
             </form>
            <div className="svg-col w-full  max-w-[240px] min-h-[112px] ml-auto right-[201px] absolute bottom-[-55px]">
               <Image

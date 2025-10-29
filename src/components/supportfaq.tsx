@@ -99,31 +99,52 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#111',
           >
             <div className="tabs relative flex gap-2 p-1 w-fit bg-[#F4F1F2] border border-[#cfcfcf] rounded-[100px] shadow-lg">
               {categories.map((category) => (
-                <motion.button
-                  key={category}
-                  onClick={() => handleCategoryChange(category)}
-                  className={`tab relative px-4 py-3 border-none min-w-[140px] bg-transparent rounded-[100px] text-base cursor-pointer font-medium h-fit transition-colors duration-300 font-helvetica ${
-                    activeCategory === category
-                      ? 'text-white z-10'
-                      : 'text-[#71717a] hover:text-[#555]'
-                  }`}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {category}
-                  {activeCategory === category && (
-                    <motion.div
-                      layoutId="activeTab"
-                      className="absolute inset-0 min-w-[140px] bg-black rounded-[100px] -z-10"
-                      transition={{
-                        type: "spring",
-                        stiffness: 500,
-                        damping: 30,
-                        duration: 0.5
-                      }}
-                    />
-                  )}
-                </motion.button>
+               <motion.button
+                      key={category}
+                      onClick={() => handleCategoryChange(category)}
+                      className={`tab relative overflow-hidden px-4 py-3 border-none min-w-[140px] bg-transparent rounded-[100px] text-base cursor-pointer font-medium h-fit transition-colors duration-300 font-helvetica group
+                        ${activeCategory === category
+                          ? 'text-white z-10'
+                          : 'text-[#71717a] hover:text-[#555]'
+                        }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {/* Sliding overlay (only visible on hover if not active) */}
+                      {! (activeCategory === category) && (
+                        <span
+                          className="absolute inset-0 bg-black translate-x-full
+                                    transition-transform duration-500 ease-in-out rounded-[100px]
+                                    group-hover:translate-x-0"
+                        />
+                      )}
+
+                      {/* Active tab background (kept same behavior) */}
+                      {activeCategory === category && (
+                        <motion.div
+                          layoutId="activeTab"
+                          className="absolute inset-0 min-w-[140px] bg-black rounded-[100px]  -z-10"
+                          transition={{
+                            type: "spring",
+                            stiffness: 500,
+                            damping: 30,
+                            duration: 0.5,
+                          }}
+                        />
+                      )}
+
+                      {/* Text */}
+                      <span
+                        className={`relative z-10 transition-colors  duration-500 ease-in-out ${
+                          activeCategory === category
+                            ? 'text-white'
+                            : 'group-hover:text-white  '
+                        }`}
+                      >
+                        {category}
+                      </span>
+                    </motion.button>
+
               ))}
             </div>
           </motion.div>

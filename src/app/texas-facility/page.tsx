@@ -6,156 +6,31 @@ import Image from 'next/image'
 import type { TexasFacility } from '@/content/types'
 import { getTexasFacility } from '@/content/queries'
 
-const criticalInlineStyles = `
-  .texas-facility-container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding-top: 138px;
-    background: #F4F1F2;
-    padding-inline: calc(var(--spacing) * 12);
-    padding-bottom: 69px;
-  }
+// Hero Section Component
+const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
+  sectionLabel,
+  mainHeading,
+}) => {
+  return (
+    <section className="relative  bg-[#F4F1F2]">
+      <div className="max-w-[1200px] mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center"
+        >
+          <h1 className="text-[64px] pt-[138px] font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto mb-6 font-helvetica">
+             {sectionLabel}
+          </h1>
+          <p className="text-[24px] font-medium text-[#111] leading-[150%] capitalize max-w-[855px] mx-auto font-helvetica">
+           {mainHeading}
+          </p>
 
-  /* Hero Section */
-  .texas-facility-hero {
-    text-align: center;
-    margin-bottom: 62px;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .texas-facility-hero-title {
-    color: #000;
-    text-align: center;
-    font-size: 64px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 110%;
-    letter-spacing: -1.28px;
-    margin-bottom:14px;
-  }
-  .texas-facility-hero-description {
-    color: #111;
-    text-align: center;
-    font-feature-settings: 'liga' off, 'clig' off;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 150%;
-    text-transform: capitalize;
-    max-width: 855px;
-    margin:auto;
-  }
-
-  /* Info Sections */
-  .texas-facility-container .info-sections {
-    display:flex;
-    gap: 30px;
-    max-width: 1304px;
-    margin: auto;
-    margin-bottom: 0px;
-  }
-  .info-card {
-    max-width: 392px;
-    width: 100%;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .info-card:nth-child(2){
-    max-width: 463px;
-    width: 100%;
-  }
-  .info-card-image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 260px;
-    border-radius: 20px;
-    overflow: hidden;
-    display: flex;
-  }
-  .info-card-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-  .info-card:hover .info-card-image {
-    transform: scale(1.05);
-  }
-  .info-card-content {
-    padding-top: 31px;
-  }
-  .info-card-name {
-    color: #111;
-    text-align: center;
-    font-feature-settings: 'liga' off, 'clig' off;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 150%;
-    text-transform: capitalize;
-    margin-bottom: 8px;
-  }
-  .info-card-description {
-    color: #3F3E4B;
-    text-align: center;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px;
-  }
-
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .info-sections {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (max-width: 768px) {
-    .info-card:nth-child(2),
-    .info-card {
-      max-width: 100%;
-    }
-    .texas-facility-container {
-      padding-inline: 15px;
-      padding-top: 100px;
-      padding-bottom: 37px;
-    }
-    .texas-facility-hero{
-      margin-bottom:37px;
-    }
-    .texas-facility-hero-title {
-      font-size: 30px;
-      margin-bottom:6px;
-    }
-    .texas-facility-hero-description {
-      font-size: 16px;
-    }
-    .info-sections {
-      flex-direction: column;
-      gap: 40px !important;
-    }
-  }
-`
-
-// Animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.8,
-      staggerChildren: 0.15
-    }
-  }
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0
-  }
+        </motion.div>
+      </div>
+    </section>
+  )
 }
 
 // Manufacturing Excellence Section
@@ -172,15 +47,44 @@ const ManufacturingExcellenceSection: React.FC<{
   const words = React.useMemo(() => description.split(' '), [description])
 
   return (
-    <section className="pt-[37px] lg:pt-[108px] pb-[50px] lg:pb-[54px] bg-[#F4F1F2] lg:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
-      <div className="max-w-[1304px] mx-auto">
+    <section className="py-12 md:pb-[90px] md:pt-[106px] bg-[#F4F1F2]">
+      <div className="max-w-[1304px] mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, staggerChildren: 0.15 }}
         >
-          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 md:mb-[96px] mb-[67px]">
+          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16">
+            {/* Left - Sunburst Icon */}
+            <motion.div
+              className="w-full max-w-[400px] hidden lg:flex lg:justify-start justify-center"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="relative mb-8 w-20 h-20 lg:w-20 lg:h-20 xl:w-25 xl:h-25 flex items-center justify-center">
+                <motion.svg
+                  className="absolute inset-0 w-full h-full"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+                  viewBox="0 0 102 102"
+                >
+                <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="51" cy="51" r="40" stroke="#161618" strokeWidth="22" strokeDasharray="2 4"/>
+                  </svg>
+                </motion.svg>
+
+                <div className="relative w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center cursor-pointer z-10">
+                  <div className="text-lg md:text-2xl lg:text-3xl text-gray-900" style={{ transform: 'rotate(0deg)' }}>
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18.0006 1V14C18.0006 14.2652 17.8952 14.5196 17.7077 14.7071C17.5201 14.8946 17.2658 15 17.0006 15C16.7353 15 16.481 14.8946 16.2934 14.7071C16.1059 14.5196 16.0006 14.2652 16.0006 14V3.41375L1.70806 17.7075C1.52042 17.8951 1.26592 18.0006 1.00056 18.0006C0.735192 18.0006 0.480697 17.8951 0.293056 17.7075C0.105415 17.5199 0 17.2654 0 17C0 16.7346 0.105415 16.4801 0.293056 16.2925L14.5868 2H4.00056C3.73534 2 3.48099 1.89464 3.29345 1.70711C3.10591 1.51957 3.00056 1.26522 3.00056 1C3.00056 0.734784 3.10591 0.48043 3.29345 0.292893C3.48099 0.105357 3.73534 0 4.00056 0H17.0006C17.2658 0 17.5201 0.105357 17.7077 0.292893C17.8952 0.48043 18.0006 0.734784 18.0006 1Z" fill="#343330"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
             {/* Right - Content */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}

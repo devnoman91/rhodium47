@@ -113,13 +113,24 @@ line-height: 20px;
     }
   }
   @media (max-width: 768px) {
+  .info-sections{
+  margin-bottom:0;
+  }
+  .info-card:nth-child(2),
+  .info-card {
+    max-width: 100%;
+}
+    .hybrid-electric-hero{
+    margin-bottom:20px;
+    }
     .hybrid-electric-container {
       padding-inline: 15px;
       padding-top: 100px;
       padding-bottom: 37px;
     }
     .hybrid-electric-hero-title {
-      font-size: 40px;
+      font-size: 30px;
+      margin-bottom:9px
     }
     .hybrid-electric-hero-description {
       font-size: 16px;
@@ -166,7 +177,7 @@ const PerformanceMetricsSection: React.FC<{
   const words = useMemo(() => description ? description.split(' ') : [], [description])
 
   return (
-    <section className="pt-[50px] lg:pt-[90px] pb-[50px] lg:pb-[78px] bg-[#F4F1F2] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+    <section className="pt-[46px] lg:pt-[90px] pb-[50px] lg:pb-[78px] bg-[#F4F1F2] lg:-mx-[calc(var(--spacing)*12)] lg:px-[calc(var(--spacing)*12)]">
       <div className="max-w-[1304px] mx-auto">
         <motion.div
           variants={containerVariants}
@@ -237,7 +248,7 @@ const PerformanceMetricsSection: React.FC<{
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-[1280px] m-auto"
+            className="grid grid-cols-1 md:grid-cols-4 md:gap-8 gap-[52px] max-w-[1280px] m-auto"
           >
             {countSection.map((count, index) => (
               <motion.div
@@ -271,13 +282,13 @@ const IntelligentPowerManagementSection: React.FC<{
   cards: Array<{ title: string; description: string }>
 }> = ({ title, description, bulletPoints, cards }) => {
   return (
-    <section className="pt-[79px] pb-[50px] lg:pb-[93px] bg-[#111111] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+    <section className="pt-[79px] px-[15px] pb-[50px] lg:pb-[93px] bg-[#111111] ">
       <div className="max-w-[1304px] mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-white font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[44px]"
+          className="text-white font-medium md:text-[64px] text-center md:text-left text-[30px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[44px]"
         >
           {title}
         </motion.h2>
@@ -299,7 +310,7 @@ const IntelligentPowerManagementSection: React.FC<{
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="space-y-4 mb-[68px]"
+            className="space-y-4 md:mb-[68px] mb-[48px]"
           >
             {bulletPoints.map((point, index) => (
               <motion.li
@@ -501,22 +512,24 @@ export default function HybridElectricPage() {
           countSection={hybridData.performanceMetrics.countSection}
         />
 
-        {/* Intelligent Power Management Section */}
+       
+      </div>
+      
+       {/* Intelligent Power Management Section */}
         <IntelligentPowerManagementSection
           title={hybridData.intelligentPowerManagement.title}
           description={hybridData.intelligentPowerManagement.description}
           bulletPoints={hybridData.intelligentPowerManagement.bulletPoints}
           cards={hybridData.intelligentPowerManagement.cards}
-        />
-      </div>
+        />     
 
       {/* Slider Section */}
       {hybridData.sliderSection.slides.length > 0 && (
         <section className="pt-[50px] lg:pt-[79px] pb-[50px] lg:pb-[102px] bg-[#F4F1F2] text-black overflow-hidden mmd:px-0 px-[13px]" style={{ contain: 'layout style' }}>
           {/* Header Section */}
-          <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
+          <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[24px]" style={{ contain: 'layout style' }}>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, staggerChildren: 0.15 }}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-[32px] lg:gap-16">
+              <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-[32px] gap-[17px] lg:gap-16">
                 <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} className="lg:col-span-1">
                   <h2 className="md:text-left text-center text-black font-medium md:text-[64px] text-[30px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
                     {hybridData.sliderSection.mainName}
@@ -524,7 +537,7 @@ export default function HybridElectricPage() {
                 </motion.div>
 
                 <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }} className="lg:col-span-1 flex items-center justify-end">
-                  <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                  <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica md:max-w-[480px]">
                     {hybridData.sliderSection.mainTitle}
                   </p>
                 </motion.div>
@@ -674,7 +687,7 @@ export default function HybridElectricPage() {
                   {hybridData.callToAction.description.split('\n\n').map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
+                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] md:max-w-[575px]"
                     >
                       {paragraph.trim()}
                     </p>

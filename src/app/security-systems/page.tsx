@@ -113,6 +113,13 @@ line-height: 20px;
     }
   }
   @media (max-width: 768px) {
+  .security-systems-hero {
+    margin-bottom: 44px;
+}
+  .info-card:nth-child(2),
+  .info-card {
+    max-width: 100%;
+   }
     .security-systems-container {
       padding-inline: 15px;
       padding-top: 100px;
@@ -126,7 +133,7 @@ line-height: 20px;
     }
     .info-sections {
       flex-direction: column;
-      gap: 41px;
+      gap: 21px;
     }
   }
 `
@@ -159,13 +166,13 @@ const SecurityFeaturesSection: React.FC<{
   cards?: Array<{ title: string; description: string }>
 }> = ({ title, description, bulletPoints, cards }) => {
   return (
-    <section className="pt-[79px] pb-[50px] lg:pb-[93px] bg-[#111111] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+    <section className="pt-[79px] px-[15px] lg:pb-[93px] bg-[#111111]">
       <div className="max-w-[1304px] mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-white font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[44px]"
+          className="text-white font-medium md:text-[64px] text-[30px] md:text-left text-center leading-[110%] tracking-[-1.28px] font-helvetica mb-[44px]"
         >
           {title}
         </motion.h2>
@@ -242,7 +249,7 @@ const AdvancedProtectionSection: React.FC<{
   cards: Array<{ title: string; description: string }>
 }> = ({ title, description, bulletPoints, cards }) => {
   return (
-    <section className="pt-[79px] pb-[50px] lg:pb-[93px] bg-[#111111] -mx-[calc(var(--spacing)*12)] px-[calc(var(--spacing)*12)]">
+    <section className="pt-[79px] pb-[50px] lg:pb-[93px] bg-[#111111] ">
       <div className="max-w-[1304px] mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -475,7 +482,10 @@ export default function SecuritySystemsPage() {
           />
         )}
 
-        {/* Advanced Protection Section */}
+        
+      </div>
+      
+      {/* Advanced Protection Section */}
         {securityData.advancedProtection && (
           <AdvancedProtectionSection
             title={securityData.advancedProtection.title}
@@ -484,15 +494,14 @@ export default function SecuritySystemsPage() {
             cards={securityData.advancedProtection.cards}
           />
         )}
-      </div>
 
       {/* Slider Section */}
       {securityData.sliderSection.slides.length > 0 && (
-        <section className="pt-[50px] lg:pt-[79px] pb-[50px] lg:pb-[102px] bg-[#F4F1F2] text-black overflow-hidden mmd:px-0 px-[13px]" style={{ contain: 'layout style' }}>
+        <section className="pt-[58px] lg:pt-[79px] pb-[40px] lg:pb-[102px] bg-[#F4F1F2] text-black overflow-hidden mmd:px-0 px-[15px]" style={{ contain: 'layout style' }}>
           {/* Header Section */}
-          <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
+          <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[24px]" style={{ contain: 'layout style' }}>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, staggerChildren: 0.15 }}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-[32px] lg:gap-16">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-[17px] lg:gap-16">
                 <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} className="lg:col-span-1">
                   <h2 className="md:text-left text-center text-black font-medium md:text-[64px] text-[30px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
                     {securityData.sliderSection.mainName}
@@ -500,7 +509,7 @@ export default function SecuritySystemsPage() {
                 </motion.div>
 
                 <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }} className="lg:col-span-1 flex items-center justify-end">
-                  <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                  <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica md:max-w-[480px]">
                     {securityData.sliderSection.mainTitle}
                   </p>
                 </motion.div>
@@ -650,7 +659,7 @@ export default function SecuritySystemsPage() {
                   {securityData.callToAction.description.split('\n\n').map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
+                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] md:max-w-[575px]"
                     >
                       {paragraph.trim()}
                     </p>

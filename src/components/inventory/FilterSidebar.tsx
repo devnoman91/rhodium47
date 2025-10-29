@@ -68,7 +68,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         <h2 className="font-helvetica text-black mb-[5px] font-medium text-[26px] leading-[110%] tracking-[-0.52px]">Inventory</h2>
 
         {/* Active Filters Display */}
-        <div className="mt-4 space-y-2">
+        {/* <div className="mt-4 space-y-2">
           {Object.entries(filters).map(([key, value]) => {
             if (!value || (Array.isArray(value) && value.length === 0)) return null;
             if (key === 'priceRange' && Array.isArray(value) &&
@@ -105,7 +105,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
               </div>
             );
           })}
-        </div>
+        </div> */}
         
         {/* Clear All Button */}
         <div className="mt-4">

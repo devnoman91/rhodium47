@@ -101,21 +101,20 @@ const AboutSection: React.FC<AboutSectionProps> = ({ aboutData, products }) => {
             >
               {/* Sunburst Logo — hidden on small screens */}
               <div className="hidden lg:flex relative mb-8 w-20 h-20 lg:w-20 lg:h-20 xl:w-25 xl:h-25 mx-auto items-center justify-center">
-                <motion.svg
-                  className="absolute inset-0 w-full h-full"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-                  viewBox="0 0 102 102"
-                >
-                  <circle
-                    cx="51"
-                    cy="51"
-                    r="40"
-                    stroke="#161618"
-                    strokeWidth="22"
-                    strokeDasharray="2 4"
-                  />
-                </motion.svg>
+                   <motion.svg
+                    className="absolute inset-0 w-full h-full"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+                    viewBox="0 0 102 102"
+                  >
+  
+                  <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="51" cy="51" r="40" stroke="#161618" strokeWidth="22" strokeDasharray="2 4"/>
+                  </svg>
+  
+  
+  
+                  </motion.svg>
 
                 <div className="relative w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center cursor-pointer z-10">
                   <svg

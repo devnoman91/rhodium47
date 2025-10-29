@@ -68,7 +68,7 @@ const ProductShowcaseInnovation: React.FC<ProductShowcaseInnovationProps> = ({
   return (
     <section className="py-16 lg:py-24 bg-[#111111] text-white overflow-hidden">
       {/* Top Section */}
-      <div className="max-w-7xl mx-auto px-6 mb-16 lg:mb-20">
+      <div className="max-w-[1332px] mx-auto px-6 mb-16 lg:mb-20">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -77,11 +77,11 @@ const ProductShowcaseInnovation: React.FC<ProductShowcaseInnovationProps> = ({
         >
           <motion.div
             variants={itemVariants}
-            className="flex flex-col md:flex-row items-center md:items-start mb-[70px] text-center md:text-left"
+            className="flex flex-col md:flex-row items-center md:gap-[117px] gap-[27px] md:items-start mb-[70px] text-center md:text-left"
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="flex-shrink-0 w-full md:w-auto">
-              <h1 className="text-white font-helvetica font-medium text-[30px] leading-[70px] md:text-[64px] md:leading-[70px]">
+              <h1 className="text-white font-helvetica font-medium text-[30px] leading-[40px] md:text-[60px] md:leading-[70px]">
                 {showcaseInnovation.main.title}
               </h1>
             </div>

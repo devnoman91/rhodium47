@@ -55,7 +55,7 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
           transition={{ duration: 0.6 }}
           className="mb-12 lg:mb-16"
         >
-          <h1 className="text-white font-helvetica text-[64px] font-medium leading-[80px]">
+          <h1 className="text-white font-helvetica md:text-[64px] text-[30px] font-medium md:leading-[80px] leading-[40px] text-center md:text-left ">
             {title}
           </h1>
         </motion.div>

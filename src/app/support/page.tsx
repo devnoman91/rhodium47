@@ -148,8 +148,10 @@ line-height: 28px;
   .main-content {
     max-width:611px; width:100%;
   }
+    .content-body{
+     margin-top: 47px;
+    }
 .content-body h1{
- margin-top: 47px;
  margin-bottom: 28px;
 color: #000;
 font-size: 36px;

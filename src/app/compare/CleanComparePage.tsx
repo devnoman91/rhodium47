@@ -270,7 +270,7 @@ export default function CompareClient({ products }: CompareClientProps) {
 
               {/* Action Buttons */}
               <div className="flex gap-2">
-                <Link href={`/product-detail/${product.handle}`}>
+                    <Link href={`/inventory/${product.handle}`}>
                   <button className="text-white cursor-pointer max-w-[112px] w-full rounded-full text-center font-normal text-[14px] py-[12px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica bg-[black] hover:bg-gray-800 transition-colors">
                     Build
                   </button>

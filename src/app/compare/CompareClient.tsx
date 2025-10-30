@@ -296,8 +296,7 @@ export default function CompareClient({ products }: CompareClientProps) {
               {/* Action Buttons */}
               <div className="flex gap-2">
                 {/* Build Button (black → white hover) */}
-<Link
-  href={`/product-design/${product.handle}`}
+     <Link href={`/inventory/${product.handle}`}
   className="relative overflow-hidden flex justify-center items-center 
              text-white cursor-pointer min-w-[112px] w-full rounded-full text-center font-normal text-[14px]
              py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica bg-black 

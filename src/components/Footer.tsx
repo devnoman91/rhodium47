@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { getFooter } from '@/content/queries'
 import { Footer as FooterType } from '@/content/types'
+import Image from 'next/image'
 
 const Footer = () => {
   const pathname = usePathname()
@@ -118,8 +119,18 @@ const Footer = () => {
 
   return (
     <footer className="relative text-white overflow-hidden px-5 ">
-      {/* Background Image */}
-      <div className="absolute inset-0 bg-[#000000d9] bg-[url('/footer.png')] bg-cover bg-center bg-no-repeat "></div>
+      {/* Background Image - Optimized with Next/Image */}
+      <div className="absolute inset-0 bg-[#000000d9]">
+        <Image
+          src="/footer.png"
+          alt="Footer background"
+          fill
+          quality={75}
+          sizes="100vw"
+          className="object-cover opacity-100"
+          loading="lazy"
+        />
+      </div>
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(0deg,#111111_0%,rgba(17,17,17,0)_100%)]"></div>
 

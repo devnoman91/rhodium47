@@ -94,9 +94,6 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // Enable SWC minification for smaller bundles
-  swcMinify: true,
-
   // Production optimizations
   productionBrowserSourceMaps: false, // Disable source maps in production
   poweredByHeader: false, // Remove X-Powered-By header

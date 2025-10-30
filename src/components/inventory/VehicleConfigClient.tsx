@@ -223,7 +223,7 @@ export default function VehicleConfigClient({
 
            
               {/* Variants */}
-              {product.variants?.length > 0 && (
+              {/* {product.variants?.length > 0 && (
                 <div className="mb-8">
                   <div className="flex flex-wrap justify-between border-b border-[#D5D7D7] mb-[28px]">
                     {product.variants.map((variant: any, index: number) => (
@@ -240,7 +240,7 @@ export default function VehicleConfigClient({
                       </button>
                     ))}
                   </div>
-{/* 
+
                   {selectedVariant && (
                     <div className="flex justify-between items-center border border-[#000] bg-[#F4F4F4] rounded-[4px] px-[21px] py-[13px]">
                       <div className="text-left">
@@ -262,9 +262,9 @@ export default function VehicleConfigClient({
                         )}
                       </div>
                     </div>
-                  )} */}
+                  )}
                 </div>
-              )}
+              )} */}
 
               {/* Performance */}
               {performanceHtml && (

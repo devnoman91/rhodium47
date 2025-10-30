@@ -3,6 +3,7 @@
 import React, { useMemo } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ShowcaseProduct } from '@/content/types'
+import Image from 'next/image'
 
 interface ProductShowcaseProps {
   products: ShowcaseProduct[]
@@ -72,15 +73,16 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
       className="group bg-[#F4F1F2] md:rounded-[16px] transition-colors duration-300"
     >
       <div className="flex items-center gap-6 md:flex-row-reverse justify-between">
-        {/* Image Section */}
+        {/* Image Section - Optimized with Next/Image */}
         <div className="flex-shrink-0">
-          <div className="relative md:max-w-[280px] max-w-[168px] w-full md:h-[240px] h-[177px]  rounded-tl-none rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px] overflow-hidden bg-gray-200">
-            <motion.img
+          <div className="relative md:max-w-[280px] max-w-[168px] w-full md:h-[240px] h-[177px] rounded-tl-none rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px] overflow-hidden bg-gray-200">
+            <Image
               src={product.image.asset.url}
               alt={product.image.alt || product.title}
-              className="w-full rounded-[16px] md:rounded-tl-none md:rounded-tr-[20px] md:rounded-br-[20px] md:rounded-bl-none h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+              fill
+              sizes="(max-width: 768px) 168px, 280px"
+              quality={85}
+              className="rounded-[16px] md:rounded-tl-none md:rounded-tr-[20px] md:rounded-br-[20px] md:rounded-bl-none object-cover group-hover:scale-105 transition-transform duration-500"
             />
           </div>
         </div>

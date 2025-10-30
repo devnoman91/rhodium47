@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 
 interface FeaturePoint {
   id: string
@@ -65,17 +66,19 @@ const VehicleDiagram: React.FC<VehicleDiagramProps> = ({ data }) => {
           style={{ width: 'fit-content' }}
         >
           <div className="relative pl-6 pr-4 sm:p-4 md:p-6 lg:p-[100px] rounded-[12px] [background:linear-gradient(0deg,_#0F0F0F_0%,_#2A2A2A_100%)] w-full max-w-full">
-            {/* Vehicle Image */}
-            <img
-              src={vehicleImage}
-              alt={vehicleImageAlt}
-              className="object-contain flex-shrink-0 w-full max-w-full h-auto"
-              style={{
-                width: '100%',
-                maxWidth: '1200px',
-                height: 'auto',
-              }}
-            />
+            {/* Vehicle Image - Optimized with Next/Image */}
+            <div className="relative w-full" style={{ maxWidth: '1200px', margin: '0 auto' }}>
+              <Image
+                src={vehicleImage}
+                alt={vehicleImageAlt}
+                width={1200}
+                height={675}
+                quality={85}
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 85vw, 1200px"
+                className="object-contain w-full h-auto"
+                loading="lazy"
+              />
+            </div>
 
             {/* Feature Points */}
             {featurePoints?.map((point) => {

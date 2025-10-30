@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface Vehicle {
   id: string
@@ -20,9 +21,7 @@ interface VehicleShowcaseProps {
 
 const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [direction, setDirection] = useState(0) // 1 for forward, -1 for backward
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null)
-  const prevIndexRef = useRef(0)
 
   const filteredVehicles = vehicles.filter(vehicle =>
     !vehicle.name.toLowerCase().includes('due today') &&
@@ -34,12 +33,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
     if (filteredVehicles.length <= 1) return
 
     autoPlayRef.current = setInterval(() => {
-      setCurrentIndex(prev => {
-        const next = (prev + 1) % filteredVehicles.length
-        setDirection(1) // Always forward for auto-play
-        prevIndexRef.current = prev
-        return next
-      })
+      setCurrentIndex(prev => (prev + 1) % filteredVehicles.length)
     }, 8000) // Change slide every 8 seconds
 
     return () => {
@@ -52,9 +46,6 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
   const goToSlide = (index: number) => {
     if (index === currentIndex) return
 
-    // Determine direction
-    setDirection(index > currentIndex ? 1 : -1)
-    prevIndexRef.current = currentIndex
     setCurrentIndex(index)
 
     // Reset auto-play timer when manually changing slide
@@ -62,12 +53,7 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
       clearInterval(autoPlayRef.current)
     }
     autoPlayRef.current = setInterval(() => {
-      setCurrentIndex(prev => {
-        const next = (prev + 1) % filteredVehicles.length
-        setDirection(1)
-        prevIndexRef.current = prev
-        return next
-      })
+      setCurrentIndex(prev => (prev + 1) % filteredVehicles.length)
     }, 8000)
   }
 
@@ -206,11 +192,16 @@ const VehicleSlide: React.FC<{
       }}
     >
       {/* Vehicle Image */}
-      <div className="relative mb-2 md:h-[390px] flex items-center justify-center">
-        <img
+      <div className="relative mb-2 md:h-[390px] h-[280px] flex items-center justify-center w-full max-w-[800px] mx-auto">
+        <Image
           src={vehicle.image}
           alt={vehicle.name}
-          className="w-full max-w-[800px] h-auto object-contain drop-shadow-2xl select-none"
+          width={800}
+          height={390}
+          quality={85}
+          priority={isActive}
+          sizes="(max-width: 768px) 100vw, 800px"
+          className="w-full h-auto object-contain drop-shadow-2xl select-none"
         />
       </div>
 

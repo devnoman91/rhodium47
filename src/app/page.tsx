@@ -1,16 +1,41 @@
+import dynamic from 'next/dynamic'
 import HeroCarousel from "@/components/HeroCarousel";
-import AboutSection from "@/components/AboutSection";
-import BlogSection from "@/components/BlogSection";
-import ProductShowcase from "@/components/ProductShowcase";
-import ShowcaseInnovationComponent from "@/components/ShowcaseInnovation";
-import ProtectionSection from "@/components/ProtectionSection";
-import FAQSection from "@/components/FAQSection";
-import UtilitySection from "@/components/UtilitySection";
-import KeepExploringSection from "@/components/KeepExploringSection";
-import NewsUpdatesSection from "@/components/NewsUpdatesSection";
-import ExperienceXodiumSection from "@/components/ExperienceXodiumSection";
 import VehicleShowcase from "@/components/VehicleShowcase";
-import VehicleDiagram from "@/components/VehicleDiagram";
+
+// Dynamic imports for below-the-fold components to reduce initial bundle size
+const AboutSection = dynamic(() => import("@/components/AboutSection"), {
+  loading: () => <div className="min-h-[400px]" />,
+})
+const ProductShowcase = dynamic(() => import("@/components/ProductShowcase"), {
+  loading: () => <div className="min-h-[400px]" />,
+})
+const ShowcaseInnovationComponent = dynamic(() => import("@/components/ShowcaseInnovation"), {
+  loading: () => <div className="min-h-[400px]" />,
+})
+const UtilitySection = dynamic(() => import("@/components/UtilitySection"), {
+  loading: () => <div className="min-h-[400px]" />,
+})
+const VehicleDiagram = dynamic(() => import("@/components/VehicleDiagram"), {
+  loading: () => <div className="min-h-[400px]" />,
+})
+const ProtectionSection = dynamic(() => import("@/components/ProtectionSection"), {
+  loading: () => <div className="min-h-[400px]" />,
+})
+const FAQSection = dynamic(() => import("@/components/FAQSection"), {
+  loading: () => <div className="min-h-[400px]" />,
+})
+const KeepExploringSection = dynamic(() => import("@/components/KeepExploringSection"), {
+  loading: () => <div className="min-h-[400px]" />,
+})
+const BlogSection = dynamic(() => import("@/components/BlogSection"), {
+  loading: () => <div className="min-h-[400px]" />,
+})
+const NewsUpdatesSection = dynamic(() => import("@/components/NewsUpdatesSection"), {
+  loading: () => <div className="min-h-[400px]" />,
+})
+const ExperienceXodiumSection = dynamic(() => import("@/components/ExperienceXodiumSection"), {
+  loading: () => <div className="min-h-[400px]" />,
+})
 import { getExperienceXodiumData, getFAQData, getHomeAboutData, getKeepExploringData, getNewsUpdatesData, getProductBlogData, getProductDetails, getProductShowcaseData, getProtectionData, getShowcaseInnovationData, getUtilityData, getHeroVideos } from "@/sanity/lib/sanity";
 import { getVehicleDiagram, getVehiclePricing } from "@/content/queries";
 import { getProducts } from "@/lib/shopify";

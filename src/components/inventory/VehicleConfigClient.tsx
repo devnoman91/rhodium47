@@ -240,7 +240,7 @@ export default function VehicleConfigClient({
                       </button>
                     ))}
                   </div>
-
+{/* 
                   {selectedVariant && (
                     <div className="flex justify-between items-center border border-[#000] bg-[#F4F4F4] rounded-[4px] px-[21px] py-[13px]">
                       <div className="text-left">
@@ -262,7 +262,7 @@ export default function VehicleConfigClient({
                         )}
                       </div>
                     </div>
-                  )}
+                  )} */}
                 </div>
               )}
 

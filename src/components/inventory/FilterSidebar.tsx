@@ -164,7 +164,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
       </ExpandableFilterSection>
 
       {/* Payment Filter */}
-      <ExpandableFilterSection title="Payment" isExpanded={true}>
+      {/* <ExpandableFilterSection title="Payment" isExpanded={true}>
         <div className="space-y-3">
           {filterOptions.paymentTypes?.map((type: string) => (
             <label key={type} className="flex  cursor-pointer items-center">
@@ -179,7 +179,6 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
           ))}
         </div>
 
-        {/* Price Range Slider - Cash Prices */}
         <div className="mt-4">
           <div className="flex items-center cursor-pointer gap-4 mb-2">
             <span className="text-[#111] font-normal text-[16px] leading-[180%] font-helvetica no-ligatures">${filters.priceRange[0].toLocaleString()}</span>
@@ -196,7 +195,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
           />
         </div>
-      </ExpandableFilterSection>
+      </ExpandableFilterSection> */}
 
       {/* Other Filters */}
       {[

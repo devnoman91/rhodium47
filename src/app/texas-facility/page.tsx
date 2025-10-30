@@ -239,17 +239,36 @@ const SliderSection: React.FC<{
 }> = ({ mainName, mainTitle, slides }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [dragX, setDragX] = useState(0)
+  const [isSmallScreen, setIsSmallScreen] = useState(false)
   const constraintsRef = useRef(null)
 
+  // detect small screen for swipe behavior
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   const totalSlides = slides.length
-  const cardWidth = 1000 + 20 // card width + gap
+  const cardWidth = isSmallScreen ? (Math.min(window.innerWidth, 420)) : 1000 + 20
   const maxScroll = -(totalSlides - 1) * cardWidth
+
+  // ensure dragX follows currentIndex and cardWidth changes
+  useEffect(() => {
+    setDragX(-currentIndex * cardWidth)
+  }, [currentIndex, cardWidth])
 
   const slideLeft = () => {
     if (currentIndex > 0) {
       const newIndex = currentIndex - 1
       setCurrentIndex(newIndex)
-      setDragX(-newIndex * cardWidth)
+      // setDragX will be applied by effect
+    } else {
+      // snap back
+      setDragX(-currentIndex * cardWidth)
     }
   }
 
@@ -257,7 +276,8 @@ const SliderSection: React.FC<{
     if (currentIndex < totalSlides - 1) {
       const newIndex = currentIndex + 1
       setCurrentIndex(newIndex)
-      setDragX(-newIndex * cardWidth)
+    } else {
+      setDragX(-currentIndex * cardWidth)
     }
   }
 
@@ -276,22 +296,22 @@ const SliderSection: React.FC<{
   }, [currentIndex, totalSlides])
 
   return (
-    <section className="pt-[50px] lg:pt-[90px] pb-[102px] bg-[#111111] overflow-hidden" style={{ contain: 'layout style' }}>
+    <section className="pt-[50px] lg:pt-[89px] pb-[80px] lg:pb-[102px] bg-[#111111] text-white overflow-hidden md:px-0 px-[13px]" style={{ contain: 'layout style' }}>
       {/* Header Section */}
-      <div className="max-w-[1304px] mx-auto px-6 mb-[64px]" style={{ contain: 'layout style' }}>
+      <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, staggerChildren: 0.15 }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[17px] lg:gap-16">
             {/* Left - Title */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               className="lg:col-span-1"
             >
-              <h2 className="text-white font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+              <h2 className="md:text-left text-center text-white font-medium md:text-[64px] text-[30px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
                 {mainName}
               </h2>
             </motion.div>
@@ -303,7 +323,7 @@ const SliderSection: React.FC<{
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
               className="lg:col-span-1 flex items-center justify-end"
             >
-              <p className="text-white font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+              <p className="text-white md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica md:max-w-[480px]">
                 {mainTitle}
               </p>
             </motion.div>
@@ -323,26 +343,31 @@ const SliderSection: React.FC<{
           {/* Slider Container */}
           <div className="relative overflow-visible" ref={constraintsRef}>
             <motion.div
-              className="flex gap-5 cursor-grab active:cursor-grabbing"
+              className="flex gap-5 cursor-grab active:cursor-grabbing md:w-fit !w-full"
               drag="x"
               dragConstraints={{
                 left: maxScroll,
                 right: 0
               }}
-              dragElastic={0.1}
+              dragElastic={0.12}
               dragMomentum={false}
               animate={{ x: dragX }}
-              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+              transition={{ type: 'spring', damping: 26, stiffness: 220 }}
               onDragEnd={(_, info) => {
                 const offset = info.offset.x
                 const velocity = info.velocity.x
+                // threshold smaller on mobile
+                const threshold = isSmallScreen ? (cardWidth * 0.12) : 100
+                const fastSwipe = Math.abs(velocity) > (isSmallScreen ? 400 : 800)
 
-                if (Math.abs(offset) > 100 || Math.abs(velocity) > 500) {
-                  if (offset > 0 && currentIndex > 0) {
-                    slideLeft()
-                  } else if (offset < 0 && currentIndex < totalSlides - 1) {
-                    slideRight()
-                  }
+                if (offset > threshold || (fastSwipe && offset > 0)) {
+                  // move to previous
+                  slideLeft()
+                } else if (offset < -threshold || (fastSwipe && offset < 0)) {
+                  slideRight()
+                } else {
+                  // snap back to current
+                  setDragX(-currentIndex * cardWidth)
                 }
               }}
               style={{ width: 'max-content' }}
@@ -350,7 +375,7 @@ const SliderSection: React.FC<{
               {slides.map((slide, index) => (
                 <motion.div
                   key={`${slide.name}-${index}`}
-                  className="w-[936px] 2xl:w-[1100px] flex-shrink-0 group transition-all duration-300"
+                  className="w-full md:w-[936px] 2xl:w-[1100px] flex-shrink-0 group transition-all duration-300 mx-auto"
                   initial={{ opacity: 0, x: 50 }}
                   animate={{
                     opacity: 1,
@@ -379,12 +404,12 @@ const SliderSection: React.FC<{
                   </div>
 
                   {/* Content */}
-                  <div className="pt-[42px] max-w-[656px]">
-                    <div className="">
-                      <h3 className="font-medium text-[24px] leading-[150%] text-white capitalize font-helvetica mb-[9px]">
+                  <div className="md:pt-[42px] pt-[15px] md:max-w-[656px] w-full">
+                    <div>
+                      <h3 className="md:text-left text-center font-medium text-[24px] leading-[150%] text-white capitalize font-helvetica mb-[9px]">
                         {slide.name}
                       </h3>
-                      <p className="text-[16px] leading-[20px]  tracking-[0] m-0 font-normal font-helvetica text-white opacity-60">
+                      <p className="sm:max-w-fit max-w-[283px] text-[16px] md:text-left text-center leading-[20px] tracking-[0] m-0 mx-auto font-normal font-helvetica text-white opacity-60">
                         {slide.description}
                       </p>
                     </div>
@@ -410,22 +435,22 @@ const DesignProcessSection: React.FC<{
   }>
 }> = ({ title, description, sections }) => {
   return (
-    <section className="pt-[50px] lg:pt-[94px] lg:pb-[64px] bg-[#F4F1F2] text-black" style={{ contain: 'layout style' }}>
+    <section className="pt-[50px] lg:pt-[94px] lg:pb-[64px] bg-[#F4F1F2] text-black md:px-0 px-[13px]" style={{ contain: 'layout style' }}>
       {/* Header Section */}
-      <div className="max-w-[1304px] mx-auto mb-[62px]" style={{ contain: 'layout style' }}>
+      <div className="max-w-[1304px] mx-auto md:mb-[62px] mb-[43px]" style={{ contain: 'layout style' }}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, staggerChildren: 0.15 }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12  lg:gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[17px] lg:gap-16">
             {/* Left - Title */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               className="lg:col-span-1"
             >
-              <h2 className="text-black font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+              <h2 className="md:text-left text-center text-black font-medium md:text-[64px] text-[30px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
                 {title}
               </h2>
             </motion.div>
@@ -437,7 +462,7 @@ const DesignProcessSection: React.FC<{
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
               className="lg:col-span-1 flex items-center justify-end"
             >
-              <p className="text-black font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+              <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica md:max-w-[480px]">
                 {description}
               </p>
             </motion.div>
@@ -502,71 +527,81 @@ const ByTheNumbersSection: React.FC<{
   description: string
   countSection: Array<{ name: string; value: string }>
 }> = ({ title, description, countSection }) => {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const descriptionRef = useRef<HTMLParagraphElement>(null)
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
+    target: descriptionRef,
+    offset: ["start 0.8", "end 0.2"]
   })
 
-  const words = description.split(' ')
+  const words = description ? description.split(' ') : []
 
   return (
-    <section ref={containerRef} className="pt-[50px] pb-[50px] lg:pb-[90px] bg-[#111111]">
+    <section className="pt-[37px] lg:pt-[108px] pb-[50px] lg:pb-[54px] bg-[#111111]">
       <div className="max-w-[1304px] mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-[96px] max-w-[810px] m-auto"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="pt-3 border-t border-white flex flex-row text-white text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-[30px] font-helvetica items-center uppercase">
-            <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
-             <h2>{title}</h2>
-          </div>
+          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 md:mb-[96px] mb-[67px]">
+            {/* Content */}
+            <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-white max-w-[810px] m-auto">
+              <div className="flex flex-row text-white text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center uppercase">
+                <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
+                <span>{title}</span>
+              </div>
 
-          <div className="text-[24px] md:text-[32px] text-white lg:text-[40px] leading-[1.2] tracking-[-0.8px] m-0 font-medium font-helvetica flex flex-wrap max-w-[810px] mx-auto">
-            {words.map((word, index) => {
-              const start = index / words.length
-              const end = start + 1 / words.length
-              const opacity = useTransform(scrollYProgress, [start, end], [0.3, 1])
-              const color = useTransform(
-                scrollYProgress,
-                [start, end],
-                ['#fff', '#fff']
-              )
-
-              return (
-                <motion.span
-                  key={index}
-                  style={{ opacity, color }}
-                  className="inline-block text-white mr-[0.2em]"
+              <div className="space-y-6">
+                <p
+                  ref={descriptionRef}
+                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-[-0.8px] m-0 font-medium font-helvetica flex flex-wrap text-white"
                 >
-                  {word}
-                </motion.span>
-              )
-            })}
+                  {words.map((word, i) => {
+                    const start = i / words.length
+                    const end = (i + 1) / words.length
+                    const color = useTransform(scrollYProgress, [start, end], ['rgba(255, 255, 255, 0.5)', '#ffffff'])
+                    const opacity = useTransform(scrollYProgress, [start, end], [0.6, 1])
+                    return (
+                      <motion.span key={i} style={{ color, opacity }} className="mr-2">
+                        {word}
+                      </motion.span>
+                    )
+                  })}
+                </p>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
 
         {/* Count Section */}
-        <div className="max-[1280px] m-auto grid grid-cols-2 md:grid-cols-4 gap-[24px] lg:gap-[48px] mt-[48px]">
-          {countSection.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="text-center"
-            >
-              <p className="border-b  border-[#fff] text-[20px] tracking-[-0.8px] font-[400] text-[#fff] font-helvetica mb-[24px] pb-[31px]">
-                {item.value}
-              </p>
-              <p className="text-[20px] tracking-[-0.8px]  font-[500] text-[#fff] font-helvetica uppercase ">{item.name}</p>
-            </motion.div>
-          ))}
-        </div>
+        {countSection && countSection.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="grid grid-cols-1 md:grid-cols-4 md:gap-8 gap-[52px] max-w-[1280px] m-auto"
+          >
+            {countSection.map((count, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
+              >
+                <div className="border-b border-[#fff] text-[20px] tracking-[-0.4px] font-[400] text-[#fff] font-helvetica mb-[24px] pb-[31px]">
+                  {count.name}
+                </div>
+                <div className="text-[20px] tracking-[-0.8px] font-[500] text-[#fff] font-helvetica uppercase">
+                  {count.value}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
       </div>
     </section>
   )
@@ -600,17 +635,17 @@ const CallToActionSection: React.FC<{
   buttonLink: string
 }> = ({ title, description, buttonText, buttonLink }) => {
   return (
-    <section className="py-16 lg:py-[120px] bg-white">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="pt-[40px] pb-[35px] lg:py-[120px] bg-white">
+      <div className="max-w-7xl mx-auto px-[15px]">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[71px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-[71px] gap-[18px]">
             <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
-              <h1 className="pr-1 text-[62px] not-italic tracking-normal leading-[68px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
+              <h1 className="text-[30px] md:text-[62px] not-italic tracking-normal md:leading-[68px] leading-[33px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
                 style={{
                   background: "conic-gradient(from 180deg at 50% 116.28%, #000 0.91deg, rgba(0, 0, 0, 0.24) 360deg)",
                   WebkitBackgroundClip: "text",
@@ -620,7 +655,8 @@ const CallToActionSection: React.FC<{
                 {title}
               </h1>
 
-              <div className="lg:col-span-1 space-y-8">
+              {/* Desktop Button */}
+              <div className="lg:col-span-1 space-y-8 md:block hidden">
                 <motion.a
                   href={buttonLink}
                   initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -631,7 +667,7 @@ const CallToActionSection: React.FC<{
                     delay: 0.3,
                     ease: [0.4, 0, 0.2, 1],
                   }}
-                  className="relative overflow-hidden px-[24px] py-[8px] rounded-[50px]
+                  className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
                              border border-black bg-black text-white font-helvetica
                              text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
                   whileHover={{ scale: 1.02 }}
@@ -639,7 +675,7 @@ const CallToActionSection: React.FC<{
                 >
                   <span
                     className="absolute inset-0 bg-white translate-x-full
-                               transition-transform duration-500 ease-in-out rounded-[50px]
+                               transition-transform duration-500 ease-in-out rounded-[32px]
                                group-hover:translate-x-0"
                   />
                   <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
@@ -658,13 +694,42 @@ const CallToActionSection: React.FC<{
                 {description.split('\n\n').map((paragraph, index) => (
                   <p
                     key={index}
-                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
+                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] md:max-w-[575px]"
                   >
                     {paragraph.trim()}
                   </p>
                 ))}
               </div>
             </motion.div>
+          </div>
+
+          {/* Mobile Button - shown after description */}
+          <div className="mt-[14px] space-y-8 block md:hidden">
+            <motion.a
+              href={buttonLink}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.6,
+                delay: 0.3,
+                ease: [0.4, 0, 0.2, 1],
+              }}
+              className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
+                         border border-black bg-black text-white font-helvetica
+                         text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <span
+                className="absolute inset-0 bg-white translate-x-full
+                           transition-transform duration-500 ease-in-out rounded-[32px]
+                           group-hover:translate-x-0"
+              />
+              <span className="relative z-10 text-base lg:text-[14px] font-[700] transition-colors duration-500 ease-in-out group-hover:text-black">
+                {buttonText}
+              </span>
+            </motion.a>
           </div>
         </motion.div>
       </div>

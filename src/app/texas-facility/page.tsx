@@ -19,7 +19,7 @@ const criticalInlineStyles = `
   /* Hero Section */
   .texas-facility-hero {
     text-align: center;
-    margin-bottom: 62px;
+    // margin-bottom: 62px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -172,7 +172,7 @@ const ManufacturingExcellenceSection: React.FC<{
   const words = useMemo(() => description ? description.split(' ') : [], [description])
 
   return (
-    <section className="pt-[37px] lg:pt-[108px] pb-[50px] lg:pb-[54px] bg-[#F4F1F2] lg:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
+    <section className="pt-[37px] lg:pt-[106px] pb-[50px] lg:pb-[54px] bg-[#F4F1F2] lg:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
       <div className="max-w-[1304px] mx-auto">
         <motion.div
           variants={containerVariants}
@@ -180,7 +180,7 @@ const ManufacturingExcellenceSection: React.FC<{
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 md:mb-[96px] mb-[67px]">
+          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 md:mb-[90px] mb-[32px]">
             {/* Right - Content */}
             <motion.div variants={itemVariants} className="my-0 pt-3 border-t border-black max-w-[810px] m-auto">
               <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-6 font-helvetica items-center uppercase">

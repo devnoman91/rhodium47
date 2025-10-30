@@ -64,8 +64,8 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#111',
   }
 
   return (
-    <section className="py-16 lg:pb-[94px] lg:pt-[68px]" style={{ backgroundColor, color: textColor }}>
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="pt-[51px] pb-[30px] lg:pb-[94px] lg:pt-[68px]" style={{ backgroundColor, color: textColor }}>
+      <div className="max-w-7xl mx-auto px-[15px]">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -73,10 +73,10 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#111',
           viewport={{ once: true, margin: "-100px" }}
         >
           {/* Header Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 [25px] mb-[25px] items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 [25px] md:mb-[25px] mb-[30px] items-start">
             {/* Left - Title */}
             <motion.div variants={itemVariants} className="lg:col-span-1">
-              <h1 className="text-[64px] not-italic tracking-normal leading-[80px] font-medium  font-helvetica mb-0" style={{ color: textColor }}>
+              <h1 className="md:text-[64px] text-[30px] text-center md:text-left  not-italic tracking-normal md:leading-[80px] leading-[40px] font-medium  font-helvetica md:mb-0 mb-[10px]" style={{ color: textColor }}>
                 {data.name}
               </h1>
             </motion.div>
@@ -84,9 +84,9 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#111',
             {/* Right - Description */}
             <motion.div
               variants={itemVariants}
-              className="lg:col-span-1 flex items-center max-w-[450px] ml-auto"
+              className="lg:col-span-1 flex items-center md:max-w-[450px] ml-auto"
             >
-              <p className="text-[16px] leading-[25px] tracking-[0] m-0 font-normal font-helvetica opacity-80" style={{ color: textColor }}>
+              <p className="text-[16px] text-center md:text-left  leading-[25px] tracking-[0] m-0 font-normal font-helvetica opacity-80" style={{ color: textColor }}>
                 {data.description}
               </p>
             </motion.div>
@@ -95,14 +95,14 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#111',
           {/* Category Tabs */}
           <motion.div
             variants={itemVariants}
-            className="mb-[50px] w-fit"
+            className="md:mb-[50px] mb-[30px] md:w-fit mx-auto md:mx-0 "
           >
-            <div className="tabs relative flex gap-2 p-1 w-fit bg-[#F4F1F2] border border-[#cfcfcf] rounded-[100px] shadow-lg">
+            <div className="tabs relative justify-center flex gap-2 md:p-1 py-[11px] w-full md:w-fit bg-[#F4F1F2] md:border border-[#cfcfcf] md:rounded-[100px] shadow-lg">
               {categories.map((category) => (
                <motion.button
                       key={category}
                       onClick={() => handleCategoryChange(category)}
-                      className={`tab relative overflow-hidden px-4 py-3 border-none min-w-[140px] bg-transparent rounded-[100px] text-base cursor-pointer font-medium h-fit transition-colors duration-300 font-helvetica group
+                      className={`tab relative overflow-hidden md:px-4 px-5 py-3 border-none md:min-w-[140px] bg-transparent rounded-[100px] text-base cursor-pointer font-medium h-fit transition-colors duration-300 font-helvetica group
                         ${activeCategory === category
                           ? 'text-white z-10'
                           : 'text-[#71717a] hover:text-[#555]'
@@ -123,7 +123,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#111',
                       {activeCategory === category && (
                         <motion.div
                           layoutId="activeTab"
-                          className="absolute inset-0 min-w-[140px] bg-black rounded-[100px]  -z-10"
+                          className="absolute inset-0 md:min-w-[140px] bg-black rounded-[100px]  -z-10"
                           transition={{
                             type: "spring",
                             stiffness: 500,
@@ -150,7 +150,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#111',
           </motion.div>
 
           {/* FAQ Accordion */}
-          <div className="grid grid-cols-1  items-start lg:grid-cols-2 gap-[25px]">
+          <div className="grid grid-cols-1  items-start lg:grid-cols-2 md:gap-[25px] gap-[20px]">
             {filteredQuestions.map((question, index) => (
               <FAQAccordion
                 key={`${activeCategory}-${index}`}
@@ -191,7 +191,7 @@ const FAQAccordion: React.FC<{
       {/* Question Header */}
       <button
         onClick={onToggle}
-        className="w-full text-left transition-colors duration-200 flex items-center justify-between group py-[32px] px-[18px] cursor-pointer"
+        className="w-full text-left transition-colors duration-200 flex items-center justify-between group md:py-[32px] p-[18px] md:px-[18px] cursor-pointer"
       >
         <h3 className="font-helvetica text-[20px] not-italic font-normal leading-[28px]" style={{ color: textColor }}>
           {question.name}

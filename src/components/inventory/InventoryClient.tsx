@@ -348,7 +348,8 @@ export default function InventoryClient({
             </div>
             
             {/* New and Pre-Order buttons in sidebar */}
-            <div className="hidden md:block mb-6  pt-5">
+            <div className="hidden md:block mb-2 pt-5">
+               <h2 className="font-helvetica text-black  font-medium text-[26px] leading-[110%] tracking-[-0.52px] mb-5">Inventory</h2>
               <div className="flex gap-2 px-[17px] py-[8px] rounded-[4px]" style={{ backgroundColor: '#F4F1F2' }}>
                 <button
                   onClick={() => handleFilterChange({ ...filters, status: filters.status === 'new' ? '' : 'new' })}

@@ -13,7 +13,7 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
   mainHeading,
 }) => {
   return (
-    <section className="relative pt-[138px] pb-[62px] lg:pt-[160px] lg:pb-[80px]">
+    <section className="relative md:pt-[138px] md:pb-[62px] pb-[20px] pt-[100px] lg:pb-[80px]">
       <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -21,10 +21,10 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <p className="text-black mb-[14px] text-center font-helvetica text-[64px] font-medium leading-[110%] tracking-[-1.28px]">
+          <p className="text-black mb-[14px] text-center font-helvetica md:text-[64px] text-[30px] font-medium leading-[110%] tracking-[-1.28px]">
             {sectionLabel}
           </p>
-          <h1 className="text-[#111] text-center font-helvetica text-[24px] font-medium leading-[150%] max-w-[855px] mx-auto">
+          <h1 className="text-[#111] text-center font-helvetica md:text-[24px] text-[16px] font-medium leading-[150%] max-w-[855px] mx-auto">
             {mainHeading}
           </h1>
         </motion.div>
@@ -51,8 +51,8 @@ const StoriesGridSection: React.FC<{
   }>
 }> = ({ stories }) => {
   return (
-    <section className="pb-[62px]">
-      <div className="max-w-[1332px] mx-auto ">
+    <section className="md:pb-[62px] pb-[20px]">
+      <div className="max-w-[1332px] mx-auto px-[15px] ">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[57px] gap-y-[25px]">
           {stories.map((story, index) => (
             <motion.div
@@ -79,7 +79,7 @@ const StoriesGridSection: React.FC<{
                 </div>
 
                 {/* Story Content */}
-                <div className="px-[20px] py-[32px] flex gap-[22px] items-center">
+                <div className="px-[20px] py-[32px] flex gap-[22px] items-center justify-center">
                   <div className='border-r border-[#00000033] pr-[22px]'>
                     <h3 className="text-[#111] mb-[6px] font-helvetica text-[18px] font-bold leading-[150%] ">
                     {story.title}

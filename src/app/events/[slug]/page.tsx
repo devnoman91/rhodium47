@@ -53,13 +53,13 @@ background-color: #F4F1F2;
   .event-content {
     max-width: 1332px;
     margin:auto;
-    padding: 118px 0;
+    padding: 118px 15px;
   }
   .event-details {
     // display: grid;
     // grid-template-columns: 2fr 1fr;
     // gap: 4rem;
-    margin-bottom: 4rem;
+    // margin-bottom: 4rem;
   }
   .event-info h2 {
     font-size: 2rem;
@@ -78,9 +78,9 @@ background-color: #F4F1F2;
   .event-meta {
 
   }
-  .event-meta-item {
-    margin-bottom: 1.5rem;
-  }
+  // .event-meta-item {
+  //   margin-bottom: 1.5rem;
+  // }
     .label{
     color: #000;
     font-size: 14px;
@@ -230,7 +230,7 @@ background: #FFF;
   color: black;
   line-height: 1;
 }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .event-details {
       grid-template-columns: 1fr;
     }
@@ -239,6 +239,19 @@ background: #FFF;
     }
     .event-hero-title {
       font-size: 2rem;
+    }
+    .event-content{
+    padding: 100px 15px 35px;
+    }
+    .back-link{
+    margin-bottom:23px;
+    }
+    .event-hero-description{
+    font-size:34px;
+    margin-bottom:21px;
+    }
+    .event-description {
+        margin-bottom: 26px;
     }
   }
 `
@@ -445,7 +458,7 @@ export default function EventPage() {
             {(!event.maxAttendees || registrationCount < event.maxAttendees) ? (
             <form onSubmit={handleSubmit}>
              {/* Row 1 */}
-              <div className="form-row grid grid-cols-3 gap-[36px]">
+              <div className="form-row grid grid-cols-3 md:gap-[36px] gap-[20px]">
                 <div className="form-group flex flex-col">
                   <label className="label">First Name</label>
                   <input
@@ -486,7 +499,7 @@ export default function EventPage() {
               </div>
 
               {/* Row 2 */}
-              <div className="form-row grid grid-cols-3 gap-[36px] mt-6">
+              <div className="form-row grid grid-cols-3 md:gap-[36px] gap-[20px] mt-6">
                 <div className="form-group flex flex-col">
                   <label className="label">Email Address</label>
                   <input
@@ -569,12 +582,31 @@ export default function EventPage() {
               </div> */}
 
               <button
-                type="submit"
-                className=" mt-[42px] mb-[59px] text-white text-center font-helvetica text-[20px] not-italic font-medium leading-[120%] tracking-[-0.4px] flex w-[196px] h-[54px] px-[50px] pt-[18px] pb-[19px] justify-center items-center shrink-0 rounded-[100px] border border-[rgba(157,192,59,0)] bg-black"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit'}
-              </button>
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`relative overflow-hidden cursor-pointer mt-[42px] md:mb-[59px] mb-[43px] text-white text-center font-helvetica text-[20px] not-italic font-medium leading-[120%] tracking-[-0.4px] flex w-[196px] h-[54px] px-[50px] pt-[18px] pb-[19px] justify-center items-center shrink-0 rounded-[100px] border border-[rgba(157,192,59,0)] transition-all duration-300 group
+                    ${isSubmitting ? 'bg-gray-400 cursor-not-allowed text-white' : 'bg-black hover:bg-black'}
+                  `}
+                >
+                  {/* sliding white overlay */}
+                  {!isSubmitting && (
+                    <span
+                      className="absolute inset-0 bg-white translate-x-full
+                                transition-transform duration-500 ease-in-out rounded-[100px]
+                                group-hover:translate-x-0"
+                    />
+                  )}
+
+                  {/* button text */}
+                  <span
+                    className={`relative z-10 transition-colors duration-500 ease-in-out ${
+                      isSubmitting ? 'text-white' : 'group-hover:text-black'
+                    }`}
+                  >
+                    {isSubmitting ? 'Submitting...' : 'Submit'}
+                  </span>
+                </button>
+
             </form>
             ) : (
               <div className="p-6 bg-gray-100 rounded-lg text-center">

@@ -94,7 +94,7 @@ letter-spacing: -1.28px;
     margin-bottom: 2rem;
   }
   .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 20px;
   }
   .form-row {
     display: grid;
@@ -166,17 +166,47 @@ letter-spacing: -1.28px;
     .contact-info-inner{
     
     }
+      @media (max-width: 991px) {
+  .form-row {
+    grid-template-columns:1fr;
+    gap:0;
+  }
+}
   @media (max-width: 768px) {
+  .contact-hero{
+  padding:104px 15px 30px 15px; 
+  }
+  .contact-hero-title{
+  font-sie:34px;
+  margin-bottom:10px;
+  }
+   .contact-hero-description {
+    font-size: 16px;
+}
     .contact-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    .form-row {
-      grid-template-columns: 1fr;
-    }
+    flex-direction:column-reverse;
+    gap: 10px;
+    padding: 0 15px ;
+    background:none;
+}
+    .contact-form{
+    max-width:100%;
+        background-color: #fff;
+        border-radius: 10px;
+    padding: 28px 22px 35px 22px;
+}
     .contact-hero-title {
       font-size: 2rem;
     }
+      .contact-info {
+    max-width: 100%;
+    width: 100%;
+    padding: 33px 16px 20px 16px;
+  }
+    .submit-btn {
+ margin-left:0;
+}
+
   }
 `
 
@@ -297,7 +327,7 @@ export default function ContactUsPage() {
       </section>
 
       {/* Content Section */}
-      <section className="contact-content bg-[#F4F1F2] font-helvetica pb-[56px]">
+      <section className="contact-content bg-[#F4F1F2] font-helvetica md:pb-[56px] pb-[28px]">
         <div className="contact-grid">
           {/* Contact Information */}
           <div className="contact-info relative overflow-hidden">
@@ -405,7 +435,7 @@ export default function ContactUsPage() {
             <form onSubmit={handleSubmit}>
               <div className="form-row">
                 <div className="form-group">
-                   <label className="label text-[var(--Neutral-500,#292929)] font-helvetica text-[16px] not-italic font-medium leading-[150%] mb-[16px] flex capitalize">Full Name</label>
+                   <label className="label text-[var(--Neutral-500,#292929)] font-helvetica text-[16px] not-italic font-medium leading-[150%] md:mb-[16px] mb-[6px] flex capitalize">Full Name</label>
                   <input
                     type="text"
                     name="firstName"
@@ -417,7 +447,7 @@ export default function ContactUsPage() {
                   />
                 </div>
                 <div className="form-group">
-                   <label className="label text-[var(--Neutral-500,#292929)] font-helvetica text-[16px] not-italic font-medium leading-[150%] mb-[16px] flex capitalize">Last Name</label>
+                   <label className="label text-[var(--Neutral-500,#292929)] font-helvetica text-[16px] not-italic font-medium leading-[150%] md:mb-[16px] mb-[6px] flex capitalize">Last Name</label>
                   <input
                     type="text"
                     name="lastName"
@@ -432,7 +462,7 @@ export default function ContactUsPage() {
 
               <div className="form-row">
                 <div className="form-group">
-                   <label className="label text-[var(--Neutral-500,#292929)] font-helvetica text-[16px] not-italic font-medium leading-[150%] mb-[16px] capitalize flex ">Email</label>
+                   <label className="label text-[var(--Neutral-500,#292929)] font-helvetica text-[16px] not-italic font-medium leading-[150%] md:mb-[16px] mb-[6px] capitalize flex ">Email</label>
                   <input
                     type="email"
                     name="email"
@@ -444,7 +474,7 @@ export default function ContactUsPage() {
                   />
                 </div>
                 <div className="form-group">
-                   <label className="label text-[var(--Neutral-500,#292929)] font-helvetica text-[16px] not-italic font-medium leading-[150%] mb-[16px] capitalize flex">Phone #</label>
+                   <label className="label text-[var(--Neutral-500,#292929)] font-helvetica text-[16px] not-italic font-medium leading-[150%] md:mb-[16px] mb-[6px] capitalize flex">Phone #</label>
                   <input
                     type="tel"
                     name="phone"
@@ -457,7 +487,7 @@ export default function ContactUsPage() {
               </div>
 
               <div className="form-group">
-                 <label className="label text-[var(--Neutral-500,#292929)] font-helvetica text-[16px] not-italic font-medium leading-[150%] mb-[16px] capitalize flex ">Subject</label>
+                 <label className="label text-[var(--Neutral-500,#292929)] font-helvetica text-[16px] not-italic font-medium leading-[150%] md:mb-[16px] mb-[6px] capitalize flex ">Subject</label>
                 <input
                   type="text"
                   name="subject"
@@ -470,7 +500,7 @@ export default function ContactUsPage() {
               </div>
 
               <div className="form-group">
-                 <label className="label text-[var(--Neutral-500,#292929)] font-helvetica text-[16px] not-italic font-medium leading-[150%] mb-[16px] capitalize flex ">Message</label>
+                 <label className="label text-[var(--Neutral-500,#292929)] font-helvetica text-[16px] not-italic font-medium leading-[150%] md:mb-[16px] mb-[6px] capitalize flex ">Message</label>
                 <textarea
                   name="message"
                   className="form-textarea"
@@ -508,7 +538,7 @@ export default function ContactUsPage() {
                 </button>
 
             </form>
-           <div className="svg-col w-full  max-w-[240px] min-h-[112px] ml-auto right-[201px] absolute bottom-[-55px]">
+           <div className="svg-col w-full  md:block hidden max-w-[240px] min-h-[112px] ml-auto right-[201px] absolute bottom-[-55px]">
               <Image
               className='w-full h-full'
                 src={letter}
@@ -524,7 +554,7 @@ export default function ContactUsPage() {
       </section>
 
       {/* contact map section */}
-      <section className='bg-[#F4F1F2] pb-[62px]'>
+      <section className='bg-[#F4F1F2] md:pb-[62px] pb-[35px] px-[15px]'>
         <div className="map-container max-w-[1332px] m-auto rounded-[20px] overflow-hidden">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d8933061.100748068!2d-105.84408458659767!3d39.37228836259935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1760406033891!5m2!1sen!2s"

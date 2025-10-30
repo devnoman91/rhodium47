@@ -13,7 +13,7 @@ import type { CustomerStory } from '@/content/types'
 const portableTextComponents = {
   block: {
     h1: ({ children }: any) => (
-      <h1 className="text-[36px] lg:text-[50px] font-[500] text-black mb-[34px]  leading-tight">
+      <h1 className="text-[34px] lg:text-[50px] font-[500] text-black md:mb-[34px] mb-[21px]  leading-tight">
         {children}
       </h1>
     ),
@@ -104,7 +104,7 @@ const StoryHeroSection: React.FC<{
   }
 }> = ({ title, image }) => {
   return (
-    <section  className=' pt-[138px] max-w-[1332px] mx-auto px-[20px] mb-[42px]'>
+    <section  className=' md:pt-[138px] pt-[102px] max-w-[1332px] mx-auto px-[20px] md:mb-[42px] mb-[34px]'>
     
       {/* Content */}
       <div className="max-w-[1010px]">
@@ -167,8 +167,8 @@ const StoryContentSection: React.FC<{
 // Call to Action Section
 const CTASection: React.FC = () => {
   return (
-    <section className="py-[60px] lg:py-[80px] bg-gray-50">
-      <div className="max-w-[1010px] mx-auto px-[20px] lg:px-[80px] text-center">
+    <section className="py-[40px] lg:py-[80px] bg-gray-50">
+      <div className="max-w-[1010px] mx-auto px-[20px] lg:px-[80px] md:text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -181,7 +181,7 @@ const CTASection: React.FC = () => {
           <p className="text-[16px] lg:text-[18px] text-gray-700 mb-[32px] max-w-[700px] mx-auto">
             Join our community of satisfied customers and experience the difference that quality makes.
           </p>
-          <div className="flex flex-col sm:flex-row gap-[16px] justify-center">
+          <div className="flex flex-col sm:flex-row gap-[16px] md:justify-center">
               <Link href="/contact">
                 <motion.button
                   whileHover={{ scale: 1.05 }}

@@ -65,8 +65,6 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
     <div className="bg-white overflow-y-auto  no-scrollbar h-full px-[15px] pt-5">
       {/* Header */}
       <div className="mb-0">
-        <h2 className="font-helvetica text-black mb-[5px] font-medium text-[26px] leading-[110%] tracking-[-0.52px]">Inventory</h2>
-
         {/* Active Filters Display */}
         {/* <div className="mt-4 space-y-2">
           {Object.entries(filters).map(([key, value]) => {
@@ -108,7 +106,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
         </div> */}
         
         {/* Clear All Button */}
-        <div className="mt-4">
+        {/* <div className="mt-4">
           <button
             onClick={() => {
               const reset = {
@@ -138,7 +136,7 @@ export default function FilterSidebar({ filters, onFilterChange, filterOptions }
           >
             Clear All Filters
           </button>
-        </div>
+        </div> */}
       </div>
 
    

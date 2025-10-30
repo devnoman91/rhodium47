@@ -12,7 +12,7 @@ const eventsStyles = `
   }
 
   .events-hero {
-    padding: 138px 2rem 75px;
+    padding: 138px 15px 75px;
     text-align: center;
   }
 
@@ -40,7 +40,7 @@ text-transform: capitalize;
   }
 
   .filters-section {
-    padding: 0 2rem;
+    padding: 0 15px;
   }
 
   .filters-row {
@@ -103,6 +103,7 @@ text-transform: capitalize;
     column-gap:57px;
     max-width: 1332px;
     margin: 0 auto;
+    padding:0 15px;
   }
 
   .event-card {
@@ -221,22 +222,29 @@ text-transform: capitalize;
     font-size: 1.125rem;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 991px) {
     .events-grid {
       grid-template-columns: repeat(2, 1fr);
     }
 
     .filters-row {
       grid-template-columns: 1fr;
-      gap: 1rem;
+      gap: 23px;
     }
   }
 
-  @media (max-width: 768px) {
-    .events-title {
-      font-size: 2.5rem;
-    }
+  @media (max-width: 767px) {
+  .events-hero {
+    padding: 105px 15px 29px;
+}
 
+    .events-title {
+      font-size: 30px;
+      morgin-bottom:10px;
+    }
+  .events-description{
+     font-size:16px;
+  }
     .events-grid {
       grid-template-columns: 1fr;
     }
@@ -249,9 +257,12 @@ text-transform: capitalize;
     .event-view-btn {
       margin-left: 0;
       margin-top: 0.75rem;
-      width: 100%;
+      // width: 100%;
       text-align: center;
     }
+      .events-container {
+    padding-bottom: 30px;
+}
   }
 `
 

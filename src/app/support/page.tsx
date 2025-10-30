@@ -14,7 +14,7 @@ const supportStyles = `
   }
 
   .support-hero {
-    padding: 138px 2rem 110px;
+    padding: 138px 15px 110px;
     text-align: center;
   }
 
@@ -80,6 +80,7 @@ line-height: 24px;
     margin: 0 auto;
    display:flex;
     gap: 84px;
+    padding:0 15px;
   }
 
   .sidebar {
@@ -256,7 +257,7 @@ line-height: 28px;
 
   .contact-section {
     margin-top: 50px;
-    padding-bottom: 50px;
+    padding:0 15px 50px;
   }
 
   .contact-title {
@@ -337,8 +338,8 @@ text-underline-position: from-font;
 
     .sidebar {
       position: static;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      // display: grid;
+      // grid-template-columns: repeat(2, 1fr);
       gap: 0.75rem;
     }
 
@@ -349,19 +350,63 @@ text-underline-position: from-font;
 
   @media (max-width: 768px) {
     .support-title {
-      font-size: 2.5rem;
+      font-size: 34px;
+      margin-bottom:10px;
     }
-
+    .support-description{
+     font-size: 16px;
+    }
+     .support-hero {
+    padding: 102px 15px 30px;
+    } 
     .sidebar {
-      grid-template-columns: 1fr;
-    }
-
-    .main-content {
-      padding: 2rem 1.5rem;
+    grid-template-columns: 1fr;
+    height: fit-content;
+    border-right: none;
+    padding-top: 0;
     }
 
     .contact-title {
       font-size: 2rem;
+    }
+    .support-content{
+    flex-direction:column;
+    }
+    .sidebar,
+    .search-container,
+    .main-content {
+    max-width:100%;
+    }
+    .content-body {
+    margin-top:0;
+    }
+    .category-item {
+    padding-bottom:22px;
+        margin-bottom: 26px;
+        border-bottom:1px solid #0000001A;
+        border-radius:none;
+    }
+    .content-body h5 {
+        margin-top: 0px;
+    }
+        .contact-options {
+        gap:0;
+        }
+    .contact-title{
+    text-align:center;
+    margin-bottom:20px;
+    }
+     .contact-section {
+    padding:0 15px 30px;
+    }
+    .contact-value {
+    font-size: 13px;
+    }
+    .content-body h1 {
+    font-size: 24px;
+    }
+    .content-body h4 {
+    font-size: 20px;
     }
   }
 `
@@ -556,6 +601,28 @@ export default function SupportPage() {
         <div className="support-content">
           {/* Sidebar */}
           <aside className="sidebar">
+             <div className="search-container md:hidden block mb-[41px]">
+            <input
+              type="text"
+              className="search-input"
+              placeholder={supportData.searchPlaceholder || 'How can we help?'}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <span className="search-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+              <g clip-path="url(#clip0_587_1226)">
+                <path d="M6.14901 11.9465C9.02509 11.9465 11.3566 9.61494 11.3566 6.73885C11.3566 3.86277 9.02509 1.53125 6.14901 1.53125C3.27293 1.53125 0.941406 3.86277 0.941406 6.73885C0.941406 9.61494 3.27293 11.9465 6.14901 11.9465Z" stroke="#151515" stroke-width="1.88235"/>
+                <path d="M9.82129 10.4111L15.0592 15.6491" stroke="#151515" stroke-width="1.88235"/>
+              </g>
+              <defs>
+                <clipPath id="clip0_587_1226">
+                  <rect width="16" height="16" fill="white" transform="translate(0 0.589844)"/>
+                </clipPath>
+              </defs>
+            </svg>
+            </span>
+          </div>
             {supportData.categories?.map((category, index) => (
               <div
                 key={index}
@@ -573,7 +640,7 @@ export default function SupportPage() {
 
           {/* Content */}
           <main className="main-content">
-            <div className="search-container">
+            <div className="search-container md:block hidden">
             <input
               type="text"
               className="search-input"
@@ -619,7 +686,7 @@ export default function SupportPage() {
                             {/* Question */}
                             <h5
                               onClick={() => toggleQuestion(parseInt(questionKey.replace('-', '')))}
-                              className="flex gap-[15px] items-center cursor-pointer text"
+                              className="flex gap-[15px] items-center cursor-pointer text justify-between"
                             >
                               <span className=" font-[400] text-[16px] text-[#151515]">{qa.question}</span>
 
@@ -677,47 +744,46 @@ export default function SupportPage() {
              </h2>
 
           <div className="contact-options space-y-3">
-  {supportData.contactSection.contactOptions?.map((option, index) => {
-    // Default link
-    let link = "#";
+              {supportData.contactSection.contactOptions?.map((option, index) => {
+                // Default link
+                let link = "#";
+                // Set correct link based on type and value
+                if (option.type === "call" && option.value) {
+                  // Handle phone numbers - remove formatting for tel: link
+                  const phoneNumber = option.value.replace(/\s+/g, '').replace(/[()]/g, '');
+                  link = `tel:${phoneNumber}`;
+                } else if (option.type === "chat" && option.value && option.value.includes('@')) {
+                  // If chat has an email, make it mailto
+                  link = `mailto:${option.value}`;
+                } else if (option.type === "contact") {
+                  link = "/contact-us";
+                }
 
-    // Set correct link based on type and value
-    if (option.type === "call" && option.value) {
-      // Handle phone numbers - remove formatting for tel: link
-      const phoneNumber = option.value.replace(/\s+/g, '').replace(/[()]/g, '');
-      link = `tel:${phoneNumber}`;
-    } else if (option.type === "chat" && option.value && option.value.includes('@')) {
-      // If chat has an email, make it mailto
-      link = `mailto:${option.value}`;
-    } else if (option.type === "contact") {
-      link = "/contact-us";
-    }
+                return (
+                  <a
+                    key={index}
+                    href={link}
+                    className="contact-option flex items-center justify-between p-3 rounded-lg border border-gray-200 hover:bg-gray-100 transition cursor-pointer"
+                  >
+                    {/* Left side — icon + label */}
+                    <div className="contact-info flex items-center gap-2">
+                      <span className="contact-icon text-xl">{getContactIcon(option.type)}</span>
+                      <span className="contact-label font-medium text-gray-800">
+                        {option.label}
+                      </span>
+                    </div>
 
-    return (
-      <a
-        key={index}
-        href={link}
-        className="contact-option flex items-center justify-between p-3 rounded-lg border border-gray-200 hover:bg-gray-100 transition cursor-pointer"
-      >
-        {/* Left side — icon + label */}
-        <div className="contact-info flex items-center gap-2">
-          <span className="contact-icon text-xl">{getContactIcon(option.type)}</span>
-          <span className="contact-label font-medium text-gray-800">
-            {option.label}
-          </span>
-        </div>
-
-        {/* Right side — value or button text */}
-        {option.value && (
-          <span className="contact-value text-gray-600">{option.value}</span>
-        )}
-        {option.buttonText && !option.value && (
-          <span className="contact-value text-gray-600">{option.buttonText}</span>
-        )}
-      </a>
-    );
-  })}
-</div>
+                    {/* Right side — value or button text */}
+                    {option.value && (
+                      <span className="contact-value text-gray-600">{option.value}</span>
+                    )}
+                    {option.buttonText && !option.value && (
+                      <span className="contact-value text-gray-600">{option.buttonText}</span>
+                    )}
+                  </a>
+                );
+              })}
+            </div>
 
 
 

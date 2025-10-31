@@ -20,10 +20,10 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h1 className="text-[64px] pt-[138px] font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto mb-6 font-helvetica">
+          <h1 className="md:text-[64px] text-[30px] md:pt-[138px] pt-[102px] font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto md:mb-6 mb-[10px] font-helvetica">
              {sectionLabel}
           </h1>
-          <p className="text-[24px] font-medium text-[#111] leading-[150%] capitalize max-w-[855px] mx-auto font-helvetica">
+          <p className="md:text-[24px] text-[16px] font-medium text-[#111] leading-[150%] capitalize max-w-[855px] mx-auto font-helvetica">
            {mainHeading}
           </p>
 
@@ -47,7 +47,7 @@ const ManufacturingExcellenceSection: React.FC<{
   const words = React.useMemo(() => description.split(' '), [description])
 
   return (
-    <section className="py-12 md:pb-[90px] md:pt-[106px] bg-[#F4F1F2]">
+    <section className="pb-[32px] pt-[42px] md:pb-[90px] md:pt-[106px] bg-[#F4F1F2]">
       <div className="max-w-[1304px] mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0 }}
@@ -90,7 +90,7 @@ const ManufacturingExcellenceSection: React.FC<{
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="my-0 pt-3 border-t border-black max-w-[773px]"
+              className="my-0 pt-3 border-t border-black lg:max-w-[773px]"
             >
               <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-[27px] font-helvetica items-center uppercase">
                 <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
@@ -143,7 +143,7 @@ const InfoSections: React.FC<{
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
               className={`${
-                index === 1 ? 'max-w-[463px]' : 'max-w-[392px]'
+                index === 1 ? 'md:max-w-[463px]' : 'md:max-w-[392px]'
               } w-full overflow-hidden`}
             >
               <div className="relative w-full h-[260px] rounded-[20px] overflow-hidden">
@@ -296,7 +296,7 @@ const SliderSection: React.FC<{
   }, [currentIndex, totalSlides])
 
   return (
-    <section className="pt-[50px] lg:pt-[89px] pb-[80px] lg:pb-[102px] bg-[#111111] text-white overflow-hidden md:px-0 px-[13px]" style={{ contain: 'layout style' }}>
+    <section className="pt-[30px] lg:pt-[89px] pb-[50px] lg:pb-[102px] bg-[#111111] text-white overflow-hidden md:px-0 px-[13px]" style={{ contain: 'layout style' }}>
       {/* Header Section */}
       <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
         <motion.div
@@ -304,14 +304,14 @@ const SliderSection: React.FC<{
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, staggerChildren: 0.15 }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[17px] lg:gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] lg:gap-16">
             {/* Left - Title */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               className="lg:col-span-1"
             >
-              <h2 className="md:text-left text-center text-white font-medium md:text-[64px] text-[30px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+              <h2 className="md:text-left text-center text-white font-medium md:text-[64px] text-[34px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
                 {mainName}
               </h2>
             </motion.div>
@@ -339,7 +339,7 @@ const SliderSection: React.FC<{
         className="relative"
       >
         {/* Left Padding for Content Alignment */}
-        <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+-1rem)]">
+        <div className="md:pl-6 lg:pl-[calc((100vw-1280px)/2+-1rem)]">
           {/* Slider Container */}
           <div className="relative overflow-visible" ref={constraintsRef}>
             <motion.div
@@ -404,9 +404,9 @@ const SliderSection: React.FC<{
                   </div>
 
                   {/* Content */}
-                  <div className="md:pt-[42px] pt-[15px] md:max-w-[656px] w-full">
+                  <div className="md:pt-[42px] pt-[20px] md:max-w-[656px] w-full">
                     <div>
-                      <h3 className="md:text-left text-center font-medium text-[24px] leading-[150%] text-white capitalize font-helvetica mb-[9px]">
+                      <h3 className="md:text-left text-center font-medium text-[24px] leading-[150%] text-white capitalize font-helvetica mb-[10px]">
                         {slide.name}
                       </h3>
                       <p className="sm:max-w-fit max-w-[283px] text-[16px] md:text-left text-center leading-[20px] tracking-[0] m-0 mx-auto font-normal font-helvetica text-white opacity-60">
@@ -435,7 +435,7 @@ const DesignProcessSection: React.FC<{
   }>
 }> = ({ title, description, sections }) => {
   return (
-    <section className="pt-[50px] lg:pt-[94px] lg:pb-[64px] bg-[#F4F1F2] text-black md:px-0 px-[13px]" style={{ contain: 'layout style' }}>
+    <section className="pt-[50px] lg:pt-[94px] pb-[64px] bg-[#F4F1F2] text-black md:px-0 px-[13px]" style={{ contain: 'layout style' }}>
       {/* Header Section */}
       <div className="max-w-[1304px] mx-auto md:mb-[62px] mb-[43px]" style={{ contain: 'layout style' }}>
         <motion.div
@@ -472,7 +472,7 @@ const DesignProcessSection: React.FC<{
 
       {/* Design Process Grid - 2 columns */}
       <div className="max-w-[1304px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-[42px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-x-5 gap-[18px] md:gap-y-[42px]">
           {sections.map((section, index) => (
             <motion.div
               key={`${section.title}-${index}`}
@@ -503,12 +503,12 @@ const DesignProcessSection: React.FC<{
               </div>
 
               {/* Content */}
-              <div className="pt-[42px] max-w-[656px]">
+              <div className="md:pt-[42px] pt-[20px] md:max-w-[656px]">
                 <div className="">
-                  <h3 className="text-[#111] font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
+                  <h3 className="text-[#111] md:text-left text-center font-medium text-[24px] leading-[150%] capitalize font-helvetica mb-[9px]">
                     {section.title}
                   </h3>
-                  <p className="text-[16px] leading-[20px] tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
+                  <p className="text-[16px] leading-[20px] md:text-left text-center tracking-[0] m-0 font-normal font-helvetica text-black opacity-60">
                     {section.description}
                   </p>
                 </div>
@@ -536,7 +536,7 @@ const ByTheNumbersSection: React.FC<{
   const words = description ? description.split(' ') : []
 
   return (
-    <section className="pt-[37px] lg:pt-[108px] pb-[50px] lg:pb-[54px] bg-[#111111]">
+    <section className="pt-[37px] lg:pt-[108px] pb-[50px] lg:pb-[54px] bg-[#111111] px-[15px]">
       <div className="max-w-[1304px] mx-auto">
         <motion.div
           variants={containerVariants}
@@ -635,7 +635,7 @@ const CallToActionSection: React.FC<{
   buttonLink: string
 }> = ({ title, description, buttonText, buttonLink }) => {
   return (
-    <section className="pt-[40px] pb-[35px] lg:py-[120px] bg-white">
+    <section className="pt-[46px] pb-[54px] lg:py-[120px] bg-white">
       <div className="max-w-7xl mx-auto px-[15px]">
         <motion.div
           variants={containerVariants}

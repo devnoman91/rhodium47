@@ -13,7 +13,7 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
   mainHeading,
 }) => {
   return (
-    <section className="relative pt-[138px] pb-[106px]">
+    <section className="relative bg-[#F4F1F2] md:pt-[138px] pt-[102px] md:pb-[106px] px-[15px] pb-[42px]">
       <div className="max-w-[1200px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -21,10 +21,10 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h1 className="text-[64px] font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto mb-6 font-helvetica">
+          <h1 className="md:text-[64px] text-[34px] font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto md:mb-6 mb-2 font-helvetica">
              {sectionLabel}
           </h1>
-          <p className="text-[24px] font-medium text-[#111] leading-[150%] capitalize max-w-[855px] mx-auto mb-[14px] font-helvetica">
+          <p className="md:text-[24px] text-[16px] font-medium text-[#111] leading-[150%] capitalize max-w-[855px] mx-auto md:mb-[14px] font-helvetica">
            {mainHeading}
           </p>
         </motion.div>
@@ -47,7 +47,7 @@ const ManufacturingExcellenceSection: React.FC<{
   const words = description.split(' ')
 
   return (
-    <section className="pb-[60px]">
+    <section className="md:pb-[60px] pb-[39px] bg-[#F4F1F2]">
       <div className="max-w-[1304px] mx-auto px-6">
         <motion.div
           initial={{ opacity: 0 }}
@@ -92,7 +92,7 @@ const ManufacturingExcellenceSection: React.FC<{
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="col-span-1 md:ml-50 lg:ml-50 xl:ml-50 lg:col-span-10 xl:col-span-10"
+              className="col-span-1 lg:ml-50 xl:ml-50 lg:col-span-10 xl:col-span-10"
             >
               <motion.div
                 className="h-[1px] w-full bg-[#777] rounded-full mb-3"
@@ -143,7 +143,7 @@ const InfoSectionsComponent: React.FC<{
   }>
 }> = ({ sections }) => {
   return (
-    <section className="pb-[52px] bg-[#F4F1F2]">
+    <section className="pb-[50px] bg-[#F4F1F2]">
       <div className="max-w-[1304px] mx-auto px-4 md:px-6">
         <div className="flex flex-col md:flex-row gap-[30px] md:gap-[30px]">
           {sections.map((section, index) => (
@@ -194,16 +194,16 @@ const OpenPositionsSection: React.FC<{
   }>
 }> = ({ title, description, positions }) => {
   return (
-    <section className="py-[50px] lg:pt-[79px] lg:pb-[55px] bg-[#111111]">
+    <section className="py-[30px] lg:pt-[79px] lg:pb-[55px] bg-[#111111]">
       <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-[56px] flex justify-between gap-[182px]"
+          className="md:mb-[56px] mb-[36px]  flex md:flex-row flex-col justify-between lg:gap-[182px] md:gap-[100px] gap-[20px]"
         >
-          <h2 className="text-[64px] lg:text-[48px] font-[500] text-white mb-[16px]">{title}</h2>
-          <p className="text-[16px] lg:text-[18px] text-white max-w-[517px] ml-auto">
+          <h2 className="md:text-[64px] text-[34px] md:text-left text-center lg:text-[48px] font-[500] text-white md:mb-[16px]">{title}</h2>
+          <p className="text-[16px] md:text-right text-center lg:text-[18px] text-white md:max-w-[517px] md:ml-auto">
             {description}
           </p>
         </motion.div>
@@ -216,7 +216,7 @@ const OpenPositionsSection: React.FC<{
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-[#1d1d1d]  rounded-[30px] px-[57px] py-[24px] lg:py-[32px]  hover:shadow-xl transition-shadow"
+              className="bg-[#1d1d1d]  rounded-[30px] md:px-[57px] px-[20px] py-[32px]  hover:shadow-xl transition-shadow"
             >
               <div className='flex justify-between items-center mb-[36px]'>
                 <span className="flex  p-2 flex-col font-[400] text-[16px] items-start gap-2 rounded-lg bg-white/10 text-white">10 min ago</span>
@@ -267,7 +267,7 @@ const OpenPositionsSection: React.FC<{
                 </svg>
 
               </div>
-              <div className='flex gap-[20px] items-start mb-[32px]'>
+              <div className='flex gap-[20px] md:flex-row flex-col items-start mb-[32px]'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
                     <path d="M9.93596 30.451C13.0735 33.693 16.9335 36.1469 21.2005 37.6123C18.0779 39.6446 12.1682 37.7285 7.40693 32.9801C2.64564 28.2317 0.710159 22.322 2.74242 19.1865C4.21471 23.4579 6.68018 27.3186 9.93596 30.451Z" fill="url(#paint0_linear_579_1640)"/>
                     <path d="M32.4316 33.7731C32.146 34.3354 31.7737 34.8493 31.3284 35.2957C29.509 37.1151 26.6767 37.6248 23.4509 36.986L22.8058 36.8506C22.5929 36.7989 22.3864 36.7473 22.1606 36.6828C18.4445 35.6441 14.3413 33.1989 10.7348 29.586C7.12836 25.9731 4.68319 21.8764 3.63803 18.1602C3.57352 17.9473 3.51545 17.7409 3.46384 17.5151C3.41222 17.2893 3.36706 17.0893 3.32835 16.8699C2.68319 13.6441 3.19932 10.8118 5.01868 8.99249C5.46854 8.5465 5.98423 8.17225 6.54771 7.88281C6.25466 9.82387 6.38897 11.8055 6.94126 13.6893C7.14271 14.4563 7.39047 15.2103 7.68319 15.9473C7.76061 16.1473 7.85093 16.3538 7.9348 16.5538C8.01867 16.7538 8.11545 16.9731 8.21222 17.1989C9.76171 20.4532 11.8737 23.4083 14.4509 25.928C16.9581 28.4788 19.8928 30.5706 23.1219 32.1086L23.7671 32.386L24.3735 32.6376C25.1126 32.9246 25.8663 33.1723 26.6316 33.3796C27.9184 33.7335 29.2455 33.92 30.58 33.9344C31.2006 33.9329 31.82 33.8789 32.4316 33.7731Z" fill="url(#paint1_linear_579_1640)"/>
@@ -303,15 +303,15 @@ const OpenPositionsSection: React.FC<{
                     </defs>
                   </svg>
                   <div className=''>
-                      <h3 className="text-[20px] leading-[1] lg:text-[28px] font-[500] text-white mb-[20px]">
+                      <h3 className="text-[24px] leading-[1] lg:text-[28px] font-[500] text-white md:mb-[20px] mb-[27px]">
                         {position.name}
                        </h3>
                        <p className='text-white leading-[1] font-helvetica text-[16px] not-italic font-normal '>{position.role}</p>
                   </div>
               </div>
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-[16px]">
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between md:gap-[16px] gap-[35px]">
                 <div className="flex-1">
-                  <div className="flex flex-wrap gap-[24px] text-[16px] text-[#6C757D] uppercase">
+                  <div className="grid grid-cols-2  md:flex flex-wrap md:gap-[24px] gap-y-[33px] font-[500] gap-x-[25px] text-[16px] text-[#6C757D] uppercase">
                    
                     <span className="flex items-center gap-[12px]">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -363,13 +363,13 @@ const OpenPositionsSection: React.FC<{
                   </div>
                 </div>
                <motion.div
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
                   >
                     <Link
                       href={`/careers/${position.slug.current}`}
-                      className="relative overflow-hidden flex items-center gap-[12px] px-6 py-3 rounded-full
+                      className="relative overflow-hidden flex items-center gap-[12px] px-[20px] py-[14px] rounded-[8px] w-fit
                                 bg-white text-black font-helvetica font-medium text-[16px]
                                 border border-transparent cursor-pointer group
                                 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
@@ -407,22 +407,22 @@ const BenefitsPerksSection: React.FC<{
   }>
 }> = ({ title, description, benefits }) => {
   return (
-    <section className="pt-[101px] pb-[50px] lg:pb-[104px] bg-[#F4F1F2]">
+    <section className="md:pt-[101px] pt-[50px] px-[15px] lg:pb-[104px] bg-[#F4F1F2]">
       <div className="max-w-[1304px] m-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-[54px] flex justify-between gap-[182px]"
+          className="md:mb-[54px] mb-[31px] flex md:flex-row flex-col justify-between md:gap-[100px] lg:gap-[182px] gap-[5px]"
         >
-          <h2 className="text-[64px] lg:text-[48px] font-[500] text-black mb-[16px]">{title}</h2>
-          <p className="text-[16px] lg:text-[18px] text-black max-w-[517px] ml-auto">
+          <h2 className="text-[34px] md:text-left text-center leading-normal md:text-[48px] font-[500] text-black md:mb-[16px] ">{title}</h2>
+          <p className="text-[16px] md:text-right text-center lg:text-[18px] text-black md:max-w-[517px]  md:ml-auto">
             {description}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[32px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-[32px] gap-[49px]">
           {benefits.map((benefit, index) => (
             <motion.div
               key={index}
@@ -432,7 +432,7 @@ const BenefitsPerksSection: React.FC<{
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className=""
             >
-              <div className="relative h-[260px] rounded-[20px] overflow-hidden mb-[31px] mx-auto">
+              <div className="relative h-[260px] rounded-[20px] overflow-hidden md:mb-[31px] mb-[15px] mx-auto">
                 <img
                   src={benefit.image.asset.url}
                   alt={benefit.image.alt || benefit.title}
@@ -466,7 +466,7 @@ const ByTheNumbersSection: React.FC<{
   const words = description ? description.split(' ') : []
 
   return (
-    <section className="pt-[37px] lg:pt-[108px] pb-[50px] lg:pb-[54px] bg-[#F4F1F2]">
+    <section className="pt-[51px] lg:pt-[108px] px-[15px] pb-[32px] lg:pb-[54px] bg-[#F4F1F2]">
       <div className="max-w-[1304px] mx-auto">
         <motion.div
           variants={containerVariants}
@@ -564,7 +564,7 @@ const CallToActionSection: React.FC<{
   buttonLink: string
 }> = ({ title, description, buttonText, buttonLink }) => {
   return (
-    <section className="pt-[40px] pb-[35px] lg:py-[120px] bg-white">
+    <section className="pt-[48px] pb-[54px] lg:py-[120px] bg-white">
       <div className="max-w-7xl mx-auto px-[15px]">
         <motion.div
           variants={containerVariants}
@@ -623,7 +623,7 @@ const CallToActionSection: React.FC<{
                 {description.split('\n\n').map((paragraph, index) => (
                   <p
                     key={index}
-                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] md:max-w-[575px]"
+                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] lg:max-w-[575px]"
                   >
                     {paragraph.trim()}
                   </p>

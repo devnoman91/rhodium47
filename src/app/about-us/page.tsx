@@ -13,8 +13,7 @@ const criticalInlineStyles = `
     margin: 0 auto;
     padding-top: 138px;
     background: #F4F1F2;
-    padding-inline: calc(var(--spacing) * 12);
-    padding-bottom: 103px;
+    padding-inline: 15px;
   }
 
   /* Hero Section */
@@ -48,6 +47,12 @@ const criticalInlineStyles = `
  max-width: 855px;
  margin:auto;
   }
+
+  @media (max-width: 776px){
+  .consultation-container{
+  padding-top:120px;
+  }
+  }
 `
 
 // Hero Section Component
@@ -56,7 +61,7 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
   mainHeading,
 }) => {
   return (
-    <section className="relative pb-[106px]">
+    <section className="relative md:pb-[106px] pb-[43px]">
       <div className="max-w-[1200px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -64,10 +69,10 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h1 className="text-[64px] font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto mb-6 font-helvetica">
+          <h1 className="md:text-[64px] text-[34px] font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto md:mb-6 mb-[10px] font-helvetica">
              {sectionLabel}
           </h1>
-          <p className="text-[24px] font-medium text-[#111] leading-[150%] capitalize max-w-[855px] mx-auto mb-[14px] font-helvetica">
+          <p className="md:text-[24px] text-[16px] font-medium text-[#111] leading-[150%] capitalize max-w-[855px] mx-auto mb-[14px] font-helvetica">
            {mainHeading}
           </p>
           
@@ -107,14 +112,14 @@ const ForeverStartsNowSection: React.FC<{
 
   return (
     <section className=" pb-[54px]">
-      <div className="max-w-[1304px] mx-auto px-6">
+      <div className="max-w-[1304px] mx-auto md:px-6">
         {/* Top Section - with word animation */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6, staggerChildren: 0.2 }}
-          className="mb-20 lg:mb-[79px]"
+          className="mb-[20px] lg:mb-[79px]"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 xl:gap-20">
             {/* Left Logo + Progress */}
@@ -122,7 +127,7 @@ const ForeverStartsNowSection: React.FC<{
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="hidden lg:flex lg:col-span-2 xl:col-span-2 flex-col justify-between items-center lg:items-start"
+              className="hidden md:flex lg:col-span-2 xl:col-span-2 flex-col justify-between items-center lg:items-start"
             >
               {/* Sunburst Logo */}
               <div className="relative mb-8 w-20 h-20 lg:w-20 lg:h-20 xl:w-25 xl:h-25 mx-auto flex items-center justify-center">
@@ -163,7 +168,7 @@ const ForeverStartsNowSection: React.FC<{
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="col-span-1 md:ml-50 lg:ml-50 xl:ml-50 lg:col-span-10 xl:col-span-10"
+              className="col-span-1 lg:ml-50 xl:ml-50 lg:col-span-10 xl:col-span-10"
             >
               <motion.div
                 className="h-[1px] w-full bg-[#777] rounded-full mb-3"
@@ -251,7 +256,7 @@ const ForeverStartsNowSection: React.FC<{
               </div>
 
               {/* Product Info */}
-              <div className="w-full max-w-[433px] flex items-center">
+              <div className="w-full lg:max-w-[433px] flex items-center">
                 <motion.div
                   key={`info-${currentSlide}`}
                   initial={{ opacity: 0, x: 20 }}
@@ -364,9 +369,9 @@ const ForeverSection: React.FC<{
   }, [currentIndex, totalSlides])
 
   return (
-    <section className="pt-[50px] lg:pt-[89px] pb-[80px] lg:pb-[102px] bg-black text-white overflow-hidden -mx-[calc(var(--spacing)*12)] md:px-0 px-[13px]" style={{ contain: 'layout style' }}>
+    <section className="pt-[50px] lg:pt-[89px] px-[15px] pb-[80px] lg:pb-[102px] bg-black text-white overflow-hidden " style={{ contain: 'layout style' }}>
       {/* Header Section - Constrained max-w-7xl */}
-      <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
+      <div className="max-w-[1304px] mx-auto lg:mb-[64px] mb-[20px]" style={{ contain: 'layout style' }}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -379,7 +384,7 @@ const ForeverSection: React.FC<{
               animate={{ opacity: 1, y: 0 }}
               className="lg:col-span-1"
             >
-              <h2 className="md:text-left text-center text-white font-medium md:text-[64px] text-[30px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
+              <h2 className="lg:text-left text-center text-white font-medium lg:text-[64px] text-[30px] leading-[110%] tracking-[-1.28px] font-helvetica m-0">
                 {title}
               </h2>
             </motion.div>
@@ -391,7 +396,7 @@ const ForeverSection: React.FC<{
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
               className="lg:col-span-1 flex items-center justify-end"
             >
-              <p className="text-white md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica md:max-w-[480px]">
+              <p className="text-white lg:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica lg:max-w-[480px]">
                 {description}
               </p>
             </motion.div>
@@ -407,7 +412,7 @@ const ForeverSection: React.FC<{
         className="relative"
       >
         {/* Left Padding for Content Alignment */}
-        <div className="pl-6 lg:pl-[calc((100vw-1280px)/2+-1rem)]">
+        <div className="md:pl-6 lg:pl-[calc((100vw-1280px)/2+-1rem)]">
           {/* Slider Container */}
           <div className="relative overflow-visible" ref={constraintsRef}>
             <motion.div
@@ -503,22 +508,22 @@ const CoreValuesSection: React.FC<{
   }>
 }> = ({ title, description, cards }) => {
   return (
-    <section className="pt-[77px] ">
+    <section className="md:pt-[77px] pt-[40px] px-[15px] pb-[63px] md:pb-[103]">
       <div className="max-w-[1304px] m-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-[54px] flex justify-between gap-[182px] "
+          className="md:mb-[54px] mb-[30px] flex md:flex-row flex-col justify-between lg:gap-[102px]  gap-[9px] "
         >
-          <h2 className="text-[64px] lg:text-[48px] font-[500] text-black mb-[16px]">{title}</h2>
-          <p className="text-[16px] lg:text-[18px] text-black max-w-[517px] ml-auto">
+          <h2 className="md:text-[64px] text-[30px] md:text-left text-center leading-[40px] lg:text-[48px] font-[500] text-black md:mb-[16px]">{title}</h2>
+          <p className="text-[16px] md:text-right text-center lg:text-[18px] text-black md:max-w-[517px] md:ml-auto">
             {description}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[32px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-[32px] gap-[41px]">
           {cards.map((card, index) => (
             <motion.div
               key={index}
@@ -560,22 +565,22 @@ const LeadershipTeamSection: React.FC<{
   }>
 }> = ({ title, description, cards }) => {
   return (
-    <section className="pt-[50px] pb-[70px] lg:pb-[117px] bg-[#111111]">
+    <section className="pt-[50px] pb-[70px] lg:pb-[117px] bg-[#111111] px-[15px]">
       <div className="max-w-[1304px] m-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-left mb-[228px] flex justify-between gap-[182px]"
+          className="text-left md:mb-[228px] mb-[165px]  flex md:flex-row flex-col  justify-between md:gap-[182px] gap-[32px]"
         >
-          <h2 className="text-[28px] lg:text-[48px] font-bold text-white mb-[16px]">{title}</h2>
-          <p className="text-[16px] lg:text-[18px] text-white max-w-[517px] ml-auto">
+          <h2 className="text-[28px] md:text-left text-center lg:text-[48px] font-bold text-white md:mb-[16px]">{title}</h2>
+          <p className="text-[16px] md:text-right text-center lg:text-[18px] text-white md:max-w-[517px] md:ml-auto">
             {description}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[32px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[32px] gap-y-[170px]">
           {cards.map((card, index) => (
             <motion.div
               key={index}
@@ -594,7 +599,7 @@ const LeadershipTeamSection: React.FC<{
                     className="object-cover !relative object-top z-10"
                   />
                 </div>
-                <div className='bg-[#111111] absolute top-5 right-0 left-0 h-[330px] w-full m-auto max-w-[365px] z-[1]'></div>
+                <div className='bg-[#111111] absolute top-5 right-0 left-0 h-[330px] w-[90%] m-auto  z-[1]'></div>
                 <div className="pt-[15px]">
                   <h3 className="text-[27px] text-center font-[700] leading-[1] text-black ">{card.Name}</h3>
                   <p className="text-[16px]  text-center font-[400] text-black ">{card.title}</p>
@@ -624,7 +629,7 @@ const ByTheNumbersSection: React.FC<{
   const words = description ? description.split(' ') : []
 
   return (
-    <section className="pt-[37px] lg:pt-[108px] pb-[50px] lg:pb-[54px] bg-[#F4F1F2] lg:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
+    <section className="pt-[63px] lg:pt-[108px] pb-[60px] lg:pb-[54px] px-[15px] bg-[#F4F1F2]">
       <div className="max-w-[1304px] mx-auto">
         <motion.div
           variants={containerVariants}
@@ -721,7 +726,7 @@ const CallToActionSection: React.FC<{
   buttonLink: string
 }> = ({ title, description, buttonText, buttonLink }) => {
   return (
-    <section className="pt-[40px] pb-[35px] lg:py-[120px] bg-white">
+    <section className="pt-[48px] pb-[54px] lg:py-[120px] bg-white">
       <div className="max-w-7xl mx-auto px-[15px]">
         <motion.div
           variants={containerVariants}
@@ -729,7 +734,7 @@ const CallToActionSection: React.FC<{
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-[71px] gap-[18px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[31px]">
             <motion.div variants={itemVariants} className="lg:col-span-1 flex flex-col gap-[24px]">
               <h1 className="text-[30px] md:text-[62px] not-italic tracking-normal md:leading-[68px] leading-[33px] font-medium font-helvetica mb-0 bg-clip-text text-transparent"
                 style={{
@@ -742,7 +747,7 @@ const CallToActionSection: React.FC<{
               </h1>
 
               {/* Desktop Button */}
-              <div className="lg:col-span-1 space-y-8 md:block hidden">
+              <div className="lg:col-span-1 space-y-8 lg:block hidden">
                 <motion.a
                   href={buttonLink}
                   initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -776,11 +781,11 @@ const CallToActionSection: React.FC<{
               className="lg:col-span-1"
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             >
-              <div className="space-y-5 flex flex-col justify-end items-end">
+              <div className="space-y-5 flex flex-col justify-end ld:items-end">
                 {description.split('\n\n').map((paragraph, index) => (
                   <p
                     key={index}
-                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] md:max-w-[575px]"
+                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] lg:max-w-[575px]"
                   >
                     {paragraph.trim()}
                   </p>
@@ -790,7 +795,7 @@ const CallToActionSection: React.FC<{
           </div>
 
           {/* Mobile Button - shown after description */}
-          <div className="mt-[14px] space-y-8 block md:hidden">
+          <div className="mt-[14px] space-y-8 block lg:hidden">
             <motion.a
               href={buttonLink}
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -885,7 +890,9 @@ export default function AboutUsPage() {
         />
       )}
 
-      {/* Forever Section Slider */}
+      
+    </div>
+    {/* Forever Section Slider */}
       {data.ForeversSection && (
         <ForeverSection
           title={data.ForeversSection.title}
@@ -902,7 +909,7 @@ export default function AboutUsPage() {
           cards={data.coreValuesSection.cards}
         />
       )}
-    </div>
+
       {/* Leadership Team Section */}
       {data.leadershipTeamSection && (
         <LeadershipTeamSection

@@ -288,10 +288,10 @@ export default function CompareClient({ products }: CompareClientProps) {
               <p className="text-black font-normal text-[16px] leading-[18px] tracking-[-0.48px] font-helvetica mb-[5px]">
                 {product.tagline}
               </p>
-              <p className="text-black font-normal text-[16px] leading-[18px] tracking-[-0.48px] font-helvetica mb-[20px]">
+              {/* <p className="text-black font-normal text-[16px] leading-[18px] tracking-[-0.48px] font-helvetica mb-[20px]">
                 Starts from ${product.price.toLocaleString()}<sup>1</sup>
                 {product.leasePrice && ` • Est. lease ${product.leasePrice.toLocaleString()}/mo`}
-              </p>
+              </p> */}
 
               {/* Action Buttons */}
               <div className="flex gap-2">

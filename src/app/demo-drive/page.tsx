@@ -75,7 +75,7 @@ const criticalInlineStyles = `
   }
   .inquiry-step-header {
     color: #000;
-    font-family: "Helvetica Neue";
+    // font-family: "Helvetica Neue";
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
@@ -109,7 +109,6 @@ const criticalInlineStyles = `
   }
   .inquiry-question-title {
     color: #000;
-    font-family: "Helvetica Neue";
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -156,7 +155,7 @@ const criticalInlineStyles = `
     flex-shrink: 0;
     color: #FFF;
     text-align: center;
-    font-family: "Helvetica Neue";
+    // font-family: "Helvetica Neue";
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -206,7 +205,7 @@ const criticalInlineStyles = `
     border: 1px solid #D7D7D7;
     color: #000;
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Helvetica Neue";
+    // font-family: "Helvetica Neue";
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -225,7 +224,7 @@ const criticalInlineStyles = `
     border: 1px solid #D7D7D7;
     color: #000;
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Helvetica Neue";
+    // font-family: "Helvetica Neue";
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -246,7 +245,7 @@ const criticalInlineStyles = `
     border: 1px solid #D7D7D7;
     color: #000;
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Helvetica Neue";
+    // font-family: "Helvetica Neue";
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -260,7 +259,7 @@ const criticalInlineStyles = `
  .inquiry-review-section, 
 .inquiry-review-section p {
     color: #000;
-    font-family: "Helvetica Neue";
+    // font-family: "Helvetica Neue";
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
@@ -285,6 +284,57 @@ const criticalInlineStyles = `
   }
   .inquiry-review-value {
     color: #111827;
+  }
+      .mobile-back{
+  display:none;
+  }
+ @media (max-width: 991px) {
+.inquiry-wizard-container {
+    padding: 54px 15px;
+    padding-top: 120px;
+}
+}
+  @media (max-width: 767px) {
+  .inquiry-form-row{flex-direction:column;}
+  .inquiry-next-button{margin:auto;}
+  .mobile-back{
+  display:block;
+  }
+  .desktop-back{
+  display:none;
+  }
+  .inquiry-question-title{
+  text-align:center;
+  }
+    .inquiry-hero-content {
+         position: absolute;
+        left: 15px;
+        right: 15px;
+        top: 110px;
+        bottom: 0;
+        transform: unset;
+        color: white;
+        max-width: 100%;
+        height: 75%;
+        z-index: 10;
+        contain: layout style;
+     }
+        .inquiry-wizard-container{
+        display:flex;
+        flex-direction:column;
+        }
+        .inquiry-form-panel {
+            padding:30px 0 0 0;
+        }
+
+        .inquiry-form-content {
+            max-width: 100%;
+        }
+            .inquiry-back-button {
+              font-size: 16px;
+              font-weight: 400;
+              margin-bottom: 20px;
+          }
   }
 `
 
@@ -707,12 +757,13 @@ export default function InquiryPage() {
             )}
 
             {/* Hero Content */}
-            <div className="inquiry-hero-content">
+            <div className="inquiry-hero-content   md:block flex flex-col justify-between items-center md:text-left text-center">
               {currentInquiry.heroSection?.name && (
                 <h1 className="inquiry-hero-title">
                   {currentInquiry.heroSection.name}
                 </h1>
               )}
+              <div>
               {currentInquiry.heroSection?.title && (
                 <p className="inquiry-hero-subtitle">
                   {currentInquiry.heroSection.title}
@@ -723,7 +774,7 @@ export default function InquiryPage() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                className="relative overflow-hidden flex items-center gap-[12px] px-6 py-3 rounded-full
+                className="md:m-0 m-auto relative overflow-hidden flex items-center gap-[12px] px-6 py-3 rounded-full
                            bg-white text-black font-helvetica font-medium text-[20px] leading-[24px]
                            border border-transparent cursor-pointer group
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
@@ -748,16 +799,28 @@ export default function InquiryPage() {
                   Get Started
                 </span>
               </motion.button>
+              </div>
             </div>
+            
           </motion.div>
+          
         ) : (
           <motion.div
             key="wizard"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="inquiry-wizard-container"
+            className="inquiry-wizard-container font-helvetica"
           >
+          <div className="inquiry-step-header mobile-back">
+              <button
+                type="button"
+                className="inquiry-back-button"
+                onClick={handleBack}
+              >
+                Back
+              </button>
+            </div>
             {/* Image Panel */}
             <div className="inquiry-image-panel">
               {currentStepData?.image && (
@@ -774,7 +837,7 @@ export default function InquiryPage() {
               {/* Form Content */}
               <div className="inquiry-form-content">
                 {/* Header */}
-                <div className="inquiry-step-header">
+                <div className="inquiry-step-header desktop-back">
                   <button
                     type="button"
                     className="inquiry-back-button"
@@ -819,7 +882,7 @@ export default function InquiryPage() {
       type="button"
       onClick={handleNext}
       disabled={!isStepValid() || isSubmitting}
-      className="relative overflow-hidden flex items-center gap-[8px] px-6 py-3 rounded-full
+      className="md:m-0 m-auto relative overflow-hidden flex items-center gap-[8px] px-6 py-3 rounded-full
                  bg-black text-white font-helvetica font-medium text-[16px]
                  border border-transparent cursor-pointer group inquiry-next-button
                  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black

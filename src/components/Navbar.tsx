@@ -53,7 +53,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed left-0 right-0 z-50 md:px-12 px-5 py-4 font-helvetica transition-all duration-600 ${
+      className={`fixed left-0 right-0 z-50 lg:px-12 md:px-4 px-5 py-4 font-helvetica transition-all duration-600 ${
         shouldBeTransparent
           ? isScrolled
             ? 'top-0 bg-[#000]'
@@ -80,7 +80,7 @@ export default function Navbar() {
 
         {/* Links + CTA */}
         <div className="flex items-center justify-end space-x-8">
-          <div className="hidden md:flex items-center space-x-8 gap-[20px]">
+          <div className="hidden md:flex items-center space-x-8 lg:gap-[20px] gap-[10px]">
             {navbarData.links.map((link) => (
               <Link
                 key={link.href}

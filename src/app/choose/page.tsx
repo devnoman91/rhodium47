@@ -59,7 +59,7 @@ const criticalInlineStyles = `
     display: flex;
     height: 100vh;
     background: #F4F1F2;
-    padding: 40px;
+    padding: 40px 54px;
     padding-top: 120px;
   }
   .survey-image-panel {
@@ -84,7 +84,7 @@ const criticalInlineStyles = `
     line-height: 110%; 
     letter-spacing: -0.24px;
     text-decoration-line: underline;
-    margin-bottom:40px;
+    // margin-bottom:40px;
   }
   .survey-step-line-segment {
     position: absolute;
@@ -487,6 +487,69 @@ const criticalInlineStyles = `
   .product-nav-arrow.right {
     right: 20px;
   }
+    .mobile-back{
+    display:none;
+    }
+  @media (max-width: 991px){
+    .product-showcase-container,
+    .survey-wizard-container {
+    padding: 54px 15px;
+    padding-top:110px;
+    }
+
+    }
+      @media (max-width: 767px){
+      .survey-hero-content {
+        position: absolute;
+        left: 15px;
+        right: 15px;
+        top: 110px;
+        bottom: 0;
+        transform: unset;
+        color: white;
+        max-width: 100%;
+        height: 75%;
+        z-index: 10;
+        contain: layout style;
+    }
+          .survey-wizard-container {
+        height: auto;
+        flex-direction: column;
+    }
+        .survey-form-content {
+        max-width:100%;
+    }
+        .survey-form-panel {
+        padding: 30px 0 0 0;
+    }
+        .survey-back-button {
+        font-size: 16px;
+        font-weight: 400;
+    }
+    .mobile-back{
+    display:block;
+
+    }
+    .desktop-back{
+    display:none;
+    }
+    .survey-back-button {margin-bottom:20px;}
+     .survey-question-title {
+     text-align:center;
+     }
+     .survey-next-button {
+     margin:auto;
+     }
+     .product-card{
+     flex-direction:column;
+     }
+     .product-info-section {
+    padding: 40px 0 0 0;
+    }
+    .info_inner_content {
+    max-width: 100%;
+    }
+  }
 `
 
 interface Step {
@@ -880,7 +943,7 @@ export default function SurveyPage() {
                     {/* Product Info - Simplified */}
                     <div className="product-info-section">
                       <div className="info_inner_content">
-                          <div className="survey-step-header">
+                          <div className="survey-step-header md:block hidden">
                               <a 
                                 href="/inventory"
                                 className="survey-back-button"
@@ -1003,12 +1066,13 @@ export default function SurveyPage() {
             )}
 
             {/* Hero Content */}
-            <div className="survey-hero-content">
+            <div className="survey-hero-content md:block flex flex-col justify-between items-center md:text-left text-center ">
               {currentSurvey.heroSection?.name && (
                 <h1 className="survey-hero-title">
                   {currentSurvey.heroSection.name}
                 </h1>
               )}
+              <div>
               {currentSurvey.heroSection?.title && (
                 <p className="survey-hero-subtitle">
                   {currentSurvey.heroSection.title}
@@ -1019,7 +1083,7 @@ export default function SurveyPage() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                className="relative overflow-hidden flex items-center gap-[12px] px-6 py-3 rounded-full
+                className="md:m-0 m-auto relative overflow-hidden flex items-center gap-[12px] px-6 py-3 rounded-full
                            bg-white text-black font-helvetica font-medium text-[20px] leading-[24px]
                            border border-transparent cursor-pointer group
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
@@ -1044,6 +1108,7 @@ export default function SurveyPage() {
                   Get Started
                 </span>
               </motion.button>
+              </div>
             </div>
           </motion.div>
         ) : (
@@ -1054,6 +1119,17 @@ export default function SurveyPage() {
             transition={{ duration: 0.5 }}
             className="survey-wizard-container"
           >
+            
+            <div className="survey-step-header mobile-back">
+                <button
+                  type="button"
+                  className="survey-back-button"
+                  onClick={handleBack}
+                >
+                  Back
+                </button>
+            </div>
+
             {/* Image Panel */}
             <div className="survey-image-panel">
               {currentStepData?.image && (
@@ -1070,7 +1146,7 @@ export default function SurveyPage() {
               {/* Form Content */}
               <div className="survey-form-content">
                 {/* Header */}
-                <div className="survey-step-header">
+                <div className="survey-step-header desktop-back">
                   <button
                     type="button"
                     className="survey-back-button"
@@ -1099,7 +1175,7 @@ export default function SurveyPage() {
                       exit={{ opacity: 0, x: -20 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <h2 className="survey-question-title text-black">
+                      <h2 className="survey-question-title md:text-left text-center text-black">
                         {currentStepData.question}
                       </h2>
 
@@ -1114,7 +1190,7 @@ export default function SurveyPage() {
       type="button"
       onClick={handleNext}
       disabled={!isStepValid() || isSubmitting}
-      className="relative overflow-hidden flex items-center gap-[8px] px-6 py-3 rounded-full
+      className="md:m-0 m-auto relative overflow-hidden flex items-center gap-[8px] px-6 py-3 rounded-full
                  bg-black text-white font-helvetica font-medium text-[16px]
                  border border-transparent cursor-pointer group
                  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black

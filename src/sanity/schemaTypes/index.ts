@@ -3,6 +3,7 @@ import { type SchemaTypeDefinition } from 'sanity'
 // Global Components
 import navbar from './navbar'
 import footer from './footer'
+import announcementBar from './announcementBar'
 
 // Home Page Sections
 import video from './video'
@@ -57,6 +58,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     // Global Components
     navbar,
     footer,
+    announcementBar,
 
     // Home Page Sections
     video,

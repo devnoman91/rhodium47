@@ -1002,6 +1002,38 @@ export const getNavbar = async () => {
   return await client.fetch(navbarQuery)
 }
 
+export const announcementBarQuery = `
+  *[_type == "announcementBar"][0] {
+    _id,
+    enabled,
+    backgroundColor,
+    textColor,
+    autoSlideInterval,
+    announcements[] | order(order asc) {
+      icon {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      text,
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      order
+    }
+  }
+`
+
+export const getAnnouncementBar = async () => {
+  return await client.fetch(announcementBarQuery)
+}
+
 export const footerQuery = `
   *[_type == "footer"][0] {
     _id,

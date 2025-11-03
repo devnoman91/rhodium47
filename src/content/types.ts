@@ -467,6 +467,34 @@ export interface Navbar {
   ctaButton: NavbarCTA
 }
 
+export interface AnnouncementItem {
+  icon?: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  text: string
+  image?: {
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }
+  order: number
+}
+
+export interface AnnouncementBar {
+  _id: string
+  enabled: boolean
+  backgroundColor?: string
+  textColor?: string
+  autoSlideInterval: number
+  announcements: AnnouncementItem[]
+}
+
 export interface FooterLink {
   label: string
   href: string

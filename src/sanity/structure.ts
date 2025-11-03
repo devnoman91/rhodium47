@@ -12,6 +12,7 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .title('Global Components')
             .items([
+              S.documentTypeListItem('announcementBar').title('Announcement Bar'),
               S.documentTypeListItem('navbar').title('Navigation Bar'),
               S.documentTypeListItem('footer').title('Footer'),
             ])

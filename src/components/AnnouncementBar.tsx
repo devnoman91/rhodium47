@@ -163,27 +163,6 @@ export default function AnnouncementBar() {
           </div>
         </div>
       </div>
-
-      {/* Pagination Dots - Only show if more than 6 announcements */}
-      {announcements.length > ITEMS_TO_SHOW && (
-        <div className="absolute bottom-0.5 left-1/2 transform -translate-x-1/2 flex gap-1">
-          {Array.from({ length: announcements.length }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setIsTransitioning(true)
-                setCurrentStartIndex(index)
-              }}
-              className="w-1 h-1 rounded-full transition-all duration-300"
-              style={{
-                backgroundColor: currentStartIndex === index ? textColor : `${textColor}40`,
-                opacity: currentStartIndex === index ? 1 : 0.4,
-              }}
-              aria-label={`Go to announcement ${index + 1}`}
-            />
-          ))}
-        </div>
-      )}
     </div>
   )
 }

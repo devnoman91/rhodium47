@@ -17,10 +17,12 @@ const getAnnouncementBar = async () => {
 
 export default function AnnouncementBar() {
   const [announcementData, setAnnouncementData] = useState<AnnouncementBarType | null>(null)
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentStartIndex, setCurrentStartIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  const ITEMS_TO_SHOW = 6 // Show 6 announcements at a time
 
   useEffect(() => {
     const fetchAnnouncementData = async () => {
@@ -39,13 +41,14 @@ export default function AnnouncementBar() {
   }, [])
 
   useEffect(() => {
-    if (!announcementData || !announcementData.enabled || !announcementData.announcements || announcementData.announcements.length <= 1) {
+    // Only auto-scroll if there are more than 6 announcements
+    if (!announcementData || !announcementData.enabled || !announcementData.announcements || announcementData.announcements.length <= ITEMS_TO_SHOW) {
       return
     }
 
     if (!isPaused) {
       intervalRef.current = setInterval(() => {
-        setCurrentIndex((prevIndex) =>
+        setCurrentStartIndex((prevIndex) =>
           (prevIndex + 1) % announcementData.announcements.length
         )
       }, (announcementData.autoSlideInterval || 3) * 1000)
@@ -56,7 +59,7 @@ export default function AnnouncementBar() {
         clearInterval(intervalRef.current)
       }
     }
-  }, [announcementData, isPaused])
+  }, [announcementData, isPaused, ITEMS_TO_SHOW])
 
   // Don't render while loading or if no data
   if (isLoading) {
@@ -70,12 +73,23 @@ export default function AnnouncementBar() {
 
   const backgroundColor = announcementData.backgroundColor || '#000000'
   const textColor = announcementData.textColor || '#FFFFFF'
-  const currentAnnouncement = announcementData.announcements[currentIndex]
+  const announcements = announcementData.announcements
 
-  // Safety check for current announcement
-  if (!currentAnnouncement) {
-    return null
+  // Get visible announcements (6 at a time)
+  const getVisibleAnnouncements = () => {
+    if (announcements.length <= ITEMS_TO_SHOW) {
+      return announcements
+    }
+
+    const visible = []
+    for (let i = 0; i < ITEMS_TO_SHOW; i++) {
+      const index = (currentStartIndex + i) % announcements.length
+      visible.push(announcements[index])
+    }
+    return visible
   }
+
+  const visibleAnnouncements = getVisibleAnnouncements()
 
   return (
     <div
@@ -85,44 +99,64 @@ export default function AnnouncementBar() {
       onMouseLeave={() => setIsPaused(false)}
     >
       <div className="max-w-7xl mx-auto px-4">
-        <div
-          key={currentIndex}
-          className="flex items-center justify-center gap-3 transition-opacity duration-500"
-        >
-          {currentAnnouncement.icon && (
-            <div className="w-6 h-6 relative flex-shrink-0">
-              <Image
-                src={currentAnnouncement.icon.asset.url}
-                alt={currentAnnouncement.icon.alt || ''}
-                fill
-                sizes="24px"
-                className="object-contain"
-              />
-            </div>
-          )}
+        <div className="flex items-center justify-center gap-8 flex-wrap">
+          {visibleAnnouncements.map((announcement, idx) => (
+            <div
+              key={`${currentStartIndex}-${idx}`}
+              className="flex items-center gap-2 transition-all duration-500"
+            >
+              {announcement.icon && (
+                <div className="w-5 h-5 relative flex-shrink-0">
+                  <Image
+                    src={announcement.icon.asset.url}
+                    alt={announcement.icon.alt || ''}
+                    fill
+                    sizes="20px"
+                    className="object-contain"
+                  />
+                </div>
+              )}
 
-          <p
-            className="text-sm md:text-base font-medium tracking-wide uppercase"
-            style={{ color: textColor }}
-          >
-            {currentAnnouncement.text}
-          </p>
+              <p
+                className="text-xs md:text-sm font-medium tracking-wide uppercase whitespace-nowrap"
+                style={{ color: textColor }}
+              >
+                {announcement.text}
+              </p>
 
-          {currentAnnouncement.image && (
-            <div className="w-6 h-6 relative flex-shrink-0">
-              <Image
-                src={currentAnnouncement.image.asset.url}
-                alt={currentAnnouncement.image.alt || ''}
-                fill
-                sizes="24px"
-                className="object-contain"
-              />
+              {announcement.image && (
+                <div className="w-5 h-5 relative flex-shrink-0">
+                  <Image
+                    src={announcement.image.asset.url}
+                    alt={announcement.image.alt || ''}
+                    fill
+                    sizes="20px"
+                    className="object-contain"
+                  />
+                </div>
+              )}
             </div>
-          )}
+          ))}
         </div>
       </div>
 
-  
+      {/* Pagination Dots - Only show if more than 6 announcements */}
+      {announcements.length > ITEMS_TO_SHOW && (
+        <div className="absolute bottom-0.5 left-1/2 transform -translate-x-1/2 flex gap-1">
+          {Array.from({ length: Math.ceil(announcements.length / ITEMS_TO_SHOW) }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentStartIndex(index * ITEMS_TO_SHOW)}
+              className="w-1 h-1 rounded-full transition-all duration-300"
+              style={{
+                backgroundColor: Math.floor(currentStartIndex / ITEMS_TO_SHOW) === index ? textColor : `${textColor}40`,
+                opacity: Math.floor(currentStartIndex / ITEMS_TO_SHOW) === index ? 1 : 0.4,
+              }}
+              aria-label={`Go to group ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

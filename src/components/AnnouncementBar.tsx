@@ -20,6 +20,7 @@ export default function AnnouncementBar() {
   const [currentStartIndex, setCurrentStartIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [isTransitioning, setIsTransitioning] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   const ITEMS_TO_SHOW = 6 // Show 6 announcements at a time
@@ -48,6 +49,7 @@ export default function AnnouncementBar() {
 
     if (!isPaused) {
       intervalRef.current = setInterval(() => {
+        setIsTransitioning(true)
         setCurrentStartIndex((prevIndex) =>
           (prevIndex + 1) % announcementData.announcements.length
         )
@@ -60,6 +62,15 @@ export default function AnnouncementBar() {
       }
     }
   }, [announcementData, isPaused, ITEMS_TO_SHOW])
+
+  useEffect(() => {
+    if (isTransitioning) {
+      const timer = setTimeout(() => {
+        setIsTransitioning(false)
+      }, 500) // Match transition duration
+      return () => clearTimeout(timer)
+    }
+  }, [isTransitioning])
 
   // Don't render while loading or if no data
   if (isLoading) {
@@ -75,16 +86,17 @@ export default function AnnouncementBar() {
   const textColor = announcementData.textColor || '#FFFFFF'
   const announcements = announcementData.announcements
 
-  // Get visible announcements (6 at a time)
+  // Get visible announcements (6 at a time) + duplicates for seamless loop
   const getVisibleAnnouncements = () => {
     if (announcements.length <= ITEMS_TO_SHOW) {
       return announcements
     }
 
     const visible = []
-    for (let i = 0; i < ITEMS_TO_SHOW; i++) {
+    // Add 2 extra sets for seamless infinite loop effect
+    for (let i = 0; i < ITEMS_TO_SHOW + 2; i++) {
       const index = (currentStartIndex + i) % announcements.length
-      visible.push(announcements[index])
+      visible.push({ ...announcements[index], key: `${currentStartIndex}-${i}` })
     }
     return visible
   }
@@ -99,60 +111,75 @@ export default function AnnouncementBar() {
       onMouseLeave={() => setIsPaused(false)}
     >
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-center gap-8 flex-wrap">
-          {visibleAnnouncements.map((announcement, idx) => (
-            <div
-              key={`${currentStartIndex}-${idx}`}
-              className="flex items-center gap-2 transition-all duration-500"
-            >
-              {announcement.icon && (
-                <div className="w-5 h-5 relative flex-shrink-0">
-                  <Image
-                    src={announcement.icon.asset.url}
-                    alt={announcement.icon.alt || ''}
-                    fill
-                    sizes="20px"
-                    className="object-contain"
-                  />
-                </div>
-              )}
-
-              <p
-                className="text-xs md:text-sm font-medium tracking-wide uppercase whitespace-nowrap"
-                style={{ color: textColor }}
+        <div className="relative overflow-hidden">
+          <div
+            className={`flex items-center justify-start gap-8 ${isTransitioning ? 'transition-transform duration-500 ease-in-out' : ''}`}
+            style={{
+              transform: announcements.length > ITEMS_TO_SHOW ? 'translateX(0)' : 'none',
+            }}
+          >
+            {visibleAnnouncements.map((announcement, idx) => (
+              <div
+                key={announcement.key || `${currentStartIndex}-${idx}`}
+                className="flex items-center gap-2 flex-shrink-0"
+                style={{
+                  minWidth: `${100 / ITEMS_TO_SHOW}%`,
+                  opacity: idx >= ITEMS_TO_SHOW ? 0 : 1,
+                  transition: 'opacity 0.5s ease-in-out'
+                }}
               >
-                {announcement.text}
-              </p>
+                {announcement.icon && (
+                  <div className="w-5 h-5 relative flex-shrink-0 mx-auto">
+                    <Image
+                      src={announcement.icon.asset.url}
+                      alt={announcement.icon.alt || ''}
+                      fill
+                      sizes="20px"
+                      className="object-contain"
+                    />
+                  </div>
+                )}
 
-              {announcement.image && (
-                <div className="w-5 h-5 relative flex-shrink-0">
-                  <Image
-                    src={announcement.image.asset.url}
-                    alt={announcement.image.alt || ''}
-                    fill
-                    sizes="20px"
-                    className="object-contain"
-                  />
-                </div>
-              )}
-            </div>
-          ))}
+                <p
+                  className="text-xs md:text-sm font-medium tracking-wide uppercase whitespace-nowrap text-center flex-1"
+                  style={{ color: textColor }}
+                >
+                  {announcement.text}
+                </p>
+
+                {announcement.image && (
+                  <div className="w-5 h-5 relative flex-shrink-0 mx-auto">
+                    <Image
+                      src={announcement.image.asset.url}
+                      alt={announcement.image.alt || ''}
+                      fill
+                      sizes="20px"
+                      className="object-contain"
+                    />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Pagination Dots - Only show if more than 6 announcements */}
       {announcements.length > ITEMS_TO_SHOW && (
         <div className="absolute bottom-0.5 left-1/2 transform -translate-x-1/2 flex gap-1">
-          {Array.from({ length: Math.ceil(announcements.length / ITEMS_TO_SHOW) }).map((_, index) => (
+          {Array.from({ length: announcements.length }).map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentStartIndex(index * ITEMS_TO_SHOW)}
+              onClick={() => {
+                setIsTransitioning(true)
+                setCurrentStartIndex(index)
+              }}
               className="w-1 h-1 rounded-full transition-all duration-300"
               style={{
-                backgroundColor: Math.floor(currentStartIndex / ITEMS_TO_SHOW) === index ? textColor : `${textColor}40`,
-                opacity: Math.floor(currentStartIndex / ITEMS_TO_SHOW) === index ? 1 : 0.4,
+                backgroundColor: currentStartIndex === index ? textColor : `${textColor}40`,
+                opacity: currentStartIndex === index ? 1 : 0.4,
               }}
-              aria-label={`Go to group ${index + 1}`}
+              aria-label={`Go to announcement ${index + 1}`}
             />
           ))}
         </div>

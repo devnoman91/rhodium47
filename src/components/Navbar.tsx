@@ -37,7 +37,7 @@ export default function Navbar() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY
       const viewportHeight = window.innerHeight
-      setIsScrolled(scrollPosition > viewportHeight * 0.1)
+      setIsScrolled(scrollPosition > viewportHeight * 0)
     }
 
     window.addEventListener('scroll', handleScroll)

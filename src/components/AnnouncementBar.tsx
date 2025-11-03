@@ -17,11 +17,8 @@ const getAnnouncementBar = async () => {
 
 export default function AnnouncementBar() {
   const [announcementData, setAnnouncementData] = useState<AnnouncementBarType | null>(null)
-  const [currentStartIndex, setCurrentStartIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   const ITEMS_TO_SHOW = 6 // Show 6 announcements at a time
 
@@ -41,37 +38,6 @@ export default function AnnouncementBar() {
     fetchAnnouncementData()
   }, [])
 
-  useEffect(() => {
-    // Only auto-scroll if there are more than 6 announcements
-    if (!announcementData || !announcementData.enabled || !announcementData.announcements || announcementData.announcements.length <= ITEMS_TO_SHOW) {
-      return
-    }
-
-    if (!isPaused) {
-      intervalRef.current = setInterval(() => {
-        setIsTransitioning(true)
-        setCurrentStartIndex((prevIndex) =>
-          (prevIndex + 1) % announcementData.announcements.length
-        )
-      }, (announcementData.autoSlideInterval || 3) * 1000)
-    }
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
-      }
-    }
-  }, [announcementData, isPaused, ITEMS_TO_SHOW])
-
-  useEffect(() => {
-    if (isTransitioning) {
-      const timer = setTimeout(() => {
-        setIsTransitioning(false)
-      }, 500) // Match transition duration
-      return () => clearTimeout(timer)
-    }
-  }, [isTransitioning])
-
   // Don't render while loading or if no data
   if (isLoading) {
     return null
@@ -86,53 +52,56 @@ export default function AnnouncementBar() {
   const textColor = announcementData.textColor || '#FFFFFF'
   const announcements = announcementData.announcements
 
-  // Get visible announcements (6 at a time) + duplicates for seamless loop
-  const getVisibleAnnouncements = () => {
-    if (announcements.length <= ITEMS_TO_SHOW) {
-      return announcements.map((ann, i) => ({ announcement: ann, uniqueKey: `${currentStartIndex}-${i}` }))
-    }
+  // Calculate animation duration based on number of items (slower for more items)
+  const animationDuration = announcements.length * (announcementData.autoSlideInterval || 3)
 
-    const visible = []
-    // Add 2 extra sets for seamless infinite loop effect
-    for (let i = 0; i < ITEMS_TO_SHOW + 2; i++) {
-      const index = (currentStartIndex + i) % announcements.length
-      visible.push({ announcement: announcements[index], uniqueKey: `${currentStartIndex}-${i}` })
-    }
-    return visible
-  }
-
-  const visibleAnnouncements = getVisibleAnnouncements()
+  // Duplicate announcements for seamless infinite loop
+  const duplicatedAnnouncements = [...announcements, ...announcements]
 
   return (
     <div
       className="w-full py-3 overflow-hidden relative"
       style={{ backgroundColor }}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
     >
+      <style jsx>{`
+        @keyframes slideLeft {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        .slider-track {
+          animation: slideLeft ${animationDuration}s linear infinite;
+        }
+
+        .slider-track.paused {
+          animation-play-state: paused;
+        }
+      `}</style>
+
       <div className="max-w-7xl mx-auto px-4">
         <div className="relative overflow-hidden">
           <div
-            className={`flex items-center justify-start gap-8 ${isTransitioning ? 'transition-transform duration-500 ease-in-out' : ''}`}
-            style={{
-              transform: announcements.length > ITEMS_TO_SHOW ? 'translateX(0)' : 'none',
-            }}
+            className={`slider-track flex items-center gap-8 ${isPaused ? 'paused' : ''}`}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
           >
-            {visibleAnnouncements.map((item, idx) => (
+            {duplicatedAnnouncements.map((announcement, idx) => (
               <div
-                key={item.uniqueKey}
+                key={`announcement-${idx}`}
                 className="flex items-center gap-2 flex-shrink-0"
                 style={{
                   minWidth: `${100 / ITEMS_TO_SHOW}%`,
-                  opacity: idx >= ITEMS_TO_SHOW ? 0 : 1,
-                  transition: 'opacity 0.5s ease-in-out'
                 }}
               >
-                {item.announcement.icon && (
+                {announcement.icon && (
                   <div className="w-5 h-5 relative flex-shrink-0 mx-auto">
                     <Image
-                      src={item.announcement.icon.asset.url}
-                      alt={item.announcement.icon.alt || ''}
+                      src={announcement.icon.asset.url}
+                      alt={announcement.icon.alt || ''}
                       fill
                       sizes="20px"
                       className="object-contain"
@@ -144,14 +113,14 @@ export default function AnnouncementBar() {
                   className="text-xs md:text-sm font-medium tracking-wide uppercase whitespace-nowrap text-center flex-1"
                   style={{ color: textColor }}
                 >
-                  {item.announcement.text}
+                  {announcement.text}
                 </p>
 
-                {item.announcement.image && (
+                {announcement.image && (
                   <div className="w-5 h-5 relative flex-shrink-0 mx-auto">
                     <Image
-                      src={item.announcement.image.asset.url}
-                      alt={item.announcement.image.alt || ''}
+                      src={announcement.image.asset.url}
+                      alt={announcement.image.alt || ''}
                       fill
                       sizes="20px"
                       className="object-contain"

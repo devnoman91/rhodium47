@@ -2,11 +2,13 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { motion } from "framer-motion"
 import { getNavbar } from '@/content/queries'
 import { Navbar as NavbarType } from '@/content/types'
+import AnnouncementBar from './AnnouncementBar'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -52,6 +54,8 @@ export default function Navbar() {
   }
 
   return (
+    <>
+        <AnnouncementBar />
     <nav
       className={`fixed left-0 right-0 z-50 lg:px-12 md:px-4 px-5 py-4 font-helvetica transition-all duration-600 ${
         shouldBeTransparent
@@ -165,5 +169,6 @@ export default function Navbar() {
         </div>
       )}
     </nav>
+    </>
   )
 }

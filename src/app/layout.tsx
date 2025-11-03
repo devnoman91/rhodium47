@@ -94,7 +94,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${helveticaNeue.variable}`}
         suppressHydrationWarning
       >
-        <AnnouncementBar />
+    
         <Navbar />
          {children}
         <Footer />

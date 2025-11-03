@@ -89,14 +89,14 @@ export default function AnnouncementBar() {
   // Get visible announcements (6 at a time) + duplicates for seamless loop
   const getVisibleAnnouncements = () => {
     if (announcements.length <= ITEMS_TO_SHOW) {
-      return announcements
+      return announcements.map((ann, i) => ({ announcement: ann, uniqueKey: `${currentStartIndex}-${i}` }))
     }
 
     const visible = []
     // Add 2 extra sets for seamless infinite loop effect
     for (let i = 0; i < ITEMS_TO_SHOW + 2; i++) {
       const index = (currentStartIndex + i) % announcements.length
-      visible.push({ ...announcements[index], key: `${currentStartIndex}-${i}` })
+      visible.push({ announcement: announcements[index], uniqueKey: `${currentStartIndex}-${i}` })
     }
     return visible
   }
@@ -118,9 +118,9 @@ export default function AnnouncementBar() {
               transform: announcements.length > ITEMS_TO_SHOW ? 'translateX(0)' : 'none',
             }}
           >
-            {visibleAnnouncements.map((announcement, idx) => (
+            {visibleAnnouncements.map((item, idx) => (
               <div
-                key={announcement.key || `${currentStartIndex}-${idx}`}
+                key={item.uniqueKey}
                 className="flex items-center gap-2 flex-shrink-0"
                 style={{
                   minWidth: `${100 / ITEMS_TO_SHOW}%`,
@@ -128,11 +128,11 @@ export default function AnnouncementBar() {
                   transition: 'opacity 0.5s ease-in-out'
                 }}
               >
-                {announcement.icon && (
+                {item.announcement.icon && (
                   <div className="w-5 h-5 relative flex-shrink-0 mx-auto">
                     <Image
-                      src={announcement.icon.asset.url}
-                      alt={announcement.icon.alt || ''}
+                      src={item.announcement.icon.asset.url}
+                      alt={item.announcement.icon.alt || ''}
                       fill
                       sizes="20px"
                       className="object-contain"
@@ -144,14 +144,14 @@ export default function AnnouncementBar() {
                   className="text-xs md:text-sm font-medium tracking-wide uppercase whitespace-nowrap text-center flex-1"
                   style={{ color: textColor }}
                 >
-                  {announcement.text}
+                  {item.announcement.text}
                 </p>
 
-                {announcement.image && (
+                {item.announcement.image && (
                   <div className="w-5 h-5 relative flex-shrink-0 mx-auto">
                     <Image
-                      src={announcement.image.asset.url}
-                      alt={announcement.image.alt || ''}
+                      src={item.announcement.image.asset.url}
+                      alt={item.announcement.image.alt || ''}
                       fill
                       sizes="20px"
                       className="object-contain"

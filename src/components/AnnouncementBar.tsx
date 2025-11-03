@@ -82,7 +82,7 @@ export default function AnnouncementBar() {
         }
       `}</style>
 
-      <div className="max-w-7xl mx-auto px-4">
+      <div className=" px-4">
         <div className="relative overflow-hidden">
           <div
             className={`slider-track flex items-center gap-8 ${isPaused ? 'paused' : ''}`}

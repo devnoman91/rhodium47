@@ -607,7 +607,7 @@ export default function XodiumArmorPage() {
                       ease: [0.4, 0, 0.2, 1],
                     }}
                     className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
-                               border border-black bg-black text-white font-helvetica
+                               border border-black bg-[#560100] text-white font-helvetica
                                text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -659,7 +659,7 @@ export default function XodiumArmorPage() {
                   ease: [0.4, 0, 0.2, 1],
                 }}
                 className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
-                           border border-black bg-black text-white font-helvetica
+                           border border-black bg-[#560100] text-white font-helvetica
                            text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}

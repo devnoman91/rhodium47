@@ -368,7 +368,7 @@ export default function InventoryClient({
 
                   {/* Button text */}
                   <span className={`relative z-10 transition-colors duration-500 ease-in-out
-                    ${filters.status === 'new' ? 'group-hover:text-[#560100]' : 'group-hover:text-[#560100]'}`}>
+                    ${filters.status === 'new' ? 'group-hover:text-[#000]' : 'group-hover:text-[#000]'}`}>
                     New
                   </span>
                 </button>

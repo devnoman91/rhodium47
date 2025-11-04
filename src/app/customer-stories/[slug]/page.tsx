@@ -187,8 +187,8 @@ const CTASection: React.FC = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                  className="relative overflow-hidden inline-block bg-black text-white px-[32px] py-[16px] rounded-full text-[16px] font-semibold 
-                            hover:bg-black transition-colors group"
+                  className="relative overflow-hidden inline-block bg-[#560100] text-white px-[32px] py-[16px] rounded-full text-[16px] font-semibold 
+                            hover:bg-[#560100] transition-colors group cursor-pointer"
                 >
                   {/* sliding overlay */}
                   <span
@@ -211,11 +211,11 @@ const CTASection: React.FC = () => {
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
                   className="relative overflow-hidden inline-block bg-white border-2 border-black text-black px-[32px] py-[16px] rounded-full text-[16px] font-semibold 
-                            hover:bg-white transition-colors group"
+                            hover:bg-white transition-colors cursor-pointer group"
                 >
                   {/* sliding overlay */}
                   <span
-                    className="absolute inset-0 bg-black translate-x-full
+                    className="absolute inset-0 bg-[#560100] translate-x-full
                               transition-transform duration-500 ease-in-out rounded-full
                               group-hover:translate-x-0"
                   />

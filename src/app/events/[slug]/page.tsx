@@ -585,7 +585,7 @@ export default function EventPage() {
                   type="submit"
                   disabled={isSubmitting}
                   className={`relative overflow-hidden cursor-pointer mt-[42px] md:mb-[59px] mb-[43px] text-white text-center font-helvetica text-[20px] not-italic font-medium leading-[120%] tracking-[-0.4px] flex w-[196px] h-[54px] px-[50px] pt-[18px] pb-[19px] justify-center items-center shrink-0 rounded-[100px] border border-[rgba(157,192,59,0)] transition-all duration-300 group
-                    ${isSubmitting ? 'bg-gray-400 cursor-not-allowed text-white' : 'bg-black hover:bg-black'}
+                    ${isSubmitting ? 'bg-gray-400 cursor-not-allowed text-white' : 'bg-[#560100] hover:bg-[#560100]'}
                   `}
                 >
                   {/* sliding white overlay */}

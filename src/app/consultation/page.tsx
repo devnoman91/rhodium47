@@ -453,7 +453,7 @@ export default function ConsultationPage() {
 
         {/* Slider Section (keeps desktop layout; improved mobile swipe) */}
         {consultationData.sliderSection.slides.length > 0 && (
-          <section className="pt-[50px] lg:pt-[90px] bg-[#F4F1F2] mmd:px-0 px-[13px] text-black overflow-hidden md:-mx-[calc(var(--spacing)*12)] " style={{ contain: 'layout style' }}>
+          <section className="pt-[50px] lg:pt-[90px] bg-[#F4F1F2] mmd:px-0 px-[13px] text-black overflow-hidden " style={{ contain: 'layout style' }}>
             {/* Header Section */}
             <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, staggerChildren: 0.15 }}>

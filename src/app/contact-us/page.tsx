@@ -54,10 +54,12 @@ letter-spacing: -1.28px;
     max-width: 491px;
     width: 100%;
     padding: 33px 44px 33px 31px;
-    background: #e2e2e2;border-radius:10px;
+    // background: #e2e2e2;
+    background: #560100;
+    border-radius:10px;
 }
   .contact-info h3 {
-      color: #000;
+      color: #fff;
     font-size: 28px;
     font-style: normal;
     font-weight: 500;
@@ -68,7 +70,7 @@ letter-spacing: -1.28px;
     margin-bottom: 2rem;
   }
   .contact-label {
-    color: #000;
+    color: #fff;
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
@@ -412,12 +414,12 @@ export default function ContactUsPage() {
 
             <div className="circle-small absolute bottom-[144px] right-[40px] h-[138px] w-[138px] z-[3]">
               <svg className='w-full h-full' xmlns="http://www.w3.org/2000/svg" width="139" height="138" viewBox="0 0 139 138" fill="none">
-                <circle cx="69.1367" cy="69" r="69" fill="#000" fill-opacity="0.13"/>
+                <circle cx="69.1367" cy="69" r="69" fill="#fff" fill-opacity="0.13"/>
               </svg>
             </div>
             <div className="circle-large absolute bottom-0 right-[-150px] h-[269px] z-[1]">
               <svg className='w-full h-full' xmlns="http://www.w3.org/2000/svg" width="139" height="138" viewBox="0 0 139 138" fill="none">
-                <circle cx="69.1367" cy="69" r="69" fill="#000" fill-opacity="0.13"/>
+                <circle cx="69.1367" cy="69" r="69" fill="#fff" fill-opacity="0.13"/>
               </svg>
             </div>
           </div>
@@ -514,8 +516,8 @@ export default function ContactUsPage() {
               <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`relative overflow-hidden submit-btn px-[32px] py-[14px] rounded-full font-semibold text-[16px] transition-all duration-300 group
-                    ${isSubmitting ? 'bg-gray-400 cursor-not-allowed text-white' : 'bg-black text-white hover:bg-black'}
+                  className={`relative overflow-hidden cursor-pointer submit-btn px-[32px] py-[14px] rounded-full font-semibold text-[16px] transition-all duration-300 group
+                    ${isSubmitting ? 'bg-gray-400 cursor-not-allowed text-white' : '!bg-[#560100] text-white hover:bg-[]'}
                   `}
                 >
                   {/* sliding overlay */}

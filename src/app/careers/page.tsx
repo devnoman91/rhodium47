@@ -376,8 +376,8 @@ const OpenPositionsSection: React.FC<{
                     >
                       {/* sliding overlay */}
                       <span
-                        className="absolute inset-0 bg-black translate-x-full
-                                  transition-transform duration-500 ease-in-out rounded-full
+                        className="absolute inset-0 bg-[#560100] translate-x-full
+                                  transition-transform duration-500 ease-in-out rounded-[8px]
                                   group-hover:translate-x-0"
                       />
 
@@ -597,7 +597,7 @@ const CallToActionSection: React.FC<{
                     ease: [0.4, 0, 0.2, 1],
                   }}
                   className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
-                             border border-black bg-black text-white font-helvetica
+                             border border-black bg-[#560100] text-white font-helvetica
                              text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -645,7 +645,7 @@ const CallToActionSection: React.FC<{
                 ease: [0.4, 0, 0.2, 1],
               }}
               className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
-                         border border-black bg-black text-white font-helvetica
+                         border border-black bg-[#560100] text-white font-helvetica
                          text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}

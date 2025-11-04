@@ -113,7 +113,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#111',
                       {/* Sliding overlay (only visible on hover if not active) */}
                       {! (activeCategory === category) && (
                         <span
-                          className="absolute inset-0 bg-black translate-x-full
+                          className="absolute inset-0 bg-[#560100] translate-x-full
                                     transition-transform duration-500 ease-in-out rounded-[100px]
                                     group-hover:translate-x-0"
                         />
@@ -123,7 +123,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#111',
                       {activeCategory === category && (
                         <motion.div
                           layoutId="activeTab"
-                          className="absolute inset-0 md:min-w-[140px] bg-black rounded-[100px]  -z-10"
+                          className="absolute inset-0 md:min-w-[140px] bg-[#560100] rounded-[100px]  -z-10"
                           transition={{
                             type: "spring",
                             stiffness: 500,

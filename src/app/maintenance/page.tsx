@@ -519,7 +519,7 @@ export default function MaintenancePage() {
               className="grid grid-cols-1 md:grid-cols-3 md:gap-0 gap-[18px]  md:mb-[73px] mb-[15px] max-w-[720px] m-auto"
             >
               {maintenanceData.emergencyService.stats.map((stat, index) => (
-                <div key={index} className="md:pb-0 pb-[18px] md:border-r border-b border-[#00000033] text-black md:last:border-r-0 last:border-b-0">
+                <div key={index} className="md:pb-0 pb-[18px] md:border-r border-b md:border-b-0 border-[#00000033] text-black md:last:border-r-0 last:border-b-0">
                   <div className="text-[50px] font-medium leading-[110%] font-helvetica mb-[3px]">
                     {stat.value}
                   </div>
@@ -532,17 +532,26 @@ export default function MaintenancePage() {
 
             {/* Button */}
             <motion.a
-              href={maintenanceData.emergencyService.buttonLink || '#'}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="inline-block px-[32px] py-[8px] rounded-[50px] bg-black text-white font-helvetica text-[14px] font-medium hover:bg-gray-800 transition-colors"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              {maintenanceData.emergencyService.buttonText}
-            </motion.a>
+                href={maintenanceData.emergencyService.buttonLink || '#'}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="relative inline-block px-[32px] py-[8px] rounded-[50px] bg-[#560100] text-white font-helvetica text-[14px] font-medium overflow-hidden group cursor-pointer transition-all duration-300"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {/* Sliding white overlay */}
+                <span
+                  className="absolute inset-0 bg-white translate-x-full transition-transform duration-500 ease-in-out rounded-[50px] group-hover:translate-x-0"
+                />
+
+                {/* Text */}
+                <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
+                  {maintenanceData.emergencyService.buttonText}
+                </span>
+              </motion.a>
+
           </div>
         </section>
 
@@ -558,15 +567,15 @@ export default function MaintenancePage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className={`rounded-[25px] h-fit p-[35px] border-[3px] border-black shadow-[0_6px_0_0_#000,0_3px_0_0_#000] ${
+                    className={`rounded-[25px] h-fit p-[35px] border-[3px] border-[#560100] shadow-[0_6px_0_0_#560100,0_3px_0_0_#560100] ${
                       pkg.featured
-                        ? 'bg-black text-white border-black'
-                        : 'bg-white text-black border-black'
+                        ? 'bg-[#560100] text-white border-[#560100]'
+                        : 'bg-white text-black border-[#560100]'
                     }`}
                   >
                     {/* Package Name */}
                     <div className={`inline-block px-[16px] py-[6px] rounded-[50px] text-[14px] font-medium mb-[25px] ${
-                      pkg.featured ? 'bg-white text-black' : 'bg-black text-white'
+                      pkg.featured ? 'bg-white text-black' : 'bg-[#560100] text-white'
                     }`}>
                       {pkg.name}
                     </div>
@@ -594,21 +603,33 @@ export default function MaintenancePage() {
                     </div>
 
                     {/* Button */}
-                    <motion.a
+                   <motion.a
                       href={pkg.buttonLink || '#'}
-                      className={`flex gap-[10px] items-center justify-center w-full py-[15px] px-5  rounded-[50px] text-center font-helvetica text-[16px] font-medium transition-colors ${
-                        pkg.featured
-                          ? 'bg-white text-black hover:bg-gray-100'
-                          : 'bg-black text-white hover:bg-gray-800'
-                      }`}
+                      className={`relative flex gap-[10px] items-center justify-center w-full py-[15px] px-5 rounded-[50px] text-center font-helvetica text-[16px] font-medium overflow-hidden group cursor-pointer
+                        ${pkg.featured ? 'bg-white text-black' : 'bg-[#560100] text-white'}`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      {pkg.buttonText}
-                      <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
-                      <path d="M26.2071 8.70711C26.5976 8.31658 26.5976 7.68342 26.2071 7.29289L19.8431 0.928932C19.4526 0.538408 18.8195 0.538408 18.4289 0.928932C18.0384 1.31946 18.0384 1.95262 18.4289 2.34315L24.0858 8L18.4289 13.6569C18.0384 14.0474 18.0384 14.6805 18.4289 15.0711C18.8195 15.4616 19.4526 15.4616 19.8431 15.0711L26.2071 8.70711ZM0.5 8V9H25.5V8V7H0.5V8Z" fill="currentcolor"/>
-                    </svg>
+                      {/* Sliding white overlay */}
+                      <span
+                        className="absolute inset-0 bg-white translate-x-full transition-transform duration-500 ease-in-out rounded-[50px] group-hover:translate-x-0"
+                      />
+
+                      {/* Text + Icon */}
+                      <span
+                        className={`relative z-10 flex gap-[10px] items-center justify-center transition-colors duration-500 ease-in-out
+                          ${pkg.featured ? 'group-hover:text-black' : 'group-hover:text-black'}`}
+                      >
+                        {pkg.buttonText}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
+                          <path
+                            d="M26.2071 8.70711C26.5976 8.31658 26.5976 7.68342 26.2071 7.29289L19.8431 0.928932C19.4526 0.538408 18.8195 0.538408 18.4289 0.928932C18.0384 1.31946 18.0384 1.95262 18.4289 2.34315L24.0858 8L18.4289 13.6569C18.0384 14.0474 18.0384 14.6805 18.4289 15.0711C18.8195 15.4616 19.4526 15.4616 19.8431 15.0711L26.2071 8.70711ZM0.5 8V9H25.5V8V7H0.5V8Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
                     </motion.a>
+
                   </motion.div>
                 ))}
               </div>
@@ -651,7 +672,7 @@ export default function MaintenancePage() {
                       ease: [0.4, 0, 0.2, 1],
                     }}
                     className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
-                               border border-black bg-black text-white font-helvetica
+                               border border-black bg-[#560100] text-white font-helvetica
                                text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -699,7 +720,7 @@ export default function MaintenancePage() {
                   ease: [0.4, 0, 0.2, 1],
                 }}
                 className="relative overflow-hidden px-[24px] py-[8px] rounded-[32px]
-                           border border-black bg-black text-white font-helvetica
+                           border border-black bg-[#560100] text-white font-helvetica
                            text-[14px] leading-[20px] font-bold w-fit block cursor-pointer group"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}

@@ -249,7 +249,7 @@ export default function CompareClient({ products }: CompareClientProps) {
                 <select
                   value={product.handle}
                   onChange={(e) => handleProductChange(index, e.target.value)}
-                  className="w-full appearance-none bg-transparent border-none text-black font-medium text-[20px] leading-[160%] px-[21px]  capitalize font-helvetica focus:outline-none cursor-pointer pr-8"
+                  className="w-full appearance-none bg-transparent border-none text-black font-medium text-[15px] md:text-[18px] leading-[160%] md:pl-[21px] pr-[30px] pl-[10px]  capitalize font-helvetica focus:outline-none cursor-pointer "
                 >
                   {allProducts.map((p) => (
                     <option key={p.id} value={p.handle}>
@@ -257,19 +257,19 @@ export default function CompareClient({ products }: CompareClientProps) {
                     </option>
                   ))}
                 </select>
-                <div className="absolute right-[21px] top-[30px] transform -translate-y-1/2 pointer-events-none">
+                <div className="absolute right-[15px] top-[6px]  pointer-events-none">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
               </div>
-              <p className="text-black pl-[21px] font-normal text-[14px] leading-[160%] capitalize font-helvetica">
+              <p className="text-black md:pl-[21px] pr-[30px] pl-[10px] font-normal text-[11px] md:text-[13px] leading-[160%] capitalize font-helvetica">
                 {product.tagline || 'Premium Armored Vehicle'}
               </p>
             </div>
 
             {/* Vehicle Image */}
-            <div className="mt-[14px] mb-[45px]">
+            <div className="mt-[14px] md:mb-[45px] mb-[15px]">
               <img
                 src={product.image}
                 alt={product.title}
@@ -294,65 +294,65 @@ export default function CompareClient({ products }: CompareClientProps) {
               </p> */}
 
               {/* Action Buttons */}
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 {/* Build Button (black → white hover) */}
-     <Link href={`/inventory/${product.handle}`}
-  className="relative overflow-hidden flex justify-center items-center 
-             text-white cursor-pointer min-w-[112px] w-full rounded-full text-center font-normal text-[14px]
-             py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica bg-black 
-             border border-transparent group focus:outline-none transition-all"
->
-  {/* sliding overlay */}
-  <span
-    className="absolute inset-0 bg-white translate-x-full
-               transition-transform duration-500 ease-in-out rounded-full
-               group-hover:translate-x-0"
-  />
-  {/* text */}
-  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
-    Build
-  </span>
-</Link>
+                      <Link href={`/inventory/${product.handle}`}
+                    className="relative overflow-hidden flex justify-center items-center 
+                              text-white cursor-pointer min-w-[112px] w-fit rounded-full text-center font-normal text-[14px]
+                              py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica !bg-[#560100] 
+                              border border-transparent group focus:outline-none transition-all"
+                  >
+                    {/* sliding overlay */}
+                    <span
+                      className="absolute inset-0 bg-white  translate-x-full
+                                transition-transform duration-500 ease-in-out rounded-full
+                                group-hover:translate-x-0"
+                    />
+                    {/* text */}
+                    <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
+                      Build
+                    </span>
+                  </Link>
 
-{/* Inventory Button (white → black hover) */}
-<Link
-  href={'/inventory'}
-  className="relative overflow-hidden flex justify-center items-center 
-             cursor-pointer border border-[#000] text-black max-w-[136px] w-full rounded-full text-center 
-             font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica 
-             group focus:outline-none transition-all"
->
-  {/* sliding overlay */}
-  <span
-    className="absolute inset-0 bg-black translate-x-full
-               transition-transform duration-500 ease-in-out rounded-full
-               group-hover:translate-x-0"
-  />
-  {/* text */}
-  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
-    Inventory
-  </span>
-</Link>
+                  {/* Inventory Button (white → black hover) */}
+                  <Link
+                    href={'/inventory'}
+                    className="relative overflow-hidden flex justify-center items-center 
+                              cursor-pointer border border-[#000] text-black max-w-[136px] w-full rounded-full text-center 
+                              font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica 
+                              group focus:outline-none transition-all"
+                  >
+                    {/* sliding overlay */}
+                    <span
+                      className="absolute inset-0 !bg-[#560100] translate-x-full
+                                transition-transform duration-500 ease-in-out rounded-full
+                                group-hover:translate-x-0"
+                    />
+                    {/* text */}
+                    <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+                      Inventory
+                    </span>
+                  </Link>
 
-{/* Learn More Button (white → black hover) */}
-<Link
-  href={`/product-detail/${product.handle}`}
-  className="relative overflow-hidden flex justify-center items-center 
-             cursor-pointer border border-[#000] text-black max-w-[136px] w-full rounded-full text-center 
-             font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica 
-             group focus:outline-none transition-all"
->
-  {/* sliding overlay */}
-  <span
-    className="absolute inset-0 bg-black translate-x-full
-               transition-transform duration-500 ease-in-out rounded-full
-               group-hover:translate-x-0"
-  />
-  {/* text */}
-  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
-    Learn More
-  </span>
-</Link>
+                  {/* Learn More Button (white → black hover) */}
+                  <Link
+                    href={`/product-detail/${product.handle}`}
+                    className="relative overflow-hidden flex justify-center items-center 
+                              cursor-pointer border border-[#000] text-black max-w-[136px] w-full rounded-full text-center 
+                              font-normal text-[14px] py-[11px] px-[20px] leading-[16px] tracking-[-0.14px] font-helvetica 
+                              group focus:outline-none transition-all"
+                  >
+                    {/* sliding overlay */}
+                    <span
+                      className="absolute inset-0 !bg-[#560100] translate-x-full
+                                transition-transform duration-500 ease-in-out rounded-full
+                                group-hover:translate-x-0"
+                    />
+                    {/* text */}
+                    <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+                      Learn More
+                    </span>
+                  </Link>
 
               </div>
             </div>
@@ -466,7 +466,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       {/* At a glance Section */}
       {selectedProducts.length > 0 && (
         <ComparisonSection title="At a glance" hasSuper>
-          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
+          <div className={`md:pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
             {selectedProducts.map((product, index) => (
               <div key={index} className="space-y-6">
                 {product.specs.motorConfig && (
@@ -502,7 +502,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       {/* Performance Section - Render parsed description content */}
       {selectedProducts.length > 0 && selectedProducts.some(p => p.parsedDescription?.performanceData) && (
         <ComparisonSection title="Performance" hasSuper>
-          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
+          <div className={`md:pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
             {selectedProducts.map((product, index) => (
               <div 
                 key={index} 
@@ -517,7 +517,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       {/* Top Specifications Section - Render parsed top heading content */}
       {selectedProducts.length > 0 && selectedProducts.some(p => p.parsedDescription?.topHeading) && (
         <ComparisonSection title="Top Specifications">
-          <div className={`pl-5 pb-[50px] grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
+          <div className={`md:pl-5 pb-[50px] grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
             {selectedProducts.map((product, index) => (
               <div 
                 key={index} 
@@ -588,7 +588,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       {/* Dimensions Section */}
       {selectedProducts.length > 0 && selectedProducts.some(p => p.dimensions && Object.keys(p.dimensions).length > 0) && (
         <ComparisonSection title="Dimensions">
-          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
+          <div className={`md:pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
             {selectedProducts.map((product, index) => (
               <div key={index} className="space-y-6">
                 {product.dimensions && Object.entries(product.dimensions).map(([key, value]) => (

@@ -238,7 +238,7 @@ const criticalInlineStyles = `
   /* Product Showcase Styles */
   .product-showcase-container {
     width: 100%;
-    height: 100vh;
+    // height: 100vh;
     background: #F4F1F2;
     display: flex;
     flex-direction: column;
@@ -294,6 +294,7 @@ const criticalInlineStyles = `
     line-height: 120%;
     letter-spacing: -0.6px;
     margin-bottom: 18px;
+    margin-top:15px;
   }
   .product-description {
     color: #000;
@@ -425,10 +426,10 @@ const criticalInlineStyles = `
     cursor: pointer;
     border: 1px solid #1a1a1a;
   }
-  .product-btn-secondary:hover {
-    background: #1a1a1a;
-    color: white;
-  }
+  // .product-btn-secondary:hover {
+  //   background: #1a1a1a;
+  //   color: white;
+  // }
   .save_option{
     color: #000;
     font-family: 'helveticaNeue';
@@ -906,6 +907,14 @@ export default function SurveyPage() {
                     }}
                     className="product-card"
                   >
+                    <div className="survey-step-header md:hidden block mb-5">
+                              <a 
+                                href="/inventory"
+                                className="survey-back-button"
+                              >
+                                Back
+                              </a>
+                          </div>
                     {/* Product Image */}
                     <div className="product-image-section">
                       <img
@@ -992,27 +1001,50 @@ export default function SurveyPage() {
                         )}
                         {/* Dynamic Product Buttons */}
                         <div className="product-buttons">
-                          {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton && (
-                            <a 
-                              href={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.link || '#'} 
-                              className="product-btn-primary"
-                              target={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.link?.startsWith('http') ? '_blank' : undefined}
-                              rel={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton && (
+                          <a 
+                            href={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.link || '#'} 
+                            className={`relative px-[20px] py-[10px] overflow-hidden rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[14px] leading-[150%] capitalize no-ligatures group product-btn-primary
+                              !bg-[#560100] text-white shadow-sm`}
+                            target={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.link?.startsWith('http') ? '_blank' : undefined}
+                            rel={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                          >
+                            {/* Sliding overlay */}
+                            <span
+                              className="absolute inset-0 bg-white translate-x-full transition-transform duration-500 ease-in-out rounded-[4px] group-hover:translate-x-0"
+                            />
+
+                            {/* Text */}
+                            <span
+                              className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-[#000]"
                             >
                               {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.primaryButton?.text}
-                            </a>
-                          )}
-                          
-                          {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton && (
-                            <a 
-                              href={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.link || '#'} 
-                              className="product-btn-secondary"
-                              target={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.link?.startsWith('http') ? '_blank' : undefined}
-                              rel={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                            </span>
+                          </a>
+                        )}
+
+                        {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton && (
+                          <a 
+                            href={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.link || '#'} 
+                            className={`relative px-[20px] py-[10px] overflow-hidden rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[14px] leading-[150%] capitalize no-ligatures group product-btn-secondary
+                              bg-[#fff] text-black shadow-sm`}
+                            target={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.link?.startsWith('http') ? '_blank' : undefined}
+                            rel={currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                          >
+                            {/* Sliding overlay */}
+                            <span
+                              className="absolute inset-0 bg-[#560100] translate-x-full transition-transform duration-500 ease-in-out rounded-[4px] group-hover:translate-x-0"
+                            />
+
+                            {/* Text */}
+                            <span
+                              className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-[#fff]"
                             >
                               {currentSurvey.postSubmissionSection!.products![currentProductIndex]?.secondaryButton?.text}
-                            </a>
-                          )}
+                            </span>
+                          </a>
+                        )}
+
                         </div>
                         
                       </div>
@@ -1089,7 +1121,7 @@ export default function SurveyPage() {
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 onClick={handleStartSurvey}
               >
-                <span className="absolute inset-0 bg-black translate-x-full
+                <span className="absolute inset-0 bg-[#560100] translate-x-full
                                transition-transform duration-500 ease-in-out rounded-full
                                group-hover:translate-x-0" />
                                <svg
@@ -1191,7 +1223,7 @@ export default function SurveyPage() {
       onClick={handleNext}
       disabled={!isStepValid() || isSubmitting}
       className="md:m-0 m-auto relative overflow-hidden flex items-center gap-[8px] px-6 py-3 rounded-full
-                 bg-black text-white font-helvetica font-medium text-[16px]
+                 bg-[#560100] text-white font-helvetica font-medium text-[16px]
                  border border-transparent cursor-pointer group
                  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black
                  disabled:opacity-60 disabled:cursor-not-allowed"
@@ -1235,10 +1267,10 @@ export default function SurveyPage() {
       onClick={handleFinalSubmit}
       disabled={isSubmitting}
       className="survey-next-button  relative overflow-hidden flex items-center gap-[8px] px-[16px] py-[14px] rounded-full
-                 bg-black text-white font-helvetica font-medium text-[16px]
+                 !bg-[#560100] text-white !font-helvetica font-medium text-[16px]
                  border border-transparent cursor-pointer group
                  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black
-                 disabled:opacity-60 disabled:cursor-not-allowed"
+                 disabled:opacity-60 disabled:cursor-not-allowed" 
     >
       {/* sliding overlay */}
       <span

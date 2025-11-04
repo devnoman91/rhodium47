@@ -452,7 +452,7 @@ export default function ProductHeroSection({ heroSection }: ProductHeroSectionPr
   href={heroSection.primaryButton?.link || '#'}
   className="relative overflow-hidden inline-flex justify-center items-center
              product-hero-button rounded-full px-6 py-3 font-helvetica text-[16px] font-medium
-             cursor-pointer group focus:outline-none border border-transparent
+             cursor-pointer group focus:outline-none border border-transparent hover:border-[#560100]
              transition-all"
   style={{
     transition: 'background-color 0.2s ease',
@@ -461,7 +461,7 @@ export default function ProductHeroSection({ heroSection }: ProductHeroSectionPr
 >
   {/* Sliding overlay */}
   <span
-    className="absolute inset-0 bg-black translate-x-full
+    className="absolute inset-0 bg-[#560100] translate-x-full
                transition-transform duration-500 ease-in-out rounded-full
                group-hover:translate-x-0"
   />
@@ -476,7 +476,7 @@ export default function ProductHeroSection({ heroSection }: ProductHeroSectionPr
   href={heroSection.secondaryButton?.link || '#'}
   className="relative overflow-hidden inline-flex justify-center items-center
              product-hero-secondary-button rounded-full px-6 py-3 font-helvetica text-[16px] font-medium
-             cursor-pointer group focus:outline-none border border-black
+             cursor-pointer group focus:outline-none border border-black hover:border-[#560100]
              transition-all"
   style={{
     transition: 'background-color 0.2s ease',
@@ -485,12 +485,12 @@ export default function ProductHeroSection({ heroSection }: ProductHeroSectionPr
 >
   {/* Sliding overlay */}
   <span
-    className="absolute inset-0 bg-white translate-x-full
+    className="absolute inset-0 bg-[#560100] translate-x-full
                transition-transform duration-500 ease-in-out rounded-full
                group-hover:translate-x-0"
   />
   {/* Text */}
-  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black ">
+  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white ">
     {heroSection.secondaryButton?.text || 'Demo Drive'}
   </span>
 </a>

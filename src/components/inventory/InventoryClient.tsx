@@ -266,8 +266,8 @@ export default function InventoryClient({
               className={`relative px-[10px] py-[7px] overflow-hidden  rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures group
                 ${
                   filters.status === 'new'
-                    ? 'bg-white text-black shadow-sm'
-                    : 'bg-black text-white'
+                    ? 'bg-[#560100] text-white shadow-sm'
+                    : 'bg-[#560100] text-white'
                 }`}
             >
               {/* Sliding overlay */}
@@ -280,7 +280,7 @@ export default function InventoryClient({
               {/* Text */}
               <span
                 className={`relative z-10 transition-colors duration-500 ease-in-out
-                  ${filters.status === 'new' ? 'group-hover:text-black' : 'group-hover:text-black'}`}
+                  ${filters.status === 'new' ? 'group-hover:text-[#000]' : 'group-hover:text-[#000]'}`}
               >
                 New
               </span>
@@ -297,14 +297,14 @@ export default function InventoryClient({
               className={`relative px-[2px] py-[7px] overflow-hidden flex-1 rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures group
                 ${
                   filters.status === 'pre-order'
-                    ? 'bg-black text-white shadow-sm'
-                    : 'bg-white text-black'
+                    ? 'bg-[#560100] text-white shadow-sm'
+                    : 'bg-white text-[#000]'
                 }`}
             >
               {/* Sliding overlay */}
               {filters.status !== 'pre-order' && (
                 <span
-                  className="absolute inset-0 bg-black translate-x-full transition-transform duration-500 ease-in-out rounded-[4px] group-hover:translate-x-0"
+                  className="absolute inset-0 bg-[#560100] translate-x-full transition-transform duration-500 ease-in-out rounded-[4px] group-hover:translate-x-0"
                 />
               )}
 
@@ -320,7 +320,7 @@ export default function InventoryClient({
 
             <button 
             onClick={() => setIsFilterOpen(true)}
-            className="relative flex justify-between items-center overflow-hidden pl-[12px] pr-[15px] py-[15px] max-w-[153px] w-full rounded-[4px] bg-[#E6E6E6] text-[#000] font-[500] font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures whitespace-nowrap"
+            className="relative flex justify-between cursor-pointer items-center overflow-hidden pl-[12px] pr-[15px] py-[15px] max-w-[153px] w-full rounded-[4px] bg-[#E6E6E6] text-[#000] font-[500] font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures whitespace-nowrap"
           >
             Filter
             <svg xmlns="http://www.w3.org/2000/svg" width="9" height="6" viewBox="0 0 9 6" fill="none">
@@ -332,7 +332,6 @@ export default function InventoryClient({
       
       <div className="flex max-w-[1600px] px-[15px] m-auto gap-[45px]">
         <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
-
         {/* Sidebar - Hidden on mobile when filter is closed */}
         <div className={`${isFilterOpen ? 'absolute inset-0 z-50 w-full' : 'hidden'} md:block md:relative md:inset-auto md:z-auto md:w-full md:max-w-[200px] md:bg-white md:z-[2] md:flex-shrink-0`}>
           <div className={`h-full ${isFilterOpen ? 'bg-white' : ''} md:bg-white`}>
@@ -356,12 +355,12 @@ export default function InventoryClient({
                   className={`relative overflow-hidden flex-1 rounded-[4px] cursor-pointer font-medium transition-all duration-200 flex items-center justify-center font-helvetica text-center text-[12px] leading-[150%] capitalize no-ligatures group
                     ${filters.status === 'new'
                       ? 'bg-white text-gray-900 shadow-sm'
-                      : 'bg-black text-white'}`}
+                      : 'bg-[#560100] text-white'}`}
                 >
                   {/* Sliding overlay */}
                   {! (filters.status === 'new') && (
                     <span
-                      className="absolute inset-0 bg-white translate-x-full
+                      className="absolute inset-0 bg-[#fff] translate-x-full
                                  transition-transform duration-500 ease-in-out rounded-[4px]
                                  group-hover:translate-x-0"
                     />
@@ -369,7 +368,7 @@ export default function InventoryClient({
 
                   {/* Button text */}
                   <span className={`relative z-10 transition-colors duration-500 ease-in-out
-                    ${filters.status === 'new' ? 'group-hover:text-black' : 'group-hover:text-black'}`}>
+                    ${filters.status === 'new' ? 'group-hover:text-[#560100]' : 'group-hover:text-[#560100]'}`}>
                     New
                   </span>
                 </button>
@@ -378,13 +377,13 @@ export default function InventoryClient({
                   onClick={() => handleFilterChange({ ...filters, status: filters.status === 'pre-order' ? '' : 'pre-order' })}
                   className={`relative overflow-hidden flex-1 px-[2px] py-[7px] cursor-pointer rounded-[4px] transition-all duration-200 flex items-center justify-center font-helvetica text-center font-medium text-[12px] leading-[150%] capitalize no-ligatures group
                     ${filters.status === 'pre-order'
-                      ? 'bg-black text-white shadow-sm'
+                      ? 'bg-[#560100] text-white shadow-sm'
                       : 'bg-white text-black'}`}
                 >
                   {/* Sliding overlay */}
                   {! (filters.status === 'pre-order') && (
                     <span
-                      className="absolute inset-0 bg-black translate-x-full
+                      className="absolute inset-0 bg-[#560100] translate-x-full
                                  transition-transform duration-500 ease-in-out rounded-[4px]
                                  group-hover:translate-x-0"
                     />

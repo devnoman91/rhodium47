@@ -26,7 +26,7 @@ const criticalInlineStyles = `
   }
   .inquiry-hero-title {
     color: #FFF;
-    font-family: 'helveticaNeue';
+    // font-family: 'helveticaNeue';
     font-size: 40px;
     font-style: normal;
     font-weight: 500;
@@ -36,7 +36,7 @@ const criticalInlineStyles = `
   }
   .inquiry-hero-subtitle {
     color: #FFF;
-    font-family: 'helveticaNeue';
+    // font-family: 'helveticaNeue';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -85,7 +85,7 @@ const criticalInlineStyles = `
   }
   .inquiry-back-button {
     color: #000;
-    font-family: 'helveticaNeue';
+    // font-family: 'helveticaNeue';
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
@@ -780,7 +780,7 @@ export default function InquiryPage() {
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 onClick={handleStartInquiry}
               >
-                <span className="absolute inset-0 bg-black translate-x-full
+                <span className="absolute inset-0 bg-[#560100] translate-x-full
                                transition-transform duration-500 ease-in-out rounded-full
                                group-hover:translate-x-0" />
                 <svg
@@ -883,7 +883,7 @@ export default function InquiryPage() {
       onClick={handleNext}
       disabled={!isStepValid() || isSubmitting}
       className="md:m-0 m-auto relative overflow-hidden flex items-center gap-[8px] px-6 py-3 rounded-full
-                 bg-black text-white font-helvetica font-medium text-[16px]
+                 !bg-[#560100] text-white font-helvetica font-medium text-[16px]
                  border border-transparent cursor-pointer group inquiry-next-button
                  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black
                  disabled:opacity-60 disabled:cursor-not-allowed"
@@ -927,7 +927,7 @@ export default function InquiryPage() {
       onClick={handleFinalSubmit}
       disabled={isSubmitting || !isStepValid()}
       className="relative overflow-hidden flex items-center gap-[8px] px-[16] py-[14px] rounded-full
-                 bg-black text-white font-helvetica font-medium text-[16px]
+                 !bg-[#560100] text-white !font-helvetica font-medium text-[16px]
                  border border-transparent cursor-pointer group inquiry-next-button
                  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black
                  disabled:opacity-60 disabled:cursor-not-allowed"

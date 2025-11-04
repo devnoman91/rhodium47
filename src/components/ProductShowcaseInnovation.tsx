@@ -189,13 +189,13 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
     </div>
 
     <motion.button
-      className="relative overflow-hidden px-[24px] py-[5px] rounded-[50px] border border-white text-white font-helvetica text-[14px] leading-[24px] font-medium w-fit block mt-auto group transition-colors duration-500"
+      className="relative overflow-hidden cursor-pointer px-[24px] py-[5px] rounded-[50px] border  border-white text-white font-helvetica text-[14px] leading-[24px] font-medium w-fit block mt-auto group transition-colors duration-500 hover:border-[#560100]"
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       onClick={() => (window.location.href = `/blog/${blog.slug.current}`)}
     >
-      <span className="absolute inset-0 bg-white translate-x-full transition-transform duration-500 rounded-[50px] group-hover:translate-x-0" />
-      <span className="relative z-10 transition-colors duration-500 group-hover:text-black">
+      <span className="absolute inset-0 bg-[#560100] translate-x-full transition-transform duration-500 rounded-[50px] group-hover:translate-x-0" />
+      <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
         Learn More
       </span>
     </motion.button>

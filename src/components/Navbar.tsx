@@ -141,7 +141,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden mt-4 bg-black bg-opacity-90 rounded-lg p-4">
+        <div className="md:hidden mt-4 bg-[#560100] bg-opacity-90 rounded-lg p-4">
           <div className="flex flex-col space-y-4">
             {navbarData.links.map((link) => (
               <Link

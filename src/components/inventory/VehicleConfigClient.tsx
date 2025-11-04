@@ -308,10 +308,10 @@ export default function VehicleConfigClient({
               <button
                 onClick={handleDirectCheckout}
                 disabled={isCheckingOut || !selectedVariant?.availableForSale}
-                className="relative overflow-hidden w-full max-w-[360px] mx-auto cursor-pointer text-white text-center font-helvetica text-[16px] font-bold rounded-full py-[14px] px-4 bg-black border border-transparent group transition disabled:bg-gray-400"
+                className="relative overflow-hidden w-full max-w-[360px] mx-auto cursor-pointer text-white text-center font-helvetica text-[16px] font-bold rounded-full py-[14px] px-4 bg-[#560100] border border-transparent group transition disabled:bg-gray-400"
               >
                 <span className="absolute inset-0 bg-white translate-x-full transition-transform duration-500 rounded-full group-hover:translate-x-0" />
-                <span className="relative z-10 group-hover:text-black">
+                <span className="relative z-10 group-hover:text-black transition-all ease-in-out duration-500">
                   {isCheckingOut
                     ? 'Processing...'
                     : selectedVariant

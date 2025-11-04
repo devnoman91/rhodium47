@@ -80,18 +80,18 @@ export default async function ComparePage() {
   return (
     <div className="min-h-screen bg-[#F4F1F2] font-helvetica text-[#000]">
       {/* Header Section */}
-      <div className="bg-[#F4F1F2] text-center pt-[138px] pb-[163px]">
+      <div className="bg-[#F4F1F2] text-center md:pt-[138px] pt-[110px] md:pb-[163px] pb-[45px]">
         <div className="max-w-5xl mx-auto px-6">
-          <h1 className="text-black text-center font-medium text-[64px] leading-[110%] tracking-[-1.28px] font-helvetica mb-[26px]">
+          <h1 className="text-black text-center font-medium md:text-[64px] text-[34px] leading-[110%] tracking-[-1.28px] font-helvetica md:mb-[26px] mb-[14px]">
             {comparePageContent.heroSection.title}
           </h1>
-          <p className="!text-[#111] max-w-[855px] m-auto text-center !font-medium !text-[24px] !leading-[150%] capitalize font-helvetica !mb-[32px]">
+          <p className="!text-[#111] max-w-[855px] m-auto text-center !font-medium !md:text-[24px] !text-[16px] !leading-[150%] capitalize font-helvetica !mb-[32px]">
             {comparePageContent.heroSection.description}
           </p>
             <Link
                   href={comparePageContent.heroSection.ctaButton.link}
                   className="relative overflow-hidden flex justify-center items-center
-                            bg-black cursor-pointer rounded-full transition-colors
+                            bg-[#560100] cursor-pointer rounded-full transition-colors
                             p-[14px] max-w-[372px] m-auto w-full text-white text-center font-bold text-[16px] leading-[150%] font-helvetica
                             border border-transparent group focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >

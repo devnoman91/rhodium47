@@ -98,13 +98,13 @@ export default function AnnouncementBar() {
                 }}
               >
                 {announcement.icon && (
-                  <div className="w-5 h-5 relative flex-shrink-0 mx-auto">
+                  <div className="w-10 h-7 relative flex-shrink-0 mx-auto">
                     <Image
                       src={announcement.icon.asset.url}
                       alt={announcement.icon.alt || ''}
                       fill
                       sizes="20px"
-                      className="object-contain"
+                      className="object-cover"
                     />
                   </div>
                 )}

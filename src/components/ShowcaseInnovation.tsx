@@ -203,7 +203,7 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
       {/* Button */}
    <motion.button
   className="relative overflow-hidden px-[24px] py-[5px] rounded-[50px]
-             border border-white text-white font-helvetica text-[14px] leading-[24px]
+             border group-hover:border-[#560100] border-white text-white font-helvetica text-[14px] leading-[24px]
              font-medium transition-colors duration-500 ease-in-out
              w-fit block cursor-pointer mt-auto group"
   whileHover={{ scale: 1.02 }}
@@ -221,13 +221,13 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
 >
   {/* sliding overlay */}
   <span
-    className="absolute inset-0 bg-white translate-x-full
+    className="absolute inset-0 bg-[#560100] translate-x-full
                transition-transform duration-500 ease-in-out rounded-[50px]
                group-hover:translate-x-0"
   />
 
   {/* text */}
-  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
+  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
     {blog.buttonText || 'Learn More'}
   </span>
 </motion.button>

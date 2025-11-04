@@ -170,7 +170,7 @@ const NavigationButton: React.FC<{ item: KeepExploringSectionType; index: number
 >
   {/* sliding overlay */}
   <span
-    className="absolute inset-0 bg-black translate-x-full 
+    className="absolute inset-0 bg-[#560100] translate-x-full 
                transition-transform duration-500 ease-in-out rounded-[50px]
                group-hover:translate-x-0"
   />

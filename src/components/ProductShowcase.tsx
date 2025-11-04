@@ -115,7 +115,7 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
         {/* Button */}
           <motion.button
             className="relative overflow-hidden px-[22px] py-[5px] rounded-[50px]
-                      border border-black text-black font-helvetica
+                      border border-[#560100] text-[#560100] font-helvetica
                       text-[16px] leading-[24px] font-medium w-fit block cursor-pointer group"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -132,7 +132,7 @@ const ShowcaseCard: React.FC<{ product: ShowcaseProduct; index: number }> = Reac
           >
             {/* sliding overlay */}
             <span
-              className="absolute inset-0 bg-black translate-x-full 
+              className="absolute inset-0 bg-[#560100] translate-x-full 
                         transition-transform duration-500 ease-in-out rounded-[50px]
                         group-hover:translate-x-0"
             />

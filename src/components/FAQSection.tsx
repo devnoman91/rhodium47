@@ -114,7 +114,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#111',
                   {activeCategory === category && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 md:min-w-[140px] bg-black rounded-[100px] -z-10"
+                      className="absolute inset-0 md:min-w-[140px] bg-[#560100] rounded-[100px] -z-10"
                       transition={{
                         type: "spring",
                         stiffness: 500,

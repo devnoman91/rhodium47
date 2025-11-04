@@ -117,13 +117,13 @@ const VehicleShowcase: React.FC<VehicleShowcaseProps> = ({ vehicles }) => {
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className="group relative"
+                  className="group cursor-pointer relative"
                   aria-label={`Go to slide ${index + 1}`}
                 >
                   <div
                     className={`w-3 h-3 rounded-full transition-all duration-300 ${
                       currentIndex === index
-                        ? 'bg-black scale-110'
+                        ? 'bg-[#560100] scale-110'
                         : 'bg-gray-400 hover:bg-gray-600'
                     }`}
                   />
@@ -222,7 +222,7 @@ const VehicleSlide: React.FC<{
           <Link href={`/product-detail/${vehicle.handle}`}>
             <motion.button
               className="relative overflow-hidden cursor-pointer w-[132px] h-[48px] flex justify-center items-center
-                        rounded-[50px] font-helvetica text-[16px] font-medium bg-black text-white border border-black group"
+                        rounded-[50px] font-helvetica text-[16px] font-medium bg-[#560100] text-white border border-[#560100] group-hover:border-[#560100] group"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -237,11 +237,11 @@ const VehicleSlide: React.FC<{
           <Link href={`/inventory/${vehicle.handle}`}>
             <motion.button
               className="relative overflow-hidden cursor-pointer w-[132px] h-[48px] flex justify-center items-center
-                        rounded-[50px] font-helvetica text-[16px] font-medium bg-white text-black border border-black group"
+                        rounded-[50px] font-helvetica text-[16px] font-medium bg-white text-black border border-black group-hover:border-[#560100] group"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span className="absolute inset-0 bg-black translate-x-full transition-transform duration-500 ease-in-out rounded-[50px] group-hover:translate-x-0" />
+              <span className="absolute inset-0 bg-[#560100] translate-x-full transition-transform duration-500 ease-in-out rounded-[50px] group-hover:translate-x-0" />
               <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
                 Buy Now
               </span>

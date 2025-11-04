@@ -167,16 +167,16 @@ const NewsCard: React.FC<{ newsItem: NewsItem; index: number }> = React.memo(
             className="relative overflow-hidden px-[24px] py-[5px] rounded-[50px]
                        border border-white text-white font-helvetica text-[14px] leading-[24px]
                        font-medium transition-colors duration-500 ease-in-out
-                       w-fit block cursor-pointer mt-auto group"
+                       w-fit block cursor-pointer mt-auto group group-hover:border-[#560100]"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
             <span
-              className="absolute inset-0 bg-white translate-x-full
+              className="absolute inset-0 bg-[#560100] translate-x-full
                          transition-transform duration-500 ease-in-out rounded-[50px]
                          group-hover:translate-x-0"
             />
-            <span className="relative z-10 group-hover:text-black">
+            <span className="relative z-10 group-hover:text-white ">
               Learn More
             </span>
           </motion.button>

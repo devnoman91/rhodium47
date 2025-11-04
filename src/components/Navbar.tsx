@@ -56,9 +56,9 @@ export default function Navbar() {
       className={`fixed left-0 right-0 z-50 lg:px-12 md:px-4 px-5 py-4 font-helvetica transition-all duration-600 ${
         shouldBeTransparent
           ? isScrolled
-            ? 'top-0 bg-[#000]'
+            ? 'top-0 bg-[#560100]'
             : '[background:linear-gradient(180deg,_#000_0%,_rgba(0,0,0,0)_100%)]'
-          : 'top-0 bg-[#000] backdrop-blur-md shadow-sm'
+          : 'top-0 bg-[#560100] backdrop-blur-md shadow-sm'
       }`}
     >
       <div className="flex items-center justify-between">
@@ -108,7 +108,7 @@ export default function Navbar() {
             }}
           >
             <span
-              className="absolute inset-0 bg-black translate-x-full
+              className="absolute inset-0 bg-[#560100] translate-x-full
                          transition-transform duration-700 ease-out rounded-[50px]
                          group-hover:translate-x-0"
             />

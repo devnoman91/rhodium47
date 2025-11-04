@@ -282,7 +282,7 @@ export default function HeroCarousel({ initialVideos = [] }: HeroCarouselProps) 
                           hover:scale-105 active:scale-95"
                 aria-label={currentVideo.buttonText}
               >
-                <span className="absolute inset-0 bg-black translate-x-full transition-transform duration-500 ease-in-out rounded-full group-hover:translate-x-0" />
+                <span className="absolute inset-0 bg-[#560100] translate-x-full transition-transform duration-500 ease-in-out rounded-full group-hover:translate-x-0" />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="22"

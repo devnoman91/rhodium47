@@ -52,10 +52,37 @@ export const metadata: Metadata = {
   description: "Leader in luxury armored vehicles crafted with Rhodium metal. From bulletproof SUVs and sedans to fully customized hybrid electric models, we deliver unmatched safety, performance, and comfort for VIPs, executives, and families worldwide.",
   // Performance optimizations
   metadataBase: new URL('https://rhodium45.com'),
+  icons: {
+    icon: [
+      { url: '/googelicon.png', sizes: '512x512', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    apple: [
+      { url: '/googelicon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     siteName: 'Rhodium 45 Technologies',
+    title: 'Luxury Armored Vehicles | Rhodium 45 Technologies',
+    description: 'Leader in luxury armored vehicles crafted with Rhodium metal. From bulletproof SUVs and sedans to fully customized hybrid electric models, we deliver unmatched safety, performance, and comfort for VIPs, executives, and families worldwide.',
+    url: 'https://rhodium45.com',
+    images: [
+      {
+        url: '/googelicon.png',
+        width: 512,
+        height: 512,
+        alt: 'Rhodium 45 Technologies',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Luxury Armored Vehicles | Rhodium 45 Technologies',
+    description: 'Leader in luxury armored vehicles crafted with Rhodium metal. From bulletproof SUVs and sedans to fully customized hybrid electric models, we deliver unmatched safety, performance, and comfort for VIPs, executives, and families worldwide.',
+    images: ['/googelicon.png'],
   },
   robots: {
     index: true,

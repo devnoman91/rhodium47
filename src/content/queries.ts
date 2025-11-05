@@ -1666,14 +1666,11 @@ export const texasFacilityQuery = `
       sectionLabel,
       mainHeading
     },
-    manufacturingExcellence {
+    videoSection {
       title,
-      description
-    },
-    infoSections[] {
-      name,
       description,
-      image {
+      videoUrl,
+      thumbnail {
         asset-> {
           _id,
           url

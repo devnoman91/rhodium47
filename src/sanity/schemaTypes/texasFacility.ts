@@ -26,72 +26,45 @@ export default defineType({
       ],
     }),
 
-    // Second Section: Manufacturing Excellence
+    // Second Section: Video Section
     defineField({
-      name: 'manufacturingExcellence',
-      title: 'Manufacturing Excellence',
+      name: 'videoSection',
+      title: 'Video Section',
       type: 'object',
       fields: [
         defineField({
           name: 'title',
           title: 'Title',
           type: 'string',
-          validation: (Rule) => Rule.required(),
         }),
         defineField({
           name: 'description',
           title: 'Description',
           type: 'text',
+        }),
+        defineField({
+          name: 'videoUrl',
+          title: 'Video URL',
+          type: 'url',
+          description: 'YouTube, Vimeo, or direct video URL',
           validation: (Rule) => Rule.required(),
         }),
-      ],
-    }),
-
-    // Third Section: 3 Info Sections with Image, Name, Description
-    defineField({
-      name: 'infoSections',
-      title: 'Info Sections',
-      type: 'array',
-      validation: (Rule) => Rule.max(3),
-      of: [
-        {
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'name',
-              title: 'Name',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: 'description',
-              title: 'Description',
-              type: 'text',
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: 'image',
-              title: 'Image',
-              type: 'image',
-              options: {
-                hotspot: true,
-              },
-              fields: [
-                {
-                  name: 'alt',
-                  type: 'string',
-                  title: 'Alternative text',
-                },
-              ],
-            }),
-          ],
-          preview: {
-            select: {
-              title: 'name',
-              media: 'image',
-            },
+        defineField({
+          name: 'thumbnail',
+          title: 'Video Thumbnail',
+          type: 'image',
+          description: 'Optional custom thumbnail image',
+          options: {
+            hotspot: true,
           },
-        },
+          fields: [
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+            },
+          ],
+        }),
       ],
     }),
 

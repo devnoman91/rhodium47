@@ -33,139 +33,109 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
   )
 }
 
-// Manufacturing Excellence Section
-const ManufacturingExcellenceSection: React.FC<{
-  title: string
-  description: string
-}> = ({ title, description }) => {
-  const descriptionRef = useRef<HTMLParagraphElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: descriptionRef,
-    offset: ["start 0.8", "end 0.2"]
-  })
+// Video Section Component
+const VideoSection: React.FC<{
+  title?: string
+  description?: string
+  videoUrl: string
+  thumbnail?: { asset: { url: string }; alt?: string }
+}> = ({ title, description, videoUrl, thumbnail }) => {
+  const [isPlaying, setIsPlaying] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
-  const words = React.useMemo(() => description.split(' '), [description])
+  // Extract video ID and type from URL
+  const getVideoEmbedUrl = (url: string) => {
+    if (url.includes('youtube.com') || url.includes('youtu.be')) {
+      const videoId = url.includes('youtu.be')
+        ? url.split('/').pop()?.split('?')[0]
+        : new URL(url).searchParams.get('v')
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1`
+    } else if (url.includes('vimeo.com')) {
+      const videoId = url.split('/').pop()
+      return `https://player.vimeo.com/video/${videoId}?autoplay=1`
+    }
+    return url
+  }
+
+  const handlePlayVideo = () => {
+    setIsPlaying(true)
+    if (videoRef.current) {
+      videoRef.current.play()
+    }
+  }
 
   return (
-    <section className="pb-[32px] pt-[42px] md:pb-[90px] md:pt-[106px] bg-[#F4F1F2]">
+    <section className="py-[42px] md:py-[90px] bg-[#F4F1F2]">
       <div className="max-w-[1304px] mx-auto px-4 md:px-6">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, staggerChildren: 0.15 }}
-        >
-          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16">
-            {/* Left - Sunburst Icon */}
-            <motion.div
-              className="w-full max-w-[400px] hidden lg:flex lg:justify-start justify-center"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="relative mb-8 w-20 h-20 lg:w-20 lg:h-20 xl:w-25 xl:h-25 flex items-center justify-center">
-                <motion.svg
-                  className="absolute inset-0 w-full h-full"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-                  viewBox="0 0 102 102"
-                >
-                <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="51" cy="51" r="40" stroke="#161618" strokeWidth="22" strokeDasharray="2 4"/>
-                  </svg>
-                </motion.svg>
+        {(title || description) && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-8 md:mb-12"
+          >
+            {title && <h2 className="text-[30px] md:text-[48px] font-medium text-black mb-4">{title}</h2>}
+            {description && <p className="text-[16px] md:text-[18px] text-gray-700 max-w-[800px] mx-auto">{description}</p>}
+          </motion.div>
+        )}
 
-                <div className="relative w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center cursor-pointer z-10">
-                  <div className="text-lg md:text-2xl lg:text-3xl text-gray-900" style={{ transform: 'rotate(0deg)' }}>
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M18.0006 1V14C18.0006 14.2652 17.8952 14.5196 17.7077 14.7071C17.5201 14.8946 17.2658 15 17.0006 15C16.7353 15 16.481 14.8946 16.2934 14.7071C16.1059 14.5196 16.0006 14.2652 16.0006 14V3.41375L1.70806 17.7075C1.52042 17.8951 1.26592 18.0006 1.00056 18.0006C0.735192 18.0006 0.480697 17.8951 0.293056 17.7075C0.105415 17.5199 0 17.2654 0 17C0 16.7346 0.105415 16.4801 0.293056 16.2925L14.5868 2H4.00056C3.73534 2 3.48099 1.89464 3.29345 1.70711C3.10591 1.51957 3.00056 1.26522 3.00056 1C3.00056 0.734784 3.10591 0.48043 3.29345 0.292893C3.48099 0.105357 3.73534 0 4.00056 0H17.0006C17.2658 0 17.5201 0.105357 17.7077 0.292893C17.8952 0.48043 18.0006 0.734784 18.0006 1Z" fill="#343330"/>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative w-full aspect-video rounded-[20px] overflow-hidden bg-black"
+        >
+          {!isPlaying ? (
+            <>
+              {/* Thumbnail */}
+              <div className="relative w-full h-full">
+                {thumbnail?.asset?.url ? (
+                  <img
+                    src={thumbnail.asset.url}
+                    alt={thumbnail.alt || 'Video thumbnail'}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900" />
+                )}
+
+                {/* Play Button Overlay */}
+                <button
+                  onClick={handlePlayVideo}
+                  className="absolute inset-0 flex items-center justify-center group cursor-pointer"
+                  aria-label="Play video"
+                >
+                  <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-white/90 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300">
+                    <svg className="w-8 h-8 md:w-12 md:h-12 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
                     </svg>
                   </div>
-                </div>
+                </button>
               </div>
-            </motion.div>
-
-            {/* Right - Content */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="my-0 pt-3 border-t border-black lg:max-w-[773px]"
-            >
-              <div className="flex flex-row text-black text-[16px] md:text-[18px] lg:text-[20px] leading-[1.2] tracking-normal m-0 font-normal pb-4 md:pb-[27px] font-helvetica items-center uppercase">
-                <div className="w-2 h-2 bg-gray-900 rounded-full mr-3"></div>
-                <span>{title}</span>
-              </div>
-
-              <div className="space-y-6">
-                <p
-                  ref={descriptionRef}
-                  className="text-[24px] md:text-[32px] lg:text-[40px] leading-[1.2] tracking-[-0.8px] m-0 font-medium font-helvetica flex flex-wrap"
-                >
-                  {words.map((word, i) => {
-                    const start = i / words.length
-                    const end = (i + 1) / words.length
-                    const color = useTransform(scrollYProgress, [start, end], ['#7F7F7F', '#161618'])
-                    const opacity = useTransform(scrollYProgress, [start, end], [0.6, 1])
-                    return (
-                      <motion.span key={i} style={{ color, opacity }} className="mr-2">
-                        {word}
-                      </motion.span>
-                    )
-                  })}
-                </p>
-              </div>
-            </motion.div>
-          </div>
+            </>
+          ) : (
+            <>
+              {(videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be') || videoUrl.includes('vimeo.com')) ? (
+                <iframe
+                  src={getVideoEmbedUrl(videoUrl)}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : (
+                <video
+                  ref={videoRef}
+                  src={videoUrl}
+                  controls
+                  autoPlay
+                  className="w-full h-full"
+                />
+              )}
+            </>
+          )}
         </motion.div>
-      </div>
-    </section>
-  )
-}
-
-// Info Sections Component
-const InfoSections: React.FC<{
-  sections: Array<{
-    name: string
-    description: string
-    image: { asset: { url: string }; alt?: string }
-  }>
-}> = ({ sections }) => {
-  return (
-    <section className="bg-[#F4F1F2] pb-[69px]">
-      <div className="max-w-[1304px] mx-auto px-4 md:px-6">
-        <div className="flex flex-col lg:flex-row gap-[30px]">
-          {sections.map((section, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-              className={`${
-                index === 1 ? 'md:max-w-[463px]' : 'md:max-w-[392px]'
-              } w-full overflow-hidden`}
-            >
-              <div className="relative w-full h-[260px] rounded-[20px] overflow-hidden">
-                {section.image?.asset?.url && (
-                  <img
-                    src={section.image.asset.url}
-                    alt={section.image.alt || section.name}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                )}
-              </div>
-              <div className="pt-[31px]">
-                <h3 className="text-[#111] text-center font-medium text-[16px] leading-[150%] capitalize mb-[8px]">
-                  {section.name}
-                </h3>
-                <p className="text-[#3F3E4B] text-center text-[16px] font-normal leading-[20px]">
-                  {section.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   )
@@ -810,17 +780,14 @@ export default function TexasFacilityPage() {
         />
       )}
 
-      {/* Manufacturing Excellence Section */}
-      {data.manufacturingExcellence && (
-        <ManufacturingExcellenceSection
-          title={data.manufacturingExcellence.title}
-          description={data.manufacturingExcellence.description}
+      {/* Video Section */}
+      {data.videoSection && (
+        <VideoSection
+          title={data.videoSection.title}
+          description={data.videoSection.description}
+          videoUrl={data.videoSection.videoUrl}
+          thumbnail={data.videoSection.thumbnail}
         />
-      )}
-
-      {/* Info Sections */}
-      {data.infoSections && data.infoSections.length > 0 && (
-        <InfoSections sections={data.infoSections} />
       )}
 
       {/* Facility Features */}

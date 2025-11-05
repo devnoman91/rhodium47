@@ -1151,15 +1151,11 @@ export interface TexasFacilityHeroSection {
   mainHeading: string
 }
 
-export interface TexasFacilityManufacturingExcellence {
-  title: string
-  description: string
-}
-
-export interface TexasFacilityInfoSection {
-  name: string
-  description: string
-  image: {
+export interface TexasFacilityVideoSection {
+  title?: string
+  description?: string
+  videoUrl: string
+  thumbnail?: {
     asset: {
       _id: string
       url: string
@@ -1243,8 +1239,7 @@ export interface TexasFacilityCallToAction {
 export interface TexasFacility {
   _id: string
   heroSection: TexasFacilityHeroSection
-  manufacturingExcellence: TexasFacilityManufacturingExcellence
-  infoSections: TexasFacilityInfoSection[]
+  videoSection?: TexasFacilityVideoSection
   facilityFeatures: TexasFacilityFeatures
   sliderSection: TexasFacilitySliderSection
   designProcess: TexasFacilityDesignProcess

@@ -419,6 +419,30 @@ const SliderSection: React.FC<{
             </motion.div>
           </div>
         </div>
+
+        {/* Dot Navigation */}
+        {totalSlides > 1 && (
+          <div className="flex justify-center items-center gap-3 mt-8">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  setCurrentIndex(index)
+                }}
+                className="group cursor-pointer relative"
+                aria-label={`Go to slide ${index + 1}`}
+              >
+                <div
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    currentIndex === index
+                      ? 'bg-[#560100] scale-110'
+                      : 'bg-gray-400 hover:bg-gray-600'
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </motion.div>
     </section>
   )

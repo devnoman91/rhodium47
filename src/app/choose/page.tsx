@@ -758,11 +758,7 @@ export default function SurveyPage() {
       const result = await response.json()
 
       if (result.success) {
-        console.log('🎉 Survey Successfully Saved to Sanity!')
-        console.log('📄 Response ID:', result.responseId)
-        console.log('📊 All Responses:', result.data.responses)
-        console.log('📝 Form Data:', formData)
-        console.log('✅ Status: Completed')
+
 
         setSubmitMessage({
           type: 'success',

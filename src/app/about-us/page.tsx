@@ -492,6 +492,30 @@ const ForeverSection: React.FC<{
             </motion.div>
           </div>
         </div>
+
+        {/* Dot Navigation */}
+        {cards.length > 1 && (
+          <div className="flex justify-center items-center gap-3 mt-8">
+            {cards.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  setCurrentIndex(index)
+                }}
+                className="group cursor-pointer relative"
+                aria-label={`Go to slide ${index + 1}`}
+              >
+                <div
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    currentIndex === index
+                      ? 'bg-white scale-110'
+                      : 'bg-gray-400 hover:bg-gray-300'
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </motion.div>
     </section>
   )

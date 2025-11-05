@@ -275,6 +275,9 @@ const ThreatProtectionMatrixSection: React.FC<{
   title: string
   cards: Array<{ title: string; description: string }>
 }> = ({ title, cards }) => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [dragX, setDragX] = useState(0)
+
   return (
     <section className="pt-[62px] pb-[50px] lg:pb-[90px] bg-[#111111] text-white overflow-hidden md:px-0 px-[15px]">
       {/* Top Section - Constrained */}
@@ -308,9 +311,24 @@ const ThreatProtectionMatrixSection: React.FC<{
             <motion.div
               className="flex gap-6 cursor-grab active:cursor-grabbing pr-12"
               drag="x"
-              dragConstraints={{ left: -((cards.length - 2.5) * 420), right: 0 }}
-              whileHover={{ x: -20 }}
-              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+              dragConstraints={{ left: -((cards.length - 2.5) * 475), right: 0 }}
+              animate={{ x: dragX }}
+              transition={{ type: 'spring', damping: 26, stiffness: 220 }}
+              onDragEnd={(_, info) => {
+                const offset = info.offset.x
+                const cardWidth = 475
+                const newIndex = Math.round(-dragX / cardWidth)
+
+                if (offset < -50 && currentIndex < cards.length - 1) {
+                  setCurrentIndex(currentIndex + 1)
+                  setDragX(-(currentIndex + 1) * cardWidth)
+                } else if (offset > 50 && currentIndex > 0) {
+                  setCurrentIndex(currentIndex - 1)
+                  setDragX(-(currentIndex - 1) * cardWidth)
+                } else {
+                  setDragX(-currentIndex * cardWidth)
+                }
+              }}
               whileDrag={{ cursor: "grabbing" }}
               style={{ width: 'max-content' }}
             >
@@ -384,6 +402,31 @@ const ThreatProtectionMatrixSection: React.FC<{
             ))}
           </div>
         </div>
+
+        {/* Dot Navigation - Visible on all screens */}
+        {cards.length > 1 && (
+          <div className="flex justify-center items-center gap-3 mt-8">
+            {cards.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  setCurrentIndex(index)
+                  setDragX(-index * 475)
+                }}
+                className="group cursor-pointer relative"
+                aria-label={`Go to slide ${index + 1}`}
+              >
+                <div
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    currentIndex === index
+                      ? 'bg-white scale-110'
+                      : 'bg-gray-400 hover:bg-gray-300'
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </motion.div>
     </section>
   )

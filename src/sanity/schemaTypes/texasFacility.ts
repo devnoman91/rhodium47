@@ -43,11 +43,28 @@ export default defineType({
           type: 'text',
         }),
         defineField({
+          name: 'desktopVideoFile',
+          title: 'Desktop Video File',
+          type: 'file',
+          description: 'Upload video file for desktop (recommended)',
+          options: {
+            accept: 'video/*',
+          },
+        }),
+        defineField({
+          name: 'mobileVideoFile',
+          title: 'Mobile Video File',
+          type: 'file',
+          description: 'Upload video file for mobile (optional, will use desktop if not provided)',
+          options: {
+            accept: 'video/*',
+          },
+        }),
+        defineField({
           name: 'videoUrl',
-          title: 'Video URL',
+          title: 'Video URL (Alternative)',
           type: 'url',
-          description: 'YouTube, Vimeo, or direct video URL',
-          validation: (Rule) => Rule.required(),
+          description: 'YouTube, Vimeo URL - Use this OR upload video files above',
         }),
         defineField({
           name: 'thumbnail',

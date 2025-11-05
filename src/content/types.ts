@@ -1154,7 +1154,19 @@ export interface TexasFacilityHeroSection {
 export interface TexasFacilityVideoSection {
   title?: string
   description?: string
-  videoUrl: string
+  desktopVideoFile?: {
+    asset: {
+      _id: string
+      url: string
+    }
+  }
+  mobileVideoFile?: {
+    asset: {
+      _id: string
+      url: string
+    }
+  }
+  videoUrl?: string
   thumbnail?: {
     asset: {
       _id: string

@@ -37,13 +37,20 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
 const VideoSection: React.FC<{
   title?: string
   description?: string
-  videoUrl: string
+  desktopVideoFile?: { asset: { url: string } }
+  mobileVideoFile?: { asset: { url: string } }
+  videoUrl?: string
   thumbnail?: { asset: { url: string }; alt?: string }
-}> = ({ title, description, videoUrl, thumbnail }) => {
+}> = ({ title, description, desktopVideoFile, mobileVideoFile, videoUrl, thumbnail }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  // Extract video ID and type from URL
+  // Determine if we're using uploaded video files or external URLs
+  const hasUploadedVideo = !!(desktopVideoFile?.asset?.url || mobileVideoFile?.asset?.url)
+  const desktopVideoUrl = desktopVideoFile?.asset?.url
+  const mobileVideoUrl = mobileVideoFile?.asset?.url || desktopVideoUrl
+
+  // Extract video ID and type from URL for YouTube/Vimeo
   const getVideoEmbedUrl = (url: string) => {
     if (url.includes('youtube.com') || url.includes('youtu.be')) {
       const videoId = url.includes('youtu.be')
@@ -87,9 +94,40 @@ const VideoSection: React.FC<{
           transition={{ duration: 0.6 }}
           className="relative w-full aspect-video rounded-[20px] overflow-hidden bg-black"
         >
-          {!isPlaying ? (
+          {/* Direct uploaded video files - autoplay like HeroCarousel */}
+          {hasUploadedVideo ? (
             <>
-              {/* Thumbnail */}
+              {/* Desktop video */}
+              {desktopVideoUrl && (
+                <video
+                  ref={videoRef}
+                  src={desktopVideoUrl}
+                  className="w-full h-full object-cover md:block hidden"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  controls={false}
+                />
+              )}
+              {/* Mobile video */}
+              {mobileVideoUrl && (
+                <video
+                  src={mobileVideoUrl}
+                  className="w-full h-full object-cover md:hidden block"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  controls={false}
+                />
+              )}
+            </>
+          ) : videoUrl && !isPlaying ? (
+            <>
+              {/* Thumbnail for YouTube/Vimeo */}
               <div className="relative w-full h-full">
                 {thumbnail?.asset?.url ? (
                   <img
@@ -115,8 +153,9 @@ const VideoSection: React.FC<{
                 </button>
               </div>
             </>
-          ) : (
+          ) : videoUrl && isPlaying ? (
             <>
+              {/* YouTube/Vimeo iframe after play button clicked */}
               {(videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be') || videoUrl.includes('vimeo.com')) ? (
                 <iframe
                   src={getVideoEmbedUrl(videoUrl)}
@@ -134,7 +173,7 @@ const VideoSection: React.FC<{
                 />
               )}
             </>
-          )}
+          ) : null}
         </motion.div>
       </div>
     </section>
@@ -785,6 +824,8 @@ export default function TexasFacilityPage() {
         <VideoSection
           title={data.videoSection.title}
           description={data.videoSection.description}
+          desktopVideoFile={data.videoSection.desktopVideoFile}
+          mobileVideoFile={data.videoSection.mobileVideoFile}
           videoUrl={data.videoSection.videoUrl}
           thumbnail={data.videoSection.thumbnail}
         />

@@ -1669,6 +1669,18 @@ export const texasFacilityQuery = `
     videoSection {
       title,
       description,
+      desktopVideoFile {
+        asset-> {
+          _id,
+          url
+        }
+      },
+      mobileVideoFile {
+        asset-> {
+          _id,
+          url
+        }
+      },
       videoUrl,
       thumbnail {
         asset-> {

@@ -508,7 +508,7 @@ const CoreValuesSection: React.FC<{
   }>
 }> = ({ title, description, cards }) => {
   return (
-    <section className="md:pt-[77px] pt-[40px] px-[15px] pb-[63px] md:pb-[103]">
+    <section className="md:pt-[77px] pt-[40px] px-[15px] pb-[63px] md:pb-[103] !bg-white">
       <div className="max-w-[1304px] m-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

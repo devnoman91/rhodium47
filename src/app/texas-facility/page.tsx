@@ -406,7 +406,7 @@ const SliderSection: React.FC<{
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     currentIndex === index
                       ? 'bg-[#560100] scale-110'
-                      : 'bg-gray-400 hover:bg-gray-600'
+                      : 'bg-white hover:bg-white'
                   }`}
                 />
               </button>

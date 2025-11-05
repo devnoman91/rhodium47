@@ -117,13 +117,13 @@ export default function AnnouncementBar() {
                 </p>
 
                 {announcement.image && (
-                  <div className="w-5 h-5 relative flex-shrink-0 mx-auto">
+                  <div className="w-10 h-7 relative flex-shrink-0 mx-auto">
                     <Image
                       src={announcement.image.asset.url}
                       alt={announcement.image.alt || ''}
                       fill
                       sizes="20px"
-                      className="object-contain"
+                      className="object-cover"
                     />
                   </div>
                 )}

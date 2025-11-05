@@ -62,7 +62,7 @@ const VehicleDiagram: React.FC<VehicleDiagramProps> = ({ data }) => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-          className="bg-black rounded-[20px] p-2 sm:p-4 md:p-[20px] lg:p-[40px] flex justify-center items-center w-full max-w-full overflow-hidden"
+          className="bg-black rounded-[20px] p-2 sm:p-4 md:p-[20px] lg:p-[40px] flex justify-center items-center !w-full max-w-full "
           style={{ width: 'fit-content' }}
         >
           <div className="relative pl-6 pr-4 sm:p-4 md:p-6 lg:p-[100px] rounded-[12px] [background:linear-gradient(0deg,_#0F0F0F_0%,_#2A2A2A_100%)] w-full max-w-full">

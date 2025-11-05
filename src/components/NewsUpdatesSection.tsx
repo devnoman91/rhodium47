@@ -28,21 +28,62 @@ const cardVariants = {
 const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const sliderRef = useRef<HTMLDivElement>(null)
+  const [isDragging, setIsDragging] = useState(false)
+  const [startX, setStartX] = useState(0)
+  const [scrollLeft, setScrollLeft] = useState(0)
 
-  // Handle swipe scroll for mobile
+  // Handle swipe scroll
   const handleScroll = () => {
     if (!sliderRef.current) return
     const scrollLeft = sliderRef.current.scrollLeft
-    const width = sliderRef.current.clientWidth
-    const index = Math.round(scrollLeft / width)
+    const cardWidth = 550 + 20 // card width + gap
+    const index = Math.round(scrollLeft / cardWidth)
     setActiveIndex(index)
+  }
+
+  // Mouse drag handlers for desktop
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!sliderRef.current) return
+    setIsDragging(true)
+    setStartX(e.pageX - sliderRef.current.offsetLeft)
+    setScrollLeft(sliderRef.current.scrollLeft)
+    sliderRef.current.style.cursor = 'grabbing'
+    sliderRef.current.style.scrollBehavior = 'auto'
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+    if (sliderRef.current) {
+      sliderRef.current.style.cursor = 'grab'
+      sliderRef.current.style.scrollBehavior = 'smooth'
+    }
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !sliderRef.current) return
+    e.preventDefault()
+    const x = e.pageX - sliderRef.current.offsetLeft
+    const walk = (x - startX) * 2 // Scroll speed multiplier
+    sliderRef.current.scrollLeft = scrollLeft - walk
+  }
+
+  const handleMouseLeave = () => {
+    if (isDragging) {
+      setIsDragging(false)
+      if (sliderRef.current) {
+        sliderRef.current.style.cursor = 'grab'
+      }
+    }
   }
 
   useEffect(() => {
     const el = sliderRef.current
     if (!el) return
     el.addEventListener('scroll', handleScroll)
-    return () => el.removeEventListener('scroll', handleScroll)
+    el.style.cursor = 'grab'
+    return () => {
+      el.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   return (
@@ -75,10 +116,23 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
 
       {/* News Slider */}
       <div className="relative w-full">
+        <style jsx>{`
+          .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
         <div className="md:pl-6 lg:pl-[calc((100vw-1280px)/2+1.5rem)]">
           <div
             ref={sliderRef}
-            className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide md:overflow-visible md:snap-none"
+            className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide select-none"
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
           >
             {data.newsSection?.map((newsItem, index) => (
               <motion.div
@@ -88,6 +142,12 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
+                onClick={(e) => {
+                  if (isDragging) {
+                    e.preventDefault()
+                    e.stopPropagation()
+                  }
+                }}
               >
                 <NewsCard newsItem={newsItem} index={index} />
               </motion.div>
@@ -95,25 +155,35 @@ const NewsUpdatesSection: React.FC<NewsUpdatesSectionProps> = ({ data }) => {
           </div>
         </div>
 
-        {/* Dots (Mobile only) */}
-        <div className="flex justify-center mt-8 gap-2 md:hidden">
-          {data.newsSection?.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => {
-                if (sliderRef.current) {
-                  sliderRef.current.scrollTo({
-                    left: i * sliderRef.current.clientWidth,
-                    behavior: 'smooth'
-                  })
-                }
-              }}
-              className={`w-[12px] h-[12px] rounded-full transition-all ${
-                i === activeIndex ? 'bg-[#fff]' : 'bg-[#D9D9D980]'
-              }`}
-            />
-          ))}
-        </div>
+        {/* Dot Navigation */}
+        {data.newsSection && data.newsSection.length > 1 && (
+          <div className="flex justify-center items-center gap-3 mt-8">
+            {data.newsSection.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  if (sliderRef.current) {
+                    const cardWidth = 550 + 20 // card width + gap
+                    sliderRef.current.scrollTo({
+                      left: index * cardWidth,
+                      behavior: 'smooth'
+                    })
+                  }
+                }}
+                className="group cursor-pointer relative"
+                aria-label={`Go to slide ${index + 1}`}
+              >
+                <div
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    activeIndex === index
+                      ? 'bg-white scale-110'
+                      : 'bg-gray-400 hover:bg-gray-300'
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Bottom fade overlay */}

@@ -11,7 +11,7 @@ const criticalInlineStyles = `
   .consultation-container {
     max-width: 100%;
     margin: 0 auto;
-    padding-top: 138px;
+    padding-top: 170px;
     background: #F4F1F2;
     padding-inline: 15px;
   }
@@ -897,7 +897,7 @@ export default function AboutUsPage() {
     <>
       <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
 
-    <div className="consultation-container">
+    <div className="consultation-container ">
       {/* Hero Section */}
       {data.heroSection && (
         <HeroSection

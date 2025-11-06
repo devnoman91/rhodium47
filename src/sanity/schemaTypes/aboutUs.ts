@@ -78,7 +78,7 @@ export default defineType({
                   name: 'description',
                   title: 'Description',
                   type: 'text',
-                 
+
                 }),
                    defineField({
               name: 'bulletPoints',
@@ -86,6 +86,18 @@ export default defineType({
               type: 'array',
               of: [{ type: 'string' }],
               validation: (Rule) => Rule.max(10),
+            }),
+            defineField({
+              name: 'buttonText',
+              title: 'Button Text',
+              type: 'string',
+              description: 'Text for the "Learn More" button',
+            }),
+            defineField({
+              name: 'buttonLink',
+              title: 'Button Link',
+              type: 'string',
+              description: 'URL for the "Learn More" button',
             }),
               ],
               preview: {

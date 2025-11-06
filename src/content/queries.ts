@@ -1589,7 +1589,9 @@ export const aboutUsQuery = `
         },
         name,
         description,
-        bulletPoints[]
+        bulletPoints[],
+        buttonText,
+        buttonLink
       }
     },
     ForeversSection {

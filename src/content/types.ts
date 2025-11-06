@@ -1056,6 +1056,8 @@ export interface AboutUsSlide {
   name: string
   description: string
   bulletPoints?: string[]
+  buttonText?: string
+  buttonLink?: string
 }
 
 export interface AboutUsForeverStartsNowSection {

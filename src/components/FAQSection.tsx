@@ -38,7 +38,7 @@ const accordionVariants = {
   }
 }
 
-const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#111', textColor = 'white' }) => {
+const FAQSection: React.FC<FAQSectionProps> = ({ data, backgroundColor = '#560100', textColor = 'white' }) => {
   const [activeCategory, setActiveCategory] = useState<string>('General')
   const [expandedQuestionIndex, setExpandedQuestionIndex] = useState<number | null>(null)
 

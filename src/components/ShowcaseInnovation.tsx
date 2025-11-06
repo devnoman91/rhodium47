@@ -55,7 +55,7 @@ const ShowcaseInnovationComponent: React.FC<ShowcaseInnovationProps> = ({ data }
   }
 
   return (
-    <section className="pt-[42px] pb-[98px] lg:py-24 bg-[#111111] text-white overflow-hidden">
+    <section className="pt-[42px] pb-[98px] lg:py-24 bg-[#560100] text-white overflow-hidden">
       {/* Top Section - Constrained */}
       <div className="max-w-7xl mx-auto px-6 mb-16 lg:mb-20">
         <motion.div
@@ -203,7 +203,7 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
       {/* Button */}
    <motion.button
   className="relative overflow-hidden px-[24px] py-[5px] rounded-[50px]
-             border group-hover:border-[#560100] border-white text-white font-helvetica text-[14px] leading-[24px]
+             border  border-white text-white font-helvetica text-[14px] leading-[24px]
              font-medium transition-colors duration-500 ease-in-out
              w-fit block cursor-pointer mt-auto group"
   whileHover={{ scale: 1.02 }}
@@ -221,13 +221,13 @@ const BlogCard: React.FC<{ blog: BlogItem; index: number }> = React.memo(({ blog
 >
   {/* sliding overlay */}
   <span
-    className="absolute inset-0 bg-[#560100] translate-x-full
+    className="absolute inset-0 bg-[#fff] translate-x-full
                transition-transform duration-500 ease-in-out rounded-[50px]
                group-hover:translate-x-0"
   />
 
   {/* text */}
-  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
+  <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-black">
     {blog.buttonText || 'Learn More'}
   </span>
 </motion.button>

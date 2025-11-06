@@ -1579,14 +1579,14 @@ export const aboutUsQuery = `
     foreverStartsNowSection {
       mainName,
       mainTitle,
-      slides[] {
-        image {
-          asset-> {
-            _id,
-            url
-          },
-          alt
+      images[] {
+        asset-> {
+          _id,
+          url
         },
+        alt
+      },
+      content {
         name,
         description,
         bulletPoints[],

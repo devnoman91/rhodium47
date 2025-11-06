@@ -86,15 +86,15 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
 const ForeverStartsNowSection: React.FC<{
   mainName: string
   mainTitle: string
-  slides: Array<{
-    image: { asset: { url: string }; alt?: string }
+  images: Array<{ asset: { url: string }; alt?: string }>
+  content: {
     name: string
     description: string
     bulletPoints?: string[]
     buttonText?: string
     buttonLink?: string
-  }>
-}> = ({ mainName, mainTitle, slides }) => {
+  }
+}> = ({ mainName, mainTitle, images, content }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const descriptionRef = useRef<HTMLParagraphElement>(null)
   const { scrollYProgress } = useScroll({
@@ -105,11 +105,11 @@ const ForeverStartsNowSection: React.FC<{
   const words = mainTitle.split(' ')
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length)
+    setCurrentSlide((prev) => (prev + 1) % images.length)
   }
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
+    setCurrentSlide((prev) => (prev - 1 + images.length) % images.length)
   }
 
   return (
@@ -157,9 +157,9 @@ const ForeverStartsNowSection: React.FC<{
               <div className="w- lg:max-w-[783px] h-1 bg-gray-200 rounded-full overflow-hidden">
                 <motion.div
                   className="h-full bg-gray-900 rounded-full"
-                  style={{ width: `${(currentSlide + 1) * (100 / slides.length)}%` }}
+                  style={{ width: `${(currentSlide + 1) * (100 / images.length)}%` }}
                   initial={{ width: 0 }}
-                  animate={{ width: `${(currentSlide + 1) * (100 / slides.length)}%` }}
+                  animate={{ width: `${(currentSlide + 1) * (100 / images.length)}%` }}
                   transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
                 />
               </div>
@@ -223,8 +223,8 @@ const ForeverStartsNowSection: React.FC<{
                 <div className="relative aspect-[16/9] lg:aspect-auto h-full rounded-2xl overflow-hidden bg-gray-100">
                   <motion.img
                     key={currentSlide}
-                    src={slides[currentSlide].image.asset.url}
-                    alt={slides[currentSlide].image.alt || slides[currentSlide].name}
+                    src={images[currentSlide].asset.url}
+                    alt={images[currentSlide].alt || content.name}
                     className="w-full h-full object-cover aspect-[1/0.54]"
                     initial={{ scale: 1.05, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
@@ -257,25 +257,23 @@ const ForeverStartsNowSection: React.FC<{
                 </div>
               </div>
 
-              {/* Product Info */}
+              {/* Product Info (Static) */}
               <div className="w-full lg:max-w-[433px] flex items-center">
                 <motion.div
-                  key={`info-${currentSlide}`}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                   className="w-full"
                 >
                   <h3 className="text-[#161618] font-medium text-[24px] leading-[120%] tracking-[-0.48px] font-helvetica mb-[24px]">
-                    {slides[currentSlide].name}
+                    {content.name}
                   </h3>
                   <p className="text-[#7F7F7F] font-helvetica text-[20px] not-italic font-normal leading-[24px] tracking-[-0.4px] mb-[24px]">
-                    {slides[currentSlide].description}
+                    {content.description}
                   </p>
-                  {slides[currentSlide].bulletPoints && slides[currentSlide].bulletPoints!.length > 0 && (
+                  {content.bulletPoints && content.bulletPoints.length > 0 && (
                     <ul className="space-y-[12px] mb-[24px]">
-                      {slides[currentSlide].bulletPoints!.map((point, idx) => (
+                      {content.bulletPoints.map((point, idx) => (
                         <li key={idx} className="flex items-start gap-[12px] m-0">
                           <span className="w-[6px] h-[6px] bg-[#7F7F7F] rounded-full mt-[8px] flex-shrink-0" />
                           <span className="text-[16px] text-[#7F7F7F]">{point}</span>
@@ -283,8 +281,8 @@ const ForeverStartsNowSection: React.FC<{
                       ))}
                     </ul>
                   )}
-                  {slides[currentSlide].buttonText && (
-                    <Link href={slides[currentSlide].buttonLink || '#'}>
+                  {content.buttonText && (
+                    <Link href={content.buttonLink || '#'}>
                       <motion.button
                         className="inline-flex cursor-pointer items-center text-[#161618] font-helvetica text-[20px] gap-3 not-italic font-medium leading-[24px] tracking-[-0.4px]"
                         whileHover={{ x: 5 }}
@@ -292,7 +290,7 @@ const ForeverStartsNowSection: React.FC<{
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
                           <path d="M21.5536 10.9272L13.6786 18.8022C13.432 19.0488 13.0976 19.1873 12.7489 19.1873C12.4002 19.1873 12.0658 19.0488 11.8192 18.8022C11.5727 18.5556 11.4341 18.2212 11.4341 17.8725C11.4341 17.5238 11.5727 17.1894 11.8192 16.9428L17.4531 11.3111H1.375C1.0269 11.3111 0.693064 11.1728 0.446922 10.9267C0.200781 10.6805 0.0625 10.3467 0.0625 9.99861C0.0625 9.65051 0.200781 9.31667 0.446922 9.07053C0.693064 8.82438 1.0269 8.68611 1.375 8.68611H17.4531L11.8214 3.0511C11.5748 2.80454 11.4363 2.47012 11.4363 2.12142C11.4363 1.77272 11.5748 1.4383 11.8214 1.19173C12.068 0.945161 12.4024 0.806641 12.7511 0.806641C13.0998 0.806641 13.4342 0.945161 13.6808 1.19173L21.5558 9.06673C21.6782 9.18883 21.7752 9.3339 21.8414 9.49362C21.9075 9.65333 21.9415 9.82454 21.9413 9.99742C21.9411 10.1703 21.9067 10.3414 21.8402 10.501C21.7737 10.6605 21.6763 10.8054 21.5536 10.9272Z" fill="black" />
                         </svg>
-                        <span>{slides[currentSlide].buttonText}</span>
+                        <span>{content.buttonText}</span>
                       </motion.button>
                     </Link>
                   )}
@@ -923,11 +921,12 @@ export default function AboutUsPage() {
       )}
 
       {/* Forever Starts Now Section */}
-      {data.foreverStartsNowSection && (
+      {data.foreverStartsNowSection && data.foreverStartsNowSection.images && data.foreverStartsNowSection.content && (
         <ForeverStartsNowSection
           mainName={data.foreverStartsNowSection.mainName}
           mainTitle={data.foreverStartsNowSection.mainTitle}
-          slides={data.foreverStartsNowSection.slides}
+          images={data.foreverStartsNowSection.images}
+          content={data.foreverStartsNowSection.content}
         />
       )}
 

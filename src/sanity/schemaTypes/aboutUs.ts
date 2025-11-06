@@ -27,7 +27,7 @@ export default defineType({
       ],
     }),
 
-    // Second Section: Forever Starts Now (Slider like consultation)
+    // Second Section: Forever Starts Now (Image Slider with Static Content)
     defineField({
       name: 'foreverStartsNowSection',
       title: 'Forever Starts Now Section',
@@ -37,50 +37,51 @@ export default defineType({
           name: 'mainName',
           title: 'Main Name',
           type: 'string',
-         
         }),
         defineField({
           name: 'mainTitle',
           title: 'Main Title',
           type: 'string',
-         
         }),
         defineField({
-          name: 'slides',
-          title: 'Slides',
+          name: 'images',
+          title: 'Slider Images',
           type: 'array',
+          description: 'Add multiple images that will slide when clicking arrows',
           of: [
             {
-              type: 'object',
+              type: 'image',
+              options: {
+                hotspot: true,
+              },
               fields: [
-                defineField({
-                  name: 'image',
-                  title: 'Image',
-                  type: 'image',
-                  options: {
-                    hotspot: true,
-                  },
-                  fields: [
-                    {
-                      name: 'alt',
-                      type: 'string',
-                      title: 'Alternative text',
-                    },
-                  ],
-                }),
-                defineField({
-                  name: 'name',
-                  title: 'Name',
+                {
+                  name: 'alt',
                   type: 'string',
-                 
-                }),
-                defineField({
-                  name: 'description',
-                  title: 'Description',
-                  type: 'text',
-
-                }),
-                   defineField({
+                  title: 'Alternative text',
+                },
+              ],
+            },
+          ],
+          validation: (Rule) => Rule.min(1).required(),
+        }),
+        defineField({
+          name: 'content',
+          title: 'Product Content (Static)',
+          type: 'object',
+          description: 'This content will stay the same while images slide',
+          fields: [
+            defineField({
+              name: 'name',
+              title: 'Product Name',
+              type: 'string',
+            }),
+            defineField({
+              name: 'description',
+              title: 'Product Description',
+              type: 'text',
+            }),
+            defineField({
               name: 'bulletPoints',
               title: 'Bullet Points',
               type: 'array',
@@ -99,14 +100,6 @@ export default defineType({
               type: 'string',
               description: 'URL for the "Learn More" button',
             }),
-              ],
-              preview: {
-                select: {
-                  title: 'name',
-                  media: 'image',
-                },
-              },
-            },
           ],
         }),
       ],

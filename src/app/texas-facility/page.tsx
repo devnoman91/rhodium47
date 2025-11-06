@@ -359,7 +359,7 @@ const SliderSection: React.FC<{
       >
         {/* Left Padding for Content Alignment */}
         <div className="md:pl-6 lg:pl-[calc((100vw-1304px)/2)]">
-          {/* Slider Container */}
+   
           <div className="relative overflow-visible" ref={constraintsRef}>
             <motion.div
               className="flex gap-5 cursor-grab active:cursor-grabbing md:w-fit !w-full"

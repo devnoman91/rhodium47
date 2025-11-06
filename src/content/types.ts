@@ -1045,14 +1045,7 @@ export interface AboutUsHeroSection {
   mainHeading: string
 }
 
-export interface AboutUsSlide {
-  image: {
-    asset: {
-      _id: string
-      url: string
-    }
-    alt?: string
-  }
+export interface AboutUsContent {
   name: string
   description: string
   bulletPoints?: string[]
@@ -1063,7 +1056,14 @@ export interface AboutUsSlide {
 export interface AboutUsForeverStartsNowSection {
   mainName: string
   mainTitle: string
-  slides: AboutUsSlide[]
+  images: Array<{
+    asset: {
+      _id: string
+      url: string
+    }
+    alt?: string
+  }>
+  content: AboutUsContent
 }
 
 export interface AboutUsForeverCard {

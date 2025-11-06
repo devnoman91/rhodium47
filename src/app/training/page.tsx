@@ -163,6 +163,7 @@ export default function TrainingPage() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [dragX, setDragX] = useState(0)
   const [isSmallScreen, setIsSmallScreen] = useState(false)
+  const [cardWidth, setCardWidth] = useState(956) // 936px + 20px gap
   const constraintsRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -188,10 +189,20 @@ export default function TrainingPage() {
     fetchData()
   }, [])
 
-  // detect small screen for swipe behavior
+  // detect small screen for swipe behavior and calculate card width
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 768)
+      const width = window.innerWidth
+      setIsSmallScreen(width < 768)
+
+      // Match actual card widths from CSS
+      if (width < 768) {
+        setCardWidth(Math.min(width, 420))
+      } else if (width >= 1536) {
+        setCardWidth(1100 + 20) // 2xl breakpoint: 1100px + gap
+      } else {
+        setCardWidth(936 + 20) // md breakpoint: 936px + gap
+      }
     }
     handleResize()
     window.addEventListener('resize', handleResize)
@@ -199,10 +210,6 @@ export default function TrainingPage() {
   }, [])
 
   const totalSlides = trainingData?.sliderSection.slides.length || 0
-
-  // cardWidth should match the visible slide size on the current screen
-  const cardWidth = isSmallScreen ? (Math.min(window.innerWidth, 420)) : 1000 + 20 // desktop original approx
-  // max scroll left value
   const maxScroll = -(totalSlides - 1) * cardWidth
 
   // ensure dragX follows currentIndex and cardWidth changes
@@ -359,7 +366,7 @@ export default function TrainingPage() {
 
           {/* Slider - Extending Full Width */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, staggerChildren: 0.15 }} className="relative">
-            <div className="md:pl-6 lg:pl-[calc((100vw-1280px)/2+-1.5rem)]">
+            <div className="md:pl-6 lg:pl-[calc((100vw-1304px)/2)]">
               <div className="relative overflow-visible" ref={constraintsRef}>
                 <motion.div
                   className="flex gap-5 cursor-grab active:cursor-grabbing md:w-fit !w-full"

@@ -14,7 +14,7 @@ const supportStyles = `
   }
 
   .support-hero {
-    padding: 138px 15px 110px;
+    padding: 170px 15px 110px;
     text-align: center;
   }
 

@@ -590,7 +590,7 @@ const LeadershipTeamSection: React.FC<{
 }> = ({ title, description, cards }) => {
   return (
     <section className="pt-[50px] pb-[70px] lg:pb-[117px] bg-[#560100] px-[15px]">
-      <div className="max-w-[1304px] m-auto">
+      <div className="max-w-[1400px] m-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -604,7 +604,7 @@ const LeadershipTeamSection: React.FC<{
           </p>
         </motion.div>
          {/* md:grid-cols-2 lg:grid-cols-3 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 items-start  gap-x-[50px] gap-y-[200px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-start  md:gap-x-[100px] gap-x-[50px] gap-y-[200px]">
           {cards.map((card, index) => (
             <motion.div
               key={index}

@@ -10,7 +10,7 @@ const criticalInlineStyles = `
   .maintenance-container {
     max-width: 100%;
     margin: 0 auto;
-    padding-top: 138px;
+    padding-top: 170px;
     background: #F4F1F2;
     padding-inline: calc(var(--spacing) * 12);
     padding-bottom: 69px;
@@ -385,7 +385,7 @@ export default function MaintenancePage() {
 
       {/* Slider Section */}
       {maintenanceData.sliderSection.slides.length > 0 && (
-        <section className="pt-[50px] lg:pt-[79px] pb-[50px] lg:pb-[102px] bg-[#111111] text-white overflow-hidden mmd:px-0 px-[13px]" style={{ contain: 'layout style' }}>
+        <section className="pt-[50px] lg:pt-[79px] pb-[50px] lg:pb-[102px] bg-[#560100] text-white overflow-hidden mmd:px-0 px-[13px]" style={{ contain: 'layout style' }}>
           {/* Header Section */}
           <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, staggerChildren: 0.15 }}>

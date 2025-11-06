@@ -234,7 +234,7 @@ export default function InventoryClient({
   };
 
   return (
-    <div className="min-h-screen md:pt-[126px] pt-[98px] md:pb-[95px] pb-[30px] bg-[#FFFFFF] relative">
+    <div className="min-h-screen md:pt-[160px] pt-[98px] md:pb-[95px] pb-[30px] bg-[#FFFFFF] relative">
       {/* Mobile header with inventory title, zip code, new/pre-order buttons, and filter button */}
       <div className="md:hidden px-[15px] ">
        <h2 className="font-helvetica text-black mb-[5px] font-medium text-[26px] leading-[110%] tracking-[-0.52px]">Inventory</h2>
@@ -429,7 +429,7 @@ export default function InventoryClient({
             </div>
           )}
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-[15px] gap-y-[35px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2  gap-x-[15px] gap-y-[35px]">
             {filteredVehicles.map((vehicle) => (
               <VehicleCard 
                 key={vehicle.id} 

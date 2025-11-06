@@ -10,7 +10,7 @@ const criticalInlineStyles = `
   .security-systems-container {
     max-width: 100%;
     margin: 0 auto;
-    padding-top: 138px;
+    padding-top: 170px;
     background: #F4F1F2;
     padding-inline: calc(var(--spacing) * 12);
     padding-bottom: 89px;
@@ -166,7 +166,7 @@ const SecurityFeaturesSection: React.FC<{
   cards?: Array<{ title: string; description: string }>
 }> = ({ title, description, bulletPoints, cards }) => {
   return (
-    <section className="pt-[79px] px-[15px] lg:pb-[93px] bg-[#111111]">
+    <section className="pt-[79px] px-[15px] lg:pb-[93px] bg-[#560100]">
       <div className="max-w-[1304px] mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -182,7 +182,7 @@ const SecurityFeaturesSection: React.FC<{
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-[16px] leading-[20px] text-[#FFFFFF80] mb-[20px] max-w-[855px]"
+          className="text-[16px] leading-[20px] text-[#fff] mb-[20px] max-w-[855px]"
         >
           {description}
         </motion.p>
@@ -205,8 +205,8 @@ const SecurityFeaturesSection: React.FC<{
                 transition={{ delay: index * 0.1 }}
                 className="flex items-center gap-2 m-0"
               >
-                <div className="w-2 h-2 bg-[#FFFFFF80] rounded-full flex-shrink-0"></div>
-                <span className="text-[16px] leading-[24px] text-[#FFFFFF80]">
+                <div className="w-2 h-2 bg-[#fff] rounded-full flex-shrink-0"></div>
+                <span className="text-[16px] leading-[24px] text-[#fff]">
                   {point}
                 </span>
               </motion.li>
@@ -224,12 +224,12 @@ const SecurityFeaturesSection: React.FC<{
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-[#1d1d1d] rounded-[30px] px-[40px] pt-[61px] pb-[67px]"
+                className="bg-white rounded-[30px] px-[40px] pt-[61px] pb-[67px]"
               >
-                <h3 className="text-[26px] text-white font-[400] leading-[30px] font-helvetica mb-[21px]">
+                <h3 className="text-[26px] text-black font-[400] leading-[30px] font-helvetica mb-[21px]">
                   {card.title}
                 </h3>
-                <p className="text-[16px] leading-[26px] text-[#FFFFFFA1] max-w-[325px]">
+                <p className="text-[16px] leading-[26px] text-[#1d1d1d] max-w-[325px]">
                   {card.description}
                 </p>
               </motion.div>

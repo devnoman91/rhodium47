@@ -10,7 +10,7 @@ const criticalInlineStyles = `
   .xodium-armor-container {
     max-width: 100%;
     margin: 0 auto;
-    padding-top: 138px;
+    padding-top: 170px;
     background: #F4F1F2;
     // padding-inline: calc(var(--spacing) * 12);
     padding-bottom: 0px;
@@ -397,7 +397,7 @@ export default function XodiumArmorPage() {
       <div className="" style={{ paddingTop: 0 }}>
         {/* Technical Specifications Section */}
         {armorData.technicalSpecifications.cards.length > 0 && (
-          <section className="md:pt-[50px] py-[30px]  px-[15px] lg:pt-[79px] md:pb-[50px] lg:pb-[104px] bg-[#111111] md:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
+          <section className="md:pt-[50px] py-[30px]  px-[15px] lg:pt-[79px] md:pb-[50px] lg:pb-[104px] bg-[#560100] md:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
             <div className="max-w-[1304px] mx-auto">
               {/* Header */}
               <div className="md:mb-[91px] mb-[48px]">
@@ -451,12 +451,12 @@ export default function XodiumArmorPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-[#1d1d1d] rounded-[30px] px-[40px] md:pt-[61px] md:pb-[67px] py-[51px] "
+                    className="bg-white rounded-[30px] px-[40px] md:pt-[61px] md:pb-[67px] py-[51px] "
                   >
-                    <h3 className="text-[26px] text-white font-[400] leading-[30px] font-helvetica mb-[21px]">
+                    <h3 className="text-[26px] text-black font-[400] leading-[30px] font-helvetica mb-[21px]">
                       {card.name}
                     </h3>
-                    <p className="text-[16px] leading-[26px] text-[#FFFFFFA1] max-w-[325px]">
+                    <p className="text-[16px] leading-[26px] text-[#1d1d1d] max-w-[325px]">
                       {card.description}
                     </p>
                   </motion.div>

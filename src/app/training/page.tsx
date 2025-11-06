@@ -13,7 +13,7 @@ const criticalInlineStyles = `
   .training-container {
     max-width: 100%;
     margin: 0 auto;
-    padding-top: 138px;
+    padding-top: 170px;
     background: #F4F1F2;
     padding-inline: calc(var(--spacing) * 12);
     // padding-bottom: 89px;
@@ -467,7 +467,7 @@ export default function TrainingPage() {
       <div className="" style={{ paddingTop: 0 }}>
         {/* Training Levels Section */}
         {trainingData.trainingLevels.cards.length > 0 && (
-          <section className="pt-[50px] px-[15px] lg:pt-[90px] pb-[50px] lg:pb-[115px] bg-[#111] md:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
+          <section className="pt-[50px] px-[15px] lg:pt-[90px] pb-[50px] lg:pb-[115px] bg-[#560100] md:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
             <div className="max-w-[1332px] mx-auto">
               {/* Header */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-[27px] lg:gap-16 md:mb-[79px] mb-[51px]">
@@ -504,12 +504,12 @@ export default function TrainingPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-[#1d1d1d] rounded-[30px] pt-[61px] pb-[57px] px-[40px] "
+                    className="bg-white rounded-[30px] pt-[61px] pb-[57px] px-[40px] "
                   >
-                    <h3 className="text-[26px]  text-white font-[400] leading-[30px] font-helvetica mb-[21px]">
+                    <h3 className="text-[26px]  text-black font-[400] leading-[30px] font-helvetica mb-[21px]">
                       {card.name}
                     </h3>
-                    <p className="text-[16px] leading-[24px] text-[#FFFFFFA1] max-w-[325px]">
+                    <p className="text-[16px] leading-[24px] text-[#1d1d1d] max-w-[325px]">
                       {card.description}
                     </p>
                   </motion.div>

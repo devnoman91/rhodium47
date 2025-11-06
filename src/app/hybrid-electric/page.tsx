@@ -10,7 +10,7 @@ const criticalInlineStyles = `
   .hybrid-electric-container {
     max-width: 100%;
     margin: 0 auto;
-    padding-top: 138px;
+    padding-top: 170px;
     background: #F4F1F2;
     padding-inline: calc(var(--spacing) * 12);
     padding-bottom: 69px;
@@ -282,7 +282,7 @@ const IntelligentPowerManagementSection: React.FC<{
   cards: Array<{ title: string; description: string }>
 }> = ({ title, description, bulletPoints, cards }) => {
   return (
-    <section className="pt-[79px] px-[15px] pb-[50px] lg:pb-[93px] bg-[#111111] ">
+    <section className="pt-[79px] px-[15px] pb-[50px] lg:pb-[93px] bg-[#560100] ">
       <div className="max-w-[1304px] mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -340,12 +340,12 @@ const IntelligentPowerManagementSection: React.FC<{
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-[#1d1d1d] rounded-[30px] px-[40px] pt-[61px] pb-[67px]"
+                className="bg-white rounded-[30px] px-[40px] pt-[61px] pb-[67px]"
               >
-                <h3 className="text-[26px] text-white font-[400] leading-[30px] font-helvetica mb-[21px]">
+                <h3 className="text-[26px] text-black font-[400] leading-[30px] font-helvetica mb-[21px]">
                   {card.title}
                 </h3>
-                <p className="text-[16px] leading-[26px] text-[#FFFFFFA1] max-w-[325px]">
+                <p className="text-[16px] leading-[26px] text-[#1d1d1d] max-w-[325px]">
                   {card.description}
                 </p>
               </motion.div>

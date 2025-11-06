@@ -20,7 +20,7 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h1 className="md:text-[64px] text-[30px] md:pt-[138px] pt-[102px] font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto md:mb-6 mb-[10px] font-helvetica">
+          <h1 className="md:text-[64px] text-[30px] md:pt-[170px] pt-[102px] font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto md:mb-6 mb-[10px] font-helvetica">
              {sectionLabel}
           </h1>
           <p className="md:text-[24px] text-[16px] font-medium text-[#111] leading-[150%] capitalize max-w-[855px] mx-auto font-helvetica">
@@ -296,7 +296,7 @@ const SliderSection: React.FC<{
   }, [currentIndex, totalSlides])
 
   return (
-    <section className="pt-[30px] lg:pt-[89px] pb-[50px] lg:pb-[102px] bg-[#111111] text-white overflow-hidden md:px-0 px-[13px]" style={{ contain: 'layout style' }}>
+    <section className="pt-[30px] lg:pt-[89px] pb-[50px] lg:pb-[102px] bg-[#560100] text-white overflow-hidden md:px-0 px-[13px]" style={{ contain: 'layout style' }}>
       {/* Header Section */}
       <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
         <motion.div
@@ -560,7 +560,7 @@ const ByTheNumbersSection: React.FC<{
   const words = description ? description.split(' ') : []
 
   return (
-    <section className="pt-[37px] lg:pt-[108px] pb-[50px] lg:pb-[54px] bg-[#111111] px-[15px]">
+    <section className="pt-[37px] lg:pt-[108px] pb-[50px] lg:pb-[54px] bg-[#560100] px-[15px]">
       <div className="max-w-[1304px] mx-auto">
         <motion.div
           variants={containerVariants}

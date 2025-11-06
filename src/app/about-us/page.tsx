@@ -369,7 +369,7 @@ const ForeverSection: React.FC<{
   }, [currentIndex, totalSlides])
 
   return (
-    <section className="pt-[50px] lg:pt-[89px] px-[15px] pb-[80px] lg:pb-[102px] bg-black text-white overflow-hidden " style={{ contain: 'layout style' }}>
+    <section className="pt-[50px] lg:pt-[89px] px-[15px] pb-[80px] lg:pb-[102px] bg-[#560100] text-white overflow-hidden " style={{ contain: 'layout style' }}>
       {/* Header Section - Constrained max-w-7xl */}
       <div className="max-w-[1304px] mx-auto lg:mb-[64px] mb-[20px]" style={{ contain: 'layout style' }}>
         <motion.div
@@ -565,7 +565,7 @@ const LeadershipTeamSection: React.FC<{
   }>
 }> = ({ title, description, cards }) => {
   return (
-    <section className="pt-[50px] pb-[70px] lg:pb-[117px] bg-[#111111] px-[15px]">
+    <section className="pt-[50px] pb-[70px] lg:pb-[117px] bg-[#560100] px-[15px]">
       <div className="max-w-[1304px] m-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -579,8 +579,8 @@ const LeadershipTeamSection: React.FC<{
             {description}
           </p>
         </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-[32px] gap-y-[170px]">
+         {/* md:grid-cols-2 lg:grid-cols-3 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 items-start  gap-x-[50px] gap-y-[200px]">
           {cards.map((card, index) => (
             <motion.div
               key={index}
@@ -588,10 +588,10 @@ const LeadershipTeamSection: React.FC<{
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className=" transition-shadow"
+              className=" transition-shadow flex lg:flex-row flex-col gap-[30px]"
             >
-              <div className='bg-white p-[21px] relative'>
-                  <div className="relative w-full h-[505px] mt-[-176px]">
+              <div className='bg-white h-fit p-[10px] relative m-auto lg:m-0  lg:max-w-[300px] max-w-[400px]  w-full'>
+                 <div className="relative w-full h-[505px] mt-[-176px]">
                   <Image
                     src={card.image.asset.url}
                     alt={card.image.alt || card.Name}
@@ -599,13 +599,14 @@ const LeadershipTeamSection: React.FC<{
                     className="object-cover !relative object-top z-10"
                   />
                 </div>
-                <div className='bg-[#111111] absolute top-5 right-0 left-0 h-[330px] w-[90%] m-auto  z-[1]'></div>
-                <div className="pt-[15px]">
-                  <h3 className="text-[27px] text-center font-[700] leading-[1] text-black ">{card.Name}</h3>
-                  <p className="text-[16px]  text-center font-[400] text-black ">{card.title}</p>
-                </div>
+                <div className='bg-[#560100] absolute top-3 right-0 left-0 h-[327px] w-[94%] m-auto  z-[1]'></div>
               </div>
-              <p className="max-w-[299px] mt-[17px] m-auto text-[16px] font-[300] leading-[120%] text-white font-helvetica text-center">{card.description}</p>
+              <div className='border-t border-[#fff] pt-5 lg:max-w-[833px] w-full'>
+               
+                <h3 className="text-[27px] text-left font-[700] leading-[1] text-white mb-4 ">{card.Name}</h3>
+                 <p className="text-[16px]  text-left font-[400] text-white mb-4">{card.title}</p>
+                 <p className="mt-[17px] m-auto text-[30px] md:text-[20px] font-[300] leading-[120%] text-white font-helvetica text-left">{card.description}</p>
+              </div>
             </motion.div>
           ))}
         </div>

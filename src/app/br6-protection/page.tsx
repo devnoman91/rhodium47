@@ -279,7 +279,7 @@ const ThreatProtectionMatrixSection: React.FC<{
   const [dragX, setDragX] = useState(0)
 
   return (
-    <section className="pt-[62px] pb-[50px] lg:pb-[90px] bg-[#111111] text-white overflow-hidden md:px-0 px-[15px]">
+    <section className="pt-[62px] pb-[50px] lg:pb-[90px] bg-[#560100] text-white overflow-hidden md:px-0 px-[15px]">
       {/* Top Section - Constrained */}
       <div className="max-w-7xl mx-auto md:px-6 md:mb-16 lg:mb-20 mb-[32px]">
         <motion.div

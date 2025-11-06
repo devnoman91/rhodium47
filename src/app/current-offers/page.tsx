@@ -10,7 +10,7 @@ const criticalInlineStyles = `
   .offers-container {
     max-width: 100%;
     margin: 0 auto;
-    padding-top: 120px;
+    padding-top: 170px;
     background: #F4F1F2;
     padding-inline: calc(var(--spacing) * 12);
     padding-bottom: 60px;

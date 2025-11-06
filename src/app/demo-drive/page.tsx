@@ -58,7 +58,7 @@ const criticalInlineStyles = `
     display: flex;
     background: #F4F1F2;
     padding: 40px;
-    padding-top: 120px;
+    padding-top: 170px;
   }
   .inquiry-image-panel {
     flex: 1;

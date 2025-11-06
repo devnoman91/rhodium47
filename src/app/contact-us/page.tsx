@@ -14,7 +14,7 @@ const contactStyles = `
     // justify-content: center;
     // color: white;
        text-align: center;
-       padding: 138px 0 62px 0 ;
+       padding: 170px 0 62px 0 ;
 
   }
   .contact-hero-title {

@@ -194,7 +194,7 @@ const OpenPositionsSection: React.FC<{
   }>
 }> = ({ title, description, positions }) => {
   return (
-    <section className="py-[30px] lg:pt-[79px] lg:pb-[55px] bg-[#111111]">
+    <section className="py-[30px] lg:pt-[79px] lg:pb-[55px] bg-[#560100]">
       <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

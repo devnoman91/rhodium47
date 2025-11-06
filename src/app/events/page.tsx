@@ -12,7 +12,7 @@ const eventsStyles = `
   }
 
   .events-hero {
-    padding: 138px 15px 75px;
+    padding: 170px 15px 75px;
     text-align: center;
   }
 

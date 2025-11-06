@@ -57,10 +57,10 @@ const criticalInlineStyles = `
   }
   .survey-wizard-container {
     display: flex;
-    height: 100vh;
+    // height: 100vh;
     background: #F4F1F2;
     padding: 40px 54px;
-    padding-top: 120px;
+    padding-top: 170px;
   }
   .survey-image-panel {
     flex: 1;

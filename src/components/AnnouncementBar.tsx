@@ -60,7 +60,7 @@ export default function AnnouncementBar() {
 
   return (
     <div
-      className="w-full py-3 overflow-hidden relative"
+      className="w-full py-3 overflow-hidden fixed top-0 z-[99]  "
       style={{ backgroundColor }}
     >
       <style jsx>{`

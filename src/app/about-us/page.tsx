@@ -86,7 +86,10 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
 const ForeverStartsNowSection: React.FC<{
   mainName: string
   mainTitle: string
-  images: Array<{ asset: { url: string }; alt?: string }>
+  images: Array<{
+    asset: { url: string }
+    alt?: string
+  }>
   content: {
     name: string
     description: string
@@ -257,14 +260,9 @@ const ForeverStartsNowSection: React.FC<{
                 </div>
               </div>
 
-              {/* Product Info (Static) */}
+              {/* Product Info */}
               <div className="w-full lg:max-w-[433px] flex items-center">
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="w-full"
-                >
+                <div className="w-full">
                   <h3 className="text-[#161618] font-medium text-[24px] leading-[120%] tracking-[-0.48px] font-helvetica mb-[24px]">
                     {content.name}
                   </h3>
@@ -294,7 +292,7 @@ const ForeverStartsNowSection: React.FC<{
                       </motion.button>
                     </Link>
                   )}
-                </motion.div>
+                </div>
               </div>
             </div>
           </div>
@@ -317,23 +315,12 @@ const ForeverSection: React.FC<{
   const [currentIndex, setCurrentIndex] = useState(0)
   const [dragX, setDragX] = useState(0)
   const [isSmallScreen, setIsSmallScreen] = useState(false)
-  const [cardWidth, setCardWidth] = useState(956) // 936px + 20px gap
   const constraintsRef = useRef(null)
 
-  // detect small screen for swipe behavior and calculate card width
+  // detect small screen for swipe behavior
   useEffect(() => {
     const handleResize = () => {
-      const width = window.innerWidth
-      setIsSmallScreen(width < 768)
-
-      // Match actual card widths from CSS
-      if (width < 768) {
-        setCardWidth(Math.min(width, 420))
-      } else if (width >= 1536) {
-        setCardWidth(1100 + 20) // 2xl breakpoint: 1100px + gap
-      } else {
-        setCardWidth(936 + 20) // md breakpoint: 936px + gap
-      }
+      setIsSmallScreen(window.innerWidth < 768)
     }
     handleResize()
     window.addEventListener('resize', handleResize)
@@ -341,6 +328,7 @@ const ForeverSection: React.FC<{
   }, [])
 
   const totalSlides = cards.length
+  const cardWidth = isSmallScreen ? (Math.min(window.innerWidth, 420)) : 1000 + 20
   const maxScroll = -(totalSlides - 1) * cardWidth
 
   // ensure dragX follows currentIndex and cardWidth changes
@@ -426,7 +414,7 @@ const ForeverSection: React.FC<{
         className="relative"
       >
         {/* Left Padding for Content Alignment */}
-        <div className="md:pl-6 lg:pl-[calc((100vw-1304px)/2)]">
+        <div className="md:pl-6 lg:pl-[calc((100vw-1280px)/2+-1rem)]">
           {/* Slider Container */}
           <div className="relative overflow-visible" ref={constraintsRef}>
             <motion.div
@@ -921,7 +909,7 @@ export default function AboutUsPage() {
       )}
 
       {/* Forever Starts Now Section */}
-      {data.foreverStartsNowSection && data.foreverStartsNowSection.images && data.foreverStartsNowSection.content && (
+      {data.foreverStartsNowSection && (
         <ForeverStartsNowSection
           mainName={data.foreverStartsNowSection.mainName}
           mainTitle={data.foreverStartsNowSection.mainTitle}

@@ -156,7 +156,7 @@ export default defineType({
                   title: 'Job Type',
                   type: 'string',
                   options: {
-                    list: ['Full Time', 'Part Time'],
+                    list: ['Hybrid', 'In Person'],
                   },
                   validation: (Rule) => Rule.required(),
                 }),

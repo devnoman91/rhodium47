@@ -1289,7 +1289,7 @@ export interface CareersPosition {
   location: string
   createdAt: string
   salary: string
-  jobType: 'Full Time' | 'Part Time'
+  jobType: 'Hybrid' | 'In Person'
   slug: {
     current: string
   }

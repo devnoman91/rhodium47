@@ -57,12 +57,12 @@ export default function Navbar() {
     <>
         <AnnouncementBar />
     <nav
-      className={`fixed top-[52px] left-0 right-0 z-50 lg:px-12 md:px-4 px-5 py-4 font-helvetica transition-all duration-600 ${
+      className={`fixed top-[51px] left-0 right-0 z-50 lg:px-12 md:px-4 px-5 py-4 border-t-2 border-black  font-helvetica transition-all duration-600 ${
         shouldBeTransparent
           ? isScrolled
-            ? 'top-0 bg-[#560100]'
-            : '[background:linear-gradient(180deg,_#000_0%,_rgba(0,0,0,0)_100%)]'
-          : 'top-0 bg-[#560100] backdrop-blur-md shadow-sm'
+            ? 'top-0 bg-[#560100] !border-[#fff] !border-t-2 '
+            : '[background:linear-gradient(180deg,_#000_0%,_rgba(0,0,0,0)_100%)] '
+          : 'top-0 bg-[#560100] backdrop-blur-md shadow-sm !border-[#fff] !border-t-2'
       }`}
     >
       <div className="flex items-center justify-between">

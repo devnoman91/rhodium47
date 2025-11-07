@@ -235,7 +235,7 @@ text-transform: capitalize;
 
   @media (max-width: 767px) {
   .events-hero {
-    padding: 105px 15px 29px;
+    padding: 170px 15px 29px;
 }
 
     .events-title {

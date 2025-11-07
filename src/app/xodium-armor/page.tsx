@@ -55,6 +55,8 @@ margin:auto;
     max-width: 1304px;
     margin: auto;
     padding-bottom: 80px;
+    padding-right:15px;
+    padding-left:15px;
   }
   .info-card {
     max-width: 392px;
@@ -112,14 +114,18 @@ line-height: 20px;
       grid-template-columns: repeat(2, 1fr);
     }
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
+  .info-card:nth-child(2),
+  .info-card {
+    max-width: 100%;
+}
     .xodium-armor-hero {
     text-align: center;
     margin-bottom: 0px;
 }
     .xodium-armor-container {
       padding-inline: 15px;
-      padding-top: 100px;
+      padding-top: 170px;
       padding-bottom:0px;
     }
     .xodium-armor-hero-title {
@@ -404,7 +410,7 @@ export default function XodiumArmorPage() {
       <div className="" style={{ paddingTop: 0 }}>
         {/* Technical Specifications Section */}
         {armorData.technicalSpecifications.cards.length > 0 && (
-          <section className="md:pt-[50px] py-[30px]  px-[15px] lg:pt-[79px] md:pb-[50px] lg:pb-[104px] bg-[#560100] md:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
+          <section className="md:pt-[50px] py-[30px]  px-[15px] lg:pt-[79px] md:pb-[50px] lg:pb-[104px] bg-[#560100] ">
             <div className="max-w-[1304px] mx-auto">
               {/* Header */}
               <div className="md:mb-[91px] mb-[48px]">
@@ -458,12 +464,12 @@ export default function XodiumArmorPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-white rounded-[30px] px-[40px] md:pt-[61px] md:pb-[67px] py-[51px] "
+                    className="bg-white md:text-left text-center rounded-[30px] px-[40px] md:pt-[61px] md:pb-[67px] py-[51px] "
                   >
                     <h3 className="text-[26px] text-black font-[400] leading-[30px] font-helvetica mb-[21px]">
                       {card.name}
                     </h3>
-                    <p className="text-[16px] leading-[26px] text-[#1d1d1d] max-w-[325px]">
+                    <p className="text-[16px] leading-[26px] text-[#1d1d1d] md:max-w-[325px]">
                       {card.description}
                     </p>
                   </motion.div>
@@ -488,7 +494,7 @@ export default function XodiumArmorPage() {
                 </motion.div>
 
                 <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }} className="lg:col-span-1 flex items-center justify-end">
-                  <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                  <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica lg:max-w-[480px]">
                     {armorData.sliderSection.mainTitle}
                   </p>
                 </motion.div>
@@ -668,7 +674,7 @@ export default function XodiumArmorPage() {
                   {armorData.callToAction.description.split('\n\n').map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
+                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] lg:max-w-[575px]"
                     >
                       {paragraph.trim()}
                     </p>

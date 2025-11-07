@@ -57,7 +57,7 @@ export default function Navbar() {
     <>
         <AnnouncementBar />
     <nav
-      className={`fixed top-[51px] left-0 right-0 z-50 lg:px-12 md:px-4 px-5 py-4 border-t-2 border-black  font-helvetica transition-all duration-600 ${
+      className={`fixed top-[51px] left-0 right-0 z-[99] lg:px-12 md:px-4 px-5 py-4 border-t-2 border-black  font-helvetica transition-all duration-600 ${
         shouldBeTransparent
           ? isScrolled
             ? 'top-0 bg-[#560100] !border-[#fff] !border-t-2 '

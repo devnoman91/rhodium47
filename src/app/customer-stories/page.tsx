@@ -13,7 +13,7 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
   mainHeading,
 }) => {
   return (
-    <section className="relative md:pt-[170px] md:pb-[62px] pb-[20px] pt-[100px] lg:pb-[80px]">
+    <section className="relative pt-[170px] md:pb-[62px] pb-[20px]  lg:pb-[80px]">
       <div className="max-w-[1440px] mx-auto px-[20px] lg:px-[80px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -53,7 +53,7 @@ background-color: #F4F1F2;
   .event-content {
     max-width: 1332px;
     margin:auto;
-    padding: 160px 15px;
+    padding: 170px 15px;
   }
   .event-details {
     // display: grid;
@@ -241,7 +241,7 @@ background: #FFF;
       font-size: 2rem;
     }
     .event-content{
-    padding: 100px 15px 35px;
+    padding: 170px 15px 35px;
     }
     .back-link{
     margin-bottom:23px;

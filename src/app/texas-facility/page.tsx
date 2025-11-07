@@ -20,7 +20,7 @@ const HeroSection: React.FC<{ sectionLabel: string; mainHeading: string }> = ({
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h1 className="md:text-[64px] text-[30px] md:pt-[170px] pt-[102px] font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto md:mb-6 mb-[10px] font-helvetica">
+          <h1 className="md:text-[64px] text-[30px] pt-[170px] font-medium leading-[110%] tracking-[-1.28px] text-black max-w-[1200px] mx-auto md:mb-6 mb-[10px] font-helvetica">
              {sectionLabel}
           </h1>
           <p className="md:text-[24px] text-[16px] font-medium text-[#111] leading-[150%] capitalize max-w-[855px] mx-auto font-helvetica">
@@ -315,9 +315,9 @@ const SliderSection: React.FC<{
   }, [currentIndex, totalSlides])
 
   return (
-    <section className="pt-[30px] lg:pt-[89px] pb-[50px] lg:pb-[102px] bg-[#560100] text-white overflow-hidden md:px-0 px-[13px]" style={{ contain: 'layout style' }}>
+    <section className="pt-[30px] lg:pt-[89px] pb-[50px]  lg:pb-[102px] bg-[#560100] text-white overflow-hidden md:px-0 !px-[15px]" style={{ contain: 'layout style' }}>
       {/* Header Section */}
-      <div className="max-w-[1304px] mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
+      <div className="max-w-[1304px]  mx-auto md:mb-[64px] mb-[43px]" style={{ contain: 'layout style' }}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -342,7 +342,7 @@ const SliderSection: React.FC<{
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
               className="lg:col-span-1 flex items-center justify-end"
             >
-              <p className="text-white md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica md:max-w-[480px]">
+              <p className="text-white md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica lg:max-w-[480px]">
                 {mainTitle}
               </p>
             </motion.div>
@@ -454,8 +454,8 @@ const SliderSection: React.FC<{
                 <div
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     currentIndex === index
-                      ? 'bg-[#560100] scale-110'
-                      : 'bg-white hover:bg-white'
+                      ? 'bg-white hover:bg-white'
+                      : 'bg-[#ffffffa6] scale-110'
                   }`}
                 />
               </button>
@@ -478,7 +478,7 @@ const DesignProcessSection: React.FC<{
   }>
 }> = ({ title, description, sections }) => {
   return (
-    <section className="pt-[50px] lg:pt-[94px] pb-[64px] bg-[#F4F1F2] text-black md:px-0 px-[13px]" style={{ contain: 'layout style' }}>
+    <section className="pt-[50px] lg:pt-[94px] pb-[64px] bg-[#F4F1F2] text-black px-[15px]" style={{ contain: 'layout style' }}>
       {/* Header Section */}
       <div className="max-w-[1304px] mx-auto md:mb-[62px] mb-[43px]" style={{ contain: 'layout style' }}>
         <motion.div
@@ -505,7 +505,7 @@ const DesignProcessSection: React.FC<{
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
               className="lg:col-span-1 flex items-center justify-end"
             >
-              <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica md:max-w-[480px]">
+              <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica lg:max-w-[480px]">
                 {description}
               </p>
             </motion.div>
@@ -737,7 +737,7 @@ const CallToActionSection: React.FC<{
                 {description.split('\n\n').map((paragraph, index) => (
                   <p
                     key={index}
-                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] md:max-w-[575px]"
+                    className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] lg:max-w-[575px]"
                   >
                     {paragraph.trim()}
                   </p>

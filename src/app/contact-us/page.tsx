@@ -176,7 +176,7 @@ letter-spacing: -1.28px;
 }
   @media (max-width: 768px) {
   .contact-hero{
-  padding:104px 15px 30px 15px; 
+  padding:170px 15px 30px 15px; 
   }
   .contact-hero-title{
   font-sie:34px;

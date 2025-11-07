@@ -125,7 +125,7 @@ line-height: 20px;
     }
     .hybrid-electric-container {
       padding-inline: 15px;
-      padding-top: 100px;
+      padding-top: 170px;
       padding-bottom: 37px;
     }
     .hybrid-electric-hero-title {
@@ -547,7 +547,7 @@ export default function HybridElectricPage() {
                 </motion.div>
 
                 <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }} className="lg:col-span-1 flex items-center justify-end">
-                  <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica md:max-w-[480px]">
+                  <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica lg:max-w-[480px]">
                     {hybridData.sliderSection.mainTitle}
                   </p>
                 </motion.div>
@@ -717,11 +717,11 @@ export default function HybridElectricPage() {
                 className="lg:col-span-1"
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
               >
-                <div className="space-y-5 flex flex-col justify-end items-end">
+                <div className="space-y-5 flex flex-col justify-end lg:items-end">
                   {hybridData.callToAction.description.split('\n\n').map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] md:max-w-[575px]"
+                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] lg:max-w-[575px]"
                     >
                       {paragraph.trim()}
                     </p>

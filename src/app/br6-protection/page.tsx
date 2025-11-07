@@ -804,11 +804,11 @@ export default function BR6ProtectionPage() {
                 className="lg:col-span-1"
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
               >
-                <div className="space-y-5 flex flex-col justify-end items-end">
+                <div className="space-y-5 flex flex-col md:justify-end items-end">
                   {protectionData.callToAction.description.split('\n\n').map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] md:max-w-[575px]"
+                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] lg:max-w-[575px]"
                     >
                       {paragraph.trim()}
                     </p>

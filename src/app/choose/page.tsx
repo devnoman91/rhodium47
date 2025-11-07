@@ -495,7 +495,7 @@ const criticalInlineStyles = `
     .product-showcase-container,
     .survey-wizard-container {
     padding: 54px 15px;
-    padding-top:110px;
+    padding-top:170px;
     }
 
     }
@@ -504,7 +504,7 @@ const criticalInlineStyles = `
         position: absolute;
         left: 15px;
         right: 15px;
-        top: 110px;
+        top: 170px;
         bottom: 0;
         transform: unset;
         color: white;

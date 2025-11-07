@@ -122,7 +122,7 @@ line-height: 20px;
    }
     .security-systems-container {
       padding-inline: 15px;
-      padding-top: 100px;
+      padding-top: 170px;
       padding-bottom: 37px;
     }
     .security-systems-hero-title {
@@ -166,7 +166,7 @@ const SecurityFeaturesSection: React.FC<{
   cards?: Array<{ title: string; description: string }>
 }> = ({ title, description, bulletPoints, cards }) => {
   return (
-    <section className="pt-[79px] px-[15px] lg:pb-[93px] bg-[#560100]">
+    <section className="pt-[79px] px-[15px] lg:pb-[93px] pb-5 bg-[#560100]">
       <div className="max-w-[1304px] mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

@@ -357,7 +357,7 @@ text-underline-position: from-font;
      font-size: 16px;
     }
      .support-hero {
-    padding: 102px 15px 30px;
+    padding: 170px 15px 30px;
     } 
     .sidebar {
     grid-template-columns: 1fr;
@@ -390,7 +390,7 @@ text-underline-position: from-font;
         margin-top: 0px;
     }
         .contact-options {
-        gap:0;
+        gap:10px;
         }
     .contact-title{
     text-align:center;

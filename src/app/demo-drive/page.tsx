@@ -291,7 +291,7 @@ const criticalInlineStyles = `
  @media (max-width: 991px) {
 .inquiry-wizard-container {
     padding: 54px 15px;
-    padding-top: 120px;
+    padding-top: 170px;
 }
 }
   @media (max-width: 767px) {
@@ -310,7 +310,7 @@ const criticalInlineStyles = `
          position: absolute;
         left: 15px;
         right: 15px;
-        top: 110px;
+        top: 160px;
         bottom: 0;
         transform: unset;
         color: white;

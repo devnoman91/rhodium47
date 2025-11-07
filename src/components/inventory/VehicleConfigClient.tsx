@@ -132,7 +132,7 @@ export default function VehicleConfigClient({
   };
 
   return (
-    <div className="min-h-screen pt-[100px]  md:pb-[73px] pb-[23px]" style={{ backgroundColor: '#F4F1F2' }}>
+    <div className="min-h-screen pt-[170px]  md:pb-[73px] pb-[23px]" style={{ backgroundColor: '#F4F1F2' }}>
       <div className="max-w-[1600px]  mx-auto">
          <style dangerouslySetInnerHTML={{ __html: performanceStyles  }} />
         {/* Learn More */}

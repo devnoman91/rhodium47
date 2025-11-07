@@ -234,7 +234,7 @@ export default function InventoryClient({
   };
 
   return (
-    <div className="min-h-screen md:pt-[160px] pt-[98px] md:pb-[95px] pb-[30px] bg-[#FFFFFF] relative">
+    <div className="min-h-screen pt-[170px]  md:pb-[95px] pb-[30px] bg-[#FFFFFF] relative">
       {/* Mobile header with inventory title, zip code, new/pre-order buttons, and filter button */}
       <div className="md:hidden px-[15px] ">
        <h2 className="font-helvetica text-black mb-[5px] font-medium text-[26px] leading-[110%] tracking-[-0.52px]">Inventory</h2>
@@ -333,7 +333,7 @@ export default function InventoryClient({
       <div className="flex max-w-[1600px] px-[15px] m-auto gap-[45px]">
         <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
         {/* Sidebar - Hidden on mobile when filter is closed */}
-        <div className={`${isFilterOpen ? 'absolute inset-0 z-50 w-full' : 'hidden'} md:block md:relative md:inset-auto md:z-auto md:w-full md:max-w-[200px] md:bg-white md:z-[2] md:flex-shrink-0`}>
+        <div className={`${isFilterOpen ? 'absolute top-[130px] inset-0 z-50 w-full' : 'hidden'} md:block md:relative md:inset-auto md:z-auto md:w-full md:max-w-[200px] md:bg-white md:z-[2] md:flex-shrink-0`}>
           <div className={`h-full ${isFilterOpen ? 'bg-white' : ''} md:bg-white`}>
             {/* Mobile header for filter sidebar */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200 md:hidden">

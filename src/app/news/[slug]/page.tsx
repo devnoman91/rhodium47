@@ -95,7 +95,7 @@ const portableTextComponents = {
 // Hero Section
 const NewsHeroSection: React.FC = () => {
   return (
-    <section  className=' pt-[138px] max-w-[1332px] mx-auto px-[20px] mb-[42px]'>
+    <section  className=' pt-[170px] max-w-[1332px] mx-auto px-[20px] mb-[42px]'>
 
       {/* Content */}
       <div className="max-w-[1010px]">

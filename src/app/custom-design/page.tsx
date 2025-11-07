@@ -114,9 +114,11 @@ line-height: 20px; /* 125% */
   @media (max-width: 768px) {
     .custom-design-container {
       padding-inline: 15px;
-      padding-top: 100px;
        padding-bottom: 37px;
     }
+      .info-card:nth-child(2), .info-card {
+    max-width: 100%;
+}
     .custom-design-hero-title {
       font-size: 40px;
     }
@@ -417,8 +419,8 @@ export default function CustomDesignPage() {
                     </h2>
                   </motion.div>
 
-                  <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }} className="lg:col-span-1 flex items-center justify-end">
-                    <p className="text-white md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                  <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }} className="lg:col-span-1 flex items-center lg:justify-end">
+                    <p className="text-white md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica lg:max-w-[480px]">
                       {customDesignData.sliderSection.mainTitle}
                     </p>
                   </motion.div>
@@ -521,8 +523,8 @@ export default function CustomDesignPage() {
                       <div
                         className={`w-3 h-3 rounded-full transition-all duration-300 ${
                           currentIndex === index
-                            ? 'bg-[#560100] scale-110'
-                            : 'bg-gray-400 hover:bg-gray-600'
+                            ? 'bg-[#ffffffb8] hover:bg-[] '
+                            : 'bg-[#fff] scale-110'
                         }`}
                       />
                     </button>
@@ -563,7 +565,7 @@ export default function CustomDesignPage() {
                     transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
                     className="lg:col-span-1 flex items-center lg:justify-end justify-center"
                   >
-                    <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica max-w-[480px]">
+                    <p className="text-black md:text-left text-center font-medium text-[16px] leading-[160%] font-helvetica lg:max-w-[480px]">
                       {customDesignData.designProcess.description}
                     </p>
                   </motion.div>
@@ -683,12 +685,12 @@ export default function CustomDesignPage() {
                 className="lg:col-span-1"
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
               >
-                <div className="space-y-5 flex flex-col justify-end items-end">
+                <div className="space-y-5 flex flex-col lg:justify-end items-end">
                   {/* Split description into paragraphs for better readability */}
                   {customDesignData.callToAction.description.split('\n\n').map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
+                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] lg:max-w-[575px]"
                     >
                       {paragraph.trim()}
                     </p>

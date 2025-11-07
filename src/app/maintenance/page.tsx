@@ -111,12 +111,16 @@ line-height: 20px;
       grid-template-columns: repeat(2, 1fr);
     }
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .maintenance-container {
       padding-inline: 15px;
-      padding-top: 100px;
+      padding-top: 170px;
       padding-bottom: 37px;
     }
+      .info-card:nth-child(2),
+      .info-card {
+    max-width: 100%;
+ }
     .maintenance-hero-title {
       font-size: 40px;
     }
@@ -509,8 +513,8 @@ export default function MaintenancePage() {
                     <div
                       className={`w-3 h-3 rounded-full transition-all duration-300 ${
                         currentIndex === index
-                          ? 'bg-[#560100] scale-110'
-                          : 'bg-gray-400 hover:bg-gray-600'
+                          ? 'bg-gray-400 hover:bg-gray-600 '
+                          : ' bg-[#ffff] scale-110'
                       }`}
                     />
                   </button>
@@ -524,7 +528,7 @@ export default function MaintenancePage() {
       <div className="maintenance-container" style={{ paddingTop: 0 }}>
 
         {/* Emergency Service Section (24/7) */}
-        <section className="pt-[50px] lg:pt-[90px]  bg-[#F4F1F2] md:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
+        <section className="pt-[50px] lg:pt-[90px]  bg-[#F4F1F2] ">
           <div className="max-w-[1304px] mx-auto text-center">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -591,9 +595,9 @@ export default function MaintenancePage() {
 
         {/* Pricing Section */}
         {maintenanceData.servicePricing.packages.length > 0 && (
-          <section className="pt-[50px] lg:pt-[72px] md:pb-[50px] lg:pb-[90px] bg-[#F4F1F2] md:-mx-[calc(var(--spacing)*12)] md:px-[calc(var(--spacing)*12)]">
+          <section className="pt-[50px] lg:pt-[72px] md:pb-[50px] lg:pb-[90px] bg-[#F4F1F2] ">
             <div className="max-w-[1304px] mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-[9px] gap-[20px]">
+              <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 md:gap-[9px] gap-[20px]">
                 {maintenanceData.servicePricing.packages.map((pkg, index) => (
                   <motion.div
                     key={index}
@@ -728,11 +732,11 @@ export default function MaintenancePage() {
                 className="lg:col-span-1"
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
               >
-                <div className="space-y-5 flex flex-col justify-end items-end">
+                <div className="space-y-5 flex flex-col justify-end lg:items-end">
                   {maintenanceData.callToAction.description.split('\n\n').map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] max-w-[575px]"
+                      className="text-[16px] leading-[24px] tracking-[0] m-0 font-light font-helvetica text-black pb-[20px] lg:max-w-[575px]"
                     >
                       {paragraph.trim()}
                     </p>

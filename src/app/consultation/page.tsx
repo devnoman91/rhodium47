@@ -258,9 +258,8 @@ line-height: 20px; /* 125% */
       min-width: calc(50% - 15px);
     }
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .consultation-container {
-      padding-top: 100px;
     padding-bottom: 59px;
 }
         .consultation-hero {

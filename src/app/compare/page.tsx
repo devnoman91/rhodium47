@@ -80,7 +80,7 @@ export default async function ComparePage() {
   return (
     <div className="min-h-screen bg-[#F4F1F2] font-helvetica text-[#000]">
       {/* Header Section */}
-      <div className="bg-[#F4F1F2] text-center md:pt-[170px] pt-[110px] md:pb-[163px] pb-[45px]">
+      <div className="bg-[#F4F1F2] text-center pt-[170px] md:pb-[163px] pb-[45px]">
         <div className="max-w-5xl mx-auto px-6">
           <h1 className="text-black text-center font-medium md:text-[64px] text-[34px] leading-[110%] tracking-[-1.28px] font-helvetica md:mb-[26px] mb-[14px]">
             {comparePageContent.heroSection.title}

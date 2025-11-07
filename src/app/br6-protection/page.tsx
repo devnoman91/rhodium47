@@ -118,7 +118,6 @@ line-height: 20px;
 }
     .br6-protection-container {
       padding-inline: 15px;
-      padding-top: 100px;
       padding-bottom: 37px;
     }
       .br6-protection-hero{

@@ -189,6 +189,7 @@ const OpenPositionsSection: React.FC<{
     location: string
     createdAt: string
     salary: string
+    button: string
     jobType: string
     slug: { current: string }
   }>
@@ -369,7 +370,7 @@ const OpenPositionsSection: React.FC<{
 
                       {/* text */}
                       <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
-                        Apply Now
+                       {position.button}
                       </span>
                     </Link>
                   </motion.div>

@@ -151,6 +151,12 @@ export default defineType({
                   type: 'string',
                   validation: (Rule) => Rule.required(),
                 }),
+                  defineField({
+                    name: 'button',
+                    title: 'Button',
+                    type: 'string',
+                    validation: (Rule) => Rule.required().min(20).warning('Please write at least 20 characters'),
+                  }),
                 defineField({
                   name: 'jobType',
                   title: 'Job Type',

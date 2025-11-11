@@ -50,7 +50,7 @@ const criticalInlineStyles = `
 
   @media (max-width: 776px){
   .consultation-container{
-  padding-top:120px;
+  padding-top:170px;
   }
   }
 `

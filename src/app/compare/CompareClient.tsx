@@ -26,7 +26,21 @@ const criticalInlineStyles = `
   line-height: 25px;
  margin-bottom: 6px;
   }
-
+ #perfomance-data li,
+.performance li{
+display:flex;
+justify-content:space-between;
+gap:10px;
+}
+#perfomance-data h2,
+.performance h2,
+#perfomance-data h3,
+.performance h3{
+border-bottom:1px solid;
+    width: fit-content;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
 `
 interface ProductDescriptionSections {
   topHeading: string;
@@ -76,6 +90,7 @@ export default function CompareClient({ products }: CompareClientProps) {
   const [allProducts] = useState<ComparisonProduct[]>(products)
   const [selectedProducts, setSelectedProducts] = useState<ComparisonProduct[]>([])
   const [showProductSelector, setShowProductSelector] = useState(false)
+  const [showMore, setShowMore] = useState(false);
 
   // Parse description HTML for each product
   const parseDescriptionHtml = (html: string): ProductDescriptionSections => {
@@ -219,10 +234,10 @@ export default function CompareClient({ products }: CompareClientProps) {
 
   return (
    
-    <div className="max-w-[1336px] mx-auto px-[20px]">
+    <div className="max-w-[1336px] mx-auto px-[20px] pb-[30px]">
        <style dangerouslySetInnerHTML={{ __html: criticalInlineStyles }} />
       {/* Model Cards Section */}
-      <div className={`grid grid-cols-1 ${selectedProducts.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-3'} gap-[32px] mb-[154px]`}>
+      <div className={`grid grid-cols-1 ${selectedProducts.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-3'} gap-[32px] mb-[70px]`}>
         {selectedProducts.map((product, index) => (
           <motion.div
             key={`${product.id}-${index}`}
@@ -466,7 +481,7 @@ export default function CompareClient({ products }: CompareClientProps) {
       {/* At a glance Section */}
       {selectedProducts.length > 0 && (
         <ComparisonSection title="At a glance" hasSuper>
-          <div className={`md:pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
+          <div className={`md:pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[30px]`}>
             {selectedProducts.map((product, index) => (
               <div key={index} className="space-y-6">
                 {product.specs.motorConfig && (
@@ -502,22 +517,35 @@ export default function CompareClient({ products }: CompareClientProps) {
       {/* Performance Section - Render parsed description content */}
       {selectedProducts.length > 0 && selectedProducts.some(p => p.parsedDescription?.performanceData) && (
         <ComparisonSection title="Performance" hasSuper>
-          <div className={`md:pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
+          <div className={`md:pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[30px]`}>
             {selectedProducts.map((product, index) => (
               <div 
                 key={index} 
-                className="space-y-6"
+                className="space-y-6 performance"
                 dangerouslySetInnerHTML={{ __html: product.parsedDescription?.performanceData || '' }}
               />
             ))}
           </div>
         </ComparisonSection>
       )}
+      
+      {/* See More Toggle - ye yahan add karein */}
+      <div className="md:pl-5 my-5">
+        <button
+          onClick={() => setShowMore(!showMore)}
+          className="text-black font-medium text-[24px] underline"
+        >
+          {showMore ? 'See Less -' : 'See More +'}
+        </button>
+      </div>
 
+      
+{showMore && (
+  <>
       {/* Top Specifications Section - Render parsed top heading content */}
       {selectedProducts.length > 0 && selectedProducts.some(p => p.parsedDescription?.topHeading) && (
-        <ComparisonSection title="Top Specifications">
-          <div className={`md:pl-5 pb-[50px] grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
+        <ComparisonSection title="Top Specifications ">
+          <div className={`md:pl-5 pb-[50px] grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[30px]`}>
             {selectedProducts.map((product, index) => (
               <div 
                 key={index} 
@@ -529,10 +557,79 @@ export default function CompareClient({ products }: CompareClientProps) {
         </ComparisonSection>
       )}
 
-      {/* Design Section */}
+      {/* Dimensions Section */}
+      {selectedProducts.length > 0 && selectedProducts.some(p => p.dimensions && Object.keys(p.dimensions).length > 0) && (
+        <ComparisonSection title="Dimensions">
+          <div className={`md:pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[30px]`}>
+            {selectedProducts.map((product, index) => (
+              <div key={index} className="space-y-6">
+                {product.dimensions && Object.entries(product.dimensions).map(([key, value]) => (
+                  <ComparisonRow
+                    key={key}
+                    label={formatLabel(key)}
+                    value={value}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        </ComparisonSection>
+      )}
+      </>
+    )}
+    </div>
+  )
+}
+
+// Helper Components
+interface ComparisonSectionProps {
+  title: string
+  hasSuper?: boolean
+  children: React.ReactNode
+}
+
+function ComparisonSection({ title, hasSuper, children }: ComparisonSectionProps) {
+  return (
+    <div className="mt-[40px] rounded-lg max-w-[877px] ">
+      <h2 className="pl-5 text-black font-normal text-[35.156px] leading-[36px] tracking-[-0.72px] font-helvetica pb-[15px] border-b border-[#D1D1D1] max-w-[877px]">
+        {title} {hasSuper && <sup className="text-lg">2</sup>}
+      </h2>
+      {children}
+    </div>
+  )
+}
+
+interface ComparisonRowProps {
+  label: string
+  value: string
+}
+
+function ComparisonRow({ label, value }: ComparisonRowProps) {
+  return (
+    <div>
+      <h4 className="text-black font-normal text-[19.375px] leading-[22px] tracking-[-0.2px] font-helvetica">
+        {value}
+      </h4>
+      <p className="text-black font-normal text-[15.5px] leading-[24px] tracking-[-0.16px] font-helvetica">
+        {label}
+      </p>
+    </div>
+  )
+}
+
+function formatLabel(key: string): string {
+  // Convert camelCase to Title Case with spaces
+  return key
+    .replace(/([A-Z])/g, ' $1')
+    .replace(/^./, str => str.toUpperCase())
+    .trim()
+}
+
+
+ {/* Design Section */}
       {/* {selectedProducts.length > 0 && selectedProducts.some(p => p.design) && (
         <ComparisonSection title="Design">
-          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
+          <div className={`pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[30px]`}>
             {selectedProducts.map((product, index) => (
               <div key={index} className="space-y-8">
                 {product.design?.paint && product.design.paint.length > 0 && (
@@ -584,73 +681,3 @@ export default function CompareClient({ products }: CompareClientProps) {
           </div>
         </ComparisonSection>
       )} */}
-
-      {/* Dimensions Section */}
-      {selectedProducts.length > 0 && selectedProducts.some(p => p.dimensions && Object.keys(p.dimensions).length > 0) && (
-        <ComparisonSection title="Dimensions">
-          <div className={`md:pl-5 grid grid-cols-1 md:grid-cols-${selectedProducts.length} gap-16 mt-[38px]`}>
-            {selectedProducts.map((product, index) => (
-              <div key={index} className="space-y-6">
-                {product.dimensions && Object.entries(product.dimensions).map(([key, value]) => (
-                  <ComparisonRow
-                    key={key}
-                    label={formatLabel(key)}
-                    value={value}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
-        </ComparisonSection>
-      )}
-
-   
-
-    
-    </div>
-  )
-}
-
-// Helper Components
-interface ComparisonSectionProps {
-  title: string
-  hasSuper?: boolean
-  children: React.ReactNode
-}
-
-function ComparisonSection({ title, hasSuper, children }: ComparisonSectionProps) {
-  return (
-    <div className="mt-[60px] rounded-lg max-w-[877px]">
-      <h2 className="pl-5 text-black font-normal text-[35.156px] leading-[36px] tracking-[-0.72px] font-helvetica pb-[25px] border-b border-[#D1D1D1] max-w-[877px]">
-        {title} {hasSuper && <sup className="text-lg">2</sup>}
-      </h2>
-      {children}
-    </div>
-  )
-}
-
-interface ComparisonRowProps {
-  label: string
-  value: string
-}
-
-function ComparisonRow({ label, value }: ComparisonRowProps) {
-  return (
-    <div>
-      <h4 className="text-black font-normal text-[19.375px] leading-[22px] tracking-[-0.2px] font-helvetica">
-        {value}
-      </h4>
-      <p className="text-black font-normal text-[15.5px] leading-[24px] tracking-[-0.16px] font-helvetica">
-        {label}
-      </p>
-    </div>
-  )
-}
-
-function formatLabel(key: string): string {
-  // Convert camelCase to Title Case with spaces
-  return key
-    .replace(/([A-Z])/g, ' $1')
-    .replace(/^./, str => str.toUpperCase())
-    .trim()
-}

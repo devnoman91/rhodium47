@@ -189,7 +189,7 @@ const OpenPositionsSection: React.FC<{
     location: string
     createdAt: string
     salary: string
-    button: string
+    buttontext: string
     jobType: string
     slug: { current: string }
   }>

@@ -370,7 +370,7 @@ const OpenPositionsSection: React.FC<{
 
                       {/* text */}
                       <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
-                       {position.button}
+                       {position.buttontext}
                       </span>
                     </Link>
                   </motion.div>

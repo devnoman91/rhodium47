@@ -354,7 +354,7 @@ const OpenPositionsSection: React.FC<{
                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
                   >
                     <Link
-                      href={`/careers/${position.slug.current}`}
+                      href={`${position.slug.current}`}
                       className="relative overflow-hidden flex items-center gap-[12px] px-[20px] py-[14px] rounded-[8px] w-fit
                                 bg-white text-black font-helvetica font-medium text-[16px]
                                 border border-transparent cursor-pointer group

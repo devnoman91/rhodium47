@@ -87,7 +87,10 @@ interface CompareClientProps {
 
 export default function CompareClient({ products }: CompareClientProps) {
   const searchParams = useSearchParams()
-  const [allProducts] = useState<ComparisonProduct[]>(products)
+  // Filter out products with "Due Today" in title
+  const [allProducts] = useState<ComparisonProduct[]>(
+    products.filter(product => !product.title.toLowerCase().includes('due today'))
+  )
   const [selectedProducts, setSelectedProducts] = useState<ComparisonProduct[]>([])
   const [showProductSelector, setShowProductSelector] = useState(false)
   const [showMore, setShowMore] = useState(false);

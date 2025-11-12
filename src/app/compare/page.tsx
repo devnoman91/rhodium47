@@ -44,38 +44,40 @@ export default async function ComparePage() {
   // Fetch products from Shopify server-side
   const shopifyProducts = await getProducts({})
 
-  // Transform Shopify products to comparison format
-  const allProducts: ComparisonProduct[] = shopifyProducts.map((product: any) => {
-    const specs = parseSpecs(product.descriptionHtml || '')
+  // Transform Shopify products to comparison format and filter out "Due Today" products
+  const allProducts: ComparisonProduct[] = shopifyProducts
+    .filter((product: any) => !product.title.toLowerCase().includes('due today'))
+    .map((product: any) => {
+      const specs = parseSpecs(product.descriptionHtml || '')
 
-    // Find LOWEST cash variant price from all cash variants
-    const cashVariants = product.variants?.filter((variant: any) =>
-      variant.title && variant.title.toLowerCase().includes('cash')
-    ) || [];
+      // Find LOWEST cash variant price from all cash variants
+      const cashVariants = product.variants?.filter((variant: any) =>
+        variant.title && variant.title.toLowerCase().includes('cash')
+      ) || [];
 
-    let displayPrice = parseFloat(product.priceRange.minVariantPrice.amount);
-    if (cashVariants.length > 0) {
-      const cashPrices = cashVariants.map((v: any) => parseFloat(v.price?.amount || 0)).filter((p: number) => p > 0);
-      if (cashPrices.length > 0) {
-        displayPrice = Math.min(...cashPrices);
+      let displayPrice = parseFloat(product.priceRange.minVariantPrice.amount);
+      if (cashVariants.length > 0) {
+        const cashPrices = cashVariants.map((v: any) => parseFloat(v.price?.amount || 0)).filter((p: number) => p > 0);
+        if (cashPrices.length > 0) {
+          displayPrice = Math.min(...cashPrices);
+        }
       }
-    }
 
-    return {
-      id: product.id,
-      handle: product.handle,
-      title: product.title,
-      image: product.images[0]?.url || '/images/vehicle.png',
-      price: displayPrice,
-      tagline: extractTagline(product.description),
-      descriptionHtml: product.descriptionHtml, // Include the full HTML description
-      specs,
-      design: parseDesignOptions(product.descriptionHtml || ''),
-      dimensions: parseDimensions(product.descriptionHtml || ''),
-      cargoCapacity: parseCargoCapacity(product.descriptionHtml || ''),
-      driveModes: parseDriveModes(product.descriptionHtml || '')
-    }
-  })
+      return {
+        id: product.id,
+        handle: product.handle,
+        title: product.title,
+        image: product.images[0]?.url || '/images/vehicle.png',
+        price: displayPrice,
+        tagline: extractTagline(product.description),
+        descriptionHtml: product.descriptionHtml, // Include the full HTML description
+        specs,
+        design: parseDesignOptions(product.descriptionHtml || ''),
+        dimensions: parseDimensions(product.descriptionHtml || ''),
+        cargoCapacity: parseCargoCapacity(product.descriptionHtml || ''),
+        driveModes: parseDriveModes(product.descriptionHtml || '')
+      }
+    })
 
   return (
     <div className="min-h-screen bg-[#F4F1F2] font-helvetica text-[#000]">

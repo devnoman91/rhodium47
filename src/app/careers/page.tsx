@@ -189,7 +189,6 @@ const OpenPositionsSection: React.FC<{
     location: string
     createdAt: string
     salary: string
-    buttontext: string
     jobType: string
     slug: { current: string }
   }>
@@ -355,7 +354,7 @@ const OpenPositionsSection: React.FC<{
                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
                   >
                     <Link
-                      href={`/`}
+                      href={`/careers/${position.slug.current}`}
                       className="relative overflow-hidden flex items-center gap-[12px] px-[20px] py-[14px] rounded-[8px] w-fit
                                 bg-white text-black font-helvetica font-medium text-[16px]
                                 border border-transparent cursor-pointer group
@@ -370,7 +369,7 @@ const OpenPositionsSection: React.FC<{
 
                       {/* text */}
                       <span className="relative z-10 transition-colors duration-500 ease-in-out group-hover:text-white">
-                       {position.buttontext}
+                        Apply Now
                       </span>
                     </Link>
                   </motion.div>

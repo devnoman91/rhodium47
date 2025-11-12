@@ -1790,6 +1790,7 @@ export const careersQuery = `
         createdAt,
         salary,
         jobType,
+        buttontext,
         slug
       }
     },

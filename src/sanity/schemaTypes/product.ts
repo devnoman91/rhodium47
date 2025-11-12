@@ -459,6 +459,19 @@ export default defineType({
                   validation: (Rule) => Rule.required(),
                 }),
                 defineField({
+                  name: 'buttonText',
+                  title: 'Button Text',
+                  type: 'string',
+                  description: 'Text for the call-to-action button (e.g., "Learn More", "Read More")',
+                  initialValue: 'Learn More',
+                }),
+                defineField({
+                  name: 'buttonLink',
+                  title: 'Button Link',
+                  type: 'string',
+                  description: 'URL or path for the button (e.g., /blog/article, https://example.com). Leave empty to use the slug.',
+                }),
+                defineField({
                   name: 'slug',
                   title: 'Slug',
                   type: 'slug',

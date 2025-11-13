@@ -8,10 +8,15 @@ import { useParams } from 'next/navigation'
 import { getNewsItemBySlug } from '@/content/queries'
 import { PortableText } from '@portabletext/react'
 import type { NewsItem } from '@/content/types'
-
+const  newsInlineStyles = `
+li{
+color:#000 !important;
+}
+`
 // Portable Text Components for rich text rendering
 const portableTextComponents = {
   block: {
+    
     h1: ({ children }: any) => (
       <h1 className="text-[36px] lg:text-[50px] font-[500] text-black mb-[34px]  leading-tight">
         {children}
@@ -72,7 +77,9 @@ const portableTextComponents = {
       }
 
       return (
+        
         <div className="my-[40px] rounded-[16px] overflow-hidden">
+            <style dangerouslySetInnerHTML={{ __html: newsInlineStyles }} />
           <div className="relative flex-row w-full h-[400px] lg:h-[600px]">
             <Image
               src={imageUrl}

@@ -66,7 +66,7 @@ const ProductShowcaseInnovation: React.FC<ProductShowcaseInnovationProps> = ({
   }
 
   return (
-    <section className="py-16 lg:py-24 bg-[#111111] text-white overflow-hidden">
+    <section className="py-16 lg:py-24 bg-[#560100] text-white overflow-hidden">
       {/* Top Section */}
       <div className="max-w-[1332px] mx-auto px-6 mb-16 lg:mb-20">
         <motion.div

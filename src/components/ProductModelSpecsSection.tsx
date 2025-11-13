@@ -45,7 +45,7 @@ const ProductModelSpecsSection: React.FC<ProductModelSpecsSectionProps> = ({ mod
   const safeSpecificationSections = specificationSections || []
 
   return (
-    <section className="py-16 lg:py-20 bg-black text-white">
+    <section className="py-16 lg:py-20 bg-[#560100] text-white">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         {/* Section Title */}
         <motion.div

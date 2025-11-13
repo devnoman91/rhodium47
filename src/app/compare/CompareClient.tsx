@@ -303,7 +303,7 @@ export default function CompareClient({ products }: CompareClientProps) {
               <h3 className="text-black font-normal text-[23.063px] leading-[24px] tracking-[-0.48px] font-helvetica mb-[12px]">
                 {product.title}
               </h3>
-              <p className="text-black font-normal text-[16px] leading-[18px] tracking-[-0.48px] font-helvetica mb-[5px]">
+              <p className="text-black font-normal text-[16px] leading-[18px] tracking-[-0.48px] font-helvetica  border-b border-black mb-[10px]">
                 {product.tagline}
               </p>
               {/* <p className="text-black font-normal text-[16px] leading-[18px] tracking-[-0.48px] font-helvetica mb-[20px]">

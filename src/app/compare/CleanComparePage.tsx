@@ -311,7 +311,7 @@ export default function CompareClient({ products }: CompareClientProps) {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   onClick={(e) => e.stopPropagation()}
-                  className="absolute  top-0 bottom-0 m-auto h-fit right-0 left-0 z-50 bg-white rounded-lg shadow-2xl border border-gray-200 w-[350px] max-h-[500px] overflow-y-auto"
+                  className="absolute  top-0 bottom-[-12%] m-auto h-fit right-0 left-0 z-50 bg-white rounded-lg shadow-2xl border border-gray-200 w-[350px] max-h-[500px] overflow-y-auto"
                   style={{ minWidth: '350px' }}
                 >
                   <div className="p-4 border-b border-gray-200 sticky top-0 bg-white z-10 rounded-t-lg">

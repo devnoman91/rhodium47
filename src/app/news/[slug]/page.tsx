@@ -28,7 +28,7 @@ const portableTextComponents = {
       </h3>
     ),
     normal: ({ children }: any) => (
-      <p className="text-[16px] text-[#111] mb-[34px] font-[400] leading-relaxed">
+      <p className="text-[16px] !text-[#111] mb-[34px] font-[400] leading-relaxed">
         {children}
       </p>
     ),
@@ -123,7 +123,7 @@ const NewsContentSection: React.FC<{
 }> = ({ content }) => {
   return (
     <section className=" bg-white max-w-[1332px] m-auto">
-      <div className="max-w-[1010px] px-[20px]">
+      <div className="max-w-[1010px] px-[20px] !text-black">
         <motion.article
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
